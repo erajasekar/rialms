@@ -1,3 +1,5 @@
+import org.apache.log4j.DailyRollingFileAppender
+
 // locations to search for config files that get merged into the main config
 // config files can either be Java properties files or ConfigSlurper scripts
 
@@ -34,6 +36,11 @@ grails.mime.types = [ html: ['text/html','application/xhtml+xml'],
 // What URL patterns should be processed by the resources plugin
 grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
+
+rialms {
+    contentPath = 'content';
+    excercisePath = "${rialms.contentPath}/exercise/";
+}
 
 // The default codec used to encode data with ${}
 grails.views.default.codec = "none" // none, html, base64
@@ -75,9 +82,10 @@ log4j = {
     // Example of changing the log pattern for the default console
     // appender:
     //
-    //appenders {
-    //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
-    //}
+    appenders {
+        console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n') ;
+        appender new DailyRollingFileAppender(name: 'rialmsServerLog', fileName: 'logs/rialmsServerLog.log', layout: pattern(conversionPattern: '%d{yy/MM/dd HH:mm:ss.SSS} %-5p [%t] [%c{1}] %m%n'))
+    }
 
     error  'org.codehaus.groovy.grails.web.servlet',  //  controllers
            'org.codehaus.groovy.grails.web.pages', //  GSP
@@ -90,4 +98,10 @@ log4j = {
            'org.springframework',
            'org.hibernate',
            'net.sf.ehcache.hibernate'
+
+    root {
+           info 'stdout', 'rialmsServerLog'
+           additivity = true
+       }
+
 }
