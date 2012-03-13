@@ -12,14 +12,20 @@ import groovy.util.slurpersupport.GPathResult
 class XmlUtils {
 
     public static String getNodeText(def node) {
-        def children = node.children
+        println "n1=>" + node.text();
+        println "c1=>" + node.getClass();
+
         def result;
-        for (child in children) {
+        for (def child in node.children) {
+            println("child " +child);
             if ((child instanceof java.lang.String)) {
                 result = child;
+               println "1=> " + result;
                 break;
             }
         }
+
+        println "2 => " + result;
         return result
     }
 

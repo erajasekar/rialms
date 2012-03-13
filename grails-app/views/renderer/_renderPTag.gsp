@@ -7,11 +7,5 @@
 --%>
 
 <%@ page import="com.rialms.util.XmlUtils" contentType="text/html;charset=UTF-8" %>
-<p>${XmlUtils.getNodeText(node)}</p>
-   <g:each var="n" in="${node.childNodes()}" >
 
-    <g:if test="${n.name().equalsIgnoreCase("p")}" >
-        <g:render template="/renderer/renderPTag" model="[node:n]" />
-    </g:if>
-
-</g:each>
+<p>${node.text()}</p>

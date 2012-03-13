@@ -12,10 +12,10 @@
 	<itemBody>
 	
 		
-		<p>Find perimeter of triangle with sides 3,4,5.. ? <p> nested para </p></p>
-		<p><textEntryInteraction responseIdentifier="A" expectedLength="1"/>
-		+ <textEntryInteraction responseIdentifier="B" expectedLength="1"/>
-		+ <textEntryInteraction responseIdentifier="C" expectedLength="1"/></p>
+		<p>Find perimeter of triangle with sides 3,4,5.. ? </p>
+		<p> <textEntryInteraction responseIdentifier="A" expectedLength="1"/>  +
+		<textEntryInteraction responseIdentifier="B" expectedLength="1"/>  +
+		<textEntryInteraction responseIdentifier="C" expectedLength="1"/>     </p>
 		
 		<feedbackBlock outcomeIdentifier="PROGRESS" showHide="show" identifier="step2">
 			<p>= <textEntryInteraction responseIdentifier="SUM" expectedLength="2"/> </p>

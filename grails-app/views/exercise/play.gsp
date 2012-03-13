@@ -10,12 +10,22 @@
 <head>
  <title> ${xmlRoot.'@title'} </title>
 </head>
-<g:each var="n" in="${xmlRoot.itemBody.childNodes()}" >
+<g:form name="ExerciseForm"  action="play" >
+<g:each var="n" in="${xmlRoot.itemBody.depthFirst()}" >
 
-    <g:if test="${n.name().equalsIgnoreCase("p")}" >
+   <g:if test="${n.name().equalsIgnoreCase("p")}" >
         <g:render template="/renderer/renderPTag" model="[node:n]" />
+    </g:if>
+   <g:if test="${n.name().equalsIgnoreCase("textEntryInteraction")}" >
+        <g:render template="/renderer/textEntryInteractionTag" model="[node:n]" />
     </g:if>
 
 </g:each>
+ <g:submitButton value="Enter" name="processButton"/>
+ </g:form>
 
-
+<g:if test="${outcome}">
+---------------------------------
+     <br/>
+    ${outcome}
+</g:if>

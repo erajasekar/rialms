@@ -39,7 +39,7 @@ grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 rialms {
     contentPath = 'content';
-    excercisePath = "${rialms.contentPath}/exercise/";
+
 }
 
 // The default codec used to encode data with ${}

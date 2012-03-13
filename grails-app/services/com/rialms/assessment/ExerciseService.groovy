@@ -8,17 +8,22 @@ class ExerciseService {
 
     public AssessmentItem getAssessmentItem(String exerciseId) {
 
-        assessmentItem =  new AssessmentItem();
-		assessmentItem.load(grailsApplication.parentContext.getResource("${getExercisePath()}" + Exercise.get(exerciseId).dataFile).getFile());
+        AssessmentItem assessmentItem =  new AssessmentItem();
+     	assessmentItem.load(getExerciseDataFile(exerciseId));
 		return assessmentItem;
     }
 
     public File getExerciseDataFile(String exerciseId){
-         return grailsApplication.parentContext.getResource("${getExercisePath()}" + Exercise.get(exerciseId).dataFile).getFile();
+         Exercise e =  Exercise.get(exerciseId);
+         return grailsApplication.parentContext.getResource("${getExercisePath(e)}" + e.dataFile).getFile();
+    }
+
+    private String getExercisePath(Exercise e) {
+        return "${getContentPath()}/${e.dataPath}/"
     }
 
     //TODO move to after properties set;
-    private String getExercisePath(){
-           return grailsApplication.config.rialms.excercisePath;
+    private String getContentPath(){
+           return grailsApplication.config.rialms.contentPath;
     }
 }
