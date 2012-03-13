@@ -4,7 +4,8 @@ import org.qtitools.qti.node.item.AssessmentItem ;
 import  com.rialms.assessment.Exercise
 import com.rialms.renderer.AssessmentItemRenderer;
 import groovy.util.slurpersupport.GPathResult
-import com.rialms.util.UtilitiesService;
+import com.rialms.util.UtilitiesService
+import com.rialms.util.SampleParsing;
 
 class ExerciseController {
 
@@ -40,5 +41,16 @@ class ExerciseController {
         println "${xmlRoot}"
         render(view: 'play', model:['xmlRoot':xmlRoot, 'outcome':outcome]);
 
+    }
+
+    def test(){
+        String dataFile = exerciseService.getExerciseDataFile(params.id)
+        GPathResult xmlRoot = new XmlSlurper().parse(dataFile);
+      //  println xmlRoot
+        println xmlRoot.itemBody;
+        xmlRoot.itemBody.childNodes.each{ n ->
+            println "==> ${n.name} ${n.text}";
+        }
+        render 'a';
     }
 }

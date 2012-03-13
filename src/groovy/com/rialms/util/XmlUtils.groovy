@@ -27,6 +27,15 @@ class XmlUtils {
 
         println "2 => " + result;
         return result
+    /**        code from net
+        def children = parent.getAt(0).children
+    def result = [] as List
+    for (child in children) {
+        if (!(child instanceof groovy.util.slurpersupport.Node)) {
+            result.add(child)
+        }
+    }
+    return result*/
     }
 
 }
