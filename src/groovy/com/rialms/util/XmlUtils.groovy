@@ -16,9 +16,9 @@ class XmlUtils {
         println "c1=>" + node.getClass();
 
         def result;
-        for (def child in node.children) {
+        for (def child in node.parent.children()) {
             println("child " +child);
-            if ((child instanceof java.lang.String)) {
+            if ((child instanceof groovy.util.slurpersupport.Node)) {
                 result = child;
                println "1=> " + result;
                 break;
@@ -27,15 +27,15 @@ class XmlUtils {
 
         println "2 => " + result;
         return result
-    /**        code from net
-        def children = parent.getAt(0).children
-    def result = [] as List
+    /*    code from net
+        def children = node.children()
+    def result;
     for (child in children) {
         if (!(child instanceof groovy.util.slurpersupport.Node)) {
             result.add(child)
         }
     }
-    return result*/
+    return result       */
     }
 
 }

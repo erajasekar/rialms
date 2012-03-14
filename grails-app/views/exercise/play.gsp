@@ -11,16 +11,9 @@
  <title> ${xmlRoot.'@title'} </title>
 </head>
 <g:form name="ExerciseForm"  action="play" >
-<g:each var="n" in="${xmlRoot.itemBody.depthFirst()}" >
 
-   <g:if test="${n.name().equalsIgnoreCase("p")}" >
-        <g:render template="/renderer/renderPTag" model="[node:n]" />
-    </g:if>
-   <g:if test="${n.name().equalsIgnoreCase("textEntryInteraction")}" >
-        <g:render template="/renderer/textEntryInteractionTag" model="[node:n]" />
-    </g:if>
+    <g:render template="/renderer/renderItemBody" model="[node:xmlRoot.itemBody, outcome:outcome, exercisePath:exercisePath]" />
 
-</g:each>
  <g:submitButton value="Enter" name="processButton"/>
  </g:form>
 

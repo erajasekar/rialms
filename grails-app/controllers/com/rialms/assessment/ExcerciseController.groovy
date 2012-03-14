@@ -18,19 +18,22 @@ class ExerciseController {
     def play(){
 
         println "play params ${params}"
-        GPathResult xmlRoot;
+        def xmlRoot;
         AssessmentItem   assessmentItem;
+        String  exercisePath;
         String id = params.id;
         if (id){
            String dataFile = exerciseService.getExerciseDataFile(id)
            xmlRoot = new XmlSlurper().parse(dataFile);
            session.exerciseXmlRoot = xmlRoot;
            session.assessmentItem = exerciseService.getAssessmentItem(id);
+           session.exercisePath = exercisePath = exerciseService.getExercisePath(Exercise.get(id));
         }else{
            xmlRoot = session.exerciseXmlRoot;
            assessmentItem = session.assessmentItem;
+           exercisePath = session.exercisePath;
         }
-
+       println "exercisePath ${exercisePath}"
         //If enter pressed.
         Map<String,String> outcome = null;
         if (params.processButton.equals("Enter")){
@@ -38,8 +41,8 @@ class ExerciseController {
             outcome = utilitiesService.processAssessmentItem(assessmentItem,params);
         }
 
-        println "${xmlRoot}"
-        render(view: 'play', model:['xmlRoot':xmlRoot, 'outcome':outcome]);
+        println "OUTCOME  => ${outcome} => ${outcome?.PROGRESS}"
+        render(view: 'play', model:['xmlRoot':xmlRoot, 'outcome':outcome, 'exercisePath':exercisePath]);
 
     }
 

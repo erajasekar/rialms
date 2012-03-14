@@ -22,6 +22,11 @@ class ExerciseService {
         return "${getContentPath()}/${e.dataPath}/"
     }
 
+    private String getExercisePathUri(String id){
+         Exercise e =  Exercise.get(id);
+         return grailsApplication.parentContext.getResource("${getExercisePath(e)}" + e.dataFile).getURI();
+    }
+
     //TODO move to after properties set;
     private String getContentPath(){
            return grailsApplication.config.rialms.contentPath;
