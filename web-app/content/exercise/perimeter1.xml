@@ -12,12 +12,12 @@
 	<itemBody>
 	
 		
-		<p id="p1">Find perimeter of triangle with sides 3,4,5.. ? <p id="p2"> sub para </p> </p>
+		<p id="p1">Find perimeter of triangle with sides 3,4,5.. ? </p>
      	<p id="p3"> <textEntryInteraction responseIdentifier="A" expectedLength="15"/> +
 		<textEntryInteraction responseIdentifier="B" expectedLength="1"/>  +
 		<textEntryInteraction responseIdentifier="C" expectedLength="1"/>     </p>
 		
-		<feedbackBlock outcomeIdentifier="PROGRESS" showHide="show" identifier="step2">
+		<feedbackBlock id="step2" outcomeIdentifier="PROGRESS" showHide="show" identifier="step2">
 			<p>= <textEntryInteraction responseIdentifier="SUM" expectedLength="2"/> </p>
 		</feedbackBlock>
 	</itemBody>

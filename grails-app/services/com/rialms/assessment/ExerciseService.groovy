@@ -6,15 +6,14 @@ class ExerciseService {
 
     def grailsApplication;
 
-    public AssessmentItem getAssessmentItem(String exerciseId) {
+    public AssessmentItem getAssessmentItem(Exercise e) {
 
         AssessmentItem assessmentItem =  new AssessmentItem();
-     	assessmentItem.load(getExerciseDataFile(exerciseId));
+     	assessmentItem.load(getExerciseDataFile(e));
 		return assessmentItem;
     }
 
-    public File getExerciseDataFile(String exerciseId){
-         Exercise e =  Exercise.get(exerciseId);
+    public File getExerciseDataFile(Exercise e){
          return grailsApplication.parentContext.getResource("${getExercisePath(e)}" + e.dataFile).getFile();
     }
 
@@ -22,9 +21,12 @@ class ExerciseService {
         return "${getContentPath()}/${e.dataPath}/"
     }
 
-    private String getExercisePathUri(String id){
-         Exercise e =  Exercise.get(id);
-         return grailsApplication.parentContext.getResource("${getExercisePath(e)}" + e.dataFile).getURI();
+    public Map<String,String> getExerciseInfo(String exerciseId){
+        Exercise e = Exercise.get(exerciseId);
+
+        return [xmlRoot:new XmlParser().parse(getExerciseDataFile(e)),
+                assessmentItem:getAssessmentItem(e),
+                exercisePath:getExercisePath(e)];
     }
 
     //TODO move to after properties set;

@@ -6,43 +6,31 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
- <%
+<%@ page import="com.rialms.consts.Tag" contentType="text/html;charset=UTF-8" %>
 
-     System.out.println "${node.getClass()} == ${node.attributes()}";
- %>
+<g:each var="n" in="${node.children()}">
 
-<g:if test="${node.name().equalsIgnoreCase("p") && node instanceof groovy.util.slurpersupport.NodeChild}" >
-    <g:set var="children" value="${node.getAt(0).children}" />
-</g:if>
-<g:else>
-    <g:set var="children" value="${node.children()}" />
-</g:else>
-
-<g:each var="n" in="${children}" >
-
-    <g:if test="${n instanceof String}" >
-           ${n}
+    <g:if test="${n instanceof String}">
+        ${n}
     </g:if>
 
-    <g:elseif test="${n.name().equalsIgnoreCase("p")}">
+    <g:elseif test="${Tag.p.equals(n.name())}">
         <p>
-            <g:render template="/renderer/renderItemBody" model="[node:n]" />
+            <g:render template="/renderer/renderItemBody" model="[node:n]"/>
         </p>
     </g:elseif>
 
-    <g:elseif test="${n.name().equalsIgnoreCase("img")}">
-         <g:set var="imgfile" value="${n.'@src'}"    />  <!--TODO -->
-        <g:img dir="${exercisePath}/images"  file="sign.png" />
+    <g:elseif test="${Tag.img.equals(n.name())}">
+        <qti:img dir="${exercisePath}" file="${n.'@src'}" alt="${n.'@alt'}"/>
     </g:elseif>
 
-    <g:elseif test="${n.name().equalsIgnoreCase("textEntryInteraction")}">
-        <% System.out.println (n.attributes()) %>
-        <g:set var="attribs" value="${n.attributes()}"  />
-        <g:textField name="${attribs?.responseIdentifier}" />
+    <g:elseif test="${Tag.textEntryInteraction.equals(n.name())}">
+        <qti:textField name="${n.'@responseIdentifier'}"/>
     </g:elseif>
 
-    <g:elseif test="${n.name().equalsIgnoreCase("feedbackBlock") && (n.'@showHide'.equals("show")) && outcome?.PROGRESS.toString().equals("step2")}">
-            <g:render template="/renderer/renderItemBody" model="[node:n]" />
+    <g:elseif test="${Tag.feedbackBlock.equals(n.name())}">
+        <g:if test="${(n.'@showHide'.equals("show")) && outcome?.PROGRESS.toString().equals(n.'@id')}">
+            <g:render template="/renderer/renderItemBody" model="[node:n]"/>
+        </g:if>
     </g:elseif>
 </g:each>

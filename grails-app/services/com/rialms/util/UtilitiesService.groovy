@@ -7,13 +7,13 @@ class UtilitiesService {
     static transactional = false
 	static scope = "singleton"
 
-	public Map<String, List<String>> convertToRespIdentifiers(Map params) {
+	public Map<String, List<String>> convertToRespValues(Map params, List identifiers) {
 		Map<String, List<String>> map = new HashMap<String, List<String>>()
 
-		params.each{k,v ->
+		identifiers.each{i ->
 			List<String> values = new ArrayList<String>()
-			values << v;
-			map.put(k, values)
+			values << params[i];
+			map.put(i, values)
 		}
 
 		return map
@@ -22,12 +22,11 @@ class UtilitiesService {
 
     public Map<String,String> processAssessmentItem(AssessmentItem assessmentItem, Map params){
 
-        Map<String, List<String>> responses = convertToRespIdentifiers(params)  ;
-        println "resp iden ${responses}"
+        List identifiers = assessmentItem.getResponseDeclarations().collect {it-> it.identifier};
+        Map<String, List<String>> responses = convertToRespValues(params, identifiers)  ;
         assessmentItem.setResponses(responses);
         assessmentItem.processResponses();
-        println "score" + assessmentItem.getOutcomeValue("SCORE");
-        println "${assessmentItem.getOutcomeValues()}"
+        log.info ( "OUTCOME ==> ${assessmentItem.getOutcomeValues()}" );
         return  assessmentItem.getOutcomeValues()
     }
 }

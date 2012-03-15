@@ -17,43 +17,28 @@ class ExerciseController {
 
     def play(){
 
-        println "play params ${params}"
-        def xmlRoot;
-        AssessmentItem   assessmentItem;
-        String  exercisePath;
+        log.info ( "play params ${params}"  )
+        Map<String,String> exerciseInfo;
+
         String id = params.id;
         if (id){
-           String dataFile = exerciseService.getExerciseDataFile(id)
-           xmlRoot = new XmlSlurper().parse(dataFile);
-           session.exerciseXmlRoot = xmlRoot;
-           session.assessmentItem = exerciseService.getAssessmentItem(id);
-           session.exercisePath = exercisePath = exerciseService.getExercisePath(Exercise.get(id));
+           session.exerciseInfo = exerciseInfo = exerciseService.getExerciseInfo(id);
         }else{
-           xmlRoot = session.exerciseXmlRoot;
-           assessmentItem = session.assessmentItem;
-           exercisePath = session.exercisePath;
+           exerciseInfo= session.exerciseInfo;
         }
-       println "exercisePath ${exercisePath}"
+
+       def xmlRoot = exerciseInfo.xmlRoot;
+       def assessmentItem = exerciseInfo.assessmentItem;
+       def exercisePath = exerciseInfo.exercisePath;
+
         //If enter pressed.
         Map<String,String> outcome = null;
         if (params.processButton.equals("Enter")){
             log.info("Processing Exercise");
             outcome = utilitiesService.processAssessmentItem(assessmentItem,params);
         }
-
-        println "OUTCOME  => ${outcome} => ${outcome?.PROGRESS}"
         render(view: 'play', model:['xmlRoot':xmlRoot, 'outcome':outcome, 'exercisePath':exercisePath]);
 
     }
 
-    def test(){
-        String dataFile = exerciseService.getExerciseDataFile(params.id)
-        GPathResult xmlRoot = new XmlSlurper().parse(dataFile);
-      //  println xmlRoot
-        println xmlRoot.itemBody;
-        xmlRoot.itemBody.childNodes.each{ n ->
-            println "==> ${n.name} ${n.text}";
-        }
-        render 'a';
-    }
 }

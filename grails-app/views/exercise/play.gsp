@@ -12,7 +12,7 @@
 </head>
 <g:form name="ExerciseForm"  action="play" >
 
-    <g:render template="/renderer/renderItemBody" model="[node:xmlRoot.itemBody, outcome:outcome, exercisePath:exercisePath]" />
+    <g:render template="/renderer/renderItemBody" model="[node:xmlRoot.itemBody[0], outcome:outcome, exercisePath:exercisePath]" />
 
  <g:submitButton value="Enter" name="processButton"/>
  </g:form>
