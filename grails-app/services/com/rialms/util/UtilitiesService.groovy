@@ -12,7 +12,13 @@ class UtilitiesService {
 
 		identifiers.each{i ->
 			List<String> values = new ArrayList<String>()
-			values << params[i];
+            def respValue = params[i];
+            if (respValue instanceof String){
+                values << respValue;
+            }else{
+                respValue.each {values.add(it)}
+            }
+
 			map.put(i, values)
 		}
 

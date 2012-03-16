@@ -1,6 +1,7 @@
 package com.rialms.taglib
 
 import com.rialms.consts.Tag
+import org.qtitools.qti.value.IdentifierValue
 
 class QtiTagLib {
     static namespace = "qti";
@@ -48,16 +49,22 @@ class QtiTagLib {
         String exercisePath = getRequiredAttribute(attrs, 'exercisePath', 'choiceInteraction');
 
         String id = xmlNode.attribute('responseIdentifier');
+        String maxChoices = xmlNode.attribute("maxChoices");
+
         String prompt;
         List labels = [];
         List values = [];
         xmlNode.children().each {child ->
-            if (Tag.prompt.equals(child.name())) {
-                prompt = child.text();
-            } else if (Tag.simpleChoice.equals(child.name())) {
-                //labels actually point to child choice node itselt instead of text
-                labels << child;
-                values << child.attribute('identifier');
+            Tag tag = Tag.valueOf(child.name());
+            println "tag ${tag}"
+            switch (tag) {
+                case Tag.prompt: prompt = child.text();
+                    break;
+
+                case Tag.simpleChoice:
+                    labels << child;
+                    values << child.attribute('identifier');
+                    break;
             }
         }
 
@@ -72,38 +79,53 @@ class QtiTagLib {
 
         log.info("choiceInteraction Field Attributes ${fieldAttributes}");
 
-        def tagBody = {
-            out << """<p> ${prompt} </p>""";
-            /* xmlNode.children().each {child ->
-                 if (Tag.simpleChoice.equals(child.name())){
 
-                     String radioValue = child.attribute('identifier');
-                     println "radioValue ${radioValue} myvalue ${value} ${radioValue.equals(value)}";
-                     if (radioValue == value) {
-                         println "here.."
-                         out << """<p><input type='radio' name=${id} value=${radioValue} checked='checked' />""";
-                     }else{
-                         out << """<p><input type='radio' name=${id} value=${radioValue} />""";
+        if (maxChoices.toInteger() == 1) {
+            def tagBody = {
+                out << """<p> ${prompt} </p>""";
+                /* xmlNode.children().each {child ->
+                     if (Tag.simpleChoice.equals(child.name())){
+    
+                         String radioValue = child.attribute('identifier');
+                         println "radioValue ${radioValue} myvalue ${value} ${radioValue.equals(value)}";
+                         if (radioValue == value) {
+                             println "here.."
+                             out << """<p><input type='radio' name=${id} value=${radioValue} checked='checked' />""";
+                         }else{
+                             out << """<p><input type='radio' name=${id} value=${radioValue} />""";
+                         }
+    
+                         //TODO fix exercise path
+                         out << g.render(template: '/renderer/renderItemBody', model: [node:child, outcome:outcome, exercisePath:'/content/qti']);
+                         out << "</p>"
+    
                      }
+                }*/
 
-                     //TODO fix exercise path
-                     out << g.render(template: '/renderer/renderItemBody', model: [node:child, outcome:outcome, exercisePath:'/content/qti']);
-                     out << "</p>"
+                g.radioGroup(fieldAttributes) {
+                    out << "<p> ${it.radio}";
+                    out << g.render(template: '/renderer/renderItemBody', model: [node: it.label, outcome: outcome, exercisePath: exercisePath]);
+                    out << " </p> ";
+                };
 
-                 }
-            }*/
-            g.radioGroup(fieldAttributes) {
-                out << """<p> ${it.radio}""";
-                out << g.render(template: '/renderer/renderItemBody', model: [node: it.label, outcome: outcome, exercisePath: exercisePath]);
+            }
+            renderTag(attrs, tagBody);
+        } else {
+            out << """<p> ${prompt} </p>""";
+
+            values.eachWithIndex {v, i ->
+                boolean checked = (value && !(value instanceof org.qtitools.qti.value.NullValue) && value.getAll().contains(new IdentifierValue(v)));
+                out << "<p>";
+                out << g.checkBox(name: id, value: v, checked: checked);
+                out << g.render(template: '/renderer/renderItemBody', model: [node: labels[i], outcome: outcome, exercisePath: exercisePath]);
                 out << " </p> ";
-            };
-
-
+            }
         }
 
 
-        renderTag(attrs, tagBody);
     }
+
+
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {
         out << """  <div> ${tagBody()} </div>

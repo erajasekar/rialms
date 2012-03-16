@@ -50,6 +50,16 @@ public enum Tag {
     choiceInteraction,
     feedbackBlock;
 
+    private static Map<String,Tag> valuesByLowerCase =  intValuesByLowerCase();
+    
+    private static Map<String,Tag> intValuesByLowerCase(){
+        Map<String,Tag> map =[:]
+        values().each{ Tag t->
+           map[t.name().toLowerCase()] = t;
+        }
+        return map;
+    }
+    
     public boolean equals(QName qn){
           return name().equalsIgnoreCase(qn.getLocalPart());
     }
@@ -58,14 +68,11 @@ public enum Tag {
         return EnumSet.range(p,div);
     }
     
-    public static boolean isMixedTag(QName qn){
-        boolean mixed = false;
-        for(t in mixedTags()){
-           if (t.equals(qn)){
-               mixed = true;
-               break;
-           }
-        }
-        return mixed;
+    public static boolean isMixedTag(Tag t){
+        return mixedTags().contains(t);
+    }
+
+    public static Tag valueOf(QName qn){
+        return valuesByLowerCase[qn.localPart.toLowerCase()]
     }
 }

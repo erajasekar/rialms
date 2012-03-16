@@ -7,6 +7,7 @@ class BootStrap {
         new Exercise(title:'Exercise 1 - Perimeter' , dataPath: 'exercise', dataFile:'perimeter1.xml').save();
         new Exercise(title:'choice fixed' , dataPath: 'qti', dataFile:'choice_fixed.xml').save();
         new Exercise(title:'choice multiple' , dataPath: 'qti', dataFile:'choice_multiple.xml').save();
+        new Exercise(title:'choice multiple chocolate' , dataPath: 'qti', dataFile:'choice_multiple_chocolate.xml').save();
 
     }
     def destroy = {
