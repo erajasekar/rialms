@@ -10,6 +10,7 @@ class ExerciseService {
 
         AssessmentItem assessmentItem =  new AssessmentItem();
      	assessmentItem.load(getExerciseDataFile(e));
+        assessmentItem.initialize(null);
 		return assessmentItem;
     }
 

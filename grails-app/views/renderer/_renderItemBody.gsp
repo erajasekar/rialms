@@ -9,15 +9,17 @@
 <%@ page import="com.rialms.consts.Tag" contentType="text/html;charset=UTF-8" %>
 
 <g:each var="n" in="${node.children()}">
-
+    <g:if test="${!(n instanceof String)}">
+       <% System.out.println "isMixed " + n.name() + " ==> " + Tag.isMixedTag(n.name());     %>
+    </g:if>
     <g:if test="${n instanceof String}">
         ${n}
     </g:if>
 
-    <g:elseif test="${Tag.p.equals(n.name())}">
-        <p>
+    <g:elseif test="${Tag.isMixedTag(n.name())}">
+        <${n.name().getLocalPart()}>
             <g:render template="/renderer/renderItemBody" model="[node:n]"/>
-        </p>
+        </${n.name().getLocalPart()}>
     </g:elseif>
 
     <g:elseif test="${Tag.img.equals(n.name())}">
@@ -25,11 +27,15 @@
     </g:elseif>
 
     <g:elseif test="${Tag.textEntryInteraction.equals(n.name())}">
-        <qti:textField name="${n.'@responseIdentifier'}"/>
+        <qti:textEntryInteraction xmlAttributes="${n.attributes()}" responseValues="${responseValues}" />
+    </g:elseif>
+
+    <g:elseif test="${Tag.choiceInteraction.equals(n.name())}">
+            <qti:choiceInteraction xmlNode="${n}" responseValues="${responseValues}" outcome="${outcome}" exercisePath="${exercisePath}"/>
     </g:elseif>
 
     <g:elseif test="${Tag.feedbackBlock.equals(n.name())}">
-        <g:if test="${(n.'@showHide'.equals("show")) && outcome?.PROGRESS.toString().equals(n.'@id')}">
+        <g:if test="${(n.'@showHide'.equals("show")) && outcome?.PROGRESS.toString().equals(n.'@identifier')}">
             <g:render template="/renderer/renderItemBody" model="[node:n]"/>
         </g:if>
     </g:elseif>

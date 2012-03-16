@@ -22,11 +22,18 @@ class UtilitiesService {
 
     public Map<String,String> processAssessmentItem(AssessmentItem assessmentItem, Map params){
 
+
         List identifiers = assessmentItem.getResponseDeclarations().collect {it-> it.identifier};
         Map<String, List<String>> responses = convertToRespValues(params, identifiers)  ;
+        //TODO
+        log.info("Response Values ${responses}");
         assessmentItem.setResponses(responses);
         assessmentItem.processResponses();
+
         log.info ( "OUTCOME ==> ${assessmentItem.getOutcomeValues()}" );
         return  assessmentItem.getOutcomeValues()
+
+
+
     }
 }
