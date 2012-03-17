@@ -24,6 +24,7 @@ public enum Tag {
     ol,
     em,
     a,
+    blockquote,
     code,
     span,
     sub,
@@ -46,8 +47,10 @@ public enum Tag {
     img,
     prompt,
     simpleChoice ,
+    inlineChoice,
     textEntryInteraction,
     choiceInteraction,
+    inlineChoiceInteraction,
     feedbackBlock;
 
     private static Map<String,Tag> valuesByLowerCase =  intValuesByLowerCase();
@@ -69,10 +72,13 @@ public enum Tag {
     }
     
     public static boolean isMixedTag(Tag t){
+    //    println "mixedTags ${mixedTags()}"
+      //  println "result => ${t} => ${mixedTags().contains(t)}"
         return mixedTags().contains(t);
     }
 
     public static Tag valueOf(QName qn){
+        println "valuesByLowerCase => ${valuesByLowerCase}"
         return valuesByLowerCase[qn.localPart.toLowerCase()]
     }
 }

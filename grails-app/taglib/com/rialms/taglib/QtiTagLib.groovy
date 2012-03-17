@@ -2,6 +2,7 @@ package com.rialms.taglib
 
 import com.rialms.consts.Tag
 import org.qtitools.qti.value.IdentifierValue
+import com.rialms.util.CollectionUtils
 
 class QtiTagLib {
     static namespace = "qti";
@@ -35,6 +36,9 @@ class QtiTagLib {
             fieldAttributes['value'] = value;
         }
 
+        //TODO
+        log.info("textEntryInteraction Field Attributes ${fieldAttributes}");
+
         def tagBody = {
             g.textField(fieldAttributes);
         }
@@ -50,58 +54,61 @@ class QtiTagLib {
 
         String id = xmlNode.attribute('responseIdentifier');
         String maxChoices = xmlNode.attribute("maxChoices");
+        boolean shuffle = xmlNode.attribute("shuffle")?.toBoolean();
 
         String prompt;
-        List labels = [];
         List values = [];
+
+        Map fixedChoices = [:];    //<position, choice >
+        List shuffledChoices = [];
+        List allChoices = [];
+        int position = 0;
         xmlNode.children().each {child ->
             Tag tag = Tag.valueOf(child.name());
-            println "tag ${tag}"
             switch (tag) {
                 case Tag.prompt: prompt = child.text();
                     break;
 
                 case Tag.simpleChoice:
-                    labels << child;
                     values << child.attribute('identifier');
+                    if (child.attribute("fixed")?.toBoolean()) {
+                        fixedChoices[position] = child;
+                    } else {
+                        if (shuffle) {
+                            shuffledChoices << child;
+                        } else {
+                            fixedChoices[position] = child;
+                        }
+                    }
+                    position++;
                     break;
             }
         }
 
+        if (shuffle) {
+            allChoices = CollectionUtils.shuffleWithFixedPositions(shuffledChoices, fixedChoices);
+            values = allChoices.collect {
+                if (Tag.valueOf(it.name()) == Tag.simpleChoice) {
+                    it.attribute('identifier');
+                }
+            }
+        } else {
+            allChoices = CollectionUtils.orderValuesByPosition(fixedChoices);
+        }
 
-        Map fieldAttributes = [name: id, values: values, labels: labels]
+        Map fieldAttributes = [name: id, values: values, labels: allChoices]
 
         def value = responseValues[id];
 
         if (!(value instanceof org.qtitools.qti.value.NullValue)) {
             fieldAttributes['value'] = value;
         }
-
+        //TODO
         log.info("choiceInteraction Field Attributes ${fieldAttributes}");
-
 
         if (maxChoices.toInteger() == 1) {
             def tagBody = {
                 out << """<p> ${prompt} </p>""";
-                /* xmlNode.children().each {child ->
-                     if (Tag.simpleChoice.equals(child.name())){
-    
-                         String radioValue = child.attribute('identifier');
-                         println "radioValue ${radioValue} myvalue ${value} ${radioValue.equals(value)}";
-                         if (radioValue == value) {
-                             println "here.."
-                             out << """<p><input type='radio' name=${id} value=${radioValue} checked='checked' />""";
-                         }else{
-                             out << """<p><input type='radio' name=${id} value=${radioValue} />""";
-                         }
-    
-                         //TODO fix exercise path
-                         out << g.render(template: '/renderer/renderItemBody', model: [node:child, outcome:outcome, exercisePath:'/content/qti']);
-                         out << "</p>"
-    
-                     }
-                }*/
-
                 g.radioGroup(fieldAttributes) {
                     out << "<p> ${it.radio}";
                     out << g.render(template: '/renderer/renderItemBody', model: [node: it.label, outcome: outcome, exercisePath: exercisePath]);
@@ -117,7 +124,7 @@ class QtiTagLib {
                 boolean checked = (value && !(value instanceof org.qtitools.qti.value.NullValue) && value.getAll().contains(new IdentifierValue(v)));
                 out << "<p>";
                 out << g.checkBox(name: id, value: v, checked: checked);
-                out << g.render(template: '/renderer/renderItemBody', model: [node: labels[i], outcome: outcome, exercisePath: exercisePath]);
+                out << g.render(template: '/renderer/renderItemBody', model: [node: allChoices[i], outcome: outcome, exercisePath: exercisePath]);
                 out << " </p> ";
             }
         }
@@ -125,7 +132,59 @@ class QtiTagLib {
 
     }
 
+    def inlineChoiceInteraction = {  attrs ->
 
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'inlineChoiceInteraction');
+        Map responseValues = getRequiredAttribute(attrs, 'responseValues', 'inlineChoiceInteraction');
+        Map outcome = getRequiredAttribute(attrs, 'outcome', 'inlineChoiceInteraction');
+
+        String id = xmlNode.attribute('responseIdentifier');
+        boolean shuffle = xmlNode.attribute("shuffle")?.toBoolean();
+
+        Map fixedChoices = [:];    //<position, choice >
+        List shuffledChoices = [];
+        List allChoices = [];
+        List from = [];
+        List keys = [];
+        int position = 0;
+        xmlNode.children().each {child ->
+            if (child.attribute("fixed")?.toBoolean()) {
+                fixedChoices[position] = child;
+            }
+            else {
+                if (shuffle) {
+                    shuffledChoices << child;
+                } else {
+                    fixedChoices[position] = child;
+                }
+            }
+            position++;
+            keys << child.'@identifier';
+            from << child.text();
+        }
+
+        if (shuffle) {
+            allChoices = CollectionUtils.shuffleWithFixedPositions(shuffledChoices, fixedChoices);
+            keys = allChoices.collect { it.'@identifier';}
+            from = allChoices.collect { it.text();}
+        }
+
+        Map fieldAttributes = [name: id, keys: keys, from: from];
+        def value = responseValues[id];
+
+        if (!(value instanceof org.qtitools.qti.value.NullValue)) {
+            fieldAttributes['value'] = value.toString();
+        }
+
+        //TODO
+        log.info("inlineChoiceInteraction ${fieldAttributes}")
+
+        def tagBody = {
+            g.select(fieldAttributes);
+        }
+        renderTag(attrs, tagBody);
+
+    }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {
         out << """  <div> ${tagBody()} </div>
