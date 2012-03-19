@@ -24,15 +24,20 @@ class QtiTagLib {
 
     def textEntryInteraction = {  attrs ->
 
-        Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'textEntryInteraction');
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'textEntryInteraction');
         Map responseValues = getRequiredAttribute(attrs, 'responseValues', 'textEntryInteraction');
-        String id = xmlAttributes.responseIdentifier;
+        String id = xmlNode.'@responseIdentifier';
+        String maxlength = xmlNode.'@expectedLength';
 
-        Map fieldAttributes = [name: id]
+        Map fieldAttributes = [name: id];
+
+        if (maxlength) {
+            fieldAttributes.maxlength = fieldAttributes.size = maxlength;
+        }
 
         def value = responseValues[id];
 
-        if (!(value instanceof org.qtitools.qti.value.NullValue)) {
+        if (value) {
             fieldAttributes['value'] = value;
         }
 
@@ -45,6 +50,17 @@ class QtiTagLib {
         renderTag(attrs, tagBody);
     }
 
+    def printedVariable = { attrs ->
+
+        Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'printedVariable');
+        Map templateValues = getRequiredAttribute(attrs, 'templateValues', 'printedVariable');
+        String id = xmlAttributes.identifier;
+        String value = templateValues[id];
+        if (value) {
+            out << " ${value} ";
+        }
+    }
+
     def choiceInteraction = {  attrs ->
 
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'choiceInteraction');
@@ -52,7 +68,7 @@ class QtiTagLib {
         Map outcome = getRequiredAttribute(attrs, 'outcome', 'choiceInteraction');
         String exercisePath = getRequiredAttribute(attrs, 'exercisePath', 'choiceInteraction');
 
-        String id = xmlNode.attribute('responseIdentifier');
+        String id = xmlNode.'@responseIdentifier';
         String maxChoices = xmlNode.attribute("maxChoices");
         boolean shuffle = xmlNode.attribute("shuffle")?.toBoolean();
 
@@ -100,7 +116,7 @@ class QtiTagLib {
 
         def value = responseValues[id];
 
-        if (!(value instanceof org.qtitools.qti.value.NullValue)) {
+        if (value) {
             fieldAttributes['value'] = value;
         }
         //TODO
@@ -121,7 +137,7 @@ class QtiTagLib {
             out << """<p> ${prompt} </p>""";
 
             values.eachWithIndex {v, i ->
-                boolean checked = (value && !(value instanceof org.qtitools.qti.value.NullValue) && value.getAll().contains(new IdentifierValue(v)));
+                boolean checked = (value && value.split(',').contains(v));
                 out << "<p>";
                 out << g.checkBox(name: id, value: v, checked: checked);
                 out << g.render(template: '/renderer/renderItemBody', model: [node: allChoices[i], outcome: outcome, exercisePath: exercisePath]);
@@ -138,7 +154,7 @@ class QtiTagLib {
         Map responseValues = getRequiredAttribute(attrs, 'responseValues', 'inlineChoiceInteraction');
         Map outcome = getRequiredAttribute(attrs, 'outcome', 'inlineChoiceInteraction');
 
-        String id = xmlNode.attribute('responseIdentifier');
+        String id = xmlNode.'@responseIdentifier';
         boolean shuffle = xmlNode.attribute("shuffle")?.toBoolean();
 
         Map fixedChoices = [:];    //<position, choice >
@@ -172,8 +188,8 @@ class QtiTagLib {
         Map fieldAttributes = [name: id, keys: keys, from: from];
         def value = responseValues[id];
 
-        if (!(value instanceof org.qtitools.qti.value.NullValue)) {
-            fieldAttributes['value'] = value.toString();
+        if (value) {
+            fieldAttributes['value'] = value;
         }
 
         //TODO

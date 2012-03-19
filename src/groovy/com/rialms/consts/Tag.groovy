@@ -7,7 +7,7 @@ import groovy.xml.QName
  *
  * Created on 3/14/12 . 9:35 PM
  * @Author E. Rajasekar 
- * 
+ *
  */
 public enum Tag {
     p,
@@ -46,39 +46,46 @@ public enum Tag {
     div,
     img,
     prompt,
-    simpleChoice ,
+    simpleChoice,
     inlineChoice,
     textEntryInteraction,
     choiceInteraction,
     inlineChoiceInteraction,
-    feedbackBlock;
+    feedbackBlock,
+    feedbackInline,
+    printedVariable;
 
-    private static Map<String,Tag> valuesByLowerCase =  intValuesByLowerCase();
-    
-    private static Map<String,Tag> intValuesByLowerCase(){
-        Map<String,Tag> map =[:]
-        values().each{ Tag t->
-           map[t.name().toLowerCase()] = t;
+    private static Map<String, Tag> valuesByLowerCase = intValuesByLowerCase();
+
+    private static Map<String, Tag> intValuesByLowerCase() {
+        Map<String, Tag> map = [:]
+        values().each { Tag t ->
+            map[t.name().toLowerCase()] = t;
         }
         return map;
     }
-    
-    public boolean equals(QName qn){
-          return name().equalsIgnoreCase(qn.getLocalPart());
+
+    public boolean equals(QName qn) {
+        return name().equalsIgnoreCase(qn.getLocalPart());
     }
-    
-    public static Set<Tag> mixedTags(){
-        return EnumSet.range(p,div);
+
+    public static Set<Tag> mixedTags() {
+        return EnumSet.range(p, div);
     }
-    
-    public static boolean isMixedTag(Tag t){
-    //    println "mixedTags ${mixedTags()}"
-      //  println "result => ${t} => ${mixedTags().contains(t)}"
+
+    public static Set<Tag> feedBackTags() {
+        return EnumSet.of(feedbackBlock, feedbackInline);
+    }
+
+    public static boolean isMixedTag(Tag t) {
         return mixedTags().contains(t);
     }
 
-    public static Tag valueOf(QName qn){
-        println "valuesByLowerCase => ${valuesByLowerCase}"
+    public static boolean isFeedBackTag(Tag t) {
+        return feedBackTags().contains(t);
+    }
+
+    public static Tag valueOf(QName qn) {
         return valuesByLowerCase[qn.localPart.toLowerCase()]
     }
 }

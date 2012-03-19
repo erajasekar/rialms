@@ -14,8 +14,7 @@
         ${n}
     </g:if>
     <g:else>
-        <g:set var="tag" value="${Tag.valueOf(n.name())}" scope="page"/>
-        <% System.out.println "mixed tag ${tag} ${n.name()}" %>
+        <% def tag = Tag.valueOf(n.name()); %>
         <g:if test="${Tag.isMixedTag(tag)}">
             <${n.name().getLocalPart()}>
             <g:render template="/renderer/renderItemBody" model="[node: n]"/>
@@ -27,8 +26,7 @@
         </g:elseif>
 
         <g:elseif test="${tag == Tag.textEntryInteraction}">
-            <% System.out.println "found ${n.'@responseIdentifier'}" %>
-            <qti:textEntryInteraction xmlAttributes="${n.attributes()}" responseValues="${responseValues}"/>
+            <qti:textEntryInteraction xmlNode="${n}" responseValues="${responseValues}"/>
         </g:elseif>
 
         <g:elseif test="${tag == Tag.choiceInteraction}">
@@ -37,14 +35,22 @@
         </g:elseif>
 
         <g:elseif test="${tag == Tag.inlineChoiceInteraction}">
-            <qti:inlineChoiceInteraction xmlNode="${n}" responseValues="${responseValues}" outcome="${outcome}" />
+            <qti:inlineChoiceInteraction xmlNode="${n}" responseValues="${responseValues}" outcome="${outcome}"/>
         </g:elseif>
 
-        <g:elseif test="${tag == Tag.feedbackBlock}">
-            <g:if test="${(n.'@showHide'.equals("show")) && outcome?.PROGRESS.toString().equals(n.'@identifier')}">
-                <% System.out.println "here" %>
+        <g:elseif test="${tag == Tag.printedVariable}">
+            <qti:printedVariable xmlAttributes="${n.attributes()}" templateValues="${templateValues}"
+                                 outcome="${outcome}"/>
+        </g:elseif>
+
+        <g:elseif test="${Tag.isFeedBackTag(tag)}">
+            <g:if test="${(n.'@showHide'.equals("show")) && outcome?.(n.'@outcomeIdentifier').equals(n.'@identifier')}">
                 <g:render template="/renderer/renderItemBody" model="[node: n]"/>
             </g:if>
+            <g:elseif
+                    test="${(n.'@showHide'.equals("hide")) && !(outcome?.(n.'@outcomeIdentifier').equals(n.'@identifier'))}">
+                <g:render template="/renderer/renderItemBody" model="[node: n]"/>
+            </g:elseif>
         </g:elseif>
 
     </g:else>
