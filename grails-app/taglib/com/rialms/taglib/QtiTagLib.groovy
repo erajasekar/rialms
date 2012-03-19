@@ -66,7 +66,7 @@ class QtiTagLib {
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'choiceInteraction');
         Map responseValues = getRequiredAttribute(attrs, 'responseValues', 'choiceInteraction');
         Map outcome = getRequiredAttribute(attrs, 'outcome', 'choiceInteraction');
-        String exercisePath = getRequiredAttribute(attrs, 'exercisePath', 'choiceInteraction');
+        String dataPath = getRequiredAttribute(attrs, 'dataPath', 'choiceInteraction');
 
         String id = xmlNode.'@responseIdentifier';
         String maxChoices = xmlNode.attribute("maxChoices");
@@ -127,7 +127,7 @@ class QtiTagLib {
                 out << """<p> ${prompt} </p>""";
                 g.radioGroup(fieldAttributes) {
                     out << "<p> ${it.radio}";
-                    out << g.render(template: '/renderer/renderItemBody', model: [node: it.label, outcome: outcome, exercisePath: exercisePath]);
+                    out << g.render(template: '/renderer/renderItemBody', model: [node: it.label, outcome: outcome, dataPath: dataPath]);
                     out << " </p> ";
                 };
 
@@ -140,7 +140,7 @@ class QtiTagLib {
                 boolean checked = (value && value.split(',').contains(v));
                 out << "<p>";
                 out << g.checkBox(name: id, value: v, checked: checked);
-                out << g.render(template: '/renderer/renderItemBody', model: [node: allChoices[i], outcome: outcome, exercisePath: exercisePath]);
+                out << g.render(template: '/renderer/renderItemBody', model: [node: allChoices[i], outcome: outcome, dataPath: dataPath]);
                 out << " </p> ";
             }
         }
@@ -203,8 +203,7 @@ class QtiTagLib {
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {
-        out << """  <div> ${tagBody()} </div>
-           """;
+        out << """  ${tagBody()} """;
     }
 
     protected getAttribute(attrs, String name, String tagName, boolean isRequired = false) {

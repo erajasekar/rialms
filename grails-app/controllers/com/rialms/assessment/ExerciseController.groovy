@@ -28,7 +28,7 @@ class ExerciseController {
 
         def xmlRoot = exerciseInfo.xmlRoot;
         AssessmentItem assessmentItem = exerciseInfo.assessmentItem;
-        def exercisePath = exerciseInfo.exercisePath;
+        def dataPath = exerciseInfo.dataPath;
 
         //If enter pressed.
         Map<String, String> outcome = null;
@@ -36,7 +36,7 @@ class ExerciseController {
             log.info("Processing Exercise with param ${params}");
             outcome = utilitiesService.processAssessmentItem(assessmentItem, params);
         }
-        render(view: 'play', model: ['xmlRoot': xmlRoot, 'outcome': outcome, 'responseValues': utilitiesService.convertQTITypesToParams(assessmentItem.responseValues), 'templateValues': utilitiesService.convertQTITypesToParams(assessmentItem.templateValues), 'exercisePath': exercisePath]);
+        render(view: 'play', model: ['xmlRoot': xmlRoot, 'outcome': outcome, 'responseValues': utilitiesService.convertQTITypesToParams(assessmentItem.responseValues), 'templateValues': utilitiesService.convertQTITypesToParams(assessmentItem.templateValues), 'dataPath': dataPath]);
 
     }
 

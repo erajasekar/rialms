@@ -15,10 +15,10 @@ class ExerciseService {
     }
 
     public File getExerciseDataFile(Exercise e){
-         return grailsApplication.parentContext.getResource("${getExercisePath(e)}" + e.dataFile).getFile();
+         return grailsApplication.parentContext.getResource("${getDataPath(e)}" + e.dataFile).getFile();
     }
 
-    private String getExercisePath(Exercise e) {
+    private String getDataPath(Exercise e) {
         return "${getContentPath()}/${e.dataPath}/"
     }
 
@@ -27,7 +27,7 @@ class ExerciseService {
 
         return [xmlRoot:new XmlParser().parse(getExerciseDataFile(e)),
                 assessmentItem:getAssessmentItem(e),
-                exercisePath:getExercisePath(e)];
+                dataPath:getDataPath(e)];
     }
 
     //TODO move to after properties set;

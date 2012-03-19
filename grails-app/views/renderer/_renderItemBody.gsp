@@ -22,7 +22,7 @@
         </g:if>
 
         <g:elseif test="${tag == Tag.img}">
-            <qti:img dir="${exercisePath}" file="${n.'@src'}" alt="${n.'@alt'}"/>
+            <qti:img dir="${dataPath}" file="${n.'@src'}" alt="${n.'@alt'}"/>
         </g:elseif>
 
         <g:elseif test="${tag == Tag.textEntryInteraction}">
@@ -31,7 +31,7 @@
 
         <g:elseif test="${tag == Tag.choiceInteraction}">
             <qti:choiceInteraction xmlNode="${n}" responseValues="${responseValues}" outcome="${outcome}"
-                                   exercisePath="${exercisePath}"/>
+                                   dataPath="${dataPath}"/>
         </g:elseif>
 
         <g:elseif test="${tag == Tag.inlineChoiceInteraction}">
