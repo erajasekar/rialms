@@ -1,11 +1,7 @@
 package com.rialms.assessment
 
-import org.qtitools.qti.node.item.AssessmentItem;
-import com.rialms.assessment.Exercise
-import com.rialms.renderer.AssessmentItemRenderer;
-import groovy.util.slurpersupport.GPathResult
 import com.rialms.util.UtilitiesService
-import com.rialms.util.SampleParsing;
+import org.qtitools.qti.node.item.AssessmentItem
 
 class ExerciseController {
 
@@ -31,12 +27,14 @@ class ExerciseController {
         def dataPath = exerciseInfo.dataPath;
 
         //If enter pressed.
-        Map<String, String> outcome = null;
+        AssessmentItemInfo assessmentItemInfo = new AssessmentItemInfo(assessmentItem);
+
         if (params.processButton.equals("Enter")) {
             log.info("Processing Exercise with param ${params}");
-            outcome = utilitiesService.processAssessmentItem(assessmentItem, params);
+            assessmentItemInfo = utilitiesService.processAssessmentItem(assessmentItem, params);
         }
-        render(view: 'play', model: ['xmlRoot': xmlRoot, 'outcome': outcome, 'responseValues': utilitiesService.convertQTITypesToParams(assessmentItem.responseValues), 'templateValues': utilitiesService.convertQTITypesToParams(assessmentItem.templateValues), 'dataPath': dataPath]);
+
+        render(view: 'play', model: ['xmlRoot': xmlRoot, 'assessmentItemInfo': assessmentItemInfo, 'dataPath': dataPath]);
 
     }
 

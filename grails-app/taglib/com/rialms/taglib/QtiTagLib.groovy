@@ -3,6 +3,10 @@ package com.rialms.taglib
 import com.rialms.consts.Tag
 import org.qtitools.qti.value.IdentifierValue
 import com.rialms.util.CollectionUtils
+import com.rialms.assessment.AssessmentItemInfo
+import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
+import org.qtitools.qti.value.BaseType
+import com.rialms.util.QtiUtils
 
 class QtiTagLib {
     static namespace = "qti";
@@ -25,7 +29,9 @@ class QtiTagLib {
     def textEntryInteraction = {  attrs ->
 
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'textEntryInteraction');
-        Map responseValues = getRequiredAttribute(attrs, 'responseValues', 'textEntryInteraction');
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', 'textEntryInteraction');
+        Map responseValues = assessmentItemInfo.responseValues;
+
         String id = xmlNode.'@responseIdentifier';
         String maxlength = xmlNode.'@expectedLength';
 
@@ -53,19 +59,39 @@ class QtiTagLib {
     def printedVariable = { attrs ->
 
         Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'printedVariable');
-        Map templateValues = getRequiredAttribute(attrs, 'templateValues', 'printedVariable');
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', 'printedVariable');
+
+        Map templateValues = assessmentItemInfo.templateValues;
+        Map outcomeValues = assessmentItemInfo.outcomeValues;
+
         String id = xmlAttributes.identifier;
-        String value = templateValues[id];
-        if (value) {
-            out << " ${value} ";
+        String templateValue = templateValues[id];
+        String outcomeValue = outcomeValues[id];
+        String format = xmlAttributes.format;
+
+        if (templateValue) {
+            if (format) {
+                out << " ${QtiUtils.formatVariable(assessmentItemInfo.getTemplateDeclarationForIdentifier(id), format, templateValue)} ";
+            } else {
+                out << " ${templateValue} ";
+            }
+        } else if (outcomeValue) {
+            if (format) {
+                out << " ${QtiUtils.formatVariable(assessmentItemInfo.getOutcomeDeclarationForIdentifier(id), format, outcomeValue)} ";
+            } else {
+                out << " ${outcomeValue} ";
+            }
         }
     }
 
     def choiceInteraction = {  attrs ->
 
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'choiceInteraction');
-        Map responseValues = getRequiredAttribute(attrs, 'responseValues', 'choiceInteraction');
-        Map outcome = getRequiredAttribute(attrs, 'outcome', 'choiceInteraction');
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', 'choiceInteraction');
+
+        Map responseValues = assessmentItemInfo.responseValues
+        Map outcome = assessmentItemInfo.outcomeValues;
+
         String dataPath = getRequiredAttribute(attrs, 'dataPath', 'choiceInteraction');
 
         String id = xmlNode.'@responseIdentifier';
@@ -151,8 +177,10 @@ class QtiTagLib {
     def inlineChoiceInteraction = {  attrs ->
 
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'inlineChoiceInteraction');
-        Map responseValues = getRequiredAttribute(attrs, 'responseValues', 'inlineChoiceInteraction');
-        Map outcome = getRequiredAttribute(attrs, 'outcome', 'inlineChoiceInteraction');
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', 'inlineChoiceInteraction');
+
+        Map responseValues = assessmentItemInfo.responseValues;
+        Map outcome = assessmentItemInfo.outcomeValues;
 
         String id = xmlNode.'@responseIdentifier';
         boolean shuffle = xmlNode.attribute("shuffle")?.toBoolean();

@@ -26,27 +26,35 @@
         </g:elseif>
 
         <g:elseif test="${tag == Tag.textEntryInteraction}">
-            <qti:textEntryInteraction xmlNode="${n}" responseValues="${responseValues}"/>
+            <qti:textEntryInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
         <g:elseif test="${tag == Tag.choiceInteraction}">
-            <qti:choiceInteraction xmlNode="${n}" responseValues="${responseValues}" outcome="${outcome}"
+            <qti:choiceInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"
                                    dataPath="${dataPath}"/>
         </g:elseif>
 
         <g:elseif test="${tag == Tag.inlineChoiceInteraction}">
-            <qti:inlineChoiceInteraction xmlNode="${n}" responseValues="${responseValues}" outcome="${outcome}"/>
+            <qti:inlineChoiceInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
         <g:elseif test="${tag == Tag.printedVariable}">
-            <qti:printedVariable xmlAttributes="${n.attributes()}" templateValues="${templateValues}"
-                                 outcome="${outcome}"/>
+            <qti:printedVariable xmlAttributes="${n.attributes()}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
         <g:elseif test="${Tag.isFeedBackTag(tag)}">
-             <g:render template="/renderer/renderFeedbackOrTemplate" model="[node:n, identifierValue:outcome?.(n.'@outcomeIdentifier')]" />
+            <g:render template="/renderer/renderFeedbackOrTemplate"
+                      model="[node: n, identifierValue: assessmentItemInfo.outcomeValues?.(n.'@outcomeIdentifier')]"/>
         </g:elseif>
 
+        <g:elseif test="${Tag.isTemplateTag(tag)}">
+            <g:render template="/renderer/renderFeedbackOrTemplate"
+                      model="[node: n, identifierValue: assessmentItemInfo.templateValues?.(n.'@templateIdentifier')]"/>
+        </g:elseif>
+
+        <g:else>
+            Unknown Tag <${n.name}>
+        </g:else>
     </g:else>
 
 </g:each>

@@ -57,10 +57,10 @@ public enum Tag {
     templateInline,
     printedVariable;
 
-    private static Map<String, Tag> valuesByLowerCase = intValuesByLowerCase();    
-    private static final EnumSet<Tag> mixedTags =  EnumSet.range(p, div);
-    private static final EnumSet<Tag> feedBackTags =  EnumSet.of(feedbackBlock, feedbackInline);
-    private static final EnumSet<Tag> templateTags =  EnumSet.of(templateBlock, templateInline);
+    private static Map<String, Tag> valuesByLowerCase = intValuesByLowerCase();
+    private static final EnumSet<Tag> mixedTags = EnumSet.range(p, div);
+    private static final EnumSet<Tag> feedBackTags = EnumSet.of(feedbackBlock, feedbackInline);
+    private static final EnumSet<Tag> templateTags = EnumSet.of(templateBlock, templateInline);
 
     private static Map<String, Tag> intValuesByLowerCase() {
         Map<String, Tag> map = [:]
@@ -82,8 +82,8 @@ public enum Tag {
         return feedBackTags;
     }
 
-    public static Set<Tag> templateTags(){
-        return templateTags()
+    public static Set<Tag> templateTags() {
+        return templateTags;
     }
 
     public static boolean isMixedTag(Tag t) {
@@ -94,7 +94,7 @@ public enum Tag {
         return feedBackTags().contains(t);
     }
 
-    public static boolean isTemplateTag(Tag t){
+    public static boolean isTemplateTag(Tag t) {
         return templateTags().contains(t);
     }
 

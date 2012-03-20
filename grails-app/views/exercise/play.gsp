@@ -8,17 +8,18 @@
 
 <%@ page contentType="text/html;charset=UTF-8" %>
 <head>
- <title> ${xmlRoot.'@title'} </title>
+    <title>${xmlRoot.'@title'}</title>
 </head>
-<g:form name="ExerciseForm"  action="play" >
+<g:form name="ExerciseForm" action="play">
 
-    <g:render template="/renderer/renderItemBody" model="[node:xmlRoot.itemBody[0], outcome:outcome, dataPath:dataPath]" />
+    <g:render template="/renderer/renderItemBody"
+              model="[node: xmlRoot.itemBody[0], assessmentItemInfo: assessmentItemInfo, dataPath: dataPath]"/>
 
- <g:submitButton value="Enter" name="processButton"/>
- </g:form>
+    <g:submitButton value="Enter" name="processButton"/>
+</g:form>
 
-<g:if test="${outcome}">
----------------------------------
-     <br/>
-    ${outcome}
+<g:if test="${assessmentItemInfo.outcomeValues}">
+    ---------------------------------
+    <br/>
+    ${assessmentItemInfo.outcomeValues}
 </g:if>
