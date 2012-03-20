@@ -14,7 +14,7 @@
 
         <p id="p1">Find perimeter of triangle with sides 3,4,5.. ?</p>
         <p id="p3">
-            <textEntryInteraction placeholderText="side1" label="A:" responseIdentifier="A" expectedLength="1"/>
+            <textEntryInteraction id="myid" placeholderText="side1" label="A:" responseIdentifier="A" expectedLength="1"/>
             +
             <textEntryInteraction responseIdentifier="B" expectedLength="1"/>
             +
