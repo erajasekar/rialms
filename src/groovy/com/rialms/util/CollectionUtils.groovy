@@ -14,12 +14,11 @@ class CollectionUtils {
      * @param input
      * @return
      */
-    
-    public static List orderValuesByPosition(Map input){
+    public static List orderValuesByPosition(Map input) {
         List result = [];
-        for(i in 0..input.size()){
+        for (i in 0..input.size()) {
             def value = input[i];
-            if (value){
+            if (value) {
                 result << input[i];
             }
         }
@@ -31,11 +30,11 @@ class CollectionUtils {
      * @param listToShuffle
      * @param fixedItems
      */
-    public static List shuffleWithFixedPositions(List listToShuffle, Map fixedItems){
+    public static List shuffleWithFixedPositions(List listToShuffle, Map<Integer, Object> fixedItems) {
         LinkedList result = new LinkedList(listToShuffle);
         Collections.shuffle(result);
-        fixedItems.each{k,v ->
-            result.add(k,v);
+        fixedItems.each {k, v ->
+            result.add(k, v);
         }
         return result;
     }

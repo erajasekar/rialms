@@ -44,6 +44,7 @@ public enum Tag {
     cite,
     table,
     div,
+    itemBody,
     img,
     prompt,
     simpleChoice,
@@ -53,13 +54,15 @@ public enum Tag {
     inlineChoiceInteraction,
     feedbackBlock,
     feedbackInline,
+    modalFeedback,
     templateBlock,
     templateInline,
-    printedVariable;
+    printedVariable,
+    endAttemptInteraction;
 
     private static Map<String, Tag> valuesByLowerCase = intValuesByLowerCase();
-    private static final EnumSet<Tag> mixedTags = EnumSet.range(p, div);
-    private static final EnumSet<Tag> feedBackTags = EnumSet.of(feedbackBlock, feedbackInline);
+    private static final EnumSet<Tag> mixedTags = EnumSet.range(p, itemBody);
+    private static final EnumSet<Tag> feedBackTags = EnumSet.of(feedbackBlock, modalFeedback, feedbackInline);
     private static final EnumSet<Tag> templateTags = EnumSet.of(templateBlock, templateInline);
 
     private static Map<String, Tag> intValuesByLowerCase() {
@@ -70,6 +73,7 @@ public enum Tag {
         return map;
     }
 
+    ///TODO : Remove this after cleaning up com.rialms.util.SampleParsing
     public boolean equals(QName qn) {
         return name().equalsIgnoreCase(qn.getLocalPart());
     }

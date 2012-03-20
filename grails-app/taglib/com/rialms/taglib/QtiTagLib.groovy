@@ -28,12 +28,15 @@ class QtiTagLib {
 
     def textEntryInteraction = {  attrs ->
 
-        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'textEntryInteraction');
-        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', 'textEntryInteraction');
+        String tag = 'textEntryInteraction';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        attrs += xmlNode.attributes();
+
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         Map responseValues = assessmentItemInfo.responseValues;
 
-        String id = xmlNode.'@responseIdentifier';
-        String maxlength = xmlNode.'@expectedLength';
+        String id = getRequiredAttribute(attrs, 'responseIdentifier', tag);
+        String maxlength = getAttribute(attrs, 'expectedLength', tag);
 
         Map fieldAttributes = [name: id];
 
@@ -47,6 +50,8 @@ class QtiTagLib {
             fieldAttributes['value'] = value;
         }
 
+        fieldAttributes += attrs;
+
         //TODO
         log.info("textEntryInteraction Field Attributes ${fieldAttributes}");
 
@@ -58,8 +63,9 @@ class QtiTagLib {
 
     def printedVariable = { attrs ->
 
-        Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'printedVariable');
-        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', 'printedVariable');
+        String tag = 'printedVariable';
+        Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', tag);
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
         Map templateValues = assessmentItemInfo.templateValues;
         Map outcomeValues = assessmentItemInfo.outcomeValues;
@@ -84,19 +90,37 @@ class QtiTagLib {
         }
     }
 
+    def endAttemptInteraction = { attrs ->
+        Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'endAttemptInteraction');
+        attrs.putAll(xmlAttributes);
+        String id = xmlAttributes.responseIdentifier;
+        String title = xmlAttributes.title;
+        Map fieldAttributes = [name: id, value: title];
+
+        fieldAttributes.putAll(attrs);
+        def tagBody = {
+            g.submitButton(fieldAttributes);
+        }
+        renderTag(attrs, tagBody);
+    }
+
     def choiceInteraction = {  attrs ->
 
-        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'choiceInteraction');
-        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', 'choiceInteraction');
+        String uitag = 'choiceInteraction';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', uitag);
+        attrs += xmlNode.attributes();
+
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', uitag);
 
         Map responseValues = assessmentItemInfo.responseValues
         Map outcome = assessmentItemInfo.outcomeValues;
 
-        String dataPath = getRequiredAttribute(attrs, 'dataPath', 'choiceInteraction');
+        String dataPath = getRequiredAttribute(attrs, 'dataPath', uitag);
 
-        String id = xmlNode.'@responseIdentifier';
-        String maxChoices = xmlNode.attribute("maxChoices");
-        boolean shuffle = xmlNode.attribute("shuffle")?.toBoolean();
+        String id = getRequiredAttribute(attrs, 'responseIdentifier', uitag);
+        String maxChoices = getRequiredAttribute(attrs, 'maxChoices', uitag)
+
+        boolean shuffle = getOptionalAttribute(attrs, 'shuffle')?.toBoolean();
 
         String prompt;
         List values = [];
@@ -140,6 +164,8 @@ class QtiTagLib {
 
         Map fieldAttributes = [name: id, values: values, labels: allChoices]
 
+        fieldAttributes += attrs;
+
         def value = responseValues[id];
 
         if (value) {
@@ -176,14 +202,18 @@ class QtiTagLib {
 
     def inlineChoiceInteraction = {  attrs ->
 
-        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', 'inlineChoiceInteraction');
-        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', 'inlineChoiceInteraction');
+        String tag = 'inlineChoiceInteraction';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        attrs += xmlNode.attributes();
+
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
         Map responseValues = assessmentItemInfo.responseValues;
         Map outcome = assessmentItemInfo.outcomeValues;
 
-        String id = xmlNode.'@responseIdentifier';
-        boolean shuffle = xmlNode.attribute("shuffle")?.toBoolean();
+        String id = getRequiredAttribute(attrs, 'responseIdentifier', tag);
+
+        boolean shuffle = getOptionalAttribute(attrs, 'shuffle')?.toBoolean();
 
         Map fixedChoices = [:];    //<position, choice >
         List shuffledChoices = [];
@@ -213,7 +243,8 @@ class QtiTagLib {
             from = allChoices.collect { it.text();}
         }
 
-        Map fieldAttributes = [name: id, keys: keys, from: from];
+        Map fieldAttributes = [name: id, keys: keys, from: from] + attrs;
+
         def value = responseValues[id];
 
         if (value) {
@@ -245,4 +276,7 @@ class QtiTagLib {
         return getAttribute(attrs, name, tagName, true);
     }
 
+    protected getOptionalAttribute(attrs, String name) {
+        return getAttribute(attrs, name, null, false);
+    }
 }

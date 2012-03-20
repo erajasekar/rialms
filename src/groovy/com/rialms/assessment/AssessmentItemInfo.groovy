@@ -25,9 +25,9 @@ class AssessmentItemInfo {
 
     public AssessmentItemInfo(AssessmentItem item) {
         this.assessmentItem = item;
-        outcomeValues = QtiUtils.convertQTITypesToParams(item.getOutcomeValues());
-        responseValues = QtiUtils.convertQTITypesToParams(item.getResponseValues());
-        templateValues = QtiUtils.convertQTITypesToParams(item.getTemplateValues())
+        outcomeValues = QtiUtils.convertQTITypesToParams(item.outcomeValues);
+        responseValues = QtiUtils.convertQTITypesToParams(item.responseValues);
+        templateValues = QtiUtils.convertQTITypesToParams(item.templateValues)
     }
 
     public Map<String, String> getResponseValues() {
@@ -44,14 +44,10 @@ class AssessmentItemInfo {
     }
 
     public OutcomeDeclaration getOutcomeDeclarationForIdentifier(String identifier) {
-        List<OutcomeDeclaration> outcomeDeclarations = assessmentItem.getOutcomeDeclarations();
-        return outcomeDeclarations.find {OutcomeDeclaration it -> it.getIdentifier().toString().equals(identifier)}
+        return QtiUtils.findVariableDeclarationByIdentifier(assessmentItem.outcomeDeclarations, identifier);
     }
 
     public TemplateDeclaration getTemplateDeclarationForIdentifier(String identifier) {
-        List<TemplateDeclaration> templateDeclarations = assessmentItem.getTemplateDeclarations();
-        return templateDeclarations.find {TemplateDeclaration it ->
-            it.getIdentifier().toString().equals(identifier)
-        }
+        return QtiUtils.findVariableDeclarationByIdentifier(assessmentItem.templateDeclarations, identifier);
     }
 }

@@ -11,9 +11,8 @@
     <title>${xmlRoot.'@title'}</title>
 </head>
 <g:form name="ExerciseForm" action="play">
-
     <g:render template="/renderer/renderItemBody"
-              model="[node: xmlRoot.itemBody[0], assessmentItemInfo: assessmentItemInfo, dataPath: dataPath]"/>
+              model="[node: xmlRoot, assessmentItemInfo: assessmentItemInfo, dataPath: dataPath]"/>
 
     <g:submitButton value="Enter" name="processButton"/>
 </g:form>

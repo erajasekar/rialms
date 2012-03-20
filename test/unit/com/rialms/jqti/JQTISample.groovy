@@ -14,41 +14,57 @@ import org.junit.Test;
  * Time: 5:23 PM
  * To change this template use File | Settings | File Templates.
  */
-class JQTISample  {
+class JQTISample {
 
-    public static void main(String []args){
+    public static void main(String[] args) {
         //perimeterTest()
-        choiceInteractionTest();
+        //  choiceInteractionTest();
+        hintTest();
+
     }
 
-    private static void perimeterTest(){
+    private static void perimeterTest() {
         File input = new File("c:/Raja/projects/rialms/web-app/content/exercise/perimeter1.xml");
-                AssessmentItem assessmentItem = (AssessmentItem) RootNodeType.load(input);
-                System.out.println(assessmentItem.toXmlString());
+        AssessmentItem assessmentItem = (AssessmentItem) RootNodeType.load(input);
+        System.out.println(assessmentItem.toXmlString());
 
-              //now test the item
-                assessmentItem.initialize(null);
-                assessmentItem.setResponses(["A" : ["3"]]);
-                assessmentItem.setResponses(["B" : ["4"]]);
-                assessmentItem.setResponses(["C" : ["5"]]);
-                assessmentItem.processResponses();
-                assessmentItem.setResponses(["SUM" : ["12"]]);
-                assessmentItem.processResponses();
-                System.out.println(assessmentItem.getOutcomeValues());
+        //now test the item
+        assessmentItem.initialize(null);
+        assessmentItem.setResponses(["A": ["3"]]);
+        assessmentItem.setResponses(["B": ["4"]]);
+        assessmentItem.setResponses(["C": ["5"]]);
+        assessmentItem.processResponses();
+        assessmentItem.setResponses(["SUM": ["12"]]);
+        assessmentItem.processResponses();
+        System.out.println(assessmentItem.getOutcomeValues());
     }
 
-    public static void choiceInteractionTest(){
+    public static void choiceInteractionTest() {
         File input = new File("c:/Raja/projects/rialms/web-app/content/qti/choice_fixed.xml");
-                        AssessmentItem assessmentItem = (AssessmentItem) RootNodeType.load(input);
-                        System.out.println(assessmentItem.toXmlString());
+        AssessmentItem assessmentItem = (AssessmentItem) RootNodeType.load(input);
+        System.out.println(assessmentItem.toXmlString());
 
-                      //now test the item
-                        assessmentItem.initialize(null);
-                        Map responses = [RESPONSE : ["ChoiceA"]];
-                        println "Response values ${responses}"
-                        assessmentItem.setResponses(responses);
+        //now test the item
+        assessmentItem.initialize(null);
+        Map responses = [RESPONSE: ["ChoiceA"]];
+        println "Response values ${responses}"
+        assessmentItem.setResponses(responses);
         println("Resp rules ${assessmentItem.getResponseProcessing().getTemplate()}");
-                        assessmentItem.processResponses();
-                        System.out.println(assessmentItem.getOutcomeValues());
+        assessmentItem.processResponses();
+        System.out.println(assessmentItem.getOutcomeValues());
+    }
+
+    public static void hintTest() {
+        File input = new File("d:/Raja/projects/rialms/web-app/content/qti/hint.xml");
+        AssessmentItem assessmentItem = (AssessmentItem) RootNodeType.load(input);
+        System.out.println(assessmentItem.toXmlString());
+
+        //now test the item
+        assessmentItem.initialize(null);
+        Map responses = [RESPONSE: ["MGH001D"]];
+        println "Response values ${responses}"
+        assessmentItem.setResponses(responses);
+        assessmentItem.processResponses();
+        System.out.println(assessmentItem.getOutcomeValues());
     }
 }

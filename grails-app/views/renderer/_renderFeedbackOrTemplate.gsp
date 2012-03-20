@@ -10,6 +10,6 @@
     <g:render template="/renderer/renderItemBody" model="[node: node]"/>
 </g:if>
 <g:elseif
-        test="${(node.'@showHide'.equals("hide")) && !(identifierValue?.equals(node.'@identifier'))}">
+        test="${(node.'@showHide'.equals("hide")) && identifierValue && !(identifierValue.equals(node.'@identifier'))}">
     <g:render template="/renderer/renderItemBody" model="[node: node]"/>
 </g:elseif>

@@ -4,6 +4,7 @@ import org.qtitools.qti.value.Value
 import org.qtitools.qti.value.MultipleValue
 import org.qtitools.qti.value.BaseType
 import org.qtitools.qti.node.shared.VariableDeclaration
+import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
 
 /**
  * Created by IntelliJ IDEA.
@@ -18,15 +19,17 @@ class QtiUtils {
         Map<String, List<String>> map = new HashMap<String, List<String>>()
 
         identifiers.each {i ->
-            List<String> values = new ArrayList<String>()
+            List<String> values = [];
             def respValue = params[i];
-            if (respValue instanceof String) {
-                values << respValue;
-            } else {
-                respValue.each {values.add(it)}
-            }
+            if (respValue) {
+                if (respValue instanceof String) {
+                    values << respValue;
+                } else {
+                    respValue.each {values.add(it)}
+                }
 
-            map.put(i, values)
+                map.put(i, values)
+            }
         }
 
         return map
@@ -62,4 +65,9 @@ class QtiUtils {
         }
     }
 
+    public static VariableDeclaration findVariableDeclarationByIdentifier(List<VariableDeclaration> variableDeclarations, String identifier) {
+        return variableDeclarations.find {VariableDeclaration it ->
+            it.identifier.toString() == identifier
+        }
+    }
 }

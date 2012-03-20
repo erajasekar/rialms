@@ -42,6 +42,11 @@
             <qti:printedVariable xmlAttributes="${n.attributes()}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
+        <g:elseif test="${tag == Tag.endAttemptInteraction}">
+            <qti:endAttemptInteraction xmlAttributes="${n.attributes()}" assessmentItemInfo="${assessmentItemInfo}"/>
+        </g:elseif>
+
+
         <g:elseif test="${Tag.isFeedBackTag(tag)}">
             <g:render template="/renderer/renderFeedbackOrTemplate"
                       model="[node: n, identifierValue: assessmentItemInfo.outcomeValues?.(n.'@outcomeIdentifier')]"/>
@@ -52,9 +57,6 @@
                       model="[node: n, identifierValue: assessmentItemInfo.templateValues?.(n.'@templateIdentifier')]"/>
         </g:elseif>
 
-        <g:else>
-            Unknown Tag <${n.name}>
-        </g:else>
     </g:else>
 
 </g:each>

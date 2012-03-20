@@ -13,7 +13,10 @@ class ExerciseController {
 
     def play() {
 
-        Map<String, String> exerciseInfo;
+        //TODO
+        log.info("Exercise play with param ${params}");
+
+        Map exerciseInfo;
 
         String id = params.id;
         if (id) {
@@ -29,7 +32,9 @@ class ExerciseController {
         //If enter pressed.
         AssessmentItemInfo assessmentItemInfo = new AssessmentItemInfo(assessmentItem);
 
-        if (params.processButton.equals("Enter")) {
+        //TODO fix hint button name
+        if (params.processButton == 'Enter' || params.HINTREQUEST == 'Show Hint') {
+            params.remove('HINTREQUEST');
             log.info("Processing Exercise with param ${params}");
             assessmentItemInfo = utilitiesService.processAssessmentItem(assessmentItem, params);
         }
