@@ -53,9 +53,14 @@ public enum Tag {
     inlineChoiceInteraction,
     feedbackBlock,
     feedbackInline,
+    templateBlock,
+    templateInline,
     printedVariable;
 
-    private static Map<String, Tag> valuesByLowerCase = intValuesByLowerCase();
+    private static Map<String, Tag> valuesByLowerCase = intValuesByLowerCase();    
+    private static final EnumSet<Tag> mixedTags =  EnumSet.range(p, div);
+    private static final EnumSet<Tag> feedBackTags =  EnumSet.of(feedbackBlock, feedbackInline);
+    private static final EnumSet<Tag> templateTags =  EnumSet.of(templateBlock, templateInline);
 
     private static Map<String, Tag> intValuesByLowerCase() {
         Map<String, Tag> map = [:]
@@ -70,11 +75,15 @@ public enum Tag {
     }
 
     public static Set<Tag> mixedTags() {
-        return EnumSet.range(p, div);
+        return mixedTags
     }
 
     public static Set<Tag> feedBackTags() {
-        return EnumSet.of(feedbackBlock, feedbackInline);
+        return feedBackTags;
+    }
+
+    public static Set<Tag> templateTags(){
+        return templateTags()
     }
 
     public static boolean isMixedTag(Tag t) {
@@ -83,6 +92,10 @@ public enum Tag {
 
     public static boolean isFeedBackTag(Tag t) {
         return feedBackTags().contains(t);
+    }
+
+    public static boolean isTemplateTag(Tag t){
+        return templateTags().contains(t);
     }
 
     public static Tag valueOf(QName qn) {

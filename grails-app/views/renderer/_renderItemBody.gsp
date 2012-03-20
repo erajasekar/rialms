@@ -44,13 +44,7 @@
         </g:elseif>
 
         <g:elseif test="${Tag.isFeedBackTag(tag)}">
-            <g:if test="${(n.'@showHide'.equals("show")) && outcome?.(n.'@outcomeIdentifier').equals(n.'@identifier')}">
-                <g:render template="/renderer/renderItemBody" model="[node: n]"/>
-            </g:if>
-            <g:elseif
-                    test="${(n.'@showHide'.equals("hide")) && !(outcome?.(n.'@outcomeIdentifier').equals(n.'@identifier'))}">
-                <g:render template="/renderer/renderItemBody" model="[node: n]"/>
-            </g:elseif>
+             <g:render template="/renderer/renderFeedbackOrTemplate" model="[node:n, identifierValue:outcome?.(n.'@outcomeIdentifier')]" />
         </g:elseif>
 
     </g:else>
