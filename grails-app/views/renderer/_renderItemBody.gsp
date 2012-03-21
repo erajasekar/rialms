@@ -62,9 +62,7 @@
                       model="[node: n, identifierValue: assessmentItemInfo.templateValues?.(n.'@templateIdentifier')]"/>
         </g:elseif>
         <g:elseif test="${n.name().getPrefix().equals("m")}">
-            <${n.name().getQualifiedName()}>
-            <g:render template="/renderer/renderItemBody" model="[node: n]"/>
-            </${n.name().getQualifiedName()}>
+           <qti:mathML  xmlNode="${n}"/>
         </g:elseif>
 
     </g:else>

@@ -94,7 +94,7 @@ class QtiTagLib {
         Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'endAttemptInteraction');
         String id = xmlAttributes.responseIdentifier;
         String title = xmlAttributes.title;
-        out << """ <a href="${g.createLink(controller: 'Exercise', action: 'showHint', params: [id: title])}" > ${title} </a>   """
+        out << """ <a href="${g.createLink(controller: 'Exercise', action: 'showHint', params: [(id): title])}" > ${title} </a>   """
     }
 
     def choiceInteraction = {  attrs ->
@@ -247,7 +247,6 @@ class QtiTagLib {
         if (value) {
             fieldAttributes['value'] = value;
         }
-
         //TODO
         log.info("inlineChoiceInteraction ${fieldAttributes}")
 
@@ -256,6 +255,14 @@ class QtiTagLib {
         }
         renderTag(attrs, tagBody);
 
+    }
+
+    def mathML = {  attrs ->
+        String tag = 'mathml';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        def sw = new StringWriter()
+        new XmlNodePrinter(new PrintWriter(sw)).print(xmlNode);
+        out << sw;
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {
