@@ -92,16 +92,9 @@ class QtiTagLib {
 
     def endAttemptInteraction = { attrs ->
         Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'endAttemptInteraction');
-        attrs.putAll(xmlAttributes);
         String id = xmlAttributes.responseIdentifier;
         String title = xmlAttributes.title;
-        Map fieldAttributes = [name: id, value: title];
-
-        fieldAttributes.putAll(attrs);
-        def tagBody = {
-            g.submitButton(fieldAttributes);
-        }
-        renderTag(attrs, tagBody);
+        out << """ <a href="${g.createLink(controller: 'Exercise', action: 'showHint', params: [id: title])}" > ${title} </a>   """
     }
 
     def choiceInteraction = {  attrs ->
@@ -122,7 +115,7 @@ class QtiTagLib {
 
         boolean shuffle = getOptionalAttribute(attrs, 'shuffle')?.toBoolean();
 
-        String prompt;
+        Node prompt;
         List values = [];
 
         Map fixedChoices = [:];    //<position, choice >
@@ -132,7 +125,7 @@ class QtiTagLib {
         xmlNode.children().each {child ->
             Tag tag = Tag.valueOf(child.name());
             switch (tag) {
-                case Tag.prompt: prompt = child.text();
+                case Tag.prompt: prompt = child;
                     break;
 
                 case Tag.simpleChoice:
@@ -176,7 +169,9 @@ class QtiTagLib {
 
         if (maxChoices.toInteger() == 1) {
             def tagBody = {
-                out << """<p> ${prompt} </p>""";
+                if (prompt) {
+                    out << g.render(template: '/renderer/renderItemBody', model: [node: prompt, outcome: outcome, dataPath: dataPath]);
+                }
                 g.radioGroup(fieldAttributes) {
                     out << "<p> ${it.radio}";
                     out << g.render(template: '/renderer/renderItemBody', model: [node: it.label, outcome: outcome, dataPath: dataPath]);
@@ -186,7 +181,9 @@ class QtiTagLib {
             }
             renderTag(attrs, tagBody);
         } else {
-            out << """<p> ${prompt} </p>""";
+            if (prompt) {
+                out << g.render(template: '/renderer/renderItemBody', model: [node: prompt, outcome: outcome, dataPath: dataPath]);
+            }
 
             values.eachWithIndex {v, i ->
                 boolean checked = (value && value.split(',').contains(v));

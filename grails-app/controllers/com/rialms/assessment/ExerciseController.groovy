@@ -13,9 +13,6 @@ class ExerciseController {
 
     def play() {
 
-        //TODO
-        log.info("Exercise play with param ${params}");
-
         Map exerciseInfo;
 
         String id = params.id;
@@ -33,14 +30,23 @@ class ExerciseController {
         AssessmentItemInfo assessmentItemInfo = new AssessmentItemInfo(assessmentItem);
 
         //TODO fix hint button name
-        if (params.processButton == 'Enter' || params.HINTREQUEST == 'Show Hint') {
-            params.remove('HINTREQUEST');
+        if (params.processButton == 'Enter') {
             log.info("Processing Exercise with param ${params}");
             assessmentItemInfo = utilitiesService.processAssessmentItem(assessmentItem, params);
         }
 
         render(view: 'play', model: ['xmlRoot': xmlRoot, 'assessmentItemInfo': assessmentItemInfo, 'dataPath': dataPath]);
 
+    }
+
+    def showHint = {
+
+        log.info("Executing showHint with param ${params}");
+        //TODO find alternative way to share exerciseInfo instead of session.
+        Map exerciseInfo = session.exerciseInfo;
+        AssessmentItem assessmentItem = exerciseInfo.assessmentItem;
+        AssessmentItemInfo assessmentItemInfo = utilitiesService.processAssessmentItem(assessmentItem, params);
+        render(view: 'play', model: ['xmlRoot': exerciseInfo.xmlRoot, 'assessmentItemInfo': assessmentItemInfo, 'dataPath': exerciseInfo.dataPath]);
     }
 
 }

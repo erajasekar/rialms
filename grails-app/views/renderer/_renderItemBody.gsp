@@ -7,7 +7,6 @@
 --%>
 
 <%@ page import="com.rialms.consts.Tag" contentType="text/html;charset=UTF-8" %>
-
 <g:each var="n" in="${node.children()}">
 
     <g:if test="${n instanceof String}">
@@ -15,12 +14,18 @@
     </g:if>
     <g:else>
         <% def tag = Tag.valueOf(n.name()); %>
+
         <g:if test="${Tag.isMixedTag(tag)}">
             <${n.name().getLocalPart()}>
             <g:render template="/renderer/renderItemBody" model="[node: n]"/>
             </${n.name().getLocalPart()}>
         </g:if>
 
+        <g:if test="${tag == Tag.prompt}">
+            <p>
+                <g:render template="/renderer/renderItemBody" model="[node: n]"/>
+            </p>
+        </g:if>
         <g:elseif test="${tag == Tag.img}">
             <qti:img dir="${dataPath}" file="${n.'@src'}" alt="${n.'@alt'}"/>
         </g:elseif>
@@ -55,6 +60,11 @@
         <g:elseif test="${Tag.isTemplateTag(tag)}">
             <g:render template="/renderer/renderFeedbackOrTemplate"
                       model="[node: n, identifierValue: assessmentItemInfo.templateValues?.(n.'@templateIdentifier')]"/>
+        </g:elseif>
+        <g:elseif test="${n.name().getPrefix().equals("m")}">
+            <${n.name().getQualifiedName()}>
+            <g:render template="/renderer/renderItemBody" model="[node: n]"/>
+            </${n.name().getQualifiedName()}>
         </g:elseif>
 
     </g:else>
