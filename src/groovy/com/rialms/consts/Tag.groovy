@@ -47,8 +47,8 @@ public enum Tag {
     tr,
     td,
     div,
-    itemBody,
     img,
+    itemBody,
     prompt,
     simpleChoice,
     inlineChoice,
@@ -64,9 +64,10 @@ public enum Tag {
     endAttemptInteraction;
 
     private static Map<String, Tag> valuesByLowerCase = intValuesByLowerCase();
-    private static final EnumSet<Tag> mixedTags = EnumSet.range(p, itemBody);
+    private static final EnumSet<Tag> mixedTags = EnumSet.range(p, div);
     private static final EnumSet<Tag> feedBackTags = EnumSet.of(feedbackBlock, modalFeedback, feedbackInline);
     private static final EnumSet<Tag> templateTags = EnumSet.of(templateBlock, templateInline);
+    private static final EnumSet<Tag> flowThroughTags = EnumSet.of(prompt, itemBody);
 
     private static Map<String, Tag> intValuesByLowerCase() {
         Map<String, Tag> map = [:]
@@ -81,28 +82,20 @@ public enum Tag {
         return name().equalsIgnoreCase(qn.getLocalPart());
     }
 
-    public static Set<Tag> mixedTags() {
-        return mixedTags
-    }
-
-    public static Set<Tag> feedBackTags() {
-        return feedBackTags;
-    }
-
-    public static Set<Tag> templateTags() {
-        return templateTags;
-    }
-
     public static boolean isMixedTag(Tag t) {
-        return mixedTags().contains(t);
+        return mixedTags.contains(t);
     }
 
     public static boolean isFeedBackTag(Tag t) {
-        return feedBackTags().contains(t);
+        return feedBackTags.contains(t);
     }
 
     public static boolean isTemplateTag(Tag t) {
-        return templateTags().contains(t);
+        return templateTags.contains(t);
+    }
+
+    public static boolean isFlowThroughTag(Tag t){
+        return flowThroughTags.contains(t);
     }
 
     public static Tag valueOf(QName qn) {

@@ -26,12 +26,13 @@ class ExerciseService {
         Exercise e = Exercise.get(exerciseId);
 
         return [xmlRoot: new XmlParser().parse(getExerciseDataFile(e)),
-                assessmentItem: getAssessmentItem(e),
-                dataPath: getDataPath(e)];
+                assessmentItemInfo: new AssessmentItemInfo(getAssessmentItem(e),getDataPath(e))];
     }
 
     //TODO move to after properties set;
     private String getContentPath() {
         return grailsApplication.config.rialms.contentPath;
     }
+
+
 }

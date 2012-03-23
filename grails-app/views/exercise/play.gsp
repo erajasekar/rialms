@@ -9,16 +9,16 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
-    <script type="text/javascript"
+  <script type="text/javascript"
             src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
-    <title>${xmlRoot.'@title'}</title>
+    <title>${assessmentItemInfo.title}</title>
 </head>
 <g:form name="ExerciseForm" action="play">
-    <g:render template="/renderer/renderItemBody"
-              model="[node: xmlRoot, assessmentItemInfo: assessmentItemInfo, dataPath: dataPath]"/>
+    <g:render template="/renderer/renderItemSubTree"
+              model="[node: xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
-    <div><g:submitButton value="Enter" name="processButton"/></div>
+    <g:submitButton value="Enter" name="processButton"/>
 </g:form>
 
 <g:if test="${assessmentItemInfo.outcomeValues}">

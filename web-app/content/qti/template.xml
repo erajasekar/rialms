@@ -76,7 +76,7 @@
     </templateProcessing>
     <itemBody>
         <p>If it takes
-            <printedVariable format="5%d" identifier="A"/>
+            <printedVariable identifier="A"/>
             <printedVariable identifier="PEOPLE"/>
             <printedVariable identifier="MIN"/>
             minutes to dig a hole, how long would it take

@@ -1,11 +1,10 @@
 package com.rialms.taglib
 
 import com.rialms.consts.Tag
-import org.qtitools.qti.value.IdentifierValue
+
 import com.rialms.util.CollectionUtils
 import com.rialms.assessment.AssessmentItemInfo
-import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
-import org.qtitools.qti.value.BaseType
+
 import com.rialms.util.QtiUtils
 
 class QtiTagLib {
@@ -13,8 +12,10 @@ class QtiTagLib {
 
     def img = {  attrs ->
 
-        String dir = getRequiredAttribute(attrs, 'dir', 'img');
-        String file = getRequiredAttribute(attrs, 'file', 'img');
+        String tag = "img";
+        String dir = getRequiredAttribute(attrs, 'assessmentItemInfo', tag).dataPath;
+        println "here ${dir}"
+        String file = getRequiredAttribute(attrs, 'file', tag);
         String fullPath = dir + file;
 
         int i = fullPath.lastIndexOf('/');
@@ -47,7 +48,7 @@ class QtiTagLib {
         def value = responseValues[id];
 
         if (value) {
-            fieldAttributes['value'] = value;
+            fieldAttributes['value'] = value[0];
         }
 
         fieldAttributes += attrs;
@@ -94,7 +95,14 @@ class QtiTagLib {
         Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'endAttemptInteraction');
         String id = xmlAttributes.responseIdentifier;
         String title = xmlAttributes.title;
-        out << """ <a href="${g.createLink(controller: 'Exercise', action: 'showHint', params: [(id): title])}" > ${title} </a>   """
+       // out << """ <a href="${g.createLink(controller: 'Exercise', action: 'showHint', params: [(id): title])}" > ${title} </a>   """
+        Map fieldAttributes = [name: id , value: title];
+
+        def tagBody = {
+                    g.submitButton(fieldAttributes);
+                }
+                renderTag(attrs, tagBody);
+
     }
 
     def choiceInteraction = {  attrs ->
@@ -107,8 +115,6 @@ class QtiTagLib {
 
         Map responseValues = assessmentItemInfo.responseValues
         Map outcome = assessmentItemInfo.outcomeValues;
-
-        String dataPath = getRequiredAttribute(attrs, 'dataPath', uitag);
 
         String id = getRequiredAttribute(attrs, 'responseIdentifier', uitag);
         String maxChoices = getRequiredAttribute(attrs, 'maxChoices', uitag)
@@ -161,20 +167,21 @@ class QtiTagLib {
 
         def value = responseValues[id];
 
-        if (value) {
-            fieldAttributes['value'] = value;
-        }
+
         //TODO
         log.info("choiceInteraction Field Attributes ${fieldAttributes}");
 
         if (maxChoices.toInteger() == 1) {
+            if (value) {
+                        fieldAttributes['value'] = value[0];
+                    }
             def tagBody = {
                 if (prompt) {
-                    out << g.render(template: '/renderer/renderItemBody', model: [node: prompt, outcome: outcome, dataPath: dataPath]);
+                    out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo:assessmentItemInfo]);
                 }
                 g.radioGroup(fieldAttributes) {
                     out << "<p> ${it.radio}";
-                    out << g.render(template: '/renderer/renderItemBody', model: [node: it.label, outcome: outcome, dataPath: dataPath]);
+                    out << g.render(template: '/renderer/renderItemSubTree', model: [node: it.label, assessmentItemInfo:assessmentItemInfo]);
                     out << " </p> ";
                 };
 
@@ -182,14 +189,14 @@ class QtiTagLib {
             renderTag(attrs, tagBody);
         } else {
             if (prompt) {
-                out << g.render(template: '/renderer/renderItemBody', model: [node: prompt, outcome: outcome, dataPath: dataPath]);
+                out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo:assessmentItemInfo]);
             }
 
             values.eachWithIndex {v, i ->
-                boolean checked = (value && value.split(',').contains(v));
+                boolean checked = (value && value.contains(v));
                 out << "<p>";
                 out << g.checkBox(name: id, value: v, checked: checked);
-                out << g.render(template: '/renderer/renderItemBody', model: [node: allChoices[i], outcome: outcome, dataPath: dataPath]);
+                out << g.render(template: '/renderer/renderItemSubTree', model: [node: allChoices[i], assessmentItemInfo:assessmentItemInfo]);
                 out << " </p> ";
             }
         }
@@ -245,7 +252,7 @@ class QtiTagLib {
         def value = responseValues[id];
 
         if (value) {
-            fieldAttributes['value'] = value;
+            fieldAttributes['value'] = value[0];
         }
         //TODO
         log.info("inlineChoiceInteraction ${fieldAttributes}")
@@ -262,6 +269,7 @@ class QtiTagLib {
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         def sw = new StringWriter()
         new XmlNodePrinter(new PrintWriter(sw)).print(xmlNode);
+       
         out << sw;
     }
 

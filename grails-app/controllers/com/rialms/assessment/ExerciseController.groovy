@@ -2,6 +2,7 @@ package com.rialms.assessment
 
 import com.rialms.util.UtilitiesService
 import org.qtitools.qti.node.item.AssessmentItem
+import grails.converters.XML
 
 class ExerciseController {
 
@@ -9,7 +10,13 @@ class ExerciseController {
     ExerciseService exerciseService;
     UtilitiesService utilitiesService;
 
-    def index() { }
+    def index = { redirect(action: list, params: params) }
+
+    def list = {
+        if (!params.max) params.max = 50
+        [exerciseList: Exercise.list(params)]
+
+    }
 
     def play() {
 
@@ -23,30 +30,15 @@ class ExerciseController {
         }
 
         def xmlRoot = exerciseInfo.xmlRoot;
-        AssessmentItem assessmentItem = exerciseInfo.assessmentItem;
-        def dataPath = exerciseInfo.dataPath;
+        AssessmentItemInfo assessmentItemInfo = exerciseInfo.assessmentItemInfo;
 
-        //If enter pressed.
-        AssessmentItemInfo assessmentItemInfo = new AssessmentItemInfo(assessmentItem);
-
-        //TODO fix hint button name
-        if (params.processButton == 'Enter') {
+        //If form submitted via post
+        if (request.post) {
             log.info("Processing Exercise with param ${params}");
-            assessmentItemInfo = utilitiesService.processAssessmentItem(assessmentItem, params);
+            assessmentItemInfo.processResponses(params);
         }
 
-        render(view: 'play', model: ['xmlRoot': xmlRoot, 'assessmentItemInfo': assessmentItemInfo, 'dataPath': dataPath]);
+        render(view: 'play', model: ['xmlRoot': xmlRoot, 'assessmentItemInfo': assessmentItemInfo]);
 
     }
-
-    def showHint = {
-
-        log.info("Executing showHint with param ${params}");
-        //TODO find alternative way to share exerciseInfo instead of session.
-        Map exerciseInfo = session.exerciseInfo;
-        AssessmentItem assessmentItem = exerciseInfo.assessmentItem;
-        AssessmentItemInfo assessmentItemInfo = utilitiesService.processAssessmentItem(assessmentItem, params);
-        render(view: 'play', model: ['xmlRoot': exerciseInfo.xmlRoot, 'assessmentItemInfo': assessmentItemInfo, 'dataPath': exerciseInfo.dataPath]);
-    }
-
 }
