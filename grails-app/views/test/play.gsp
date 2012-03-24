@@ -1,26 +1,32 @@
 <%--
   Created by IntelliJ IDEA.
   User: Rajasekar Elango
-  Date: 3/11/12
-  Time: 10:43 PM
+  Date: 3/23/12
+  Time: 11:48 PM
   To change this template use File | Settings | File Templates.
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
-<html xmlns:m="http://www.w3.org/1998/Math/MathML">
+<html>
 <head>
     <script type="text/javascript"
             src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
+    </script> <!-- TODO : This has to be test title -->
     <title>${assessmentItemInfo.title}</title>
 </head>
 
 <body>
-<g:form name="ExerciseForm" action="play">
+<g:form name="AssessmentForm" action="play">
     <g:render template="/renderer/renderItemSubTree"
-              model="[node: xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
+              model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
+
+    <g:hiddenField name="id" value="${params.id}"/>
 
     <g:submitButton value="Enter" name="processButton"/>
+
+    <g:if test="${assessmentParams.nextEnabled}">
+        <g:submitButton name="next" value="Next"/>
+    </g:if>
 </g:form>
 
 <g:if test="${assessmentItemInfo.outcomeValues}">

@@ -1,10 +1,13 @@
 package com.rialms.assessment
 
 import org.qtitools.qti.node.item.AssessmentItem
+import com.rialms.assessment.item.AssessmentItemInfo
+import org.springframework.beans.factory.InitializingBean
 
-class ExerciseService {
+class ExerciseService implements InitializingBean {
 
     def grailsApplication;
+    String contentPath;
 
     public AssessmentItem getAssessmentItem(Exercise e) {
 
@@ -19,20 +22,17 @@ class ExerciseService {
     }
 
     private String getDataPath(Exercise e) {
-        return "${getContentPath()}/${e.dataPath}/"
+        return "${contentPath}/${e.dataPath}/"
     }
 
     public Map getExerciseInfo(String exerciseId) {
         Exercise e = Exercise.get(exerciseId);
 
         return [xmlRoot: new XmlParser().parse(getExerciseDataFile(e)),
-                assessmentItemInfo: new AssessmentItemInfo(getAssessmentItem(e),getDataPath(e))];
+                assessmentItemInfo: new AssessmentItemInfo(getAssessmentItem(e), getDataPath(e))];
     }
 
-    //TODO move to after properties set;
-    private String getContentPath() {
-        return grailsApplication.config.rialms.contentPath;
+    void afterPropertiesSet() {
+        contentPath = grailsApplication.config.rialms.contentPath;
     }
-
-
 }

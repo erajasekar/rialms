@@ -1,4 +1,4 @@
-package com.rialms.assessment
+package com.rialms.assessment.item
 
 import org.qtitools.qti.node.item.AssessmentItem
 import com.rialms.util.QtiUtils
@@ -38,7 +38,7 @@ class AssessmentItemInfo {
     }
 
     public Map<String, String> getOutcomeValues() {
-        return  outcomeValues;
+        return outcomeValues;
     }
 
 
@@ -54,26 +54,30 @@ class AssessmentItemInfo {
         return QtiUtils.findVariableDeclarationByIdentifier(assessmentItem.templateDeclarations, identifier);
     }
 
-    private void setResponses(Map params){
+    private void setResponses(Map params) {
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
         responseValues = QtiUtils.convertToRespValues(params, identifiers);
         //TODO
-        log.info("Response Values ${responseValues}");
+        com.rialms.assessment.item.AssessmentItemInfo.log.info("Response Values ${responseValues}");
         assessmentItem.setResponses(responseValues);
     }
 
-    public void processResponses(Map params){
+    public void processResponses(Map params) {
         setResponses(params);
         assessmentItem.processResponses();
         outcomeValues = QtiUtils.convertQTITypesToParams(assessmentItem.outcomeValues)
-        log.info("OUTCOME ==> ${outcomeValues}");
+        com.rialms.assessment.item.AssessmentItemInfo.log.info("OUTCOME ==> ${outcomeValues}");
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return assessmentItem.getTitle();
     }
 
-    public String getDataPath(){
+    public String getDataPath() {
         return dataPath;
+    }
+
+    public Node getXmlRoot() {
+        return new XmlParser().parseText(assessmentItem.toXmlString());
     }
 }

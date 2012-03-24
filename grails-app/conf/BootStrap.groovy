@@ -1,9 +1,19 @@
 import com.rialms.assessment.Exercise
+import com.rialms.assessment.Test
 
 class BootStrap {
 
     def init = { servletContext ->
 
+        createExercises();
+        createTests()
+
+
+    }
+    def destroy = {
+    }
+
+    def createExercises() {
         //1-5
         new Exercise(dataPath: 'exercise', dataFile: 'perimeter1.xml').save();
         new Exercise(dataPath: 'qti', dataFile: 'choice_fixed.xml').save();
@@ -27,9 +37,10 @@ class BootStrap {
 
         //15-16
         new Exercise(dataPath: 'exercise/Std10', dataFile: 'Sequences_Ex_2_1.xml').save();
-
-
     }
-    def destroy = {
+
+    def createTests() {
+        new Test(dataPath: 'tests/qti/NonLinearSimpleTest', dataFile: 'assessment.xml').save();
+        new Test(dataPath: 'tests/qti/Mathematics', dataFile: 'mathematics.xml').save();
     }
 }

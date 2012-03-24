@@ -3,7 +3,7 @@ package com.rialms.taglib
 import com.rialms.consts.Tag
 
 import com.rialms.util.CollectionUtils
-import com.rialms.assessment.AssessmentItemInfo
+import com.rialms.assessment.item.AssessmentItemInfo
 
 import com.rialms.util.QtiUtils
 
@@ -95,13 +95,13 @@ class QtiTagLib {
         Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'endAttemptInteraction');
         String id = xmlAttributes.responseIdentifier;
         String title = xmlAttributes.title;
-       // out << """ <a href="${g.createLink(controller: 'Exercise', action: 'showHint', params: [(id): title])}" > ${title} </a>   """
-        Map fieldAttributes = [name: id , value: title];
+        // out << """ <a href="${g.createLink(controller: 'Exercise', action: 'showHint', params: [(id): title])}" > ${title} </a>   """
+        Map fieldAttributes = [name: id, value: title];
 
         def tagBody = {
-                    g.submitButton(fieldAttributes);
-                }
-                renderTag(attrs, tagBody);
+            g.submitButton(fieldAttributes);
+        }
+        renderTag(attrs, tagBody);
 
     }
 
@@ -167,21 +167,20 @@ class QtiTagLib {
 
         def value = responseValues[id];
 
-
         //TODO
         log.info("choiceInteraction Field Attributes ${fieldAttributes}");
 
         if (maxChoices.toInteger() == 1) {
             if (value) {
-                        fieldAttributes['value'] = value[0];
-                    }
+                fieldAttributes['value'] = value[0];
+            }
             def tagBody = {
                 if (prompt) {
-                    out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo:assessmentItemInfo]);
+                    out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
                 }
                 g.radioGroup(fieldAttributes) {
                     out << "<p> ${it.radio}";
-                    out << g.render(template: '/renderer/renderItemSubTree', model: [node: it.label, assessmentItemInfo:assessmentItemInfo]);
+                    out << g.render(template: '/renderer/renderItemSubTree', model: [node: it.label, assessmentItemInfo: assessmentItemInfo]);
                     out << " </p> ";
                 };
 
@@ -189,14 +188,14 @@ class QtiTagLib {
             renderTag(attrs, tagBody);
         } else {
             if (prompt) {
-                out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo:assessmentItemInfo]);
+                out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
             }
 
             values.eachWithIndex {v, i ->
                 boolean checked = (value && value.contains(v));
                 out << "<p>";
                 out << g.checkBox(name: id, value: v, checked: checked);
-                out << g.render(template: '/renderer/renderItemSubTree', model: [node: allChoices[i], assessmentItemInfo:assessmentItemInfo]);
+                out << g.render(template: '/renderer/renderItemSubTree', model: [node: allChoices[i], assessmentItemInfo: assessmentItemInfo]);
                 out << " </p> ";
             }
         }
@@ -269,7 +268,7 @@ class QtiTagLib {
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         def sw = new StringWriter()
         new XmlNodePrinter(new PrintWriter(sw)).print(xmlNode);
-       
+
         out << sw;
     }
 

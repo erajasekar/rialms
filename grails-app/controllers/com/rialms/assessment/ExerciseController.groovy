@@ -3,6 +3,7 @@ package com.rialms.assessment
 import com.rialms.util.UtilitiesService
 import org.qtitools.qti.node.item.AssessmentItem
 import grails.converters.XML
+import com.rialms.assessment.item.AssessmentItemInfo
 
 class ExerciseController {
 
