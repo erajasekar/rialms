@@ -26,11 +26,20 @@ class AssessmentItemInfo {
 
     private AssessmentItem assessmentItem;
 
+    private Node xmlRoot;
+
     public AssessmentItemInfo(AssessmentItem item, String dataPath) {
+
+        if (!item) {
+            throw new IllegalArgumentException("AssessmentItem can't be null");
+        }
         this.assessmentItem = item;
         this.outcomeValues = QtiUtils.convertQTITypesToParams(assessmentItem.outcomeValues);
         this.templateValues = QtiUtils.convertQTITypesToParams(assessmentItem.templateValues);
         this.dataPath = dataPath;
+        println "assessmentItem ==> ${assessmentItem.title}";
+        println "assessmentItem == > ${assessmentItem.sourceFile}";
+        xmlRoot = new XmlParser().parse(assessmentItem.sourceFile);
     }
 
     public Map<String, String> getResponseValues() {
@@ -78,6 +87,6 @@ class AssessmentItemInfo {
     }
 
     public Node getXmlRoot() {
-        return new XmlParser().parseText(assessmentItem.toXmlString());
+        return xmlRoot;
     }
 }

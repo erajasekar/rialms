@@ -16,6 +16,7 @@
 </head>
 
 <body>
+<hr/>
 <g:form name="AssessmentForm" action="play">
     <g:render template="/renderer/renderItemSubTree"
               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
@@ -24,9 +25,24 @@
 
     <g:submitButton value="Enter" name="processButton"/>
 
+    <hr/>
+
     <g:if test="${assessmentParams.nextEnabled}">
         <g:submitButton name="next" value="Next"/>
     </g:if>
+    <g:if test="${assessmentParams.previousEnabled}">
+        <g:submitButton name="previous" value="Previous"/>
+    </g:if>
+    <g:if test="${assessmentParams.backwardEnabled}">
+        <g:submitButton name="backward" value="Backward"/>
+    </g:if>
+    <g:if test="${assessmentParams.forwardEnabled}">
+        <g:submitButton name="forward" value="Forward"/>
+    </g:if>
+    <g:if test="${assessmentParams.skipEnabled}">
+        <g:submitButton name="skil" value="Skip"/>
+    </g:if>
+
 </g:form>
 
 <g:if test="${assessmentItemInfo.outcomeValues}">

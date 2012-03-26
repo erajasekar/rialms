@@ -21,17 +21,14 @@ class ExerciseController {
 
     def play() {
 
-        Map exerciseInfo;
+        AssessmentItemInfo assessmentItemInfo;
 
         String id = params.id;
         if (id) {
-            session.exerciseInfo = exerciseInfo = exerciseService.getExerciseInfo(id);
+            session.assessmentItemInfo = assessmentItemInfo = exerciseService.getAssessmentItemInfo(id);
         } else {
-            exerciseInfo = session.exerciseInfo;
+            assessmentItemInfo = session.assessmentItemInfo;
         }
-
-        def xmlRoot = exerciseInfo.xmlRoot;
-        AssessmentItemInfo assessmentItemInfo = exerciseInfo.assessmentItemInfo;
 
         //If form submitted via post
         if (request.post) {
@@ -39,7 +36,7 @@ class ExerciseController {
             assessmentItemInfo.processResponses(params);
         }
 
-        render(view: 'play', model: ['xmlRoot': xmlRoot, 'assessmentItemInfo': assessmentItemInfo]);
+        render(view: 'play', model: ['assessmentItemInfo': assessmentItemInfo]);
 
     }
 }

@@ -534,11 +534,21 @@ public class TestCoordinator implements Serializable {
         System.out.println("paga params " + pageParams);
         System.out.println("resp " + responses);  */
 
+        println "getCurrentItemRef ==> ${test.getCurrentItemRef()}";
         boolean isResponded;
         if (test.getCurrentItemRef() == null) {
+            log.info("getCurrentItemRef() is null, returning NO_INFO");
             isResponded = false;
+            cachedTestRenderInfo = TestRenderInfo.NO_INFO;
+            return;
         } else {
             isResponded = test.getCurrentItemRef().isResponded();
+        }
+
+        if (!assessmentItem) {
+            log.info("assessmentItem is null, returning NO_INFO");
+            cachedTestRenderInfo = TestRenderInfo.NO_INFO;
+            return;
         }
         cachedTestRenderInfo = new TestRenderInfo(assessmentItem, assessmentParams, pageParams, responses)
 

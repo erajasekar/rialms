@@ -18,7 +18,16 @@ class TestRenderInfo {
     private Map<String, Object> pageParams;
     private Map<String, Value> responses
 
+    public static final NO_INFO = new TestRenderInfo();
+
+    public TestRenderInfo() {
+    }
+
     public TestRenderInfo(AssessmentItem assessmentItem, Map<String, Object> assessmentParams, Map<String, Object> pageParams, Map<String, Value> responses) {
+
+        if (!assessmentItem) {
+            throw new IllegalArgumentException("AssessmentItem can't be null");
+        }
         this.assessmentItemInfo = new AssessmentItemInfo(assessmentItem, assessmentParams.dataPath);
         this.assessmentParams = assessmentParams;
         this.pageParams = pageParams;

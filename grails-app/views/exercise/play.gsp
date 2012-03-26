@@ -16,9 +16,9 @@
 </head>
 
 <body>
-<g:form name="ExerciseForm" action="play">
+<g:form name="AssessmentItemForm" action="play">
     <g:render template="/renderer/renderItemSubTree"
-              model="[node: xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
+              model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
     <g:submitButton value="Enter" name="processButton"/>
 </g:form>

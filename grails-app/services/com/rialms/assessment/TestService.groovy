@@ -4,12 +4,10 @@ import org.springframework.beans.factory.InitializingBean
 import com.rialms.assessment.test.TestCoordinator
 import com.rialms.assessment.test.TestRenderInfo
 import org.springframework.web.context.request.RequestContextHolder
+import com.rialms.util.QtiUtils
 
 class TestService implements InitializingBean {
 
-    static transactional = true
-    static scope = "session"
-    private session
     def grailsApplication;
     String contentPath;
 
@@ -26,70 +24,58 @@ class TestService implements InitializingBean {
         return [dataFile: getTestDataFile(t)];
     }
 
-    public TestRenderInfo getTestRenderInfo(params, request) {
+    public TestCoordinator createTestCoordinator(String testId) {
+        Test test = Test.get(testId);
+        TestCoordinator coordinator = new TestCoordinator(getTestDataFile(test), getDataPath(test), null);
+
+        //TODO: Remove unused
+        Map m = new HashMap();
+        m.put("showInternalState", false);
+        m.put("displayTitle", true);
+        m.put("displayControls", true); //disable page controls
+        coordinator.setPageRenderParameters(m);
+
+        //render the first instance only with error report
+        coordinator.setValidate(true);
+        coordinator.getNextQuestion(false);
+        return coordinator;
+    }
+
+    public TestRenderInfo processAssessmentTest(params, request, TestCoordinator coordinator) {
         //if params.id is set, use test from database, otherwise use session-bound test
 
         log.info("getRenderInfo Params ${params}");
-        def test
-        if (params.id) {
-            test = Test.get(params.id)
-        }
-        else {
-            test = session.test
-        }
 
-        if (!session.coordinator) session.coordinator = [:]
-
-        TestCoordinator coordinator
-        if (!session.coordinator[params.id]) {
-
-            coordinator = new TestCoordinator(getTestDataFile(test), getDataPath(test), null);
-
-            //TODO: Remove unused
-            Map m = new HashMap();
-            m.put("showInternalState", false);
-            m.put("displayTitle", true);
-            m.put("displayControls", false); //disable page controls
-            coordinator.setPageRenderParameters(m);
-
-            //render the first instance only with error report
-            coordinator.setValidate(true);
+        if (params.containsKey("questionId") && params.questionId != coordinator.getCurrentQuestionId()) {
+            return coordinator.flashMessage("Oops, it appears that you have pressed the browsers back button! This is the question you should be viewing.");
+        } else if (params.containsKey("next") && coordinator.getTestController().nextEnabled()) {
             coordinator.getNextQuestion(false);
-            session.coordinator[params.id] = coordinator;
+        } else if (params.containsKey("forward") && coordinator.getTestController().forwardEnabled()) {
+            coordinator.getNextQuestion(true);
+        } else if (params.containsKey("previous") && coordinator.getTestController().previousEnabled()) {
+            coordinator.getPreviousQuestion(false);
+        } else if (params.containsKey("backward") && coordinator.getTestController().backwardEnabled()) {
+            coordinator.getPreviousQuestion(true);
+        } else if (params.containsKey("skip") && coordinator.getTestController().skipEnabled()) {
+            coordinator.skipCurrentQuestion();
+        } else if (!coordinator.getTestController().getCurrentItemRef()) {
+            return TestRenderInfo.NO_INFO;
+        } else if (coordinator.getTestController().getCurrentItemRef().isFinished()) {
+            return coordinator.flashMessage("Oops, it appears that you have pressed the browsers back button! This is the question you should be viewing.");
+        } else if (params.containsKey("questionId") || request.post) { //TODO: check this condition for endAttemptInteracation, endAttemptInteraction attempts won't have submit set (but will always have questionId)
+            //TODO
+            log.info("Submiting answser");
+            coordinator.setCurrentResponse(QtiUtils.convertToRespValues(params));
         } else {
-            coordinator = session.coordinator[params.id]
-            coordinator.setValidate(false);
-
-            if (params.containsKey("questionId") && params.questionId != coordinator.getCurrentQuestionId()) {
-                return coordinator.flashMessage("Oops, it appears that you have pressed the browsers back button! This is the question you should be viewing.");
-            } else if (params.containsKey("next") && coordinator.getTestController().nextEnabled()) {
-                coordinator.getNextQuestion(false);
-            } else if (params.containsKey("forward") && coordinator.getTestController().forwardEnabled()) {
-                coordinator.getNextQuestion(true);
-            } else if (params.containsKey("previous") && coordinator.getTestController().previousEnabled()) {
-                coordinator.getPreviousQuestion(false);
-            } else if (params.containsKey("backward") && coordinator.getTestController().backwardEnabled()) {
-                coordinator.getPreviousQuestion(true);
-            } else if (params.containsKey("skip") && coordinator.getTestController().skipEnabled()) {
-                coordinator.skipCurrentQuestion();
-            } else if (coordinator.getTestController().getCurrentItemRef().isFinished()) {
-                return coordinator.flashMessage("Oops, it appears that you have pressed the browsers back button! This is the question you should be viewing.");
-            } else if (params.containsKey("questionId") || params.containsKey("submit")) { //endAttemptInteraction attempts won't have submit set (but will always have questionId)
-                coordinator.setCurrentResponse(utilitiesService.convertMap(request.getParameterMap(), params));
-            } else {
-                log.warn("It appears that page was reloaded");
-                //either a reload, or something more suspicious...
-                //in any case, just redisplay the original page minus response
-            }
+            log.warn("It appears that page was reloaded");
+            //either a reload, or something more suspicious...
+            //in any case, just redisplay the original page minus response
         }
         return coordinator.getTestRenderInfo()
     }
 
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
-        def webRequest = RequestContextHolder.currentRequestAttributes()
-        session = webRequest.session
-
     }
 
 }

@@ -25,11 +25,10 @@ class ExerciseService implements InitializingBean {
         return "${contentPath}/${e.dataPath}/"
     }
 
-    public Map getExerciseInfo(String exerciseId) {
+    public AssessmentItemInfo getAssessmentItemInfo(String exerciseId) {
         Exercise e = Exercise.get(exerciseId);
 
-        return [xmlRoot: new XmlParser().parse(getExerciseDataFile(e)),
-                assessmentItemInfo: new AssessmentItemInfo(getAssessmentItem(e), getDataPath(e))];
+        return new AssessmentItemInfo(getAssessmentItem(e), getDataPath(e));
     }
 
     void afterPropertiesSet() {
