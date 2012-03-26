@@ -41,7 +41,7 @@ class TestService implements InitializingBean {
         return coordinator;
     }
 
-    public TestRenderInfo processAssessmentTest(params, request, TestCoordinator coordinator) {
+    public TestRenderInfo processAssessmentTest(params, TestCoordinator coordinator) {
         //if params.id is set, use test from database, otherwise use session-bound test
 
         log.info("getRenderInfo Params ${params}");
@@ -62,10 +62,10 @@ class TestService implements InitializingBean {
             return TestRenderInfo.NO_INFO;
         } else if (coordinator.getTestController().getCurrentItemRef().isFinished()) {
             return coordinator.flashMessage("Oops, it appears that you have pressed the browsers back button! This is the question you should be viewing.");
-        } else if (params.containsKey("questionId") || request.post) { //TODO: check this condition for endAttemptInteracation, endAttemptInteraction attempts won't have submit set (but will always have questionId)
+        } else if (params.containsKey("questionId") || params.containsKey("submit")) { //TODO: check this condition for endAttemptInteracation, endAttemptInteraction attempts won't have submit set (but will always have questionId)
             //TODO
-            log.info("Submiting answser");
-            coordinator.setCurrentResponse(QtiUtils.convertToRespValues(params));
+            log.info("Submiting answser for question Id ${params.questionId}");
+            coordinator.setCurrentResponse(params);
         } else {
             log.warn("It appears that page was reloaded");
             //either a reload, or something more suspicious...

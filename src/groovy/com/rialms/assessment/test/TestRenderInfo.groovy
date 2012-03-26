@@ -23,12 +23,12 @@ class TestRenderInfo {
     public TestRenderInfo() {
     }
 
-    public TestRenderInfo(AssessmentItem assessmentItem, Map<String, Object> assessmentParams, Map<String, Object> pageParams, Map<String, Value> responses) {
+    public TestRenderInfo(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams, Map<String, Object> pageParams, Map<String, Value> responses) {
 
-        if (!assessmentItem) {
-            throw new IllegalArgumentException("AssessmentItem can't be null");
+        if (!assessmentItemInfo) {
+            throw new IllegalArgumentException("AssessmentItemInfo can't be null");
         }
-        this.assessmentItemInfo = new AssessmentItemInfo(assessmentItem, assessmentParams.dataPath);
+        this.assessmentItemInfo = assessmentItemInfo;
         this.assessmentParams = assessmentParams;
         this.pageParams = pageParams;
         this.responses = responses;

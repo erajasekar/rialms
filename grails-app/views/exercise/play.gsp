@@ -20,7 +20,7 @@
     <g:render template="/renderer/renderItemSubTree"
               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
-    <g:submitButton value="Enter" name="processButton"/>
+    <g:submitButton value="Submit" name="submit"/>
 </g:form>
 
 <g:if test="${assessmentItemInfo.outcomeValues}">

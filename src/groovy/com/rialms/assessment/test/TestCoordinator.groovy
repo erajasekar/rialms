@@ -56,7 +56,8 @@ import org.qtitools.qti.value.Value;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import groovy.util.logging.*;
+import groovy.util.logging.*
+import com.rialms.assessment.item.AssessmentItemInfo;
 
 @Log4j
 public class TestCoordinator implements Serializable {
@@ -97,8 +98,6 @@ public class TestCoordinator implements Serializable {
       */
     private String flash = null;
 
-    private String dataPath;
-
     /*
       * Storage for responses in simultaneous mode
       */
@@ -111,8 +110,7 @@ public class TestCoordinator implements Serializable {
 
     public TestCoordinator(File assessmentTestFile, String dataPath, String view) throws Exception {
         this.view = view;
-        this.dataPath = dataPath;
-        test = new AssessmentTestController(assessmentTestFile);
+        test = new AssessmentTestController(assessmentTestFile, dataPath);
     }
 
     public void setPageRenderParameters(Map<String, Object> parameters) {
@@ -205,7 +203,7 @@ public class TestCoordinator implements Serializable {
     }
 
     public void getCurrentQuestion() {
-        com.rialms.assessment.test.TestCoordinator.log.info("getCurrentQuestion() - " + test.getCurrentItem());
+        log.info("getCurrentQuestion() - " + test.currentItemInfo);
 
         //if the renderedContent is still active, just return
         if (cachedTestRenderInfo != null) return;
@@ -238,9 +236,8 @@ public class TestCoordinator implements Serializable {
                 params.put("view", view);
                 pageRenderParameters.put("view", view);
             }
-
-            AssessmentItem blank = new AssessmentItem();
-            renderContent(blank, params, pageRenderParameters, null);
+            //TODO find better way to handle blank
+            renderContent(AssessmentItemInfo.BLANK_ITEM, params, pageRenderParameters, null);
         } else {
 //			ItemSessionControl itemSessionControl = test.getCurrentItemSessionControl();
 
@@ -257,7 +254,7 @@ public class TestCoordinator implements Serializable {
 //			render = ai.render();
 
             //assemble and render (call service)
-            renderContent(test.getCurrentItem(), makeAssessmentParams(), pageRenderParameters, test.getCurrentItem().getResponseValues());
+            renderContent(test.currentItemInfo, makeAssessmentParams(), pageRenderParameters, test.currentItemInfo.getResponseValues());
         }
     }
 
@@ -269,8 +266,6 @@ public class TestCoordinator implements Serializable {
 
         //set the test title from the cached version (to avoid lookups)
         params.put("title", test.getTestTitle());
-
-        params.put('dataPath', dataPath);
 
         //set the section titles
         Node sectionTitles = convertStringArray(test.getCurrentSectionTitles());
@@ -514,7 +509,7 @@ public class TestCoordinator implements Serializable {
         return doc.getFirstChild();
     }
 
-    private void renderContent(AssessmentItem assessmentItem, Map<String, Object> assessmentParams, Map<String, Object> pageParams, Map<String, Value> responses) {
+    private void renderContent(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams, Map<String, Object> pageParams, Map<String, Value> responses) {
         /*try {
               boolean isResponded;
               if (test.getCurrentItemRef() == null) {
@@ -534,7 +529,8 @@ public class TestCoordinator implements Serializable {
         System.out.println("paga params " + pageParams);
         System.out.println("resp " + responses);  */
 
-        println "getCurrentItemRef ==> ${test.getCurrentItemRef()}";
+        //TODO fix logging
+        log.info("getCurrentItemRef ==> ${test.getCurrentItemRef()} , AssessmentItemInfo ==> ${assessmentItemInfo}");
         boolean isResponded;
         if (test.getCurrentItemRef() == null) {
             log.info("getCurrentItemRef() is null, returning NO_INFO");
@@ -545,12 +541,12 @@ public class TestCoordinator implements Serializable {
             isResponded = test.getCurrentItemRef().isResponded();
         }
 
-        if (!assessmentItem) {
+        if (!assessmentItemInfo) {
             log.info("assessmentItem is null, returning NO_INFO");
             cachedTestRenderInfo = TestRenderInfo.NO_INFO;
             return;
         }
-        cachedTestRenderInfo = new TestRenderInfo(assessmentItem, assessmentParams, pageParams, responses)
+        cachedTestRenderInfo = new TestRenderInfo(assessmentItemInfo, assessmentParams, pageParams, responses)
 
     }
 
@@ -564,11 +560,12 @@ public class TestCoordinator implements Serializable {
         getNextQuestion(false);
     }
 
-    public void setCurrentResponse(Map<String, List<String>> responses) throws FileNotFoundException, URISyntaxException, QTIException {
-        test.setCurrentItemResponses(responses);
+    public void setCurrentResponse(Map params) throws FileNotFoundException, URISyntaxException, QTIException {
+        test.setCurrentItemResponses(params);
 
-        if (responses.containsKey("candidateComment"))
-            test.getCurrentItemRef().setCandidateComment(responses.get("candidateComment").get(0));
+        //TODO verify candidateComments work
+        if (params.containsKey("candidateComment"))
+            test.getCurrentItemRef().setCandidateComment(params.get("candidateComment").get(0));
 
         Map<String, Value> itemOutcomes = test.getCurrentItemRef().getItem().getOutcomeValues();
 
@@ -609,8 +606,8 @@ public class TestCoordinator implements Serializable {
         //set the render
         if ((test.getAssessmentFeedback() == null || test.getAssessmentFeedback().size() == 0) &&
                 (test.getTestPartFeedback() == null || test.getTestPartFeedback().size() == 0) &&
-                !test.getCurrentItem().getItemBody().willShowFeedback() &&
-                !test.getCurrentItem().getAdaptive() &&
+                !test.currentItemInfo.itemBody.willShowFeedback() &&
+                !test.currentItemInfo.adaptive &&
                 test.getCurrentItemRef().isFinished()
         ) {
             //there is no feedback (at the test level), so we'll show the next item instead
@@ -620,7 +617,7 @@ public class TestCoordinator implements Serializable {
             //test.getCurrentItem().getItemBody().willShowFeedback()
             //test.getCurrentItem().getAdaptive()
         } else {
-            renderContent(test.getCurrentItem(), makeAssessmentParams(), pageRenderParameters, test.getCurrentItemResponses());
+            renderContent(test.currentItemInfo, makeAssessmentParams(), pageRenderParameters, test.getCurrentItemResponses());
         }
     }
 

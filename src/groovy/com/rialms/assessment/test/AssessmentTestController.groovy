@@ -50,7 +50,8 @@ import org.qtitools.qti.node.test.TestFeedbackAccess;
 import org.qtitools.qti.node.test.TestPart;
 import org.qtitools.qti.node.test.flow.DefaultItemFlow;
 import org.qtitools.qti.node.test.flow.ItemFlow;
-import org.qtitools.qti.value.Value;
+import org.qtitools.qti.value.Value
+import com.rialms.assessment.item.AssessmentItemInfo;
 
 /**
  * This class wraps JQTI to provide a nice interface for building
@@ -65,11 +66,15 @@ public class AssessmentTestController implements Serializable {
 
     private ItemFlow flow;
 
+    private String dataPath;
+
+    AssessmentItemInfo currentItemInfo = null;
+
     /**
      * Create an AssessmentTestController
      */
     public AssessmentTestController() {
-        com.rialms.assessment.test.AssessmentTestController.log.info("Creating new AssessmentTestController");
+        log.info("Creating new AssessmentTestController");
     }
 
     /**
@@ -80,8 +85,9 @@ public class AssessmentTestController implements Serializable {
      *
      * @param file File to load.
      */
-    public AssessmentTestController(File file) {
+    public AssessmentTestController(File file, String dataPath) {
         this();
+        this.dataPath = dataPath;
         load(file);
     }
 
@@ -120,10 +126,20 @@ public class AssessmentTestController implements Serializable {
         return flow.getCurrentItemRef();
     }
 
-    public AssessmentItem getCurrentItem() {
-        if (flow.getCurrentItemRef() != null)
-            return flow.getCurrentItemRef().getItem();
-        return null;
+    /** TODO remove
+     private AssessmentItem getCurrentItem() {if (flow.getCurrentItemRef() != null)
+     return flow.getCurrentItemRef().getItem();
+     return null;}*/
+    public AssessmentItemInfo getCurrentItemInfo() {
+        AssessmentItem currentItem = flow.getCurrentItemRef()?.getItem();
+        if (currentItem) {
+            if (currentItemInfo == null || !currentItemInfo.assessmentItem.is(currentItem)) {
+                currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
+                //TODO
+                log.info("Created AssessmentItemInfo ==> ${currentItemInfo}");
+            }
+        }
+        return currentItemInfo;
     }
 
     private AssessmentItemRef getPreviousItem(boolean includeFinished) {
@@ -181,10 +197,10 @@ public class AssessmentTestController implements Serializable {
         return null;
     }
 
-    public void setCurrentItemResponses(Map<String, List<String>> responses) throws QTIException {
+    public void setCurrentItemResponses(Map params) throws QTIException {
+        println "${currentItemInfo} ==> setCurrentItemResponses ==> ${params}"
         //set and process responses at the item level
-        getCurrentItemRef().getItem().setResponses(responses);
-        getCurrentItemRef().getItem().processResponses();
+        currentItemInfo.processResponses(params);
     }
 
     public Map<String, Value> getCurrentItemResponses() {

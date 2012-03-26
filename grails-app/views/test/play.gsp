@@ -23,7 +23,7 @@
 
     <g:hiddenField name="id" value="${params.id}"/>
 
-    <g:submitButton value="Enter" name="processButton"/>
+    <g:submitButton value="Submit" name="submit"/>
 
     <hr/>
 

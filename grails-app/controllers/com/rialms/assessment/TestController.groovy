@@ -20,8 +20,16 @@ class TestController {
         render session.coordinator[params.id].getReport();
     }
 
-    def reset() {
-        render 'reset';
+    def reset = {
+        if (!params.id) {
+            if (session.coordinator) session.coordinator.clear()
+            return redirect(action: 'list')
+        } else {
+            def test = Test.get(params.id)
+            if (!test) return redirect(action: 'list')
+            if (session.coordinator) session.coordinator.remove(params.id)
+            return redirect(action: 'play', id: params.id)
+        }
     }
 
     def play() {
@@ -42,10 +50,10 @@ class TestController {
         } else {
             coordinator = session.coordinator[params.id]
             coordinator.setValidate(false);
-            testRenderInfo = testService.processAssessmentTest(params, request, coordinator);
+            testRenderInfo = testService.processAssessmentTest(params, coordinator);
         }
 
-        if (testRenderInfo == TestRenderInfo.NO_INFO) {
+        if (testRenderInfo.is(TestRenderInfo.NO_INFO)) {
             log.info('testRenderInfo == TestRenderInfo.NO_INFO, redirecting to report');
             redirect(action: 'report', params: params);
         }

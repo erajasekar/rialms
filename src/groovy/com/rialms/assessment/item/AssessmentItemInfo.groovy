@@ -5,6 +5,7 @@ import com.rialms.util.QtiUtils
 import org.qtitools.qti.node.outcome.declaration.OutcomeDeclaration
 import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
 import groovy.util.logging.*
+import org.qtitools.qti.node.content.ItemBody
 
 /**
  * Created by IntelliJ IDEA.
@@ -28,6 +29,12 @@ class AssessmentItemInfo {
 
     private Node xmlRoot;
 
+    public static final BLANK_ITEM = new AssessmentItemInfo();
+
+    public AssessmentItemInfo() {
+
+    }
+
     public AssessmentItemInfo(AssessmentItem item, String dataPath) {
 
         if (!item) {
@@ -37,8 +44,6 @@ class AssessmentItemInfo {
         this.outcomeValues = QtiUtils.convertQTITypesToParams(assessmentItem.outcomeValues);
         this.templateValues = QtiUtils.convertQTITypesToParams(assessmentItem.templateValues);
         this.dataPath = dataPath;
-        println "assessmentItem ==> ${assessmentItem.title}";
-        println "assessmentItem == > ${assessmentItem.sourceFile}";
         xmlRoot = new XmlParser().parse(assessmentItem.sourceFile);
     }
 
@@ -65,9 +70,10 @@ class AssessmentItemInfo {
 
     private void setResponses(Map params) {
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
+
         responseValues = QtiUtils.convertToRespValues(params, identifiers);
         //TODO
-        com.rialms.assessment.item.AssessmentItemInfo.log.info("Response Values ${responseValues}");
+        log.info("Response Values ${this} ==> ${responseValues}");
         assessmentItem.setResponses(responseValues);
     }
 
@@ -75,7 +81,7 @@ class AssessmentItemInfo {
         setResponses(params);
         assessmentItem.processResponses();
         outcomeValues = QtiUtils.convertQTITypesToParams(assessmentItem.outcomeValues)
-        com.rialms.assessment.item.AssessmentItemInfo.log.info("OUTCOME ==> ${outcomeValues}");
+        log.info("OUTCOME ==> ${outcomeValues}");
     }
 
     public String getTitle() {
@@ -89,4 +95,17 @@ class AssessmentItemInfo {
     public Node getXmlRoot() {
         return xmlRoot;
     }
+
+    public boolean getAdaptive() {
+        assessmentItem.adaptive;
+    }
+
+    public ItemBody getItemBody() {
+        assessmentItem.itemBody;
+    }
+
+    public AssessmentItem getAssessmentItem() {
+        return assessmentItem;
+    }
+
 }
