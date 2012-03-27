@@ -11,17 +11,26 @@
 <head>
     <script type="text/javascript"
             src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script> <!-- TODO : This has to be test title -->
-    <title>${assessmentItemInfo.title}</title>
+    </script>
+    <title>${assessmentParams.title}</title>
 </head>
 
 <body>
+<h2>${assessmentParams.title}</h2>
+
+<h3>${assessmentItemInfo.title}</h3>
+<qti:assessmentSection sectionTitles="${assessmentParams.sectionTitles}"/>
 <hr/>
+
+<g:if test="${flash.message}">
+    ${flash.message}
+</g:if>
 <g:form name="AssessmentForm" action="play">
     <g:render template="/renderer/renderItemSubTree"
               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
     <g:hiddenField name="id" value="${params.id}"/>
+    <g:hiddenField name="questionId" value="${assessmentParams.questionId}"/>
 
     <g:submitButton value="Submit" name="submit"/>
 
@@ -40,8 +49,9 @@
         <g:submitButton name="forward" value="Forward"/>
     </g:if>
     <g:if test="${assessmentParams.skipEnabled}">
-        <g:submitButton name="skil" value="Skip"/>
+        <g:submitButton name="skip" value="Skip"/>
     </g:if>
+    <g:submitButton name="report" value="Report"/>
 
 </g:form>
 

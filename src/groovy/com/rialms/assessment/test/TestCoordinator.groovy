@@ -94,11 +94,6 @@ public class TestCoordinator implements Serializable {
     private boolean validate = false;
 
     /*
-      * Storage for any messages that need to be displayed to the user in a one-off manner
-      */
-    private String flash = null;
-
-    /*
       * Storage for responses in simultaneous mode
       */
     private Map<AssessmentItemRef, Map<String, Value>> testPartItems = new HashMap<AssessmentItemRef, Map<String, Value>>();
@@ -176,16 +171,6 @@ public class TestCoordinator implements Serializable {
             getCurrentQuestion();
         }
         return cachedTestRenderInfo;
-    }
-
-    //TODO: content is no more string
-    public String flashMessage(String message) {
-        flash = message;
-        cachedTestRenderInfo = null;
-        String content = getRenderableContent();
-        flash = null;
-        cachedTestRenderInfo = null;
-        return content;
     }
 
     public void getNextQuestion(boolean includeFinished) throws QTIException {
@@ -314,10 +299,6 @@ public class TestCoordinator implements Serializable {
                 params.put("validation", getTest().validate().toString());
             }
         }
-        if (flash != null) {
-            params.put("flash", flash);
-        }
-
         return params;
     }
 
@@ -591,10 +572,10 @@ public class TestCoordinator implements Serializable {
                 if (!test.getCurrentItemRef().isTimedOut())
                     test.getCurrentItemRef().timeOut();
             }
-
+            println "TEST PART ITEMS ${testPartItems}";
             if (!test.getItemFlow().hasNextItemRef(true)) {
                 //write all vars
-
+                println "PROCESSING test";
                 for (AssessmentItemRef key: testPartItems.keySet()) {
                     key.setOutcomes(testPartItems.get(key));
                 }

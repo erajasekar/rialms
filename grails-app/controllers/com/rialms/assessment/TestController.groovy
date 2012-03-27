@@ -3,6 +3,7 @@ package com.rialms.assessment
 import com.rialms.assessment.test.TestCoordinator
 import grails.converters.XML
 import com.rialms.assessment.test.TestRenderInfo
+import groovy.xml.dom.DOMCategory
 
 class TestController {
 
@@ -34,9 +35,17 @@ class TestController {
 
     def play() {
 
-        if (!params.id) return redirect(action: 'list')                     //no active test
-        if (params.containsKey("report")) return redirect(action: report, id: params.id)    //show report
-        if (params.containsKey("exit")) {params.goto = list; reset(params)}
+        if (!params.id) {
+            return redirect(action: 'list')
+        }
+        if (params.containsKey("report")) {
+            return redirect(action: 'report', id: params.id)
+        }
+        if (params.containsKey("exit")) {
+            params.goto = list; reset(params)
+        }
+
+
 
         TestCoordinator coordinator;
         TestRenderInfo testRenderInfo;
@@ -58,6 +67,7 @@ class TestController {
             redirect(action: 'report', params: params);
         }
         println "testRenderInfo properties " + testRenderInfo.toPropertiesMap();
+
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
     }
 }

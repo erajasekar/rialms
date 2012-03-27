@@ -46,9 +46,7 @@ class TestService implements InitializingBean {
 
         log.info("getRenderInfo Params ${params}");
 
-        if (params.containsKey("questionId") && params.questionId != coordinator.getCurrentQuestionId()) {
-            return coordinator.flashMessage("Oops, it appears that you have pressed the browsers back button! This is the question you should be viewing.");
-        } else if (params.containsKey("next") && coordinator.getTestController().nextEnabled()) {
+        if (params.containsKey("next") && coordinator.getTestController().nextEnabled()) {
             coordinator.getNextQuestion(false);
         } else if (params.containsKey("forward") && coordinator.getTestController().forwardEnabled()) {
             coordinator.getNextQuestion(true);
