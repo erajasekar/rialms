@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <section>
+        <rubricBlock view="candidate">
+            <p>
+                This first section tests your ability to do basic addition. This
+                section consists of three questions, of which you will be asked to
+                answer two.
+            </p>
+            <p>
+                <em>
+                    The response to the first question will determine which question
+                    gets presented next; a correct answer to the first question will
+                    mean that the second question presented is question 2, otherwise
+                    question 3 will be presented (this is mutually exclusive, so you
+                    will only see either question 2 or question 3).
+                </em>
+            </p>
+        </rubricBlock>
+    </section>
+</root>

@@ -48,6 +48,7 @@ public enum Tag {
     td,
     div,
     img,
+    rubricBlock,
     itemBody,
     prompt,
     simpleChoice,
@@ -94,7 +95,7 @@ public enum Tag {
         return templateTags.contains(t);
     }
 
-    public static boolean isFlowThroughTag(Tag t){
+    public static boolean isFlowThroughTag(Tag t) {
         return flowThroughTags.contains(t);
     }
 

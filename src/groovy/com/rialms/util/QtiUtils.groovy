@@ -5,6 +5,10 @@ import org.qtitools.qti.value.MultipleValue
 import org.qtitools.qti.value.BaseType
 import org.qtitools.qti.node.shared.VariableDeclaration
 import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
+import org.qtitools.qti.node.content.variable.RubricBlock
+import org.w3c.dom.Element
+import groovy.xml.XmlUtil
+import org.qtitools.qti.node.test.TestFeedback
 
 /**
  * Created by IntelliJ IDEA.
@@ -69,5 +73,33 @@ class QtiUtils {
         return variableDeclarations.find {VariableDeclaration it ->
             it.identifier.toString() == identifier
         }
+    }
+
+    public static Node convertRubricToNode(List<List<RubricBlock>> values) {
+
+        Node result = new Node(null, "root");
+        for (List<RubricBlock> section: values) {
+            Node sectionNode = result.appendNode("section")
+            for (RubricBlock block: section) {
+                sectionNode.append(new XmlParser().parseText(block.toXmlString()));
+            }
+        }
+        return result;
+    }
+
+    public static Node convertStringArrayToNode(List<String> values) {
+        Node result = new Node(null, "root");
+        values.each { value ->
+            result.appendNode("value", null, value);
+        }
+        return result;
+    }
+
+    public static Node convertFeedbackToNode(List<TestFeedback> values) {
+        Node result = new Node(null, "root");
+        values.each {TestFeedback value ->
+            result.append(new XmlParser().parseText(value.toXmlString()));
+        }
+        return result;
     }
 }

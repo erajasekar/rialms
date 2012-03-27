@@ -35,8 +35,9 @@ class BootStrap {
         new Exercise(dataPath: 'qti', dataFile: 'MA-UT-01a-NoTP-Choice.xml').save();
         new Exercise(dataPath: 'qti', dataFile: 'MA-UT-01c-NoTP-Num.xml').save();
 
-        //15-16
+        //16-17
         new Exercise(dataPath: 'exercise/Std10', dataFile: 'Sequences_Ex_2_1.xml').save();
+        new Exercise(dataPath: 'qti', dataFile: 'likert.xml').save();
     }
 
     def createTests() {

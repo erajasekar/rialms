@@ -57,7 +57,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import groovy.util.logging.*
-import com.rialms.assessment.item.AssessmentItemInfo;
+import com.rialms.assessment.item.AssessmentItemInfo
+import com.rialms.util.QtiUtils;
 
 @Log4j
 public class TestCoordinator implements Serializable {
@@ -208,10 +209,10 @@ public class TestCoordinator implements Serializable {
             //set the test title from the cached version (to avoid lookups)
             params.put("title", test.getTestTitle());
 
-            Node assessmentFeedback = convertFeedback(test.getAssessmentFeedback());
+            groovy.util.Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
             if (assessmentFeedback != null) params.put("assessmentFeedback", assessmentFeedback);
 
-            Node testPartFeedback = convertFeedback(test.getTestPartFeedback());
+            groovy.util.Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
             if (testPartFeedback != null) params.put("testPartFeedback", testPartFeedback);
 
             Node outcomes = convertOutcomes(test.getTest().getOutcomeValues());
@@ -221,6 +222,7 @@ public class TestCoordinator implements Serializable {
                 params.put("view", view);
                 pageRenderParameters.put("view", view);
             }
+            println "TEST COMPLETE";
             //TODO find better way to handle blank
             renderContent(AssessmentItemInfo.BLANK_ITEM, params, pageRenderParameters, null);
         } else {
@@ -253,17 +255,17 @@ public class TestCoordinator implements Serializable {
         params.put("title", test.getTestTitle());
 
         //set the section titles
-        Node sectionTitles = convertStringArray(test.getCurrentSectionTitles());
+        groovy.util.Node sectionTitles = QtiUtils.convertStringArrayToNode(test.getCurrentSectionTitles());
         if (sectionTitles != null) params.put("sectionTitles", sectionTitles);
 
         //set the rubric
-        Node rubric = convertRubric(test.getRubricBlocks());
+        groovy.util.Node rubric = QtiUtils.convertRubricToNode(test.getRubricBlocks());
         if (rubric != null) params.put("rubric", rubric);
 
-        Node assessmentFeedback = convertFeedback(test.getAssessmentFeedback());
+        groovy.util.Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
         if (assessmentFeedback != null) params.put("assessmentFeedback", assessmentFeedback);
 
-        Node testPartFeedback = convertFeedback(test.getTestPartFeedback());
+        groovy.util.Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
         if (testPartFeedback != null) params.put("testPartFeedback", testPartFeedback);
 
         Node outcomes = convertOutcomes(test.getTest().getOutcomeValues());
@@ -511,22 +513,18 @@ public class TestCoordinator implements Serializable {
         System.out.println("resp " + responses);  */
 
         //TODO fix logging
-        log.info("getCurrentItemRef ==> ${test.getCurrentItemRef()} , AssessmentItemInfo ==> ${assessmentItemInfo}");
-        boolean isResponded;
-        if (test.getCurrentItemRef() == null) {
+        log.info("getCurrentItemRef ==> ${test.getCurrentItemRef()} , AssessmentItemInfo ==> ${assessmentItemInfo}, IS BLANK ${assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)}");
+        //TODO fix comments
+        /*if (test.getCurrentItemRef() == null) {
             log.info("getCurrentItemRef() is null, returning NO_INFO");
-            isResponded = false;
             cachedTestRenderInfo = TestRenderInfo.NO_INFO;
             return;
-        } else {
-            isResponded = test.getCurrentItemRef().isResponded();
         }
-
         if (!assessmentItemInfo) {
             log.info("assessmentItem is null, returning NO_INFO");
             cachedTestRenderInfo = TestRenderInfo.NO_INFO;
             return;
-        }
+        }*/
         cachedTestRenderInfo = new TestRenderInfo(assessmentItemInfo, assessmentParams, pageParams, responses)
 
     }

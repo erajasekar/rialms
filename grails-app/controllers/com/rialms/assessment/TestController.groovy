@@ -1,9 +1,10 @@
 package com.rialms.assessment
 
 import com.rialms.assessment.test.TestCoordinator
-import grails.converters.XML
 import com.rialms.assessment.test.TestRenderInfo
-import groovy.xml.dom.DOMCategory
+import com.rialms.assessment.item.AssessmentItemInfo
+
+import groovy.xml.XmlUtil
 
 class TestController {
 
@@ -45,8 +46,6 @@ class TestController {
             params.goto = list; reset(params)
         }
 
-
-
         TestCoordinator coordinator;
         TestRenderInfo testRenderInfo;
 
@@ -62,12 +61,23 @@ class TestController {
             testRenderInfo = testService.processAssessmentTest(params, coordinator);
         }
 
-        if (testRenderInfo.is(TestRenderInfo.NO_INFO)) {
-            log.info('testRenderInfo == TestRenderInfo.NO_INFO, redirecting to report');
-            redirect(action: 'report', params: params);
+        if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
+            if (testRenderInfo.assessmentParams.assessmentFeedback || testRenderInfo.assessmentParams.testPartFeedback) {
+                chain(action: 'feedback', params: params, model: ['assessmentParams': testRenderInfo.assessmentParams])
+            } else {
+                redirect(action: 'report', params: params);
+            }
+
         }
-        println "testRenderInfo properties " + testRenderInfo.toPropertiesMap();
+        //println "testRenderInfo properties " + testRenderInfo.toPropertiesMap();
+        println "Assessement Feedback ${testRenderInfo.assessmentParams.assessmentFeedback}"
+        println "test part Feedback ${testRenderInfo.assessmentParams.testPartFeedback}"
 
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
+    }
+
+    def feedback = {
+        log.info("Executing feedback with params ${params} => ${chainModel}");
+        render XmlUtil.serialize(chainModel.assessmentParams.assessmentFeedback);
     }
 }

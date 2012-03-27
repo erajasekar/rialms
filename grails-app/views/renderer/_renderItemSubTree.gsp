@@ -26,6 +26,9 @@
                 <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
             </p>
         </g:if>
+        <g:if test="${tag == Tag.rubricBlock}"><!-- TODO ADD VIEW SUPPORT FOR RUBRIC -->
+            <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
+        </g:if>
         <g:elseif test="${tag == Tag.img}">
             <qti:img assessmentItemInfo="${assessmentItemInfo}" file="${n.'@src'}" alt="${n.'@alt'}"/>
         </g:elseif>
@@ -53,15 +56,15 @@
 
         <g:elseif test="${Tag.isFeedBackTag(tag)}">
             <g:render template="/renderer/renderFeedbackOrTemplate"
-                      model="[node: n, identifierValue: assessmentItemInfo.outcomeValues?.(n.'@outcomeIdentifier'), assessmentItemInfo:assessmentItemInfo]"/>
+                      model="[node: n, identifierValue: assessmentItemInfo.outcomeValues?.(n.'@outcomeIdentifier'), assessmentItemInfo: assessmentItemInfo]"/>
         </g:elseif>
 
         <g:elseif test="${Tag.isTemplateTag(tag)}">
             <g:render template="/renderer/renderFeedbackOrTemplate"
-                      model="[node: n, identifierValue: assessmentItemInfo.templateValues?.(n.'@templateIdentifier'), assessmentItemInfo:assessmentItemInfo]"/>
+                      model="[node: n, identifierValue: assessmentItemInfo.templateValues?.(n.'@templateIdentifier'), assessmentItemInfo: assessmentItemInfo]"/>
         </g:elseif>
         <g:elseif test="${n.name().getPrefix().equals("m")}">
-           <qti:mathML  xmlNode="${n}"/>
+            <qti:mathML xmlNode="${n}"/>
         </g:elseif>
 
     </g:else>

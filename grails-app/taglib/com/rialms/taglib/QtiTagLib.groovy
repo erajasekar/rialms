@@ -6,7 +6,6 @@ import com.rialms.util.CollectionUtils
 import com.rialms.assessment.item.AssessmentItemInfo
 
 import com.rialms.util.QtiUtils
-import groovy.xml.dom.DOMCategory
 
 class QtiTagLib {
     static namespace = "qti";
@@ -275,12 +274,10 @@ class QtiTagLib {
 
     def assessmentSection = { attrs ->
         String tag = "assessmentSection";
-        org.w3c.dom.Node node = getRequiredAttribute(attrs, 'sectionTitles', tag);
-        String sectionTitles;
-        use(DOMCategory) {
-            sectionTitles = node.text();
+        Node node = getRequiredAttribute(attrs, 'sectionTitles', tag);
+        node.children().each { Node title ->
+            out << "<h4> ${title.text()} </h4>"
         }
-        out << "<h4> ${sectionTitles} </h4>"
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {

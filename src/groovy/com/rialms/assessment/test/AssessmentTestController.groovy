@@ -155,7 +155,7 @@ public class AssessmentTestController implements Serializable {
      * @param testFile File containing assessmentTest
      */
     public void load(File testFile) {
-        com.rialms.assessment.test.AssessmentTestController.log.info("Creating new AssessmentTest from " + testFile);
+        log.info("Creating new AssessmentTest from " + testFile);
         AssessmentTest test = new AssessmentTest();
         test.load(testFile);
         test.initialize();
@@ -262,13 +262,13 @@ public class AssessmentTestController implements Serializable {
     }
 
     public boolean submitEnabled() {
-        com.rialms.assessment.test.AssessmentTestController.log.debug("checking submitEnabled");
+        log.debug("checking submitEnabled");
         if (getCurrentItemRef() != null) {
             boolean se = !getCurrentItemRef().isFinished() && getCurrentItemRef().passMaximumTimeLimit();
-            com.rialms.assessment.test.AssessmentTestController.log.debug("submitEnabled is " + se + " (" + getCurrentItemRef().getIdentifier() + ")");
+            log.debug("submitEnabled is " + se + " (" + getCurrentItemRef().getIdentifier() + ")");
             return se;
         }
-        com.rialms.assessment.test.AssessmentTestController.log.debug("no item in submitEnabled");
+        log.debug("no item in submitEnabled");
         return false;
     }
 
@@ -284,15 +284,15 @@ public class AssessmentTestController implements Serializable {
     }
 
     public List<TestFeedback> getAssessmentFeedback() {
-        com.rialms.assessment.test.AssessmentTestController.log.debug("Getting AssessmentFeedback");
+        log.debug("Getting AssessmentFeedback");
 
         //handle assessment-level feedback:
         List<TestFeedback> assessmentFeedback = null;
         if (getTest().isFinished()) {
-            com.rialms.assessment.test.AssessmentTestController.log.debug("Getting AT_END feedback for the AssessmentTest");
+            log.debug("Getting AT_END feedback for the AssessmentTest");
             assessmentFeedback = getTest().getTestFeedbacks(TestFeedbackAccess.AT_END);
         } else {
-            com.rialms.assessment.test.AssessmentTestController.log.debug("Getting DURING feedback for the AssessmentTest");
+            log.debug("Getting DURING feedback for the AssessmentTest");
             assessmentFeedback = getTest().getTestFeedbacks(TestFeedbackAccess.DURING);
         }
 
@@ -300,7 +300,7 @@ public class AssessmentTestController implements Serializable {
     }
 
     public List<TestFeedback> getTestPartFeedback() {
-        com.rialms.assessment.test.AssessmentTestController.log.debug("Getting TestPartFeedback");
+        log.debug("Getting TestPartFeedback");
 
         //handle testpart-level feedback:
         TestPart tp = getCurrentTestPart();
@@ -309,10 +309,10 @@ public class AssessmentTestController implements Serializable {
             AssessmentItemRef air = getCurrentItemRef();
             if (air != null && air.isFinished()) {
                 if (!flow.hasNextItemRef(false)) {
-                    com.rialms.assessment.test.AssessmentTestController.log.debug("Getting AT_END feedback for the current TestPart");
+                    log.debug("Getting AT_END feedback for the current TestPart");
                     partFeedback = tp.getTestFeedbacks(TestFeedbackAccess.AT_END);
                 } else {
-                    com.rialms.assessment.test.AssessmentTestController.log.debug("Getting DURING feedback for the current TestPart");
+                    log.debug("Getting DURING feedback for the current TestPart");
                     partFeedback = tp.getTestFeedbacks(TestFeedbackAccess.DURING);
                 }
             }
