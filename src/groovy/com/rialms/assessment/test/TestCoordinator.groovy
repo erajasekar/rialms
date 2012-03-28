@@ -260,6 +260,7 @@ public class TestCoordinator implements Serializable {
 
         //set the rubric
         groovy.util.Node rubric = QtiUtils.convertRubricToNode(test.getRubricBlocks());
+        println "RUBRIC ${rubric}";
         if (rubric != null) params.put("rubric", rubric);
 
         groovy.util.Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());

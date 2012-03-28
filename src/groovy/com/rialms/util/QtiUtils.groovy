@@ -9,6 +9,8 @@ import org.qtitools.qti.node.content.variable.RubricBlock
 import org.w3c.dom.Element
 import groovy.xml.XmlUtil
 import org.qtitools.qti.node.test.TestFeedback
+import javax.xml.namespace.QName
+import groovy.xml.MarkupBuilder
 
 /**
  * Created by IntelliJ IDEA.
@@ -76,18 +78,49 @@ class QtiUtils {
     }
 
     public static Node convertRubricToNode(List<List<RubricBlock>> values) {
-
-        Node result = new Node(null, "root");
+        if (values == null) {
+            return null;
+        }
+        /*Node result = new Node(null,"root");
+        int count = 0;
         for (List<RubricBlock> section: values) {
             Node sectionNode = result.appendNode("section")
             for (RubricBlock block: section) {
-                sectionNode.append(new XmlParser().parseText(block.toXmlString()));
+                count++;
+                sectionNode.append(new XmlParser(true,true).parseText(block.toXmlString()));
             }
         }
-        return result;
+        
+        if (count == 0){
+            return null;
+        }   */
+
+        Node result = null;
+        def writer = new StringWriter()
+        def builder = new MarkupBuilder(writer)
+
+        builder.'root'(xmlns:'http://www.imsglobal.org/xsd/imsqti_v2p1') {
+            values.each { section ->
+               'section'(){
+                   section.each { block ->
+                       mkp.yieldUnescaped(block.toXmlString())
+                   }
+               }
+            }
+        }
+
+        println writer.toString()
+        
+        
+
+       // println "convertRubricToNode " + XmlUtil.serialize(result);
+        return new XmlParser().parseText(writer.toString());
     }
 
     public static Node convertStringArrayToNode(List<String> values) {
+        if (values == null || values.isEmpty()) {
+            return null;
+        }
         Node result = new Node(null, "root");
         values.each { value ->
             result.appendNode("value", null, value);
@@ -96,6 +129,9 @@ class QtiUtils {
     }
 
     public static Node convertFeedbackToNode(List<TestFeedback> values) {
+        if (values == null || values.isEmpty()) {
+            return null;
+        }
         Node result = new Node(null, "root");
         values.each {TestFeedback value ->
             result.append(new XmlParser().parseText(value.toXmlString()));

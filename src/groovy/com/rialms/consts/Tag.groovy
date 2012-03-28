@@ -99,7 +99,7 @@ public enum Tag {
         return flowThroughTags.contains(t);
     }
 
-    public static Tag valueOf(QName qn) {
+    public static Tag valueOf(def qn) {
         return valuesByLowerCase[qn.localPart.toLowerCase()]
     }
 }

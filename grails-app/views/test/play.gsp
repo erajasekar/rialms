@@ -22,6 +22,14 @@
 <qti:assessmentSection sectionTitles="${assessmentParams.sectionTitles}"/>
 <hr/>
 
+<g:if test="${assessmentParams.rubric}" >
+
+    <g:each var="section" in="${assessmentParams.rubric.children()}" >
+        <g:render template="/renderer/renderItemSubTree" model="[node: section.children().get(0)]"/>
+    </g:each>
+
+</g:if>
+
 <g:if test="${flash.message}">
     ${flash.message}
 </g:if>

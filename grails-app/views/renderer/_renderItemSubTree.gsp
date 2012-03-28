@@ -10,9 +10,10 @@
 <g:each var="n" in="${node.children()}">
 
     <g:if test="${n instanceof String}">
-        ${n}
+       ${n}
     </g:if>
     <g:else>
+
         <% def tag = Tag.valueOf(n.name()); %>
 
         <g:if test="${Tag.isMixedTag(tag)}">
