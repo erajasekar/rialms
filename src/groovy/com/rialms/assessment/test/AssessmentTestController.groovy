@@ -135,8 +135,6 @@ public class AssessmentTestController implements Serializable {
         if (currentItem) {
             if (currentItemInfo == null || !currentItemInfo.assessmentItem.is(currentItem)) {
                 currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
-                //TODO
-                log.info("Created AssessmentItemInfo ==> ${currentItemInfo}");
             }
         }
         return currentItemInfo;

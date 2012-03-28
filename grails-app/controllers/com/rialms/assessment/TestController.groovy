@@ -58,21 +58,20 @@ class TestController {
         } else {
             coordinator = session.coordinator[params.id]
             coordinator.setValidate(false);
-            testRenderInfo = testService.processAssessmentTest(params, coordinator);
-        }
-
-        if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
-            if (testRenderInfo.assessmentParams.assessmentFeedback || testRenderInfo.assessmentParams.testPartFeedback) {
-                chain(action: 'feedback', params: params, model: ['assessmentParams': testRenderInfo.assessmentParams])
+            if (coordinator.isCompleted()) {
+                coordinator.getCurrentQuestion();
+                testRenderInfo = coordinator.getTestRenderInfo();
             } else {
-                redirect(action: 'report', params: params);
+                testRenderInfo = testService.processAssessmentTest(params, coordinator);
             }
 
         }
-        //println "testRenderInfo properties " + testRenderInfo.toPropertiesMap();
-        println "Assessement Feedback ${testRenderInfo.assessmentParams.assessmentFeedback}"
-        println "test part Feedback ${testRenderInfo.assessmentParams.testPartFeedback}"
 
+        if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
+            render(view: 'feedback', model: testRenderInfo.toPropertiesMap());
+            return;
+        }
+        //println "testRenderInfo properties " + testRenderInfo.toPropertiesMap();
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
     }
 

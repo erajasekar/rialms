@@ -22,6 +22,12 @@ import org.custommonkey.xmlunit.Diff
 @TestMixin(GrailsUnitTestMixin)
 class QtiUtilsTests {
 
+    void setUp() {
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setNormalizeWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
+    }
+
     void testConvertRubricBlockToNode() {
         String msg = "testConvertRubricBlockToNode Failed ";
         File inputFile = new ClassPathResource("data/TestConvertRubricBlockToNodeInputData.xml").getFile()
@@ -35,12 +41,10 @@ class QtiUtilsTests {
         List<List<RubricBlock>> blocks = controller.getRubricBlocks();
 
         Node actual = QtiUtils.convertRubricToNode(blocks);
-        XMLUnit.setIgnoreWhitespace(true);
-        XMLUnit.setNormalizeWhitespace(true);
-        XMLUnit.setIgnoreComments(true);
-
         def xmlDiff = new Diff(expectedFile.text, XmlUtil.serialize(actual));
         assertTrue(msg + xmlDiff.toString(), xmlDiff.similar());
+        assertNull(msg, QtiUtils.convertRubricToNode(null));
+        assertNull(msg, QtiUtils.convertRubricToNode([[]]));
 
     }
 
@@ -48,12 +52,15 @@ class QtiUtilsTests {
         String msg = "testConvertStringArrayToNode Failed ";
         Node actual = QtiUtils.convertStringArrayToNode(['title1', ' title2 ', '   title3']);
         String expected = """<?xml version="1.0" encoding="UTF-8"?>
-<root>
+<root xmlns='http://www.imsglobal.org/xsd/imsqti_v2p1'>
   <value>title1</value>
   <value> title2 </value>
   <value>   title3</value>
 </root>"""
         def xmlDiff = new Diff(expected, XmlUtil.serialize(actual));
         assertTrue(msg + xmlDiff.toString(), xmlDiff.similar());
+
+        assertNull(msg, QtiUtils.convertStringArrayToNode(null));
+        assertNull(msg, QtiUtils.convertStringArrayToNode([]));
     }
 }

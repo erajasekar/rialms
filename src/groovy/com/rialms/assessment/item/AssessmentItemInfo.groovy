@@ -60,6 +60,14 @@ class AssessmentItemInfo {
         return templateValues;
     }
 
+    public List<TemplateDeclaration> getTemplateDeclarations() {
+        return assessmentItem.templateDeclarations;
+    }
+
+    public List<OutcomeDeclaration> getOutcomeDeclarations() {
+        return assessmentItem.outcomeDeclarations;
+    }
+
     public OutcomeDeclaration getOutcomeDeclarationForIdentifier(String identifier) {
         return QtiUtils.findVariableDeclarationByIdentifier(assessmentItem.outcomeDeclarations, identifier);
     }

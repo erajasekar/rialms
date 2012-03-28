@@ -22,9 +22,9 @@
 <qti:assessmentSection sectionTitles="${assessmentParams.sectionTitles}"/>
 <hr/>
 
-<g:if test="${assessmentParams.rubric}" >
+<g:if test="${assessmentParams.rubric}">
 
-    <g:each var="section" in="${assessmentParams.rubric.children()}" >
+    <g:each var="section" in="${assessmentParams.rubric.children()}">
         <g:render template="/renderer/renderItemSubTree" model="[node: section.children().get(0)]"/>
     </g:each>
 
@@ -40,7 +40,9 @@
     <g:hiddenField name="id" value="${params.id}"/>
     <g:hiddenField name="questionId" value="${assessmentParams.questionId}"/>
 
-    <g:submitButton value="Submit" name="submit"/>
+    <g:if test="${assessmentParams.submitEnabled}">
+        <g:submitButton value="Submit" name="submit"/>
+    </g:if>
 
     <hr/>
 

@@ -43,5 +43,6 @@ class BootStrap {
     def createTests() {
         new Test(dataPath: 'tests/qti/NonLinearSimpleTest', dataFile: 'assessment.xml').save();
         new Test(dataPath: 'tests/qti/Mathematics', dataFile: 'mathematics.xml').save();
+        new Test(dataPath: 'tests/exercise/adaptive', dataFile: 'exercises.xml').save();
     }
 }

@@ -21,6 +21,8 @@ import groovy.xml.MarkupBuilder
  */
 class QtiUtils {
 
+    private static String ns = 'http://www.imsglobal.org/xsd/imsqti_v2p1';
+
     public static Map<String, List<String>> convertToRespValues(Map params, List identifiers) {
         Map<String, List<String>> map = new HashMap<String, List<String>>()
 
@@ -45,7 +47,7 @@ class QtiUtils {
 
         Map<String, String> params = [:];
 
-        outcome.each { k, v ->
+        outcome?.each { k, v ->
             String value;
             if (!(v instanceof org.qtitools.qti.value.NullValue)) {
                 if (v instanceof MultipleValue) {
@@ -81,61 +83,68 @@ class QtiUtils {
         if (values == null) {
             return null;
         }
-        /*Node result = new Node(null,"root");
-        int count = 0;
-        for (List<RubricBlock> section: values) {
-            Node sectionNode = result.appendNode("section")
-            for (RubricBlock block: section) {
-                count++;
-                sectionNode.append(new XmlParser(true,true).parseText(block.toXmlString()));
-            }
-        }
-        
-        if (count == 0){
-            return null;
-        }   */
-
-        Node result = null;
         def writer = new StringWriter()
-        def builder = new MarkupBuilder(writer)
-
-        builder.'root'(xmlns:'http://www.imsglobal.org/xsd/imsqti_v2p1') {
-            values.each { section ->
-               'section'(){
-                   section.each { block ->
-                       mkp.yieldUnescaped(block.toXmlString())
-                   }
-               }
-            }
+        MarkupBuilder builder = new MarkupBuilder(writer)
+        int count;
+        builder.root(xmlns: ns) {
+            count = appendSectionToBuilder(builder, values)
         }
 
-        println writer.toString()
-        
-        
-
-       // println "convertRubricToNode " + XmlUtil.serialize(result);
+        if (count == 0) {
+            return null;
+        }
         return new XmlParser().parseText(writer.toString());
     }
+
+    private static int appendSectionToBuilder(builder, values) {
+        int count = 0;
+        values.each { section ->
+            builder.section() {
+                count += appendNodeToBuilder(builder, section);
+            }
+        }
+        return count;
+    }
+
+    private static int appendNodeToBuilder(MarkupBuilder builder, nodes) {
+        int count = 0;
+        nodes.each { node ->
+            count++;
+            builder.mkp.yieldUnescaped(node.toXmlString())
+        }
+        return count;
+    }
+
 
     public static Node convertStringArrayToNode(List<String> values) {
         if (values == null || values.isEmpty()) {
             return null;
         }
-        Node result = new Node(null, "root");
-        values.each { value ->
-            result.appendNode("value", null, value);
+
+        StringWriter writer = new StringWriter()
+        def builder = new MarkupBuilder(writer)
+
+        builder.root(xmlns: ns) {
+            appendStringToBuilder(builder, values)
         }
-        return result;
+        return new XmlParser().parseText(writer.toString());
+    }
+
+    private static void appendStringToBuilder(builder, values) {
+        values.each { value ->
+            builder.value(value);
+        }
     }
 
     public static Node convertFeedbackToNode(List<TestFeedback> values) {
         if (values == null || values.isEmpty()) {
             return null;
         }
-        Node result = new Node(null, "root");
-        values.each {TestFeedback value ->
-            result.append(new XmlParser().parseText(value.toXmlString()));
+        def writer = new StringWriter()
+        def builder = new MarkupBuilder(writer)
+        builder.root(xmlns: ns) {
+            appendNodeToBuilder(builder, values)
         }
-        return result;
+        return new XmlParser().parseText(writer.toString());
     }
 }

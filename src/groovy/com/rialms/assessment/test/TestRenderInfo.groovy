@@ -16,14 +16,11 @@ class TestRenderInfo {
     private AssessmentItemInfo assessmentItemInfo;
     private Map<String, Object> assessmentParams;
     private Map<String, Object> pageParams;
-    private Map<String, Value> responses
-
-    public static final NO_INFO = new TestRenderInfo();
 
     public TestRenderInfo() {
     }
 
-    public TestRenderInfo(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams, Map<String, Object> pageParams, Map<String, Value> responses) {
+    public TestRenderInfo(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams, Map<String, Object> pageParams) {
 
         if (!assessmentItemInfo) {
             throw new IllegalArgumentException("AssessmentItemInfo can't be null");
@@ -31,7 +28,6 @@ class TestRenderInfo {
         this.assessmentItemInfo = assessmentItemInfo;
         this.assessmentParams = assessmentParams;
         this.pageParams = pageParams;
-        this.responses = responses;
 
     }
 
@@ -47,9 +43,6 @@ class TestRenderInfo {
         return pageParams
     }
 
-    public Map<String, Value> getResponses() {
-        return responses
-    }
 
     @Override
     public String toString() {
@@ -61,11 +54,10 @@ class TestRenderInfo {
         }
         sb.append("Assessment Params ------------------------- ")
         sb.append("Page Params =>  ${pageParams} \n");
-        sb.append("Responses => ${responses} \n");
         return sb.toString();
     }
 
     public Map<String, Object> toPropertiesMap() {
-        return ['assessmentItemInfo': assessmentItemInfo, 'assessmentParams': assessmentParams, 'pageParams': pageParams, 'responses': responses]
+        return ['assessmentItemInfo': assessmentItemInfo, 'assessmentParams': assessmentParams, 'pageParams': pageParams]
     }
 }

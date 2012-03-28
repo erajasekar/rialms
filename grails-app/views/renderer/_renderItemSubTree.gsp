@@ -6,11 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="com.rialms.consts.Tag" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Tag" contentType="text/html;charset=UTF-8" %>
 <g:each var="n" in="${node.children()}">
 
     <g:if test="${n instanceof String}">
-       ${n}
+        ${n}
     </g:if>
     <g:else>
 
@@ -48,7 +48,22 @@
         </g:elseif>
 
         <g:elseif test="${tag == Tag.printedVariable}">
-            <qti:printedVariable xmlAttributes="${n.attributes()}" assessmentItemInfo="${assessmentItemInfo}"/>
+            <g:if test="${!(assessmentItemInfo || assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM))}">
+                <qti:printedVariable xmlAttributes="${n.attributes()}"
+                                     templateValues="${assessmentItemInfo.templateValues}"
+                                     templateDeclarations="${assessmentItemInfo.templateDeclarations}"
+                                     outcomeValues="${assessmentItemInfo.outcomeValues}"
+                                     outcomeDeclarations="${assessmentItemInfo.outcomeDeclarations}"/>
+            </g:if>
+            <g:elseif test="${assessmentParams}">
+                <qti:printedVariable xmlAttributes="${n.attributes()}"
+                                     outcomeValues="${assessmentParams.outcomeValues}"
+                                     outcomeDeclarations="${assessmentParams.outcomeDeclarations}"/>
+            </g:elseif>
+            <g:else>
+                Error Both  assessmentItemInfo & assessmentItemInfo is null
+            </g:else>
+
         </g:elseif>
 
         <g:elseif test="${tag == Tag.endAttemptInteraction}">

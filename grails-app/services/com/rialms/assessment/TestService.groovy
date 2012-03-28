@@ -56,9 +56,7 @@ class TestService implements InitializingBean {
             coordinator.getPreviousQuestion(true);
         } else if (params.containsKey("skip") && coordinator.getTestController().skipEnabled()) {
             coordinator.skipCurrentQuestion();
-        } else if (!coordinator.getTestController().getCurrentItemRef()) {
-            return TestRenderInfo.NO_INFO;
-        } else if (coordinator.getTestController().getCurrentItemRef().isFinished()) {
+        } else if (coordinator.getTestController().isTestComplete()) {
             return coordinator.flashMessage("Oops, it appears that you have pressed the browsers back button! This is the question you should be viewing.");
         } else if (params.containsKey("questionId") || params.containsKey("submit")) { //TODO: check this condition for endAttemptInteracation, endAttemptInteraction attempts won't have submit set (but will always have questionId)
             //TODO

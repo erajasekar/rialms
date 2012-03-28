@@ -66,25 +66,27 @@ class QtiTagLib {
 
         String tag = 'printedVariable';
         Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', tag);
-        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
-        Map templateValues = assessmentItemInfo.templateValues;
-        Map outcomeValues = assessmentItemInfo.outcomeValues;
+        Map templateValues = getOptionalAttribute(attrs, 'templateValues');
+        Map outcomeValues = getOptionalAttribute(attrs, 'outcomeValues');
+
+        List templateDeclarations = getOptionalAttribute(attrs, 'templateDeclarations');
+        List outcomeDeclarations = getOptionalAttribute(attrs, 'outcomeDeclarations');
 
         String id = xmlAttributes.identifier;
-        String templateValue = templateValues[id];
-        String outcomeValue = outcomeValues[id];
+        String templateValue = templateValues?.get(id);
+        String outcomeValue = outcomeValues?.get(id);
         String format = xmlAttributes.format;
 
         if (templateValue) {
             if (format) {
-                out << " ${QtiUtils.formatVariable(assessmentItemInfo.getTemplateDeclarationForIdentifier(id), format, templateValue)} ";
+                out << " ${QtiUtils.formatVariable(QtiUtils.findVariableDeclarationByIdentifier(templateDeclarations, id), format, templateValue)} ";
             } else {
                 out << " ${templateValue} ";
             }
         } else if (outcomeValue) {
             if (format) {
-                out << " ${QtiUtils.formatVariable(assessmentItemInfo.getOutcomeDeclarationForIdentifier(id), format, outcomeValue)} ";
+                out << " ${QtiUtils.formatVariable(QtiUtils.findVariableDeclarationByIdentifier(outcomeDeclarations, id), format, outcomeValue)} ";
             } else {
                 out << " ${outcomeValue} ";
             }

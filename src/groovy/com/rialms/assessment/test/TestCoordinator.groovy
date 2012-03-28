@@ -35,30 +35,17 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 package com.rialms.assessment.test;
 
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.qtitools.qti.exception.QTIException;
-import org.qtitools.qti.node.content.variable.RubricBlock;
-import org.qtitools.qti.node.item.AssessmentItem;
-import org.qtitools.qti.node.outcome.declaration.OutcomeDeclaration;
 import org.qtitools.qti.node.test.AssessmentItemRef;
 import org.qtitools.qti.node.test.AssessmentTest;
 import org.qtitools.qti.node.test.ControlObject;
 import org.qtitools.qti.node.test.SubmissionMode;
-import org.qtitools.qti.node.test.TestFeedback;
 import org.qtitools.qti.node.test.flow.ItemFlow;
-import org.qtitools.qti.value.ListValue;
-import org.qtitools.qti.value.OrderedValue;
-import org.qtitools.qti.value.SingleValue;
 import org.qtitools.qti.value.Value;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import groovy.util.logging.*
 import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.util.QtiUtils;
+import groovy.util.Node;
 
 @Log4j
 public class TestCoordinator implements Serializable {
@@ -91,6 +78,7 @@ public class TestCoordinator implements Serializable {
 
     /*
       * rendering validation mode (if set to true, validation errors/warnings will be shown)
+      * //TODO render validation errors
       */
     private boolean validate = false;
 
@@ -209,22 +197,21 @@ public class TestCoordinator implements Serializable {
             //set the test title from the cached version (to avoid lookups)
             params.put("title", test.getTestTitle());
 
-            groovy.util.Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
+            Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
             if (assessmentFeedback != null) params.put("assessmentFeedback", assessmentFeedback);
 
-            groovy.util.Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
+            Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
             if (testPartFeedback != null) params.put("testPartFeedback", testPartFeedback);
 
-            Node outcomes = convertOutcomes(test.getTest().getOutcomeValues());
-            if (outcomes != null) params.put("outcomeValues", outcomes);
+            params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
+            params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
 
             if (view != null) {
                 params.put("view", view);
                 pageRenderParameters.put("view", view);
             }
-            println "TEST COMPLETE";
             //TODO find better way to handle blank
-            renderContent(AssessmentItemInfo.BLANK_ITEM, params, pageRenderParameters, null);
+            renderContent(AssessmentItemInfo.BLANK_ITEM, params, pageRenderParameters);
         } else {
 //			ItemSessionControl itemSessionControl = test.getCurrentItemSessionControl();
 
@@ -241,7 +228,7 @@ public class TestCoordinator implements Serializable {
 //			render = ai.render();
 
             //assemble and render (call service)
-            renderContent(test.currentItemInfo, makeAssessmentParams(), pageRenderParameters, test.currentItemInfo.getResponseValues());
+            renderContent(test.currentItemInfo, makeAssessmentParams(), pageRenderParameters);
         }
     }
 
@@ -255,25 +242,22 @@ public class TestCoordinator implements Serializable {
         params.put("title", test.getTestTitle());
 
         //set the section titles
-        groovy.util.Node sectionTitles = QtiUtils.convertStringArrayToNode(test.getCurrentSectionTitles());
+        Node sectionTitles = QtiUtils.convertStringArrayToNode(test.getCurrentSectionTitles());
         if (sectionTitles != null) params.put("sectionTitles", sectionTitles);
 
         //set the rubric
-        groovy.util.Node rubric = QtiUtils.convertRubricToNode(test.getRubricBlocks());
-        println "RUBRIC ${rubric}";
+        Node rubric = QtiUtils.convertRubricToNode(test.getRubricBlocks());
         if (rubric != null) params.put("rubric", rubric);
 
-        groovy.util.Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
+        Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
         if (assessmentFeedback != null) params.put("assessmentFeedback", assessmentFeedback);
 
-        groovy.util.Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
+        Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
         if (testPartFeedback != null) params.put("testPartFeedback", testPartFeedback);
 
-        Node outcomes = convertOutcomes(test.getTest().getOutcomeValues());
-        if (outcomes != null) params.put("outcomeValues", outcomes);
+        params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
 
-        Node outcomeDeclarations = convertOutcomeDeclarations(test.getTest().getOutcomeDeclarations());
-        if (outcomeDeclarations != null) params.put("outcomeDeclarations", outcomeDeclarations);
+        params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
 
         if (view != null) {
             params.put("view", view);
@@ -305,228 +289,11 @@ public class TestCoordinator implements Serializable {
         return params;
     }
 
-    /*
-      * convert an array of strings to a node (with children)
-      */
 
-    private Node convertStringArray(List<String> values) {
-        if (values == null || values.size() == 0) return null;
-
-        DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder;
-        try {
-            docBuilder = dbfac.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-            return null;
-        }
-        Document doc = docBuilder.newDocument();
-
-        //create the root element and add it to the document
-        Element root = doc.createElement("root");
-        doc.appendChild(root);
-
-        for (String value: values) {
-            Element child = doc.createElement("value");
-            child.setTextContent(value.toString());
-            root.appendChild(child);
-        }
-
-        return doc.getFirstChild();
-    }
-
-    /*
-      * convert rubric to a node
-      */
-
-    private Node convertRubric(List<List<RubricBlock>> values) {
-        if (values == null || values.size() == 0) return null;
-
-        int count = 0;
-        for (List<RubricBlock> v: values) count += v.size();
-        if (count == 0) return null;
-
-        DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder;
-        try {
-            docBuilder = dbfac.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-            return null;
-        }
-        Document doc = docBuilder.newDocument();
-
-        //create the root element and add it to the document
-        Element root = doc.createElement("root");
-        doc.appendChild(root);
-
-        for (List<RubricBlock> section: values) {
-            Element childsection = doc.createElement("section");
-
-            for (RubricBlock block: section) {
-                RubricBlock newblock = new RubricBlock(null);
-                newblock.load(block.toXmlString());
-
-                Node node = doc.adoptNode(newblock.getSourceNode());
-                childsection.appendChild(node);
-            }
-
-            root.appendChild(childsection);
-        }
-
-        return doc.getFirstChild();
-    }
-
-    /*
-      * convert a list of feedback to a node (with children)
-      */
-
-    private Node convertFeedback(List<TestFeedback> values) {
-        if (values == null || values.size() == 0) return null;
-
-        DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder;
-        try {
-            docBuilder = dbfac.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-            return null;
-        }
-        Document doc = docBuilder.newDocument();
-
-        //create the root element and add it to the document
-        Element root = doc.createElement("root");
-        doc.appendChild(root);
-
-        for (TestFeedback value: values) {
-            TestFeedback newValue = new TestFeedback(null);
-            newValue.load(value.toXmlString());
-
-            Node child = doc.adoptNode(newValue.getSourceNode());
-            root.appendChild(child);
-        }
-
-        return doc.getFirstChild();
-    }
-
-    /*
-      * convert a list of outcomeDeclarations to a node (with children)
-      */
-
-    private Node convertOutcomeDeclarations(List<OutcomeDeclaration> values) {
-        if (values == null || values.size() == 0) return null;
-
-        DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder;
-        try {
-            docBuilder = dbfac.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-            return null;
-        }
-        Document doc = docBuilder.newDocument();
-
-        //create the root element and add it to the document
-        Element root = doc.createElement("root");
-        doc.appendChild(root);
-
-        for (OutcomeDeclaration value: values) {
-            OutcomeDeclaration newValue = new OutcomeDeclaration(null);
-            newValue.load(value.toXmlString());
-
-            Node child = doc.adoptNode(newValue.getSourceNode());
-            root.appendChild(child);
-        }
-
-        return doc.getFirstChild();
-    }
-
-    /*
-      * convert outcomes to a node
-      */
-
-    private Node convertOutcomes(Map<String, Value> values) {
-        if (values == null || values.size() == 0) return null;
-
-        String elementName = "outcome";
-
-        DocumentBuilderFactory dbfac = DocumentBuilderFactory.newInstance();
-        DocumentBuilder docBuilder;
-        try {
-            docBuilder = dbfac.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-            return null;
-        }
-        Document doc = docBuilder.newDocument();
-
-        //create the root element and add it to the document
-        Element root = doc.createElement("root");
-        doc.appendChild(root);
-
-        for (String id: values.keySet()) {
-            Element child = doc.createElement(elementName);
-            child.setAttribute("identifier", id);
-
-            Value value = values.get(id);
-            if (value instanceof SingleValue) {
-                Element v = doc.createElement("value");
-                v.setTextContent(value.toString());
-                child.appendChild(v);
-            } else if (value instanceof ListValue) {
-                for (int i = 0; i < ((ListValue) value).size(); i++) {
-                    Element v = doc.createElement("value");
-                    v.setTextContent(((ListValue) value).get(i).toString());
-                    child.appendChild(v);
-                }
-            } else if (value instanceof OrderedValue) {
-                for (int i = 0; i < ((OrderedValue) value).size(); i++) {
-                    Element v = doc.createElement("value");
-                    v.setTextContent(((ListValue) value).get(i).toString());
-                    child.appendChild(v);
-                }
-            }
-
-            root.appendChild(child);
-        }
-
-        return doc.getFirstChild();
-    }
-
-    private void renderContent(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams, Map<String, Object> pageParams, Map<String, Value> responses) {
-        /*try {
-              boolean isResponded;
-              if (test.getCurrentItemRef() == null) {
-                  isResponded = false;
-              } else {
-                  isResponded = test.getCurrentItemRef().isResponded();
-              }
-              cachedTestRenderInfo = renderer.renderPage(assessmentItem, isResponded, responses, assessmentParams, pageParams);
-          } catch (Exception e) {
-              e.printStackTrace();
-          }
-        System.out.println(assessmentItem.getTitle());
-     //   System.out.println("Assess params " + assessmentParams);
-        assessmentParams.each{
-            println "${it.key} ==> ${it.value} ==> ${it.value.getClass()}";
-        }
-        System.out.println("paga params " + pageParams);
-        System.out.println("resp " + responses);  */
-
+    private void renderContent(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams, Map<String, Object> pageParams) {
         //TODO fix logging
-        log.info("getCurrentItemRef ==> ${test.getCurrentItemRef()} , AssessmentItemInfo ==> ${assessmentItemInfo}, IS BLANK ${assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)}");
-        //TODO fix comments
-        /*if (test.getCurrentItemRef() == null) {
-            log.info("getCurrentItemRef() is null, returning NO_INFO");
-            cachedTestRenderInfo = TestRenderInfo.NO_INFO;
-            return;
-        }
-        if (!assessmentItemInfo) {
-            log.info("assessmentItem is null, returning NO_INFO");
-            cachedTestRenderInfo = TestRenderInfo.NO_INFO;
-            return;
-        }*/
-        cachedTestRenderInfo = new TestRenderInfo(assessmentItemInfo, assessmentParams, pageParams, responses)
+        log.info("IS BLANK ${assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)}");
+        cachedTestRenderInfo = new TestRenderInfo(assessmentItemInfo, assessmentParams, pageParams)
 
     }
 
@@ -543,7 +310,7 @@ public class TestCoordinator implements Serializable {
     public void setCurrentResponse(Map params) throws FileNotFoundException, URISyntaxException, QTIException {
         test.setCurrentItemResponses(params);
 
-        //TODO verify candidateComments work
+        //TODO RENDER Input for canditate comments
         if (params.containsKey("candidateComment"))
             test.getCurrentItemRef().setCandidateComment(params.get("candidateComment").get(0));
 
@@ -571,10 +338,8 @@ public class TestCoordinator implements Serializable {
                 if (!test.getCurrentItemRef().isTimedOut())
                     test.getCurrentItemRef().timeOut();
             }
-            println "TEST PART ITEMS ${testPartItems}";
             if (!test.getItemFlow().hasNextItemRef(true)) {
                 //write all vars
-                println "PROCESSING test";
                 for (AssessmentItemRef key: testPartItems.keySet()) {
                     key.setOutcomes(testPartItems.get(key));
                 }
@@ -597,7 +362,7 @@ public class TestCoordinator implements Serializable {
             //test.getCurrentItem().getItemBody().willShowFeedback()
             //test.getCurrentItem().getAdaptive()
         } else {
-            renderContent(test.currentItemInfo, makeAssessmentParams(), pageRenderParameters, test.getCurrentItemResponses());
+            renderContent(test.currentItemInfo, makeAssessmentParams(), pageRenderParameters);
         }
     }
 
