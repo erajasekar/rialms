@@ -43,6 +43,9 @@
     <g:if test="${assessmentParams.submitEnabled}">
         <g:submitButton value="Submit" name="submit"/>
     </g:if>
+    <g:else>
+            <g:submitButton value="Submit" name="submit" disabled="disabled"/>
+    </g:else>
 
     <hr/>
 

@@ -14,7 +14,6 @@ class QtiTagLib {
 
         String tag = "img";
         String dir = getRequiredAttribute(attrs, 'assessmentItemInfo', tag).dataPath;
-        println "here ${dir}"
         String file = getRequiredAttribute(attrs, 'file', tag);
         String fullPath = dir + file;
 
@@ -94,11 +93,16 @@ class QtiTagLib {
     }
 
     def endAttemptInteraction = { attrs ->
-        Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', 'endAttemptInteraction');
+        String tag = 'endAttemptInteraction';
+        Map xmlAttributes = getRequiredAttribute(attrs, 'xmlAttributes', tag);
         String id = xmlAttributes.responseIdentifier;
         String title = xmlAttributes.title;
-        // out << """ <a href="${g.createLink(controller: 'Exercise', action: 'showHint', params: [(id): title])}" > ${title} </a>   """
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+
         Map fieldAttributes = [name: id, value: title];
+        if (assessmentItemInfo.isComplete()){
+            fieldAttributes << [disabled:'disabled']
+        }
 
         def tagBody = {
             g.submitButton(fieldAttributes);
@@ -201,7 +205,6 @@ class QtiTagLib {
                 out << " </p> ";
             }
         }
-
 
     }
 

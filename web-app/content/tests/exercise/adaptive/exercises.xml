@@ -7,12 +7,8 @@
         title="Adaptive Exercises">
     <testPart identifier="part1" navigationMode="linear" submissionMode="individual">
         <assessmentSection identifier="sectionA" title="Section 1" visible="true">
-            <assessmentItemRef identifier="perimeter1" href="perimeter1.xml"></assessmentItemRef>
             <assessmentItemRef identifier="Sequences_Ex_2_1" href="Sequences_Ex_2_1.xml"></assessmentItemRef>
-            <!--  <assessmentItemRef identifier="math3" href="math3.xml"></assessmentItemRef>
-        <assessmentItemRef identifier="math4" href="math4.xml"></assessmentItemRef>
-        <assessmentItemRef identifier="math5" href="math5.xml"></assessmentItemRef>
-        <assessmentItemRef identifier="math6" href="math6.xml"></assessmentItemRef>  -->
+            <assessmentItemRef identifier="perimeter1" href="perimeter1.xml"></assessmentItemRef>
         </assessmentSection>
     </testPart>
 </assessmentTest>

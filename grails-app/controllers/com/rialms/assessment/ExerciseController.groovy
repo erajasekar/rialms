@@ -34,6 +34,7 @@ class ExerciseController {
         if (request.post) {
             log.info("Processing Exercise with param ${params}");
             assessmentItemInfo.processResponses(params);
+
         }
 
         render(view: 'play', model: ['assessmentItemInfo': assessmentItemInfo]);

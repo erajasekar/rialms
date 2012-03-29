@@ -6,6 +6,7 @@ import org.qtitools.qti.node.outcome.declaration.OutcomeDeclaration
 import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
 import groovy.util.logging.*
 import org.qtitools.qti.node.content.ItemBody
+import org.qtitools.qti.value.Value
 
 /**
  * Created by IntelliJ IDEA.
@@ -17,12 +18,6 @@ import org.qtitools.qti.node.content.ItemBody
 @Log4j
 class AssessmentItemInfo {
 
-    private Map<String, String> outcomeValues = [:];
-
-    private Map<String, List<String>> responseValues = [:];
-
-    private Map<String, String> templateValues;
-
     private String dataPath;
 
     private AssessmentItem assessmentItem;
@@ -32,32 +27,27 @@ class AssessmentItemInfo {
     public static final BLANK_ITEM = new AssessmentItemInfo();
 
     public AssessmentItemInfo() {
-
     }
 
     public AssessmentItemInfo(AssessmentItem item, String dataPath) {
-
         if (!item) {
             throw new IllegalArgumentException("AssessmentItem can't be null");
         }
         this.assessmentItem = item;
-        this.outcomeValues = QtiUtils.convertQTITypesToParams(assessmentItem.outcomeValues);
-        this.templateValues = QtiUtils.convertQTITypesToParams(assessmentItem.templateValues);
         this.dataPath = dataPath;
         xmlRoot = new XmlParser().parse(assessmentItem.sourceFile);
     }
 
     public Map<String, String> getResponseValues() {
-        return responseValues
+        return QtiUtils.convertRespValuesToStringMap(assessmentItem.responseValues);
     }
 
     public Map<String, String> getOutcomeValues() {
-        return outcomeValues;
+        return QtiUtils.convertQTITypesToParams(assessmentItem.outcomeValues);
     }
 
-
     public Map<String, String> getTemplateValues() {
-        return templateValues;
+        return QtiUtils.convertQTITypesToParams(assessmentItem.templateValues);
     }
 
     public List<TemplateDeclaration> getTemplateDeclarations() {
@@ -79,7 +69,7 @@ class AssessmentItemInfo {
     private void setResponses(Map params) {
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
-        responseValues = QtiUtils.convertToRespValues(params, identifiers);
+        Map<String,List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
         //TODO
         log.info("Response Values ${this} ==> ${responseValues}");
         assessmentItem.setResponses(responseValues);
@@ -88,8 +78,20 @@ class AssessmentItemInfo {
     public void processResponses(Map params) {
         setResponses(params);
         assessmentItem.processResponses();
-        outcomeValues = QtiUtils.convertQTITypesToParams(assessmentItem.outcomeValues)
-        log.info("OUTCOME ==> ${outcomeValues}");
+        log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
+        //TODO UPDATE LOG LEVEL
+        log.info("IS COMPLETE ==> ${this.complete}");
+    }
+
+    public boolean isComplete(){
+        boolean complete = false;
+        if (assessmentItem.adaptive){
+            Value completionStatus = assessmentItem.getOutcomeValue(AssessmentItem.VARIABLE_COMPLETION_STATUS)
+            complete = (completionStatus && completionStatus.toString().equals(AssessmentItem.VALUE_ITEM_IS_COMPLETED))
+        }else{
+            complete = assessmentItem.isCorrect();
+        }
+        return complete;
     }
 
     public String getTitle() {

@@ -48,7 +48,7 @@
         </g:elseif>
 
         <g:elseif test="${tag == Tag.printedVariable}">
-            <g:if test="${!(assessmentItemInfo || assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM))}">
+            <g:if test="${assessmentItemInfo && !assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)}">
                 <qti:printedVariable xmlAttributes="${n.attributes()}"
                                      templateValues="${assessmentItemInfo.templateValues}"
                                      templateDeclarations="${assessmentItemInfo.templateDeclarations}"
@@ -61,7 +61,7 @@
                                      outcomeDeclarations="${assessmentParams.outcomeDeclarations}"/>
             </g:elseif>
             <g:else>
-                Error Both  assessmentItemInfo & assessmentItemInfo is null
+                Error Both  assessmentItemInfo and assessmentParams is null
             </g:else>
 
         </g:elseif>

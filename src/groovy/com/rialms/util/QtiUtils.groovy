@@ -43,11 +43,11 @@ class QtiUtils {
         return map
     }
 
-    public static Map<String, String> convertQTITypesToParams(Map<String, Value> outcome) {
+    public static Map<String, String> convertQTITypesToParams(Map<String, Value> values) {
 
         Map<String, String> params = [:];
 
-        outcome?.each { k, v ->
+        values?.each { k, v ->
             String value;
             if (!(v instanceof org.qtitools.qti.value.NullValue)) {
                 if (v instanceof MultipleValue) {
@@ -61,6 +61,25 @@ class QtiUtils {
         }
         return params;
     }
+    
+    public static Map<String, List<String>> convertRespValuesToStringMap(Map<String, Value> respValues) {
+    
+            Map<String, String> params = [:];
+    
+            respValues?.each { k, v ->
+                List<String> values = [];
+                if (!(v instanceof org.qtitools.qti.value.NullValue)) {
+                    if (v instanceof MultipleValue) {
+                        values = v.collect {it.toString()};
+                    }
+                    else {
+                        values << v.toString();
+                    }
+                    params[k] = values;
+                }
+            }
+            return params;
+        }
 
     public static String formatVariable(VariableDeclaration variableDeclaration, String format, Object value) {
         BaseType type = variableDeclaration.getBaseType();

@@ -45,6 +45,9 @@
         </p>
     </itemBody>
     <responseProcessing>
+        <setOutcomeValue identifier="completionStatus">
+            <baseValue baseType="identifier">incomplete</baseValue>
+        </setOutcomeValue>
         <responseCondition>
             <responseIf>
                 <variable identifier="HINTREQUEST"/>
@@ -67,6 +70,9 @@
                         </setOutcomeValue>
                         <setOutcomeValue identifier="END_FEEDBACK">
                             <baseValue baseType="identifier">CORRECT</baseValue>
+                        </setOutcomeValue>
+                        <setOutcomeValue identifier="completionStatus">
+                            <baseValue baseType="identifier">completed</baseValue>
                         </setOutcomeValue>
                     </responseIf>
                     <responseElse>
