@@ -23,8 +23,8 @@ class TagTests {
     
     void testIsMixedTag(){
         String msg = "testIsMixedTag Failed ";
-        assertTrue(msg, Tag.isMixedTag(new QName("h1")));
-        assertTrue(msg, Tag.isMixedTag(new QName("div")));
-        assertFalse(msg, Tag.isMixedTag(new QName("textinteraction")));
+        assertTrue(msg, Tag.isMixedTag(Tag.valueOf(new QName("h1"))));
+        assertTrue(msg, Tag.isMixedTag(Tag.valueOf(new QName("div"))));
+        assertFalse(msg, Tag.isMixedTag(Tag.textEntryInteraction));
     }
 }

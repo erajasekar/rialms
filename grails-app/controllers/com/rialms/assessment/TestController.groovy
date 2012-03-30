@@ -5,6 +5,8 @@ import com.rialms.assessment.test.TestRenderInfo
 import com.rialms.assessment.item.AssessmentItemInfo
 
 import groovy.xml.XmlUtil
+import com.rialms.assessment.test.TestReport
+import com.rialms.assessment.test.TestReportBuilder
 
 class TestController {
 
@@ -18,8 +20,10 @@ class TestController {
 
     def report() {
         log.info("Executing Report with params ${params}");
-        //TODO modify getreport method itself to return xml instead of string.
-        render session.coordinator[params.id].getReport();
+        //TODO do appropriate redirects if variables not found in session.
+        TestCoordinator coordinator = session.coordinator[params.id];
+        TestReport report = TestReportBuilder.buildTestReport(coordinator.test.title,coordinator.getReport())
+        render (view: 'report', model: [testReport:report]);
     }
 
     def reset = {
@@ -75,8 +79,4 @@ class TestController {
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
     }
 
-    def feedback = {
-        log.info("Executing feedback with params ${params} => ${chainModel}");
-        render XmlUtil.serialize(chainModel.assessmentParams.assessmentFeedback);
-    }
 }
