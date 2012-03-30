@@ -9,11 +9,16 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${testReport.testTitle}</title>
+    <title>
+
+    </title>
 </head>
 
 <body>
-<h2>Summary</h2>
+
+<h2><g:message code="test.report.title.message" args="${[testReport.testTitle]}"/></h2>
+
+<h2><g:message code="test.report.summary.message"/></h2>
 
 <table>
     <g:each var='summary' in="${testReport.summary}">
@@ -24,18 +29,18 @@
     </g:each>
 </table>
 
-<h2>Detail</h2>
+<h2><g:message code="test.report.detail.message"/></h2>
 
 <g:if test="${testReport.detail.isEmpty()}">
-    No Report Detail Found.
+    <g:message code="test.report.noreportdetail.error"/>
 </g:if>
 <g:else>
     <table>
         <thead>
         <tr>
-             <g:each var='columnNames' in="${testReport.detail[0].keySet()}">
-                 <td>${columnNames}</td>
-             </g:each>
+            <g:each var='columnNames' in="${testReport.detail[0].keySet()}">
+                <td>${columnNames}</td>
+            </g:each>
         </tr>
         </thead>
         <g:each var='detail' in="${testReport.detail}">

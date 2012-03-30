@@ -16,6 +16,11 @@
 </head>
 
 <body>
+
+<g:if test="${flash.message}">
+    <g:message code="${flash.message}"/>
+</g:if>
+
 <h2>${assessmentParams.title}</h2>
 
 <h3>${assessmentItemInfo.title}</h3>
@@ -30,9 +35,8 @@
 
 </g:if>
 
-<g:if test="${flash.message}">
-    ${flash.message}
-</g:if>
+
+
 <g:form name="AssessmentForm" action="play">
     <g:render template="/renderer/renderItemSubTree"
               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
@@ -44,7 +48,7 @@
         <g:submitButton value="Submit" name="submit"/>
     </g:if>
     <g:else>
-            <g:submitButton value="Submit" name="submit" disabled="disabled"/>
+        <g:submitButton value="Submit" name="submit" disabled="disabled"/>
     </g:else>
 
     <hr/>

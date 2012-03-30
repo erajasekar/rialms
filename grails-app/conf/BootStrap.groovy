@@ -44,5 +44,8 @@ class BootStrap {
         new Test(dataPath: 'tests/qti/NonLinearSimpleTest', dataFile: 'assessment.xml').save();
         new Test(dataPath: 'tests/qti/Mathematics', dataFile: 'mathematics.xml').save();
         new Test(dataPath: 'tests/exercise/adaptive', dataFile: 'exercises.xml').save();
+        new Test(dataPath: 'tests/qti/MathML-templated', dataFile: 'assessment.xml').save();
+        new Test(dataPath: 'tests/qti/WebDeveloperTest1', dataFile: 'template_test1.xml').save();
+
     }
 }

@@ -16,7 +16,7 @@
 <h2>${assessmentParams.title}</h2>
 
 <g:if test="${flash.message}">
-    ${flash.message}
+    <g:message code="${flash.message}"/>
 </g:if>
 
 <h4><g:message code="test.complete.message"/></h4>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cp:manifest xmlns:cp="http://www.imsglobal.org/xsd/imscp_v1p1" identifier="SCENARIO">
+    <cp:resources>
+
+        <cp:resource identifier="assessment" type="imsqti_test_xmlv2p1" href="assessment.xml">
+            <cp:file href="assessment.xml"/>
+        </cp:resource>
+
+        <cp:resource identifier="math" type="imsqti_item_xmlv2p0" href="math.xml">
+            <cp:file href="math.xml"/>
+        </cp:resource>
+
+        <cp:resource identifier="math" type="imsqti_item_xmlv2p0" href="math_template.xml">
+            <cp:file href="math_template.xml"/>
+        </cp:resource>
+
+    </cp:resources>
+</cp:manifest>

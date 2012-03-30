@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Thie example adapted from the PET Handbook, copyright University of Cambridge ESOL Examinations -->
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                identifier="math" title="Relativity" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="float"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>0</value>
+        </defaultValue>
+    </outcomeDeclaration>
+
+    <templateDeclaration identifier="num" cardinality="single" baseType="integer" mathVariable="true"
+                         paramVariable="false"/>
+    <templateDeclaration identifier="den" cardinality="single" baseType="integer" mathVariable="true"
+                         paramVariable="false"/>
+    <templateDeclaration identifier="res" cardinality="single" baseType="float" mathVariable="false"
+                         paramVariable="false"/>
+
+    <templateProcessing>
+        <setTemplateValue identifier="num">
+            <randomInteger min="1" max="10"/>
+        </setTemplateValue>
+        <setTemplateValue identifier="den">
+            <randomInteger min="1" max="10"/>
+        </setTemplateValue>
+        <setTemplateValue identifier="res">
+            <divide>
+                <integerToFloat>
+                    <variable identifier="num"/>
+                </integerToFloat>
+                <integerToFloat>
+                    <variable identifier="den"/>
+                </integerToFloat>
+            </divide>
+        </setTemplateValue>
+        <setCorrectResponse identifier="RESPONSE">
+            <variable identifier="res"/>
+        </setCorrectResponse>
+    </templateProcessing>
+
+    <itemBody>
+        <p>Please evaluate the following fraction
+            <m:math>
+                <m:mfrac>
+                    <m:mi>num</m:mi>
+                    <m:mi>den</m:mi>
+                </m:mfrac>
+            </m:math>
+            =
+            <textEntryInteraction responseIdentifier="RESPONSE" expectedLength="15"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <equal toleranceMode="absolute" tolerance="0.1">
+                    <variable identifier="RESPONSE"/>
+                    <correct identifier="RESPONSE"/>
+                </equal>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+    </responseProcessing>
+</assessmentItem>

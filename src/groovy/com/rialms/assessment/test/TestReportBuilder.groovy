@@ -1,5 +1,7 @@
 package com.rialms.assessment.test
 
+import groovy.util.logging.Log4j
+
 /**
  * Created by IntelliJ IDEA.
  * User: Rajasekar Elango
@@ -7,34 +9,44 @@ package com.rialms.assessment.test
  * Time: 10:49 PM
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 class TestReportBuilder {
 
-    private static final List<String> OUTCOME_VARIABLES_TO_INCLUDE = ['SCORE'];
-    
-    public static TestReport buildTestReport(String testTitle,String xmlString){
+    private static final List<String> DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE = ['SCORE'];
+
+    private List<String> outcomeVariablesToInclude = DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE;
+
+    public TestReport buildTestReport(String testTitle, String xmlString) {
         def assessmentResult = new XmlSlurper().parseText(xmlString);
-        def testResultDuration = assessmentResult.testResult.outcomeVariable.findAll{ outcomeVariable -> outcomeVariable.@identifier =~ 'duration'}
-        Map<String,String> summary = [:];
-        testResultDuration.each{it ->
-            summary[(it.@identifier)] = it.text();
+        def testResultDuration = assessmentResult.testResult.outcomeVariable.findAll { outcomeVariable -> outcomeVariable.@identifier =~ 'duration'}
+        Map<String, String> summary = [:];
+        testResultDuration.each {it ->
+            summary[(it.@identifier.toString())] = it.text();
         }
 
-        println "test summary ${summary.getClass()} " + summary;
+        log.info("Test Report Summary ${summary}");
 
-        List<Map<String,String>> detail = [];
+        List<Map<String, String>> detail = [];
         assessmentResult.itemResult.each { itemResult ->
-             String itemResultId =  itemResult.@identifier;
-             Map <String,String> outcomeVariableResult = [:];
-             outcomeVariableResult['item'] = itemResultId;
-             def outcomeVariables = itemResult.outcomeVariable.findAll {outcomeVariable -> OUTCOME_VARIABLES_TO_INCLUDE.contains(outcomeVariable.@identifier)}
-             outcomeVariables.each{ it->
-                 outcomeVariableResult[(it.@identifier)] = it.text();
-             }
+            String itemResultId = itemResult.@identifier;
+            Map<String, String> outcomeVariableResult = [:];
+            outcomeVariableResult['item'] = itemResultId;
+            def outcomeVariables = itemResult.outcomeVariable.findAll {outcomeVariable -> outcomeVariablesToInclude.contains(outcomeVariable.@identifier)}
+            outcomeVariables.each { it ->
+                outcomeVariableResult[(it.@identifier.toString())] = it.text();
+            }
             detail << outcomeVariableResult;
         }
-        println "test detail ${detail.getClass()} " + detail;
+        log.info("Test Report Detail ${detail}");
         return new TestReport(testTitle: testTitle, summary: summary, detail: detail);
+    }
 
+    public void setOutcomeVariablesToInclude(List<String> outcomeVariablesToInclude) {
+        this.outcomeVariablesToInclude = outcomeVariablesToInclude
+    }
+
+    public List<String> getOutcomeVariablesToInclude() {
+        return outcomeVariablesToInclude;
     }
 
 }

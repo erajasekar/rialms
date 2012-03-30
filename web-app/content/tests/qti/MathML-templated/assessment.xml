@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentTest
+        xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+        identifier="mathmltest"
+        title="MathML Test">
+    <outcomeDeclaration identifier="TOTAL_SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>0</value>
+        </defaultValue>
+    </outcomeDeclaration>
+    <testPart identifier="part1" navigationMode="linear" submissionMode="individual">
+        <itemSessionControl showFeedback="true"/>
+        <assessmentSection identifier="sectionA" title="Section 1" visible="true">
+            <selection select="10" withReplacement="true"/>
+            <assessmentItemRef identifier="math" href="math_template.xml">
+                <branchRule target="EXIT_SECTION">
+                    <gt>
+                        <variable identifier="TOTAL_SCORE"/>
+                        <baseValue baseType="integer">2</baseValue>
+                    </gt>
+                </branchRule>
+            </assessmentItemRef>
+        </assessmentSection>
+    </testPart>
+    <outcomeProcessing>
+        <setOutcomeValue identifier="TOTAL_SCORE">
+            <sum>
+                <testVariables variableIdentifier="SCORE" baseType="integer" sectionIdentifier="sectionA"/>
+            </sum>
+        </setOutcomeValue>
+    </outcomeProcessing>
+</assessmentTest>

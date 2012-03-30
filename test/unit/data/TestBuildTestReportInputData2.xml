@@ -1,0 +1,185 @@
+<assessmentResult
+        xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 imsqti_v2p1.xsd">
+    <testResult identifier="MATHTEST-1" datestamp="2012-03-30T16:12:29">
+        <outcomeVariable identifier="PERCENT_CORRECT" cardinality="single" baseType="float">
+            <value>50.0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="NPRESENTED" cardinality="single" baseType="integer">
+            <value>4</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="NRESPONDED" cardinality="single" baseType="integer">
+            <value>4</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="SCOREA" cardinality="single" baseType="float">
+            <value>2.0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="SCOREB" cardinality="single" baseType="float">
+            <value>0.0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="SUMMARY" cardinality="single" baseType="identifier">
+            <value>GOOD</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="duration" cardinality="single" baseType="duration">
+            <value>18.119</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="part1.duration" cardinality="single" baseType="duration">
+            <value>18.119</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="sectionA.duration" cardinality="single" baseType="duration">
+            <value>6.001</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="sectionB.duration" cardinality="single" baseType="duration">
+            <value>12.118</value>
+        </outcomeVariable>
+    </testResult>
+    <itemResult identifier="item034" datestamp="2012-03-30T16:12:29" sequenceIndex="1">
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="float" normalMaximum="1.0">
+            <value>1.0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="completionStatus" cardinality="single" baseType="string">
+            <value>unknown</value>
+        </outcomeVariable>
+        <responseVariable identifier="duration" cardinality="single" baseType="float">
+            <candidateResponse>
+                <value>3.287</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="RESPONSE" cardinality="single" baseType="string">
+            <correctResponse>
+                <value>2</value>
+            </correctResponse>
+            <candidateResponse>
+                <value>2</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+            <candidateResponse>
+                <value>1</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+    <itemResult identifier="item160" datestamp="2012-03-30T16:12:29" sequenceIndex="2">
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="float">
+            <value>1.0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="completionStatus" cardinality="single" baseType="string">
+            <value>unknown</value>
+        </outcomeVariable>
+        <responseVariable identifier="duration" cardinality="single" baseType="float">
+            <candidateResponse>
+                <value>2.709</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="RESPONSE" cardinality="single" baseType="string">
+            <correctResponse>
+                <value>12</value>
+            </correctResponse>
+            <candidateResponse>
+                <value>12</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+            <candidateResponse>
+                <value>1</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+    <itemResult identifier="item063" datestamp="2012-03-30T16:12:29" sequenceIndex="3">
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="float"/>
+        <outcomeVariable identifier="completionStatus" cardinality="single" baseType="identifier">
+            <value>not_attempted</value>
+        </outcomeVariable>
+        <responseVariable identifier="duration" cardinality="single" baseType="float">
+            <candidateResponse>
+                <value>0.0</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="RESPONSE" cardinality="single" baseType="string">
+            <correctResponse>
+                <value>7</value>
+            </correctResponse>
+            <candidateResponse/>
+        </responseVariable>
+        <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+            <candidateResponse>
+                <value>0</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+    <itemResult identifier="item347" datestamp="2012-03-30T16:12:29" sequenceIndex="4">
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="float">
+            <value>0.0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="completionStatus" cardinality="single" baseType="string">
+            <value>unknown</value>
+        </outcomeVariable>
+        <responseVariable identifier="duration" cardinality="single" baseType="float">
+            <candidateResponse>
+                <value>2.437</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="RESPONSE" cardinality="single" baseType="string">
+            <correctResponse>
+                <value>4</value>
+            </correctResponse>
+            <candidateResponse>
+                <value>1</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+            <candidateResponse>
+                <value>1</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+    <itemResult identifier="item653" datestamp="2012-03-30T16:12:29" sequenceIndex="5">
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="float"/>
+        <outcomeVariable identifier="completionStatus" cardinality="single" baseType="identifier">
+            <value>not_attempted</value>
+        </outcomeVariable>
+        <responseVariable identifier="duration" cardinality="single" baseType="float">
+            <candidateResponse>
+                <value>0.0</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="RESPONSE" cardinality="single" baseType="string">
+            <correctResponse>
+                <value>1.5</value>
+            </correctResponse>
+            <candidateResponse/>
+        </responseVariable>
+        <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+            <candidateResponse>
+                <value>0</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+    <itemResult identifier="item656" datestamp="2012-03-30T16:12:29" sequenceIndex="6">
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="float">
+            <value>0.0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="completionStatus" cardinality="single" baseType="string">
+            <value>unknown</value>
+        </outcomeVariable>
+        <responseVariable identifier="duration" cardinality="single" baseType="float">
+            <candidateResponse>
+                <value>9.677</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="RESPONSE" cardinality="single" baseType="string">
+            <correctResponse>
+                <value>32</value>
+            </correctResponse>
+            <candidateResponse>
+                <value>256</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+            <candidateResponse>
+                <value>1</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+</assessmentResult>

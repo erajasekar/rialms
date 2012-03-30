@@ -11,9 +11,9 @@ class TestReport {
 
     private String testTitle;
 
-    private Map<String,String> summary;
+    private Map<String, String> summary;
 
-    private List<Map<String,String>> detail;
+    private List<Map<String, String>> detail;
 
     boolean equals(o) {
         if (this.is(o)) return true
@@ -21,17 +21,17 @@ class TestReport {
 
         TestReport that = (TestReport) o
 
-        println "this detail ${detail} ====== other detail ${that.detail} ===== ${detail == that.detail}"
-        println "this summary ${summary} ====== other summary ${that.summary} ===== ${summary == that.summary}"
         if (detail != that.detail) return false
         if (summary != that.summary) return false
+        if (testTitle != that.testTitle) return false
 
         return true
     }
 
     int hashCode() {
         int result
-        result = summary.hashCode()
+        result = testTitle.hashCode()
+        result = 31 * result + summary.hashCode()
         result = 31 * result + detail.hashCode()
         return result
     }

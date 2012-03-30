@@ -20,10 +20,18 @@ class TestController {
 
     def report() {
         log.info("Executing Report with params ${params}");
-        //TODO do appropriate redirects if variables not found in session.
-        TestCoordinator coordinator = session.coordinator[params.id];
-        TestReport report = TestReportBuilder.buildTestReport(coordinator.test.title,coordinator.getReport())
-        render (view: 'report', model: [testReport:report]);
+        if (!params.id) {
+            redirect(action: 'list')
+        }
+        else if (!session.coordinator[params.id]) {
+            flash.message = 'test.report.noreport.error'
+            redirect(action: 'play', params: params);
+        } else {
+            TestCoordinator coordinator = session.coordinator[params.id];
+            TestReport report = new TestReportBuilder().buildTestReport(coordinator.test.title, coordinator.getReport())
+            render(view: 'report', model: [testReport: report]);
+        }
+
     }
 
     def reset = {

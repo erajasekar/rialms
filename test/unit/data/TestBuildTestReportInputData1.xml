@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentResult
+        xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 imsqti_v2p1.xsd">
+    <testResult identifier="mathmltest" datestamp="2012-03-29T18:01:55">
+        <outcomeVariable identifier="duration" cardinality="single" baseType="duration">
+            <value>10.813</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="part1.duration" cardinality="single" baseType="duration">
+            <value>10.813</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="sectionA.duration" cardinality="single" baseType="duration">
+            <value>10.813</value>
+        </outcomeVariable>
+    </testResult>
+    <itemResult identifier="math1" datestamp="2012-03-29T18:01:55" sequenceIndex="1">
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="float" normalMaximum="1.0">
+            <value>1.0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="completionStatus" cardinality="single" baseType="string">
+            <value>unknown</value>
+        </outcomeVariable>
+        <responseVariable identifier="duration" cardinality="single" baseType="float">
+            <candidateResponse>
+                <value>17.219</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="RESPONSE" cardinality="single" baseType="string">
+            <correctResponse>
+                <value>2</value>
+            </correctResponse>
+            <candidateResponse>
+                <value>2</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+            <candidateResponse>
+                <value>1</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+    <itemResult identifier="math2" datestamp="2012-03-29T18:01:55" sequenceIndex="2">
+        <outcomeVariable identifier="SCORE" cardinality="single" baseType="float">
+            <value>1.0</value>
+        </outcomeVariable>
+        <outcomeVariable identifier="completionStatus" cardinality="single" baseType="string">
+            <value>unknown</value>
+        </outcomeVariable>
+        <responseVariable identifier="duration" cardinality="single" baseType="float">
+            <candidateResponse>
+                <value>4.407</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="RESPONSE" cardinality="single" baseType="string">
+            <correctResponse>
+                <value>12</value>
+            </correctResponse>
+            <candidateResponse>
+                <value>12</value>
+            </candidateResponse>
+        </responseVariable>
+        <responseVariable identifier="numAttempts" cardinality="single" baseType="integer">
+            <candidateResponse>
+                <value>1</value>
+            </candidateResponse>
+        </responseVariable>
+    </itemResult>
+</assessmentResult>
