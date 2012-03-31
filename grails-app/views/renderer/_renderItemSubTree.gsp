@@ -10,6 +10,7 @@
 <g:each var="n" in="${node.children()}">
 
     <g:if test="${n instanceof String}">
+        <% System.out.println("TEXT ${n}") %>
         ${n}
     </g:if>
     <g:else>
@@ -80,7 +81,7 @@
                       model="[node: n, identifierValue: assessmentItemInfo.templateValues?.(n.'@templateIdentifier'), assessmentItemInfo: assessmentItemInfo]"/>
         </g:elseif>
         <g:elseif test="${n.name().getPrefix().equals("m")}">
-            <qti:mathML xmlNode="${n}"/>
+            <qti:mathML xmlNode="${n}" templateValues="${assessmentItemInfo.templateValues}"/>
         </g:elseif>
 
     </g:else>

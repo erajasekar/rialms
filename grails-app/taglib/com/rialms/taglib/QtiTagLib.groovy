@@ -100,8 +100,8 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
         Map fieldAttributes = [name: id, value: title];
-        if (assessmentItemInfo.isComplete()){
-            fieldAttributes << [disabled:'disabled']
+        if (assessmentItemInfo.isComplete()) {
+            fieldAttributes << [disabled: 'disabled']
         }
 
         def tagBody = {
@@ -271,6 +271,12 @@ class QtiTagLib {
     def mathML = {  attrs ->
         String tag = 'mathml';
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        Map templateValues = getOptionalAttribute(attrs, 'templateValues');
+
+        if (templateValues) {
+            xmlNode = QtiUtils.applyTemplateValuesInMathML(xmlNode, templateValues)
+        }
+
         def sw = new StringWriter()
         new XmlNodePrinter(new PrintWriter(sw)).print(xmlNode);
 

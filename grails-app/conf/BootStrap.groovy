@@ -38,6 +38,8 @@ class BootStrap {
         //16-17
         new Exercise(dataPath: 'exercise/Std10', dataFile: 'Sequences_Ex_2_1.xml').save();
         new Exercise(dataPath: 'qti', dataFile: 'likert.xml').save();
+        new Exercise(dataPath: 'qti', dataFile: 'mathml-templated.xml').save();
+        new Exercise(dataPath: 'qti', dataFile: 'content-with-html-tags.xml').save();
     }
 
     def createTests() {

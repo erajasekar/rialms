@@ -1,16 +1,12 @@
 package com.rialms.util
 
-import org.qtitools.qti.value.Value
-import org.qtitools.qti.value.MultipleValue
-import org.qtitools.qti.value.BaseType
-import org.qtitools.qti.node.shared.VariableDeclaration
-import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
-import org.qtitools.qti.node.content.variable.RubricBlock
-import org.w3c.dom.Element
-import groovy.xml.XmlUtil
-import org.qtitools.qti.node.test.TestFeedback
-import javax.xml.namespace.QName
 import groovy.xml.MarkupBuilder
+import org.qtitools.qti.node.content.variable.RubricBlock
+import org.qtitools.qti.node.shared.VariableDeclaration
+import org.qtitools.qti.node.test.TestFeedback
+import org.qtitools.qti.value.BaseType
+import org.qtitools.qti.value.MultipleValue
+import org.qtitools.qti.value.Value
 
 /**
  * Created by IntelliJ IDEA.
@@ -61,25 +57,25 @@ class QtiUtils {
         }
         return params;
     }
-    
+
     public static Map<String, List<String>> convertRespValuesToStringMap(Map<String, Value> respValues) {
-    
-            Map<String, String> params = [:];
-    
-            respValues?.each { k, v ->
-                List<String> values = [];
-                if (!(v instanceof org.qtitools.qti.value.NullValue)) {
-                    if (v instanceof MultipleValue) {
-                        values = v.collect {it.toString()};
-                    }
-                    else {
-                        values << v.toString();
-                    }
-                    params[k] = values;
+
+        Map<String, String> params = [:];
+
+        respValues?.each { k, v ->
+            List<String> values = [];
+            if (!(v instanceof org.qtitools.qti.value.NullValue)) {
+                if (v instanceof MultipleValue) {
+                    values = v.collect {it.toString()};
                 }
+                else {
+                    values << v.toString();
+                }
+                params[k] = values;
             }
-            return params;
         }
+        return params;
+    }
 
     public static String formatVariable(VariableDeclaration variableDeclaration, String format, Object value) {
         BaseType type = variableDeclaration.getBaseType();
@@ -165,5 +161,19 @@ class QtiUtils {
             appendNodeToBuilder(builder, values)
         }
         return new XmlParser().parseText(writer.toString());
+    }
+
+    public static Node applyTemplateValuesInMathML(Node xmlNode, Map<String, String> templateValues) {
+
+        xmlNode.depthFirst().each { Node node ->
+            if (node.name().localPart == 'mi') {
+                String identifier = node.text();
+                String identifierValue = templateValues[identifier];
+                if (identifierValue) {
+                    node.setValue(identifierValue);
+                }
+            }
+        }
+        return xmlNode;
     }
 }
