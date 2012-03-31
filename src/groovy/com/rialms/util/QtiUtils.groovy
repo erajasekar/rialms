@@ -170,6 +170,7 @@ class QtiUtils {
                 String identifier = node.text();
                 String identifierValue = templateValues[identifier];
                 if (identifierValue) {
+                    node.name().localPart = 'mn';
                     node.setValue(identifierValue);
                 }
             }

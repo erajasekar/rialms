@@ -82,8 +82,8 @@ class QtiUtilsTests {
 
         String expectedResult = """ <m:math xmlns:m="http://www.w3.org/1998/Math/MathML">
           <m:mfrac>
-            <m:mi>1</m:mi>
-            <m:mi>5</m:mi>
+            <m:mn>1</m:mn>
+            <m:mn>5</m:mn>
           </m:mfrac>
         </m:math> """;
 
