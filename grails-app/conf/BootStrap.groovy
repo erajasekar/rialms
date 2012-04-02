@@ -43,11 +43,33 @@ class BootStrap {
     }
 
     def createTests() {
+
+        //1-5
         new Test(dataPath: 'tests/qti/NonLinearSimpleTest', dataFile: 'assessment.xml').save();
         new Test(dataPath: 'tests/qti/Mathematics', dataFile: 'mathematics.xml').save();
         new Test(dataPath: 'tests/exercise/adaptive', dataFile: 'exercises.xml').save();
         new Test(dataPath: 'tests/qti/MathML-templated', dataFile: 'assessment.xml').save();
         new Test(dataPath: 'tests/qti/WebDeveloperTest1', dataFile: 'template_test1.xml').save();
+
+        //6-10
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-li-disabled_allowReview.xml').save();
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-li-disabled_allowSkipping.xml').save();
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-li-maxAttempts.xml').save();
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-li-timeLimits_test.xml').save();  //not working
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ls-timeLimits_test.xml').save(); //not working
+
+        //11-15
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-nested-sections.xml').save();
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ni-disabled_allowReview.xml').save();
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ni-disabled_allowSkipping.xml').save();
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ni-maxAttempts.xml').save();
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ni-timeLimits_test.xml').save();  //not working
+
+        //15-20
+        new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ns-timeLimits_test.xml').save(); //not working
+        new Test(dataPath: 'tests/qti/ModulePretest', dataFile: 'Test_Template.xml').save();
+
+
 
     }
 }

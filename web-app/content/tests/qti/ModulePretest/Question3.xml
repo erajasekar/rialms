@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question3" title="The Application Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>F</value>
+            <value>S</value>
+        </correctResponse>
+        <mapping lowerBound="0" upperBound="2" defaultValue="-2">
+            <mapEntry mapKey="F" mappedValue="1"/>
+            <mapEntry mapKey="S" mappedValue="1"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <choiceInteraction responseIdentifier="RESPONSE" shuffle="true" maxChoices="2">
+            <prompt>Question 3 of 50<br/><br/> Which of the following are Application Layer
+                protocols? You must select 2 options.</prompt>
+            <simpleChoice identifier="F" fixed="false">File Transfer Protocol (FTP)</simpleChoice>
+            <simpleChoice identifier="S" fixed="false">Simple Mail Transfer Protocol (SMTP)</simpleChoice>
+            <simpleChoice identifier="E" fixed="false">Ethernet</simpleChoice>
+            <simpleChoice identifier="P" fixed="false">Point-to-Point Protocol (PPP)</simpleChoice>
+            <simpleChoice identifier="T" fixed="false">TCP/IP</simpleChoice>
+        </choiceInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

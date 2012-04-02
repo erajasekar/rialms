@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question40" title="Hamming Codes" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>D</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <itemBody>
+        <p>Question 40 of 50<br/><br/> What are Hamming Codes? Complete the phrase
+            below.</p>
+        <blockquote>
+            <p>A method of error <inlineChoiceInteraction responseIdentifier="RESPONSE"
+                    shuffle="false">
+                    <inlineChoice identifier="C">correction</inlineChoice>
+                    <inlineChoice identifier="D">detection</inlineChoice>
+                    <inlineChoice identifier="E">evaluation</inlineChoice>
+                </inlineChoiceInteraction></p>
+        </blockquote>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/match_correct"/>
+</assessmentItem>

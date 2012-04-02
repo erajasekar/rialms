@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question24" title="The Physical Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>F G1</value>
+            <value>T G2</value>
+            <value>V G3</value>
+        </correctResponse>
+        <mapping defaultValue="-1">
+            <mapEntry mapKey="F G1" mappedValue="1"/>
+            <mapEntry mapKey="T G2" mappedValue="2"/>
+            <mapEntry mapKey="V G3" mappedValue="3"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+            <prompt>Question 24 of 50<br/><br/> The following sentence describes ADSL. Fill in the
+                gaps to complete the sentence.</prompt>
+            <gapText identifier="V" matchMax="1">voiceband</gapText>
+            <gapText identifier="T" matchMax="1">transmission</gapText>
+            <gapText identifier="F" matchMax="1">faster</gapText>
+            <blockquote>
+                <p>ADSL (Asymmetic Digital Subscribe Line) enables <gap identifier="G1"/> data <br/>
+                    <gap identifier="G2"/>over telephone lines than a conventional <gap
+                        identifier="G3"/> modem.<br/></p>
+            </blockquote>
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

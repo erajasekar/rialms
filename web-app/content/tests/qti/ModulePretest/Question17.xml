@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question17" title="The Network Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>P G1</value>
+            <value>F G2</value>
+        </correctResponse>
+        <mapping defaultValue="-1">
+            <mapEntry mapKey="P G1" mappedValue="1"/>
+            <mapEntry mapKey="F G2" mappedValue="2"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+            <prompt> Question 17 of 50<br/><br/> Identify the missing words in the passage below.<br /><br />
+            What is framing?<br /></prompt>
+            <gapText identifier="F" matchMax="1">frames</gapText>
+            <gapText identifier="P" matchMax="1">packets</gapText>
+            <blockquote>
+                <p>Sending <gap identifier="G1"/> and putting them into<br/>
+                    <gap identifier="G2"/><br/></p>
+            </blockquote>
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

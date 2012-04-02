@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0imsqti_v2p0.xsd"
+    identifier="question19" title="The Datalink Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE1" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>G</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="RESPONSE2" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>W</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>0</value>
+        </defaultValue>
+    </outcomeDeclaration>
+    <itemBody>
+        <p>Question 19 of 50<br/><br/>
+        </p>
+        <blockquote>
+            <p>The "Stop and Wait" protocol involves <inlineChoiceInteraction
+                    responseIdentifier="RESPONSE1" shuffle="false">
+                    <inlineChoice identifier="S">splitting</inlineChoice>
+                    <inlineChoice identifier="R">receiving</inlineChoice>
+                    <inlineChoice identifier="G">sending</inlineChoice>
+                </inlineChoiceInteraction> packets and then <inlineChoiceInteraction
+                    responseIdentifier="RESPONSE2" shuffle="false">
+                    <inlineChoice identifier="D">sending</inlineChoice>
+                    <inlineChoice identifier="V">receiving</inlineChoice>
+                    <inlineChoice identifier="W">waiting</inlineChoice>
+                </inlineChoiceInteraction>for acknowledgment</p>
+        </blockquote>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE1"/>
+                    <correct identifier="RESPONSE1"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE2"/>
+                    <correct identifier="RESPONSE2"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <sum>
+                        <baseValue baseType="integer">1</baseValue>
+                        <variable identifier="SCORE"/>
+                    </sum>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+    </responseProcessing>
+</assessmentItem>

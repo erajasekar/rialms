@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question38" title="Network Topologies" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>1</value>
+        </correctResponse>
+        <mapping defaultValue="0">
+            <mapEntry mapKey="2" mappedValue="1.0"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <sliderInteraction responseIdentifier="RESPONSE" lowerBound="0" upperBound="1" step="1"
+            stepLabel="false">
+            <prompt>Question 38 of 50<br/><br/> Do computers need to use the same
+                protocol if they are connected by a bridge?<br/><br/> 0 = No<br/> 1 =
+            Yes<br/><br/></prompt>
+        </sliderInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

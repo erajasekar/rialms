@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question42" title="Hamming Codes" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>S G1</value>
+            <value>U G2</value>
+        </correctResponse>
+        <mapping defaultValue="-1">
+            <mapEntry mapKey="S G1" mappedValue="1"/>
+            <mapEntry mapKey="U G2" mappedValue="2"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+            <prompt>Question 42 of 50<br/><br/> Identify the missing words in the passage below.</prompt>
+            <gapText identifier="D" matchMax="1">double</gapText>
+            <gapText identifier="C" matchMax="1">corrected</gapText>
+            <gapText identifier="U" matchMax="1">undetectable</gapText>
+            <gapText identifier="S" matchMax="1">single</gapText>
+            <blockquote>
+                <p>If the Hamming Code is less than 2, a <gap identifier="G1"/> error could be <br/>
+                    <gap identifier="G2"/>.<br/></p>
+            </blockquote>
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

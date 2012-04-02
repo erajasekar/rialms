@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question16" title="The Datalink Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>D</value>
+            <value>R</value>
+        </correctResponse>
+        <mapping lowerBound="0" upperBound="2" defaultValue="-2">
+            <mapEntry mapKey="D" mappedValue="1"/>
+            <mapEntry mapKey="R" mappedValue="1"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+              <p>Question 16 of 50<br/><br/>
+              </p>
+        <choiceInteraction responseIdentifier="RESPONSE" shuffle="true" maxChoices="2">
+            <prompt>What are the functions of the Datalink layer? You must select 2 options.<br /></prompt>
+            <simpleChoice identifier="T" fixed="false">Transmitting data</simpleChoice>
+            <simpleChoice identifier="I" fixed="false">Implementing phase key shifting</simpleChoice>
+            <simpleChoice identifier="D" fixed="false">Dealing with transmission errors </simpleChoice>
+            <simpleChoice identifier="R" fixed="false">Regulating the flow of data</simpleChoice>
+        </choiceInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

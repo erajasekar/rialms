@@ -22,10 +22,10 @@
                 <br/>
                 <br/>
             </prompt>
-            <simpleChoice identifier="ChoiceA">&lt;img src = "myimage.jpg" /img src&gt;</simpleChoice>
-            <simpleChoice identifier="ChoiceB">&lt;img import = "myimage.jpg" /&gt;</simpleChoice>
-            <simpleChoice identifier="ChoiceC">&lt;img src = "myimage.jpg" /&gt;</simpleChoice>
-            <simpleChoice identifier="ChoiceD">&lt;image source = "myimage.jpg" /&gt;</simpleChoice>
+            <simpleChoice identifier="ChoiceA"><![CDATA[&lt;img src = "myimage.jpg" /img src&gt;]]></simpleChoice>
+            <simpleChoice identifier="ChoiceB"><![CDATA[&lt;img import = "myimage.jpg" /&gt;]]></simpleChoice>
+            <simpleChoice identifier="ChoiceC"><![CDATA[&lt;img src = "myimage.jpg" /&gt;]]></simpleChoice>
+            <simpleChoice identifier="ChoiceD"><![CDATA[&lt;image source = "myimage.jpg" /&gt;]]></simpleChoice>
         </choiceInteraction>
     </itemBody>
     <responseProcessing template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/match_correct"/>

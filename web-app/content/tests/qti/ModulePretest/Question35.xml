@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question35" title="Network Topologies" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="ordered" baseType="identifier">
+        <correctResponse>
+            <value>OptionD</value>
+            <value>OptionB</value>
+            <value>OptionE</value>
+            <value>OptionA</value>
+            <value>OptionC</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <itemBody>
+        <p>Question 35 of 50<br/><br/>
+        </p>
+        <orderInteraction responseIdentifier="RESPONSE" shuffle="true">
+            <prompt>What is a Point to Point connection? Reorder the sections below to form the
+                correct definition. </prompt>
+            <simpleChoice identifier="OptionA">by relaying messages</simpleChoice>
+            <simpleChoice identifier="OptionB">indirectly connected nodes</simpleChoice>
+            <simpleChoice identifier="OptionC">through adjoining nodes</simpleChoice>
+            <simpleChoice identifier="OptionD">each link is separate and </simpleChoice>
+            <simpleChoice identifier="OptionE">can only talk to each other</simpleChoice>
+        </orderInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/match_correct"/>
+</assessmentItem>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question33" title="Fourier Analysis" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>Sq G1</value>
+            <value>M G2</value>
+            <value>S G3</value>
+            <value>D G4</value>
+            <value>R G5</value>
+        </correctResponse>
+        <mapping defaultValue="-1">
+            <mapEntry mapKey="Sq G1" mappedValue="1"/>
+            <mapEntry mapKey="M G2" mappedValue="2"/>
+            <mapEntry mapKey="S G3" mappedValue="2"/>
+            <mapEntry mapKey="D G4" mappedValue="2"/>
+            <mapEntry mapKey="R G5" mappedValue="2"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+            <prompt>Question 33 of 50<br/><br/> Identify the missing words in the
+                passage below.</prompt>
+            <gapText identifier="S" matchMax="1">sine</gapText>
+            <gapText identifier="Sq" matchMax="1">square</gapText>
+            <gapText identifier="R" matchMax="1">rounded</gapText>
+            <gapText identifier="M" matchMax="1">many</gapText>
+            <gapText identifier="D" matchMax="1">digital</gapText>
+            <blockquote>
+                <p>Fourier Analysis is thinking of <gap identifier="G1"/> waves as consisting of
+                        <gap identifier="G2"/> bits of <br/>
+                    <gap identifier="G3"/> waves added together. The practical implication of this is that
+                        <gap identifier="G4"/> data will always have <br/>
+                    <gap identifier="G5"/> edges. </p>
+            </blockquote>
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

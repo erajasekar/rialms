@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question1" title="Tanenbaum's Layered Model" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="ordered" baseType="identifier">
+        <correctResponse>
+            <value>OptionE</value>
+            <value>OptionA</value>
+            <value>OptionD</value>
+            <value>OptionB</value>
+            <value>OptionC</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <itemBody>
+        <orderInteraction responseIdentifier="RESPONSE" shuffle="true" orientation="vertical">
+            <prompt>Question 1 of 50<br/><br/> Tanenbaum's Layered Model consists of 5 layers. Can you
+                rearrange them into the correct order? (Highest layer at the top)</prompt>
+            <simpleChoice identifier="OptionA">Transport Layer</simpleChoice>
+            <simpleChoice identifier="OptionB">Data Link Layer</simpleChoice>
+            <simpleChoice identifier="OptionC">Physical Layer</simpleChoice>
+            <simpleChoice identifier="OptionD">Network Layer</simpleChoice>
+            <simpleChoice identifier="OptionE" fixed="true">Application Layer</simpleChoice>
+        </orderInteraction>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE"/>
+                    <correct identifier="RESPONSE"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+
+                </setOutcomeValue>
+            </responseIf>
+            <responseElse>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">0</baseValue>
+                </setOutcomeValue>
+            </responseElse>
+        </responseCondition>
+    </responseProcessing>
+</assessmentItem>

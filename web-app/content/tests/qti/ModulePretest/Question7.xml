@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question17" title="The Transport Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>H G1</value>
+            <value>T G2</value>
+            <value>B G3</value>
+            <value>F G4</value>
+        </correctResponse>
+        <mapping defaultValue="-1">
+            <mapEntry mapKey="H G1" mappedValue="1"/>
+            <mapEntry mapKey="T G2" mappedValue="2"/>
+            <mapEntry mapKey="B G3" mappedValue="2"/>
+            <mapEntry mapKey="F G4" mappedValue="2"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+            <prompt> Question 7 of 50<br/><br/> Identify the missing words in the passage below.</prompt>
+            <gapText identifier="T" matchMax="1">traffic</gapText>
+            <gapText identifier="B" matchMax="1">buffer</gapText>
+            <gapText identifier="H" matchMax="1">heavy</gapText>
+            <gapText identifier="F" matchMax="1">flow</gapText>
+            <blockquote>
+                <p>What is buffering?<br/><br/> If the network has <gap identifier="G1"/>
+                    <gap identifier="G2"/>, each end can <gap identifier="G3"/> which keeps the <gap
+                        identifier="G4"/> going.<br/>
+                    <br/></p>
+            </blockquote>
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

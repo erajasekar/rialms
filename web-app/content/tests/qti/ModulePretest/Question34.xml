@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0imsqti_v2p0.xsd"
+    identifier="question34" title="Fourier Analysis" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE1" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>C</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="RESPONSE2" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>M</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="RESPONSE3" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>R</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>0</value>
+        </defaultValue>
+    </outcomeDeclaration>
+    <itemBody>
+        <p>Question 34 of 50<br/><br/> What is Bandwidth?</p>
+        <blockquote>
+            <p>Bandwidth is a <inlineChoiceInteraction responseIdentifier="RESPONSE1"
+                    shuffle="false">
+                    <inlineChoice identifier="L">line</inlineChoice>
+                    <inlineChoice identifier="C">channel</inlineChoice>
+                    <inlineChoice identifier="P">passage</inlineChoice>
+                </inlineChoiceInteraction> which can only carry a limited amount of information per
+                second. <inlineChoiceInteraction responseIdentifier="RESPONSE2" shuffle="false">
+                    <inlineChoice identifier="Li">Line</inlineChoice>
+                    <inlineChoice identifier="M">Media</inlineChoice>
+                    <inlineChoice identifier="W">Weather</inlineChoice>
+                </inlineChoiceInteraction> and atmospheric conditions <inlineChoiceInteraction
+                    responseIdentifier="RESPONSE3" shuffle="false">
+                    <inlineChoice identifier="I">increase</inlineChoice>
+                    <inlineChoice identifier="R">restrict</inlineChoice>
+                </inlineChoiceInteraction> the maximum frequency that the bandwidth can carry.</p>
+        </blockquote>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE1"/>
+                    <correct identifier="RESPONSE1"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE2"/>
+                    <correct identifier="RESPONSE2"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <sum>
+                        <baseValue baseType="integer">1</baseValue>
+                        <variable identifier="SCORE"/>
+                    </sum>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE3"/>
+                    <correct identifier="RESPONSE3"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <sum>
+                        <baseValue baseType="integer">1</baseValue>
+                        <variable identifier="SCORE"/>
+                    </sum>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+    </responseProcessing>
+</assessmentItem>

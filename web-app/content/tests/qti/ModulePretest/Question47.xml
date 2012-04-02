@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question47" title="Security Issues" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>S</value>
+            <value>V</value>
+        </correctResponse>
+        <mapping lowerBound="0" upperBound="2" defaultValue="-2">
+            <mapEntry mapKey="S" mappedValue="1"/>
+            <mapEntry mapKey="V" mappedValue="1"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <choiceInteraction responseIdentifier="RESPONSE" shuffle="true" maxChoices="2">
+            <prompt>Question 47 of 50<br/><br/> Select two counter measures from
+                the list below.</prompt>
+            <simpleChoice identifier="S" fixed="false">Secure hardware and software</simpleChoice>
+            <simpleChoice identifier="E" fixed="false">Ensuring passwords secure</simpleChoice>
+            <simpleChoice identifier="V" fixed="false">Virus checkers</simpleChoice>
+            <simpleChoice identifier="P" fixed="false">Protecting against unauthorised
+            access</simpleChoice>
+        </choiceInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

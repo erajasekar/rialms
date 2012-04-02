@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0imsqti_v2p0.xsd"
+    identifier="question5" title="The Application Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE1" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>L</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="RESPONSE2" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>N</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="RESPONSE3" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>R</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>0</value>
+        </defaultValue>
+    </outcomeDeclaration>
+    <itemBody>
+        <p>Question 5 of 50<br/><br/>
+        What is the POP3 protocol used in email?<br /></p>
+        <blockquote>
+            <p>All messages are downloaded to your computer and you <inlineChoiceInteraction
+                    responseIdentifier="RESPONSE1" shuffle="false">
+                    <inlineChoice identifier="L">must</inlineChoice>
+                    <inlineChoice identifier="M">don't have to</inlineChoice>
+                </inlineChoiceInteraction> be online to access them. You <inlineChoiceInteraction
+                    responseIdentifier="RESPONSE2" shuffle="false">
+                    <inlineChoice identifier="C">can</inlineChoice>
+                    <inlineChoice identifier="N">cannot</inlineChoice>
+                </inlineChoiceInteraction> view emails from any location because they are stored
+                    <inlineChoiceInteraction 
+                    responseIdentifier="RESPONSE3" shuffle="false">
+                    <inlineChoice identifier="S">on a server</inlineChoice>
+                    <inlineChoice identifier="R">remotely</inlineChoice>
+                </inlineChoiceInteraction>
+            </p>
+        </blockquote>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE1"/>
+                    <correct identifier="RESPONSE1"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE2"/>
+                    <correct identifier="RESPONSE2"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <sum>
+                        <baseValue baseType="integer">1</baseValue>
+                        <variable identifier="SCORE"/>
+                    </sum>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE3"/>
+                    <correct identifier="RESPONSE3"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+    </responseProcessing>
+</assessmentItem>

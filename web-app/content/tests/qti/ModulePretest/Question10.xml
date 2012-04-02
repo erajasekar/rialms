@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question10" title="The Transport Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="ordered" baseType="identifier">
+        <correctResponse>
+            <value>OptionC</value>
+            <value>OptionD</value>
+            <value>OptionA</value>
+            <value>OptionB</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <itemBody>
+        <p>Question 10 of 50<br/><br/>
+        </p>
+        <orderInteraction responseIdentifier="RESPONSE" shuffle="true">
+            <prompt>What is Remote Procedure Call? </prompt>
+            <simpleChoice identifier="OptionA">but appears as though</simpleChoice>
+            <simpleChoice identifier="OptionB">it takes place on a client</simpleChoice>
+            <simpleChoice identifier="OptionC">it allows clients to access</simpleChoice>
+            <simpleChoice identifier="OptionD" fixed="true">remote processes from a
+            server</simpleChoice>
+        </orderInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/match_correct"/>
+</assessmentItem>

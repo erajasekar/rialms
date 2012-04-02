@@ -10,7 +10,6 @@
 <g:each var="n" in="${node.children()}">
 
     <g:if test="${n instanceof String}">
-        <% System.out.println("TEXT ${n}") %>
         ${n}
     </g:if>
     <g:else>

@@ -22,10 +22,10 @@
                 <br/>
                 <br/>
             </prompt>
-            <simpleChoice identifier="ChoiceA">&lt;a href = "myimage.html"&gt;Link to my page&lt;/a&gt;</simpleChoice>
-            <simpleChoice identifier="ChoiceB">&lt;a = "myimage.html"&gt;Link to my page&lt;/a&gt;</simpleChoice>
-            <simpleChoice identifier="ChoiceC">&lt;a href = "myimage.html"&gt;</simpleChoice>
-            <simpleChoice identifier="ChoiceD">&lt;a href = Link to my page&lt;/a&gt;</simpleChoice>
+            <simpleChoice identifier="ChoiceA"><![CDATA[&lt;a href = "myimage.html"&gt;Link to my page&lt;/a&gt;]]></simpleChoice>
+            <simpleChoice identifier="ChoiceB"><![CDATA[&lt;a = "myimage.html"&gt;Link to my page&lt;/a&gt;]]></simpleChoice>
+            <simpleChoice identifier="ChoiceC"><![CDATA[&lt;a href = "myimage.html"&gt;]]></simpleChoice>
+            <simpleChoice identifier="ChoiceD"><![CDATA[&lt;a href = Link to my page&lt;/a&gt;]]></simpleChoice>
         </choiceInteraction>
     </itemBody>
     <responseProcessing template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/match_correct"/>

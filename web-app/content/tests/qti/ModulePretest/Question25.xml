@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question25" title="The Physical Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>D G1</value>
+            <value>S G2</value>
+            <value>B G3</value>
+            <value>C G4</value>
+        </correctResponse>
+        <mapping defaultValue="-1">
+            <mapEntry mapKey="D G1" mappedValue="1"/>
+            <mapEntry mapKey="S G2" mappedValue="2"/>
+            <mapEntry mapKey="B G3" mappedValue="3"/>
+            <mapEntry mapKey="C G4" mappedValue="4"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+            <prompt>Question 25 of 50<br/><br/> How does ADSL provide a faster connection? Fill in
+                the gaps to complete the phrase.</prompt>
+            <gapText identifier="S" matchMax="1">spectrum</gapText>
+            <gapText identifier="C" matchMax="1">channels</gapText>
+            <gapText identifier="D" matchMax="1">dividing</gapText>
+            <gapText identifier="B" matchMax="1">bands</gapText>
+            <blockquote>
+                <p>By <gap identifier="G1"/> the <gap identifier="G2"/> into <gap identifier="G3"/>
+                    or <gap identifier="G4"/>.<br/></p>
+            </blockquote>
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

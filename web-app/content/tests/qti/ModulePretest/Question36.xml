@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0imsqti_v2p0.xsd"
+    identifier="question36" title="Network Topologies" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE1" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>L</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="RESPONSE2" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>S</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer">
+        <defaultValue>
+            <value>0</value>
+        </defaultValue>
+    </outcomeDeclaration>
+    <itemBody>
+        <p>Question 36 of 50<br/><br/> What is a Broadcast connection? Complete the
+            sentence below by selecting the correct options.</p>
+        <blockquote>
+            <p>One <inlineChoiceInteraction responseIdentifier="RESPONSE1" shuffle="false">
+                    <inlineChoice identifier="C">connection</inlineChoice>
+                    <inlineChoice identifier="L">link</inlineChoice>
+                    <inlineChoice identifier="N">network</inlineChoice>
+                </inlineChoiceInteraction> is shared by all and only one machine can
+                    <inlineChoiceInteraction responseIdentifier="RESPONSE2" shuffle="false">
+                    <inlineChoice identifier="S">send</inlineChoice>
+                    <inlineChoice identifier="R">receive</inlineChoice>
+                </inlineChoiceInteraction>at a particular time.</p>
+        </blockquote>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE1"/>
+                    <correct identifier="RESPONSE1"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE2"/>
+                    <correct identifier="RESPONSE2"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <sum>
+                        <baseValue baseType="integer">1</baseValue>
+                        <variable identifier="SCORE"/>
+                    </sum>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+    </responseProcessing>
+</assessmentItem>

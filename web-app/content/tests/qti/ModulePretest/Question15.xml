@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question15" title="The Datalink Layer" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>B G1</value>
+            <value>R G2</value>
+        </correctResponse>
+        <mapping defaultValue="-1">
+            <mapEntry mapKey="B G1" mappedValue="1"/>
+            <mapEntry mapKey="R G2" mappedValue="2"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+            <prompt> Question 15 of 50<br/><br/> Identify the missing words in the passage below.</prompt>
+            <gapText identifier="R" matchMax="1">routing</gapText>
+            <gapText identifier="B" matchMax="1">buffering</gapText>
+            <blockquote>
+                <p>The Network Layer ensures quality of service by <gap identifier="G1"/> in order
+                    to ensure there is a regular flow, and <gap identifier="G2"/>.<br/></p>
+            </blockquote>
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

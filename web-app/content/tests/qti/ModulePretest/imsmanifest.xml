@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cp:manifest xmlns:cp="http://www.imsglobal.org/xsd/imscp_v1p1" identifier="SCENARIO">
+  <cp:resources>
+
+    <cp:resource identifier="assessment" type="imsqti_test_xmlv2p1" href="Test_Template.xml">
+      <cp:file href="Test_Template.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question1" type="imsqti_item_xmlv2p0" href="Question1.xml">
+      <cp:file href="Question1.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question2" type="imsqti_item_xmlv2p0" href="Question2.xml">
+      <cp:file href="Question2.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question3" type="imsqti_item_xmlv2p0" href="Question3.xml">
+      <cp:file href="Question3.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question4" type="imsqti_item_xmlv2p0" href="Question4.xml">
+      <cp:file href="Question4.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question5" type="imsqti_item_xmlv2p0" href="Question5.xml">
+      <cp:file href="Question5.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question6" type="imsqti_item_xmlv2p0" href="Question6.xml">
+      <cp:file href="Question6.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question7" type="imsqti_item_xmlv2p0" href="Question7.xml">
+      <cp:file href="Question7.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question8" type="imsqti_item_xmlv2p0" href="Question8.xml">
+      <cp:file href="Question8.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question9" type="imsqti_item_xmlv2p0" href="Question9.xml">
+      <cp:file href="Question9.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question10" type="imsqti_item_xmlv2p0" href="Question10.xml">
+      <cp:file href="Question10.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question11" type="imsqti_item_xmlv2p0" href="Question11.xml">
+      <cp:file href="Question11.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question12" type="imsqti_item_xmlv2p0" href="Question12.xml">
+      <cp:file href="Question12.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question13" type="imsqti_item_xmlv2p0" href="Question13.xml">
+      <cp:file href="Question13.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question14" type="imsqti_item_xmlv2p0" href="Question14.xml">
+      <cp:file href="Question14.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question15" type="imsqti_item_xmlv2p0" href="Question15.xml">
+      <cp:file href="Question15.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question16" type="imsqti_item_xmlv2p0" href="Question16.xml">
+      <cp:file href="Question16.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question17" type="imsqti_item_xmlv2p0" href="Question17.xml">
+      <cp:file href="Question17.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question18" type="imsqti_item_xmlv2p0" href="Question18.xml">
+      <cp:file href="Question18.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question19" type="imsqti_item_xmlv2p0" href="Question19.xml">
+      <cp:file href="Question19.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question20" type="imsqti_item_xmlv2p0" href="Question20.xml">
+      <cp:file href="Question20.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question21" type="imsqti_item_xmlv2p0" href="Question21.xml">
+      <cp:file href="Question21.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question22" type="imsqti_item_xmlv2p0" href="Question22.xml">
+      <cp:file href="Question22.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question23" type="imsqti_item_xmlv2p0" href="Question23.xml">
+      <cp:file href="Question23.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question24" type="imsqti_item_xmlv2p0" href="Question24.xml">
+      <cp:file href="Question24.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question25" type="imsqti_item_xmlv2p0" href="Question25.xml">
+      <cp:file href="Question22.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question26" type="imsqti_item_xmlv2p0" href="Question26.xml">
+      <cp:file href="Question26.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question27" type="imsqti_item_xmlv2p0" href="Question27.xml">
+      <cp:file href="Question27.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question28" type="imsqti_item_xmlv2p0" href="Question28.xml">
+      <cp:file href="Question28.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question29" type="imsqti_item_xmlv2p0" href="Question29.xml">
+      <cp:file href="Question29.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question30" type="imsqti_item_xmlv2p0" href="Question30.xml">
+      <cp:file href="Question30.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question31" type="imsqti_item_xmlv2p0" href="Question31.xml">
+      <cp:file href="Question31.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question32" type="imsqti_item_xmlv2p0" href="Question32.xml">
+      <cp:file href="Question32.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question33" type="imsqti_item_xmlv2p0" href="Question33.xml">
+      <cp:file href="Question33.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question34" type="imsqti_item_xmlv2p0" href="Question34.xml">
+      <cp:file href="Question34.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question35" type="imsqti_item_xmlv2p0" href="Question35.xml">
+      <cp:file href="Question35.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question36" type="imsqti_item_xmlv2p0" href="Question36.xml">
+      <cp:file href="Question36.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question37" type="imsqti_item_xmlv2p0" href="Question37.xml">
+      <cp:file href="Question37.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question38" type="imsqti_item_xmlv2p0" href="Question38.xml">
+      <cp:file href="Question38.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question39" type="imsqti_item_xmlv2p0" href="Question39.xml">
+      <cp:file href="Question39.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question40" type="imsqti_item_xmlv2p0" href="Question40.xml">
+      <cp:file href="Question40.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question41" type="imsqti_item_xmlv2p0" href="Question41.xml">
+      <cp:file href="Question41.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question42" type="imsqti_item_xmlv2p0" href="Question42.xml">
+      <cp:file href="Question42.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question43" type="imsqti_item_xmlv2p0" href="Question43.xml">
+      <cp:file href="Question43.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question44" type="imsqti_item_xmlv2p0" href="Question44.xml">
+      <cp:file href="Question44.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question45" type="imsqti_item_xmlv2p0" href="Question45.xml">
+      <cp:file href="Question45.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question46" type="imsqti_item_xmlv2p0" href="Question46.xml">
+      <cp:file href="Question46.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question47" type="imsqti_item_xmlv2p0" href="Question47.xml">
+      <cp:file href="Question47.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question48" type="imsqti_item_xmlv2p0" href="Question48.xml">
+      <cp:file href="Question48.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question49" type="imsqti_item_xmlv2p0" href="Question49.xml">
+      <cp:file href="Question49.xml"/>
+    </cp:resource>
+
+    <cp:resource identifier="question50" type="imsqti_item_xmlv2p0" href="Question50.xml">
+      <cp:file href="Question50.xml"/>
+    </cp:resource>
+
+  </cp:resources>
+</cp:manifest>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question49" title="Security Issues" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>E G1</value>
+            <value>S G2</value>
+            <value>C G3</value>
+            <value>H G4</value>
+        </correctResponse>
+        <mapping defaultValue="-1">
+            <mapEntry mapKey="E G1" mappedValue="1"/>
+            <mapEntry mapKey="S G2" mappedValue="2"/>
+            <mapEntry mapKey="C G3" mappedValue="3"/>
+            <mapEntry mapKey="H G4" mappedValue="4"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+            <prompt>Question 49 of 50<br/><br/> Identify the missing words in the passage below.</prompt>
+            <gapText identifier="H" matchMax="1">horizontally</gapText>
+            <gapText identifier="E" matchMax="1">encryption</gapText>
+            <gapText identifier="C" matchMax="1">codeword</gapText>
+            <gapText identifier="S" matchMax="1">substitution</gapText>
+            <blockquote>
+                <p>The two types of cipher are substitution and transposition. Caesar's Code is an
+                        <gap identifier="G1"/> method which uses <gap identifier="G2"/> ciphers. A
+                    Transposition cipher uses a <gap identifier="G3"/>. The message is written
+                    underneath <gap identifier="G4"/> then read vertically to disguise it.<br/></p>
+            </blockquote>
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

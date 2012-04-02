@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question48" title="Security Issues" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="ordered" baseType="identifier">
+        <correctResponse>
+            <value>OptionB</value>
+            <value>OptionD</value>
+            <value>OptionA</value>
+            <value>OptionC</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <itemBody>
+        <p>Question 48 of 50<br/><br/>
+        </p>
+        <orderInteraction responseIdentifier="RESPONSE" shuffle="true">
+            <prompt> What is Cryptography? Can you rearrange the phrases to make the sentence
+                complete?</prompt>
+            <simpleChoice identifier="OptionA">into a disguised format</simpleChoice>
+            <simpleChoice identifier="OptionB">converting information</simpleChoice>
+            <simpleChoice identifier="OptionC">which is unreadable without special knowledge</simpleChoice>
+            <simpleChoice identifier="OptionD">from an understandable form</simpleChoice>
+        </orderInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/match_correct"/>
+</assessmentItem>

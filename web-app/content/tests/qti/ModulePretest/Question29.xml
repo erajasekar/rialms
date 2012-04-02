@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question29" title="A Brief History of Communication" adaptive="false"
+    timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>S G1</value>
+            <value>E G2</value>
+            <value>W G3</value>
+            <value>N G4</value>
+            <value>A G5</value>
+        </correctResponse>
+        <mapping defaultValue="-1">
+            <mapEntry mapKey="S G1" mappedValue="1"/>
+            <mapEntry mapKey="E G2" mappedValue="2"/>
+            <mapEntry mapKey="W G3" mappedValue="2"/>
+            <mapEntry mapKey="N G4" mappedValue="2"/>
+            <mapEntry mapKey="A G5" mappedValue="2"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+            <prompt>Question 29 of 50<br/><br/>Complete the sentence below by selecting the correct option for each gap.<br /><br />
+            What is analogue telephony?
+                </prompt>
+            <gapText identifier="S" matchMax="1">sound</gapText>
+            <gapText identifier="E" matchMax="1">electricity</gapText>
+            <gapText identifier="A" matchMax="1">attenuation</gapText>
+            <gapText identifier="W" matchMax="1">wires</gapText>
+            <gapText identifier="N" matchMax="1">noise</gapText>
+            <blockquote>
+                <p><gap identifier="G1"/> converted to <gap identifier="G2"/> which is relayed over
+                        <gap identifier="G3"/> and converted back to sound.<br/> The drawbacks of
+                    analogue methods are <gap identifier="G4"/> and <gap identifier="G5"/></p>
+            </blockquote>
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>

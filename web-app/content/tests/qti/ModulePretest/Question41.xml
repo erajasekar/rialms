@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
+    identifier="question41" title="Hamming Codes" adaptive="false" timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>2</value>
+        </correctResponse>
+        <mapping defaultValue="0">
+            <mapEntry mapKey="2" mappedValue="1.0"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <sliderInteraction responseIdentifier="RESPONSE" lowerBound="0" upperBound="5" step="1"
+            stepLabel="false">
+            <prompt>Question 41 of 50<br/><br/> What is the minimal Hamming Distance
+                between received and transmitted bit patterns?</prompt>
+        </sliderInteraction>
+    </itemBody>
+    <responseProcessing
+        template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
+</assessmentItem>
