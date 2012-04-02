@@ -7,6 +7,7 @@ import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
 import groovy.util.logging.*
 import org.qtitools.qti.node.content.ItemBody
 import org.qtitools.qti.value.Value
+import org.qtitools.qti.validation.ValidationItem
 
 /**
  * Created by IntelliJ IDEA.
@@ -116,6 +117,10 @@ class AssessmentItemInfo {
 
     public AssessmentItem getAssessmentItem() {
         return assessmentItem;
+    }
+
+    public List<ValidationItem> validate(){
+        return assessmentItem.validate().allItems;
     }
 
 }

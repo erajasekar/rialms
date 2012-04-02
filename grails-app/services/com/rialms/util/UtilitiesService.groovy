@@ -6,8 +6,13 @@ import org.qtitools.qti.value.Value
 import com.rialms.assessment.item.AssessmentItemInfo;
 
 class UtilitiesService {
-    /**
+    
+     def grailsApplication;
      static transactional = false
      static scope = "singleton"
-     * */
+    
+     public boolean showInternalState(){
+         grailsApplication.config.rialms.showInternalState;
+     }
+     
 }

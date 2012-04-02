@@ -16,14 +16,23 @@
 </head>
 
 <body>
-<g:form name="AssessmentItemForm" action="play">
-    <g:render template="/renderer/renderItemSubTree"
-              model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
-    <g:submitButton value="Submit" name="submit"/>
-</g:form>
+<h2>${assessmentItemInfo.title}</h2>
 
-<g:if test="${assessmentItemInfo.outcomeValues}">
+<g:if test="${flash.validationErrors}" >
+    <g:render template="/renderer/renderValidationErrors" model="[validationErrors:flash.validationErrors]"/>
+</g:if>
+
+<g:else>
+    <g:form name="AssessmentItemForm" action="play">
+        <g:render template="/renderer/renderItemSubTree"
+                  model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
+
+        <g:submitButton value="Submit" name="submit"/>
+    </g:form>
+</g:else>
+
+<g:if test="${params.showInternalState && assessmentItemInfo.outcomeValues}">
     ---------------------------------
     <br/>
     ${assessmentItemInfo.outcomeValues}

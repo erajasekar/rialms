@@ -65,7 +65,7 @@ class BootStrap {
         new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ni-maxAttempts.xml').save();
         new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ni-timeLimits_test.xml').save();  //not working
 
-        //15-20
+        //16-20
         new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ns-timeLimits_test.xml').save(); //not working
         new Test(dataPath: 'tests/qti/ModulePretest', dataFile: 'Test_Template.xml').save();
 

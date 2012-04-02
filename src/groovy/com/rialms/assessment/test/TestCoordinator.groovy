@@ -45,7 +45,8 @@ import org.qtitools.qti.value.Value;
 import groovy.util.logging.*
 import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.util.QtiUtils;
-import groovy.util.Node;
+import groovy.util.Node
+import org.qtitools.qti.validation.ValidationItem;
 
 @Log4j
 public class TestCoordinator implements Serializable {
@@ -282,8 +283,9 @@ public class TestCoordinator implements Serializable {
 
         if (debug) params.put("debug", true);
         if (validate) {
-            if (getTest().validate().getAllItems().size() != 0) {
-                params.put("validation", getTest().validate().toString());
+            List<ValidationItem> validationErrors = getTest().validate().allItems;
+            if (!validationErrors.isEmpty()) {
+                params.put("validationErrors", validationErrors);
             }
         }
         return params;
