@@ -71,7 +71,7 @@ class AssessmentItemInfo {
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
         Map<String,List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
-        //TODO
+        //TODO   LOG LEVEL
         log.info("Response Values ${this} ==> ${responseValues}");
         assessmentItem.setResponses(responseValues);
     }

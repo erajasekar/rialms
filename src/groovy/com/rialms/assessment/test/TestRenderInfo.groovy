@@ -15,20 +15,17 @@ class TestRenderInfo {
 
     private AssessmentItemInfo assessmentItemInfo;
     private Map<String, Object> assessmentParams;
-    private Map<String, Object> pageParams;
 
     public TestRenderInfo() {
     }
 
-    public TestRenderInfo(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams, Map<String, Object> pageParams) {
+    public TestRenderInfo(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams) {
 
         if (!assessmentItemInfo) {
             throw new IllegalArgumentException("AssessmentItemInfo can't be null");
         }
         this.assessmentItemInfo = assessmentItemInfo;
         this.assessmentParams = assessmentParams;
-        this.pageParams = pageParams;
-
     }
 
     public AssessmentItemInfo getAssessmentItemInfo() {
@@ -38,11 +35,6 @@ class TestRenderInfo {
     public Map<String, Object> getAssessmentParams() {
         return assessmentParams
     }
-
-    public Map<String, Object> getPageParams() {
-        return pageParams
-    }
-
 
     @Override
     public String toString() {
@@ -58,6 +50,6 @@ class TestRenderInfo {
     }
 
     public Map<String, Object> toPropertiesMap() {
-        return ['assessmentItemInfo': assessmentItemInfo, 'assessmentParams': assessmentParams, 'pageParams': pageParams]
+        return ['assessmentItemInfo': assessmentItemInfo, 'assessmentParams': assessmentParams]
     }
 }

@@ -52,7 +52,7 @@ class QtiTagLib {
 
         fieldAttributes += attrs;
 
-        //TODO
+        //TODO    LOG LEVEL
         log.info("textEntryInteraction Field Attributes ${fieldAttributes}");
 
         def tagBody = {
@@ -173,7 +173,7 @@ class QtiTagLib {
 
         def value = responseValues[id];
 
-        //TODO
+        //TODO  LOG LEVEL
         log.info("choiceInteraction Field Attributes ${fieldAttributes}");
 
         if (maxChoices.toInteger() == 1) {
@@ -258,7 +258,7 @@ class QtiTagLib {
         if (value) {
             fieldAttributes['value'] = value[0];
         }
-        //TODO
+        //TODO  LOG LEVEL
         log.info("inlineChoiceInteraction ${fieldAttributes}")
 
         def tagBody = {

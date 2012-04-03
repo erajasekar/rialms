@@ -58,11 +58,6 @@ public class TestCoordinator implements Serializable {
     private TestRenderInfo cachedTestRenderInfo = null;
 
     /*
-      * Parameters for rendering the page (i.e. debug render, applet paths, etc)
-      */
-    private Map<String, Object> pageRenderParameters = null;
-
-    /*
       * renderer view
       */
     protected String view;
@@ -79,7 +74,7 @@ public class TestCoordinator implements Serializable {
 
     /*
       * rendering validation mode (if set to true, validation errors/warnings will be shown)
-      * //TODO render validation errors
+      *
       */
     private boolean validate = false;
 
@@ -96,10 +91,6 @@ public class TestCoordinator implements Serializable {
     public TestCoordinator(File assessmentTestFile, String dataPath, String view) throws Exception {
         this.view = view;
         test = new AssessmentTestController(assessmentTestFile, dataPath);
-    }
-
-    public void setPageRenderParameters(Map<String, Object> parameters) {
-        pageRenderParameters = parameters;
     }
 
     /**
@@ -209,10 +200,8 @@ public class TestCoordinator implements Serializable {
 
             if (view != null) {
                 params.put("view", view);
-                pageRenderParameters.put("view", view);
             }
-            //TODO find better way to handle blank
-            renderContent(AssessmentItemInfo.BLANK_ITEM, params, pageRenderParameters);
+            renderContent(AssessmentItemInfo.BLANK_ITEM, params);
         } else {
 //			ItemSessionControl itemSessionControl = test.getCurrentItemSessionControl();
 
@@ -229,7 +218,7 @@ public class TestCoordinator implements Serializable {
 //			render = ai.render();
 
             //assemble and render (call service)
-            renderContent(test.currentItemInfo, makeAssessmentParams(), pageRenderParameters);
+            renderContent(test.currentItemInfo, makeAssessmentParams());
         }
     }
 
@@ -292,10 +281,10 @@ public class TestCoordinator implements Serializable {
     }
 
 
-    private void renderContent(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams, Map<String, Object> pageParams) {
+    private void renderContent(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams) {
         //TODO fix logging
         log.info("IS BLANK ${assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)}");
-        cachedTestRenderInfo = new TestRenderInfo(assessmentItemInfo, assessmentParams, pageParams)
+        cachedTestRenderInfo = new TestRenderInfo(assessmentItemInfo, assessmentParams)
 
     }
 
@@ -364,7 +353,7 @@ public class TestCoordinator implements Serializable {
             //test.getCurrentItem().getItemBody().willShowFeedback()
             //test.getCurrentItem().getAdaptive()
         } else {
-            renderContent(test.currentItemInfo, makeAssessmentParams(), pageRenderParameters);
+            renderContent(test.currentItemInfo, makeAssessmentParams());
         }
     }
 

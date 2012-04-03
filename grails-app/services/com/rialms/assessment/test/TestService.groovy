@@ -19,21 +19,9 @@ class TestService implements InitializingBean {
         return "${contentPath}/${t.dataPath}/"
     }
 
-    public Map getTestInfo(String testId) {
-        Test t = Test.get(testId);
-        return [dataFile: getTestDataFile(t)];
-    }
-
     public TestCoordinator createTestCoordinator(String testId) {
         Test test = Test.get(testId);
         TestCoordinator coordinator = new TestCoordinator(getTestDataFile(test), getDataPath(test), null);
-
-        //TODO: Remove unused
-        Map m = new HashMap();
-        m.put("showInternalState", false);
-        m.put("displayTitle", true);
-        m.put("displayControls", true); //disable page controls
-        coordinator.setPageRenderParameters(m);
 
         //render the first instance only with error report
         coordinator.setValidate(true);
@@ -58,8 +46,8 @@ class TestService implements InitializingBean {
             coordinator.skipCurrentQuestion();
         } else if (coordinator.getTestController().isTestComplete()) {
             return coordinator.flashMessage("Oops, it appears that you have pressed the browsers back button! This is the question you should be viewing.");
-        } else if (params.containsKey("questionId") || params.containsKey("submit")) { //TODO: check this condition for endAttemptInteracation, endAttemptInteraction attempts won't have submit set (but will always have questionId)
-            //TODO
+        } else if (params.containsKey("questionId") || params.containsKey("submit")) { //endAttemptInteraction attempts won't have submit set (but will always have questionId)
+            //TODO LOG LEVEL
             log.info("Submiting answser for question Id ${params.questionId}");
             coordinator.setCurrentResponse(params);
         } else {
