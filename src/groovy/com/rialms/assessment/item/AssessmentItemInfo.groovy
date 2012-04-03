@@ -123,4 +123,11 @@ class AssessmentItemInfo {
         return assessmentItem.validate().allItems;
     }
 
+    @Override
+    public String toString() {
+        return "AssessmentItemInfo{" +
+                "dataPath='" + dataPath + '\'' +
+                ", assessmentItem=" + assessmentItem +
+                '}';
+    }
 }

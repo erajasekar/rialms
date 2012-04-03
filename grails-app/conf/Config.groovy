@@ -39,7 +39,7 @@ grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 rialms {
     contentPath = 'content';
-    showInternalState = false;
+    showInternalState = true;
 }
 
 // The default codec used to encode data with ${}

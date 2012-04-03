@@ -37,5 +37,9 @@
 <a href="${g.createLink(action: 'report', params: params)}" target="_blank">
     <g:message code="test.report.view.message"/>
 </a>
+<br/>
+<a href="${createLink(controller: 'test' , action: 'reset')}">
+    <g:message code="test.returnto.test.list.message" />
+</a>
 </body>
 </html>

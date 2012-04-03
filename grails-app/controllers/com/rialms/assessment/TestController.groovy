@@ -7,15 +7,18 @@ import com.rialms.assessment.item.AssessmentItemInfo
 import groovy.xml.XmlUtil
 import com.rialms.assessment.test.TestReport
 import com.rialms.assessment.test.TestReportBuilder
+import com.rialms.util.UtilitiesService
 
 class TestController {
 
     TestService testService;
+    UtilitiesService utilitiesService;
 
     def index() { }
 
-    def list() {
-        render "list";
+    def list = {
+        if (!params.max) params.max = 50
+        [testList: Test.list(params)]
     }
 
     def report() {
@@ -83,7 +86,8 @@ class TestController {
             render(view: 'feedback', model: testRenderInfo.toPropertiesMap());
             return;
         }
-        //println "testRenderInfo properties " + testRenderInfo.toPropertiesMap();
+
+        params.put('showInternalState', utilitiesService.showInternalState());
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
     }
 

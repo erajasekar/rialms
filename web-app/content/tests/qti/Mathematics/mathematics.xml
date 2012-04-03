@@ -10,13 +10,14 @@
     <outcomeDeclaration identifier="NRESPONDED" cardinality="single" baseType="integer"/>
     <outcomeDeclaration identifier="SCOREA" cardinality="single" baseType="float"/>
     <outcomeDeclaration identifier="SCOREB" cardinality="single" baseType="float"/>
-    <outcomeDeclaration identifier="SUMMARY" cardinality="single" baseType="identifier">
+    <outcomeDeclaration identifier="SUMMARY" cardinality="single" baseType="identifier" >
         <interpolationTable>
             <interpolationTableEntry sourceValue="75.0" targetValue="EXCELLENT"/>
             <interpolationTableEntry sourceValue="50.0" targetValue="GOOD"/>
             <interpolationTableEntry sourceValue="0.0" targetValue="POOR"/>
         </interpolationTable>
     </outcomeDeclaration>
+    <outcomeDeclaration identifier="outcomeIdentifier" cardinality="single" baseType="identifier" />
     <testPart identifier="part1" navigationMode="linear" submissionMode="individual">
         <itemSessionControl showFeedback="true" allowComment="true"/>
         <assessmentSection identifier="sectionA" title="Section 1" visible="true">

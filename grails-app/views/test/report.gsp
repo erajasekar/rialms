@@ -52,5 +52,6 @@
         </g:each>
     </table>
 </g:else>
+
 </body>
 </html>

@@ -86,10 +86,9 @@
         </g:form>
     </g:else>
 </g:else>
-<g:if test="${assessmentParams.outcomeValues}">
-    ---------------------------------
-    <br/>
-    ${assessmentParams.outcomeValues}
+<g:if test="${params.showInternalState}">
+    <g:render template="/renderer/renderInternalState" model="[outcomeValues:assessmentItemInfo.outcomeValues]" />
+    <g:render template="/renderer/renderInternalState" model="[outcomeValues:assessmentParams.outcomeValues]" />
 </g:if>
 </body>
 </html>

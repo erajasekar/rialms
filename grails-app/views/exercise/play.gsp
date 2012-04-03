@@ -32,10 +32,8 @@
     </g:form>
 </g:else>
 
-<g:if test="${params.showInternalState && assessmentItemInfo.outcomeValues}">
-    ---------------------------------
-    <br/>
-    ${assessmentItemInfo.outcomeValues}
+<g:if test="${params.showInternalState}">
+    <g:render template="/renderer/renderInternalState" model="[outcomeValues:assessmentItemInfo.outcomeValues]" />
 </g:if>
 </body>
 </html>

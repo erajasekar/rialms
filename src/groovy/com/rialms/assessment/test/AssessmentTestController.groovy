@@ -126,10 +126,7 @@ public class AssessmentTestController implements Serializable {
         return flow.getCurrentItemRef();
     }
 
-    /** TODO remove
-     private AssessmentItem getCurrentItem() {if (flow.getCurrentItemRef() != null)
-     return flow.getCurrentItemRef().getItem();
-     return null;}*/
+
     public AssessmentItemInfo getCurrentItemInfo() {
         AssessmentItem currentItem = flow.getCurrentItemRef()?.getItem();
         if (currentItem) {
