@@ -33,17 +33,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <g:each in="${exerciseList}" status="i" var="exercise">
+                    <g:each in="${itemList}" status="i" var="item">
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-                            <td>${fieldValue(bean:exercise, field:'id')}</td>
+                            <td>${fieldValue(bean:item, field:'id')}</td>
 
-                            <td>${fieldValue(bean:exercise, field:'title')}</td>
+                            <td>${fieldValue(bean:item, field:'title')}</td>
 
-                            <td>${fieldValue(bean:exercise, field:'dataFile')}</td>
+                            <td>${fieldValue(bean:item, field:'dataFile')}</td>
 
                             <td>
-								<g:link action="play" id="${exercise.id}">play</g:link>
+								<g:link action="play" id="${item.id}">play</g:link>
 							</td>
 
                         </tr>

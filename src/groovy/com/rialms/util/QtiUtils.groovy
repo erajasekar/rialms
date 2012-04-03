@@ -177,4 +177,8 @@ class QtiUtils {
         }
         return xmlNode;
     }
+
+    public static String getTitleFromXml(File input){
+        return new XmlSlurper().parse(input).'@title';
+    }
 }

@@ -6,7 +6,7 @@ class BootStrap {
 
     def init = { servletContext ->
 
-        createExercises();
+        createItems();
         createTests()
 
 
@@ -14,13 +14,13 @@ class BootStrap {
     def destroy = {
     }
 
-    def createExercises() {
+    def createItems() {
         //1-5
         new Item(dataPath: 'exercise', dataFile: 'perimeter1.xml').save();
         new Item(dataPath: 'qti', dataFile: 'choice_fixed.xml').save();
         new Item(dataPath: 'qti', dataFile: 'choice_multiple.xml').save();
-        new Item(title: 'choice multiple chocolate', dataPath: 'qti', dataFile: 'choice_multiple_chocolate.xml').save();
-        new Item(title: 'inline choice', dataPath: 'qti', dataFile: 'inline_choice.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'choice_multiple_chocolate.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'inline_choice.xml').save();
 
         //6-10
         new Item(dataPath: 'qti', dataFile: 'feedback.xml').save();

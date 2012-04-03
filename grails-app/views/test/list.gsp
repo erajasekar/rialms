@@ -25,6 +25,8 @@
                         <tr>
                  	        <g:sortableColumn property="id" title="Id" />
 
+                            <g:sortableColumn property="title" title="Title" />
+
                    	        <g:sortableColumn property="dataFile" title="Data File" />
 
                    	        <td>Action</td>
@@ -36,6 +38,8 @@
                         <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
                             <td>${fieldValue(bean:test, field:'id')}</td>
+
+                            <td>${fieldValue(bean:test, field:'title')}</td>
 
                             <td>${fieldValue(bean:test, field:'dataFile')}</td>
 

@@ -10,6 +10,7 @@ import com.rialms.util.QtiUtils
 class QtiTagLib {
     static namespace = "qti";
 
+
     def img = {  attrs ->
 
         String tag = "img";
