@@ -1,9 +1,10 @@
-package com.rialms.assessment
+package com.rialms.assessment.test
 
 
 
 import grails.test.mixin.*
-import org.junit.*
+
+import com.rialms.assessment.test.Test
 
 /**
  * See the API for {@link grails.test.mixin.domain.DomainClassUnitTestMixin} for usage instructions

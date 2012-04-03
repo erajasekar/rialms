@@ -1,15 +1,16 @@
-package com.rialms.assessment
+package com.rialms.assessment.item
 
 import org.qtitools.qti.node.item.AssessmentItem
 import com.rialms.assessment.item.AssessmentItemInfo
 import org.springframework.beans.factory.InitializingBean
+import com.rialms.assessment.item.Item
 
-class ExerciseService implements InitializingBean {
+class ItemService implements InitializingBean {
 
     def grailsApplication;
     String contentPath;
 
-    public AssessmentItem getAssessmentItem(Exercise e) {
+    public AssessmentItem getAssessmentItem(Item e) {
 
         AssessmentItem assessmentItem = new AssessmentItem();
         assessmentItem.load(getExerciseDataFile(e));
@@ -17,16 +18,16 @@ class ExerciseService implements InitializingBean {
         return assessmentItem;
     }
 
-    public File getExerciseDataFile(Exercise e) {
+    public File getExerciseDataFile(Item e) {
         return grailsApplication.parentContext.getResource("${getDataPath(e)}" + e.dataFile).getFile();
     }
 
-    private String getDataPath(Exercise e) {
+    private String getDataPath(Item e) {
         return "${contentPath}/${e.dataPath}/"
     }
 
     public AssessmentItemInfo getAssessmentItemInfo(String exerciseId) {
-        Exercise e = Exercise.get(exerciseId);
+        Item e = Item.get(exerciseId);
 
         return new AssessmentItemInfo(getAssessmentItem(e), getDataPath(e));
     }

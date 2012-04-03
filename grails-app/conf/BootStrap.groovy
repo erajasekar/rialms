@@ -1,5 +1,6 @@
-import com.rialms.assessment.Exercise
-import com.rialms.assessment.Test
+import com.rialms.assessment.item.Item
+import com.rialms.assessment.test.Test
+import com.rialms.assessment.item.Item
 
 class BootStrap {
 
@@ -15,31 +16,31 @@ class BootStrap {
 
     def createExercises() {
         //1-5
-        new Exercise(dataPath: 'exercise', dataFile: 'perimeter1.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'choice_fixed.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'choice_multiple.xml').save();
-        new Exercise(title: 'choice multiple chocolate', dataPath: 'qti', dataFile: 'choice_multiple_chocolate.xml').save();
-        new Exercise(title: 'inline choice', dataPath: 'qti', dataFile: 'inline_choice.xml').save();
+        new Item(dataPath: 'exercise', dataFile: 'perimeter1.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'choice_fixed.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'choice_multiple.xml').save();
+        new Item(title: 'choice multiple chocolate', dataPath: 'qti', dataFile: 'choice_multiple_chocolate.xml').save();
+        new Item(title: 'inline choice', dataPath: 'qti', dataFile: 'inline_choice.xml').save();
 
         //6-10
-        new Exercise(dataPath: 'qti', dataFile: 'feedback.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'hint.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'adaptive.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'adaptive_template.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'template.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'feedback.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'hint.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'adaptive.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'adaptive_template.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'template.xml').save();
 
         //11-15
-        new Exercise(dataPath: 'qti', dataFile: 'template_image.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'math.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'MAB01a.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'MA-UT-01a-NoTP-Choice.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'MA-UT-01c-NoTP-Num.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'template_image.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'math.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'MAB01a.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'MA-UT-01a-NoTP-Choice.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'MA-UT-01c-NoTP-Num.xml').save();
 
         //16-17
-        new Exercise(dataPath: 'exercise/Std10', dataFile: 'Sequences_Ex_2_1.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'likert.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'mathml-templated.xml').save();
-        new Exercise(dataPath: 'qti', dataFile: 'content-with-html-tags.xml').save();
+        new Item(dataPath: 'exercise/Std10', dataFile: 'Sequences_Ex_2_1.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'likert.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'mathml-templated.xml').save();
+        new Item(dataPath: 'qti', dataFile: 'content-with-html-tags.xml').save();
     }
 
     def createTests() {

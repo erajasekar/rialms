@@ -1,9 +1,11 @@
-package com.rialms.assessment
+package com.rialms.assessment.item
 
-class Test {
+
+class Item {
 
     String dataPath;
     String dataFile;
     static constraints = {
     }
+
 }

@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.assessment.Exercise" %>
+<%@ page import="com.rialms.assessment.Item; com.rialms.assessment.item.Item" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -48,7 +48,7 @@
                 </table>
             </div>
             <div class="paginateButtons">
-                <g:paginate total="${Exercise.count()}" />
+                <g:paginate total="${Item.count()}" />
             </div>
         </div>
     </body>

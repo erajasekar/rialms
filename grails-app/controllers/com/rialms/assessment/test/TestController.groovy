@@ -1,12 +1,7 @@
-package com.rialms.assessment
+package com.rialms.assessment.test
 
-import com.rialms.assessment.test.TestCoordinator
-import com.rialms.assessment.test.TestRenderInfo
 import com.rialms.assessment.item.AssessmentItemInfo
 
-import groovy.xml.XmlUtil
-import com.rialms.assessment.test.TestReport
-import com.rialms.assessment.test.TestReportBuilder
 import com.rialms.util.UtilitiesService
 
 class TestController {

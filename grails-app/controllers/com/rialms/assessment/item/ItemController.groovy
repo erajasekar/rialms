@@ -1,22 +1,20 @@
-package com.rialms.assessment
+package com.rialms.assessment.item
 
 import com.rialms.util.UtilitiesService
-import org.qtitools.qti.node.item.AssessmentItem
-import grails.converters.XML
-import com.rialms.assessment.item.AssessmentItemInfo
+
 import org.qtitools.qti.validation.ValidationItem
 
-class ExerciseController {
+class ItemController {
 
     def grailsApplication;
-    ExerciseService exerciseService;
+    ItemService itemService;
     UtilitiesService utilitiesService;
 
     def index = { redirect(action: list, params: params) }
 
     def list = {
         if (!params.max) params.max = 50
-        [exerciseList: Exercise.list(params)]
+        [exerciseList: Item.list(params)]
 
     }
 
@@ -26,7 +24,7 @@ class ExerciseController {
 
         String id = params.id;
         if (id) {
-            session.assessmentItemInfo = assessmentItemInfo = exerciseService.getAssessmentItemInfo(id);
+            session.assessmentItemInfo = assessmentItemInfo = itemService.getAssessmentItemInfo(id);
         } else {
             assessmentItemInfo = session.assessmentItemInfo;
         }
@@ -36,7 +34,7 @@ class ExerciseController {
         }
         //If form submitted via post
         if (request.post) {
-            log.info("Processing Exercise with param ${params}");
+            log.info("Processing Item with param ${params}");
             assessmentItemInfo.processResponses(params);
 
         }

@@ -1,10 +1,10 @@
-package com.rialms.assessment
+package com.rialms.assessment.test
 
 import org.springframework.beans.factory.InitializingBean
 import com.rialms.assessment.test.TestCoordinator
 import com.rialms.assessment.test.TestRenderInfo
-import org.springframework.web.context.request.RequestContextHolder
-import com.rialms.util.QtiUtils
+
+import com.rialms.assessment.test.Test
 
 class TestService implements InitializingBean {
 

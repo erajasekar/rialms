@@ -1,16 +1,15 @@
-package com.rialms.assessment
+package com.rialms.assessment.item
 
 
 
 import grails.test.mixin.*
-
-import com.rialms.assessment.ExerciseController
+import com.rialms.assessment.item.ItemController
 
 /**
  * See the API for {@link grails.test.mixin.web.ControllerUnitTestMixin} for usage instructions
  */
-@TestFor(ExerciseController)
-class ExerciseControllerTests {
+@TestFor(ItemController)
+class ItemControllerTests {
 
     void testSomething() {
         fail "Implement me"
