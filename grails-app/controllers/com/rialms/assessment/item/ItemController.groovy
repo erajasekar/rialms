@@ -31,26 +31,28 @@ class ItemController {
             assessmentItemInfo = session.assessmentItemInfo;
         }
         List<ValidationItem> validationErrors = assessmentItemInfo.validate();
-        if (!validationErrors.isEmpty()){
+        if (!validationErrors.isEmpty()) {
             flash.validationErrors = validationErrors;
         }
         //If form submitted via post
-       /* if (request.post) {
-            log.info("Processing Item with param ${params}");
-            assessmentItemInfo.processResponses(params);
+        /* if (request.post) {
+          log.info("Processing Item with param ${params}");
+          assessmentItemInfo.processResponses(params);
 
-        }  */
+      }  */
         params.put('showInternalState', utilitiesService.showInternalState());
         render(view: 'play', model: ['assessmentItemInfo': assessmentItemInfo]);
 
     }
-    
-    def process(){
+
+    def process() {
         log.info("Processing Item with param ${params}");
         //TODO, see if we can eliminate session
-        AssessmentItemInfo  assessmentItemInfo = session.assessmentItemInfo;
+        AssessmentItemInfo assessmentItemInfo = session.assessmentItemInfo;
         assessmentItemInfo.processResponses(params);
-        Map response = ['outcomeValues' : assessmentItemInfo.outcomeValues]
+        println "Hidden elements ${assessmentItemInfo.hiddenElements}"
+        println "show ${assessmentItemInfo.visibleElementIds}";
+        Map response = ['outcomeValues': assessmentItemInfo.outcomeValues, 'isComplete': assessmentItemInfo.isComplete(), 'showIds': ['#step2']];
         render response as JSON;
     }
 }

@@ -8,6 +8,8 @@ import groovy.util.logging.*
 import org.qtitools.qti.node.content.ItemBody
 import org.qtitools.qti.value.Value
 import org.qtitools.qti.validation.ValidationItem
+import com.rialms.assessment.render.HiddenElement
+import com.rialms.consts.Tag
 
 /**
  * Created by IntelliJ IDEA.
@@ -26,6 +28,8 @@ class AssessmentItemInfo {
     private Node xmlRoot;
 
     public static final BLANK_ITEM = new AssessmentItemInfo();
+
+    public List<HiddenElement> hiddenElements = [];
 
     public AssessmentItemInfo() {
     }
@@ -70,7 +74,7 @@ class AssessmentItemInfo {
     private void setResponses(Map params) {
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
-        Map<String,List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
+        Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
         //TODO   LOG LEVEL
         log.info("Response Values ${this} ==> ${responseValues}");
         assessmentItem.setResponses(responseValues);
@@ -84,12 +88,37 @@ class AssessmentItemInfo {
         log.info("IS COMPLETE ==> ${this.complete}");
     }
 
-    public boolean isComplete(){
+    public HiddenElement addHiddenElement(HiddenElement e) {
+        hiddenElements << e;
+        return e;
+    }
+
+    public List<String> getVisibleElementIds() {
+        List<String> visibleIds = [];
+        hiddenElements.each { element ->
+            Tag tag = element.tag;
+            if (Tag.isFeedBackTag(tag)) {
+                if (element.isVisible(outcomeValues)) {
+                    println "isFeedback true"
+                    visibleIds << "#${element.elementId}";
+                }
+            } else if (Tag.isTemplateTag(tag)) {
+                if (element.isVisible(templateValues)) {
+                    println "isTemplateTag true"
+                    visibleIds << "#${element.elementId}";
+                }
+            } else {
+                log.error("${element} can't belog to Tag ${tag}");
+            }
+        }
+    }
+
+    public boolean isComplete() {
         boolean complete = false;
-        if (assessmentItem.adaptive){
+        if (assessmentItem.adaptive) {
             Value completionStatus = assessmentItem.getOutcomeValue(AssessmentItem.VARIABLE_COMPLETION_STATUS)
             complete = (completionStatus && completionStatus.toString().equals(AssessmentItem.VALUE_ITEM_IS_COMPLETED))
-        }else{
+        } else {
             complete = assessmentItem.isCorrect();
         }
         return complete;
@@ -119,7 +148,7 @@ class AssessmentItemInfo {
         return assessmentItem;
     }
 
-    public List<ValidationItem> validate(){
+    public List<ValidationItem> validate() {
         return assessmentItem.validate().allItems;
     }
 

@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Tag" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.assessment.render.HiddenElement; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Tag" contentType="text/html;charset=UTF-8" %>
 <g:each var="n" in="${node.children()}">
 
     <g:if test="${n instanceof String}">
@@ -71,8 +71,21 @@
         </g:elseif>
 
         <g:elseif test="${Tag.isFeedBackTag(tag)}">
-            <g:render template="/renderer/renderFeedbackOrTemplate"
-                      model="[node: n, identifierValue: assessmentItemInfo.outcomeValues?.(n.'@outcomeIdentifier'), assessmentItemInfo: assessmentItemInfo]"/>
+            <g:if test="${(n.'@showHide'.equals("show"))}">
+                <% HiddenElement element = assessmentItemInfo.addHiddenElement(new HiddenElement(n.'@identifier'.toString(), n.'@outcomeIdentifier'.toString(), tag, "show")) %>
+                <g:if test="${element.isVisible(assessmentItemInfo.outcomeValues)}">
+                    <div id="${element.elementId}">
+                        <g:render template="/renderer/renderItemSubTree"
+                                  model="[node: n, assessmentItemInfo: assessmentItemInfo]"/>
+                    </div>
+                </g:if>
+                <g:else>
+                    <div id="${element.elementId}" style="display: none;">
+                        <g:render template="/renderer/renderItemSubTree"
+                                  model="[node: n, assessmentItemInfo: assessmentItemInfo]"/>
+                    </div>
+                </g:else>
+            </g:if>
         </g:elseif>
 
         <g:elseif test="${Tag.isTemplateTag(tag)}">

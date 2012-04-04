@@ -17,14 +17,18 @@
     <title>${assessmentItemInfo.title}</title>
     <r:require modules="jquery"/>
     <r:script>
-        function updatePage(e){
-            alert('here');
-            var response = eval("(" + e.responseText + ")")
-            alert(response);
+        function updatePage(data) {
+
+            if (data.isComplete) {
+                $('#submit').attr("disabled", true);
+            }
+            for (var i = 0; i < data.showIds.length; i++) {
+                alert(data.showIds[i]);
+                $(data.showIds[i]).show();
+            }
+
         }
-        function testFunc(){
-            alert('got it');
-        }
+
     </r:script>
 
 </head>
@@ -33,21 +37,25 @@
 
 <h2>${assessmentItemInfo.title}</h2>
 
-<g:if test="${flash.validationErrors}" >
-    <g:render template="/renderer/renderValidationErrors" model="[validationErrors:flash.validationErrors]"/>
+<g:if test="${flash.validationErrors}">
+    <g:render template="/renderer/renderValidationErrors" model="[validationErrors: flash.validationErrors]"/>
 </g:if>
 
 <g:else>
+    <div id='message'></div>
+
+    <div id='error'></div>
     <g:form name="AssessmentItemForm">
         <g:render template="/renderer/renderItemSubTree"
                   model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
-         <g:submitToRemote value='Submit' url="[controller:'item',action:'process']" name='submit' oncomplete="javascript:alert('good')"   />
+        <g:submitToRemote id='submit' value='Submit' url="[controller: 'item', action: 'process']" name='submit'
+                          onSuccess="updatePage(data)"/>
     </g:form>
 </g:else>
 
 <g:if test="${params.showInternalState}">
-    <g:render template="/renderer/renderInternalState" model="[outcomeValues:assessmentItemInfo.outcomeValues]" />
+    <g:render template="/renderer/renderInternalState" model="[outcomeValues: assessmentItemInfo.outcomeValues]"/>
 </g:if>
 </body>
 </html>
