@@ -22,7 +22,7 @@ class HiddenElement {
         this.valueLookUpKey = valueLookUpKey
         this.tag = tag;
         this.visibilityMode = com.rialms.consts.VisibilityMode.valueOfString(visibilityMode)
-        this.elementId = "${tag}-${identifier}-${this.visibilityMode.name()}"
+        this.elementId = "${tag}-${identifier}-${visibilityMode}"
     }
 
     public String getIdentifier() {
@@ -40,15 +40,18 @@ class HiddenElement {
     public boolean isVisible(Map<String, String> identifierValues) {
         println "identifierValues ${identifierValues}"
         boolean match = false;
-        if (identifierValues[valueLookUpKey]?.split(',')?.contains(identifier)) {
-            match = true;
-        }
-        println "match ${match}"
-        switch (visibilityMode) {
-            case VisibilityMode.SHOW_IF_MATCH: return match;
-            case VisibilityMode.HIDE_IF_MATCH: return !match;
-        }
+        String identifierValue = identifierValues[valueLookUpKey];
 
+        if (identifierValue){
+            if (identifierValue.split(',').contains(identifier)) {
+                match = true;
+            }
+            switch (visibilityMode) {
+                case VisibilityMode.SHOW_IF_MATCH: return match;
+                case VisibilityMode.HIDE_IF_MATCH: return !match;
+            }
+        }
+        println "match ${elementId} ==> ${match}"
         return match;
     }
 

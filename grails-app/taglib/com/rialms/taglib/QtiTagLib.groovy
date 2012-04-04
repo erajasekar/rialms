@@ -6,6 +6,7 @@ import com.rialms.util.CollectionUtils
 import com.rialms.assessment.item.AssessmentItemInfo
 
 import com.rialms.util.QtiUtils
+import com.rialms.assessment.render.HiddenElement
 
 class QtiTagLib {
     static namespace = "qti";
@@ -20,6 +21,7 @@ class QtiTagLib {
 
         int i = fullPath.lastIndexOf('/');
         Map fieldAttributes = [dir: fullPath.substring(0, i), file: fullPath.substring(i + 1)];
+        fieldAttributes+= attrs;
 
         def tagBody = {
             g.img(fieldAttributes);
@@ -267,6 +269,28 @@ class QtiTagLib {
         }
         renderTag(attrs, tagBody);
 
+    }
+
+    def hiddenElement = {  attrs ->
+
+        String tag = 'hiddenElement';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        Tag xmlTag =  getRequiredAttribute(attrs, 'xmlTag', tag);
+        String identifier = xmlNode.'@identifier';
+        String valueLookupKey = xmlNode.'@outcomeIdentifier';
+        String visibilityMode = xmlNode.'@showHide';
+        HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(new HiddenElement(identifier,valueLookupKey,xmlTag,visibilityMode)); 
+        println "Added ${hiddenElement} ===> visible ${assessmentItemInfo.isVisible(hiddenElement)}";
+        if (assessmentItemInfo.isVisible(hiddenElement)){
+            out << "<div id=${hiddenElement.elementId}>";
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+            out << "</div> ";
+        }else{
+            out << "<div id=${hiddenElement.elementId} style='display: none'>";
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+            out << "</div> ";
+        }
     }
 
     def mathML = {  attrs ->

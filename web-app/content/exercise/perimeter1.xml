@@ -13,12 +13,19 @@
 
 
         <p id="p1">Find perimeter of triangle with sides 3,4,5.. ?</p>
+
         <p id="p3">
-            <textEntryInteraction id="myid" placeholderText="side1" label="A:" responseIdentifier="A" expectedLength="1"/>
-            +
-            <textEntryInteraction responseIdentifier="B" expectedLength="1"/>
-            +
-            <textEntryInteraction responseIdentifier="C" expectedLength="1"/>
+                <textEntryInteraction id="myid" placeholderText="side1" label="A:" responseIdentifier="A" expectedLength="1"/>
+                +
+                <textEntryInteraction responseIdentifier="B" expectedLength="1"/>
+                +
+                <textEntryInteraction responseIdentifier="C" expectedLength="1"/>
+                <feedbackInline outcomeIdentifier="PROGRESS" identifier="step2" showHide="show">
+                    <img src="images/check-icon.png" alt="Correct!"/>
+                </feedbackInline>
+                <feedbackInline outcomeIdentifier="PROGRESS" identifier="step2" showHide="hide">
+                    <img src="images/cross-icon.png" alt="Wrong!"/>
+                </feedbackInline>
         </p>
 
         <feedbackBlock outcomeIdentifier="PROGRESS" showHide="show" identifier="step2">
@@ -60,6 +67,11 @@
                     <baseValue baseType="identifier">step2</baseValue>
                 </setOutcomeValue>
             </responseElseIf>
+            <responseElse>
+                <setOutcomeValue identifier="PROGRESS">
+                    <baseValue baseType="identifier">step1</baseValue>
+                </setOutcomeValue>
+            </responseElse>
 
         </responseCondition>
     </responseProcessing>

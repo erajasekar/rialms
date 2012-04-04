@@ -93,24 +93,33 @@ class AssessmentItemInfo {
         return e;
     }
 
-    public List<String> getVisibleElementIds() {
+    public Map<String,List<String>> getVisibleAndHiddenElementIds() {
         List<String> visibleIds = [];
+        List<String> hiddenIds = [];
         hiddenElements.each { element ->
-            Tag tag = element.tag;
-            if (Tag.isFeedBackTag(tag)) {
-                if (element.isVisible(outcomeValues)) {
-                    println "isFeedback true"
-                    visibleIds << "#${element.elementId}";
-                }
-            } else if (Tag.isTemplateTag(tag)) {
-                if (element.isVisible(templateValues)) {
-                    println "isTemplateTag true"
-                    visibleIds << "#${element.elementId}";
-                }
-            } else {
-                log.error("${element} can't belog to Tag ${tag}");
+            if(isVisible(element)){
+                visibleIds << "#${element.elementId}";
+            }else{
+                hiddenIds << "#${element.elementId}";
             }
         }
+        return [visibleElementIds:visibleIds,hiddenElementIds:hiddenIds]
+    }
+
+    public boolean isVisible(HiddenElement element){
+        Tag tag = element.tag;
+        if (Tag.isFeedBackTag(tag)) {
+            if (element.isVisible(outcomeValues)) {
+                return true;
+            }
+        } else if (Tag.isTemplateTag(tag)) {
+            if (element.isVisible(templateValues)) {
+                return true;
+            }
+        } else {
+            log.error("${element} can't belog to Tag ${tag}");
+        }
+        return false;
     }
 
     public boolean isComplete() {
@@ -124,6 +133,14 @@ class AssessmentItemInfo {
         return complete;
     }
 
+    public Map getRenderOutput(){
+        Map<String,List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
+        Map output = ['outcomeValues': outcomeValues,
+                'isComplete': isComplete(),
+                'visibleElementIds': visibleAndHiddenElementIds.visibleElementIds,
+                'hiddenElementIds': visibleAndHiddenElementIds.hiddenElementIds];
+        return output;
+    }
     public String getTitle() {
         return assessmentItem.getTitle();
     }

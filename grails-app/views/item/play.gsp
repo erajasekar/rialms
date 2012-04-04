@@ -22,11 +22,12 @@
             if (data.isComplete) {
                 $('#submit').attr("disabled", true);
             }
-            for (var i = 0; i < data.showIds.length; i++) {
-                alert(data.showIds[i]);
-                $(data.showIds[i]).show();
+            for (var i = 0; i < data.visibleElementIds.length; i++) {
+                $(data.visibleElementIds[i]).show();
             }
-
+            for (var i = 0; i < data.hiddenElementIds.length; i++) {
+                $(data.hiddenElementIds[i]).hide();
+            }
         }
 
     </r:script>

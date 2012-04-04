@@ -71,21 +71,7 @@
         </g:elseif>
 
         <g:elseif test="${Tag.isFeedBackTag(tag)}">
-            <g:if test="${(n.'@showHide'.equals("show"))}">
-                <% HiddenElement element = assessmentItemInfo.addHiddenElement(new HiddenElement(n.'@identifier'.toString(), n.'@outcomeIdentifier'.toString(), tag, "show")) %>
-                <g:if test="${element.isVisible(assessmentItemInfo.outcomeValues)}">
-                    <div id="${element.elementId}">
-                        <g:render template="/renderer/renderItemSubTree"
-                                  model="[node: n, assessmentItemInfo: assessmentItemInfo]"/>
-                    </div>
-                </g:if>
-                <g:else>
-                    <div id="${element.elementId}" style="display: none;">
-                        <g:render template="/renderer/renderItemSubTree"
-                                  model="[node: n, assessmentItemInfo: assessmentItemInfo]"/>
-                    </div>
-                </g:else>
-            </g:if>
+           <qti:hiddenElement xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}" xmlTag="${tag}"/>
         </g:elseif>
 
         <g:elseif test="${Tag.isTemplateTag(tag)}">

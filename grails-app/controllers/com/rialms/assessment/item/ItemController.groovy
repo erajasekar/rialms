@@ -50,9 +50,9 @@ class ItemController {
         //TODO, see if we can eliminate session
         AssessmentItemInfo assessmentItemInfo = session.assessmentItemInfo;
         assessmentItemInfo.processResponses(params);
-        println "Hidden elements ${assessmentItemInfo.hiddenElements}"
-        println "show ${assessmentItemInfo.visibleElementIds}";
-        Map response = ['outcomeValues': assessmentItemInfo.outcomeValues, 'isComplete': assessmentItemInfo.isComplete(), 'showIds': ['#step2']];
-        render response as JSON;
+        Map renderOutput = assessmentItemInfo.renderOutput;
+        //TODO
+        log.info("Render Output ${renderOutput}");
+        render renderOutput as JSON;
     }
 }
