@@ -9,10 +9,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
+
     <meta name="layout" content="primary"/>
-    <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
 
     <title>${assessmentItemInfo.title}</title>
     <r:require modules="jquery"/>
@@ -28,6 +26,8 @@
             for (var i = 0; i < data.hiddenElementIds.length; i++) {
                 $(data.hiddenElementIds[i]).hide();
             }
+            var outcomeValuesText = JSON.stringify(data.outcomeValues);
+            $('#itemOutcomeValues').text(outcomeValuesText);
         }
 
     </r:script>
@@ -46,7 +46,7 @@
     <div id='message'></div>
 
     <div id='error'></div>
-    <g:form name="AssessmentItemForm">
+    <g:form name="AssessmentItemForm" action="process">
         <g:render template="/renderer/renderItemSubTree"
                   model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
@@ -56,7 +56,7 @@
 </g:else>
 
 <g:if test="${params.showInternalState}">
-    <g:render template="/renderer/renderInternalState" model="[outcomeValues: assessmentItemInfo.outcomeValues]"/>
+    <g:render template="/renderer/renderInternalState" model="[outcomeValues: assessmentItemInfo.outcomeValues, divId:'itemOutcomeValues']"/>
 </g:if>
 </body>
 </html>

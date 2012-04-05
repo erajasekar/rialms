@@ -7,7 +7,13 @@ class UrlMappings {
             }
         }
 
-        "/"(view:"/index")
+        "/"(view: "/index")
         "500"(view: '/error')
+
+        name processItem: "/processItem" {
+            controller = 'item'
+            action = 'process'
+        }
+
     }
 }

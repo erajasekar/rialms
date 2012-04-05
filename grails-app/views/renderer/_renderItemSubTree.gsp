@@ -31,7 +31,7 @@
             <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
         </g:if>
         <g:elseif test="${tag == Tag.img}">
-            <qti:img assessmentItemInfo="${assessmentItemInfo}" file="${n.'@src'}" alt="${n.'@alt'}"/>
+            <qti:img assessmentItemInfo="${assessmentItemInfo}" xmlNode="${n}" file="${n.'@src'}" alt="${n.'@alt'}"/>
         </g:elseif>
 
         <g:elseif test="${tag == Tag.textEntryInteraction}">
@@ -70,14 +70,10 @@
             <qti:endAttemptInteraction xmlAttributes="${n.attributes()}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
-        <g:elseif test="${Tag.isFeedBackTag(tag)}">
+        <g:elseif test="${Tag.isFeedBackTag(tag) || Tag.isTemplateTag(tag)}">
            <qti:hiddenElement xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}" xmlTag="${tag}"/>
         </g:elseif>
 
-        <g:elseif test="${Tag.isTemplateTag(tag)}">
-            <g:render template="/renderer/renderFeedbackOrTemplate"
-                      model="[node: n, identifierValue: assessmentItemInfo.templateValues?.(n.'@templateIdentifier'), assessmentItemInfo: assessmentItemInfo]"/>
-        </g:elseif>
         <g:elseif test="${n.name().getPrefix().equals("m")}">
             <qti:mathML xmlNode="${n}" templateValues="${assessmentItemInfo.templateValues}"/>
         </g:elseif>

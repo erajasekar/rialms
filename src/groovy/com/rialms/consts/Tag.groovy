@@ -68,6 +68,7 @@ public enum Tag {
     private static final EnumSet<Tag> mixedTags = EnumSet.range(p, div);
     private static final EnumSet<Tag> feedBackTags = EnumSet.of(feedbackBlock, modalFeedback, feedbackInline);
     private static final EnumSet<Tag> templateTags = EnumSet.of(templateBlock, templateInline);
+    private static final EnumSet<Tag> inlineTags = EnumSet.of(feedbackInline, templateInline);
     private static final EnumSet<Tag> flowThroughTags = EnumSet.of(prompt, itemBody);
 
     private static Map<String, Tag> intValuesByLowerCase() {
@@ -97,6 +98,10 @@ public enum Tag {
 
     public static boolean isFlowThroughTag(Tag t) {
         return flowThroughTags.contains(t);
+    }
+
+    public static boolean isInlineTag(Tag t) {
+        return inlineTags.contains(t);
     }
 
     public static Tag valueOf(def qn) {

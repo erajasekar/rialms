@@ -16,12 +16,17 @@ class QtiTagLib {
 
         String tag = "img";
         String dir = getRequiredAttribute(attrs, 'assessmentItemInfo', tag).dataPath;
-        String file = getRequiredAttribute(attrs, 'file', tag);
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        String file = xmlNode.'@src';
         String fullPath = dir + file;
 
         int i = fullPath.lastIndexOf('/');
         Map fieldAttributes = [dir: fullPath.substring(0, i), file: fullPath.substring(i + 1)];
-        fieldAttributes+= attrs;
+        fieldAttributes+= xmlNode.attributes();
+
+
+        //TODO    LOG LEVEL
+        log.info("img Field Attributes ${fieldAttributes}");
 
         def tagBody = {
             g.img(fieldAttributes);
@@ -102,13 +107,17 @@ class QtiTagLib {
         String title = xmlAttributes.title;
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
-        Map fieldAttributes = [name: id, value: title];
-        if (assessmentItemInfo.isComplete()) {
+       //Map fieldAttributes = [name: id, value: title,  params:[(id):title] ,mapping:'processItem', onSuccess:"updatePage(data)"];
+        Map fieldAttributes = [name: id, value: title, params:[(id):title] ,mapping:'processItem' ,onSuccess:"updatePage(data)"];
+       /* if (assessmentItemInfo.isComplete()) {
             fieldAttributes << [disabled: 'disabled']
-        }
+        }*/
 
         def tagBody = {
-            g.submitButton(fieldAttributes);
+         //   g.submitToRemote(fieldAttributes);
+            g.remoteLink(fieldAttributes){
+                title
+            };
         }
         renderTag(attrs, tagBody);
 
@@ -278,18 +287,25 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         Tag xmlTag =  getRequiredAttribute(attrs, 'xmlTag', tag);
         String identifier = xmlNode.'@identifier';
-        String valueLookupKey = xmlNode.'@outcomeIdentifier';
-        String visibilityMode = xmlNode.'@showHide';
-        HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(new HiddenElement(identifier,valueLookupKey,xmlTag,visibilityMode)); 
-        println "Added ${hiddenElement} ===> visible ${assessmentItemInfo.isVisible(hiddenElement)}";
-        if (assessmentItemInfo.isVisible(hiddenElement)){
-            out << "<div id=${hiddenElement.elementId}>";
-            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
-            out << "</div> ";
+        String valueLookupKey;
+        if (Tag.isFeedBackTag(xmlTag)){
+            valueLookupKey = xmlNode.'@outcomeIdentifier';
         }else{
-            out << "<div id=${hiddenElement.elementId} style='display: none'>";
+            valueLookupKey = xmlNode.'@templateIdentifier';
+        }
+        String visibilityMode = xmlNode.'@showHide';
+        HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(new HiddenElement(identifier,valueLookupKey,xmlTag,visibilityMode));
+        
+        String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' :'div';
+
+        if (assessmentItemInfo.isVisible(hiddenElement)){
+            out << "<${sectionTag} id='${hiddenElement.elementId}'>";
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
-            out << "</div> ";
+            out << "</${sectionTag}> ";
+        }else{
+            out << "<${sectionTag} id='${hiddenElement.elementId}' style='display: none'>";
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+            out << "</${sectionTag}> ";
         }
     }
 

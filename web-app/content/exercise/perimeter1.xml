@@ -21,13 +21,12 @@
                 +
                 <textEntryInteraction responseIdentifier="C" expectedLength="1"/>
                 <feedbackInline outcomeIdentifier="PROGRESS" identifier="step2" showHide="show">
-                    <img src="images/check-icon.png" alt="Correct!"/>
+                    <img src="images/check-icon.png" height="16px" width="16px" alt="Correct!"/>
                 </feedbackInline>
                 <feedbackInline outcomeIdentifier="PROGRESS" identifier="step2" showHide="hide">
-                    <img src="images/cross-icon.png" alt="Wrong!"/>
+                    <img src="images/cross-icon.png" height="16px" width="16px" alt="Wrong!"/>
                 </feedbackInline>
         </p>
-
         <feedbackBlock outcomeIdentifier="PROGRESS" showHide="show" identifier="step2">
             <p>=
                 <textEntryInteraction responseIdentifier="SUM" expectedLength="2"/>

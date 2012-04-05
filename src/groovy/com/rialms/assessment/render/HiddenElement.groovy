@@ -22,7 +22,7 @@ class HiddenElement {
         this.valueLookUpKey = valueLookUpKey
         this.tag = tag;
         this.visibilityMode = com.rialms.consts.VisibilityMode.valueOfString(visibilityMode)
-        this.elementId = "${tag}-${identifier}-${visibilityMode}"
+        this.elementId = "${tag}-${identifier}-${valueLookUpKey}-${visibilityMode}"
     }
 
     public String getIdentifier() {
