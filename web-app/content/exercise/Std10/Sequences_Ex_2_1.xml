@@ -53,21 +53,53 @@
                 </m:mrow>
             </m:math>
         </p>
-        <p>For  <m:math><m:mrow><m:mi>n</m:mi><m:mo>=</m:mo><m:mn>1</m:mn></m:mrow></m:math> ,
+        <p>For
+            <m:math>
+                <m:mrow>
+                    <m:mi>n</m:mi>
+                    <m:mo>=</m:mo>
+                    <m:mn>1</m:mn>
+                </m:mrow>
+            </m:math>
+            ,
             <textEntryInteraction responseIdentifier="N1" expectedLength="1"/>
         </p>
         <feedbackBlock outcomeIdentifier="PROGRESS" showHide="show" identifier="STEP2">
-            <p>For <m:math><m:mrow><m:mi>n</m:mi><m:mo>=</m:mo><m:mn>2</m:mn></m:mrow></m:math> ,
+            <p>For
+                <m:math>
+                    <m:mrow>
+                        <m:mi>n</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>2</m:mn>
+                    </m:mrow>
+                </m:math>
+                ,
                 <textEntryInteraction responseIdentifier="N2" expectedLength="1"/>
             </p>
         </feedbackBlock>
         <feedbackBlock outcomeIdentifier="PROGRESS" showHide="hide" identifier="STEP2">
-            <p>For <m:math><m:mrow><m:mi>n</m:mi><m:mo>=</m:mo><m:mn>1</m:mn></m:mrow></m:math> ,
+            <p>For
+                <m:math>
+                    <m:mrow>
+                        <m:mi>n</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>1</m:mn>
+                    </m:mrow>
+                </m:math>
+                ,
                 <textEntryInteraction responseIdentifier="N2" expectedLength="1"/>
             </p>
         </feedbackBlock>
         <feedbackBlock outcomeIdentifier="PROGRESS" showHide="show" identifier="STEP3">
-            <p>For <m:math><m:mrow><m:mi>n</m:mi><m:mo>=</m:mo><m:mn>3</m:mn></m:mrow></m:math> ,
+            <p>For
+                <m:math>
+                    <m:mrow>
+                        <m:mi>n</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>3</m:mn>
+                    </m:mrow>
+                </m:math>
+                ,
                 <textEntryInteraction responseIdentifier="N3" expectedLength="2"/>
             </p>
         </feedbackBlock>
@@ -118,39 +150,53 @@
     </responseProcessing>
 
     <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
-        <p> Substitute value of <m:math><m:mrow><m:mi>n</m:mi></m:mrow></m:math> , For <m:math><m:mrow><m:mi>n</m:mi><m:mo>=</m:mo><m:mn>1</m:mn></m:mrow></m:math>,
+        <p>Substitute value of
             <m:math>
-                            <m:mrow>
-                                <m:msub>
-                                    <m:mi>c</m:mi>
-                                    <m:mi>1</m:mi>
-                                </m:msub>
-                                <m:mo>=</m:mo>
-                                <m:mfrac>
-                                    <m:mrow>
-                                        <m:mn>1</m:mn>
-                                        <m:mo>(</m:mo>
-                                        <m:mn>1</m:mn>
-                                        <m:mo>+</m:mo>
-                                        <m:mn>1</m:mn>
-                                        <m:mo>)</m:mo>
-                                        <m:mo>(</m:mo>
-                                        <m:mn>2</m:mn>
-                                        <m:mo>(</m:mo>
-                                        <m:mn>1</m:mn>
-                                        <m:mo>)</m:mo>
-                                        <m:mo>+</m:mo>
-                                        <m:mn>1</m:mn>
-                                        <m:mo>)</m:mo>
-                                    </m:mrow>
-                                    <m:mrow>
-                                        <m:mn>6</m:mn>
-                                    </m:mrow>
-                                </m:mfrac>
-                                <m:mo>=</m:mo>
-                                <m:mi>1</m:mi>
-                            </m:mrow>
-                        </m:math>
+                <m:mrow>
+                    <m:mi>n</m:mi>
+                </m:mrow>
+            </m:math>
+            , For
+            <m:math>
+                <m:mrow>
+                    <m:mi>n</m:mi>
+                    <m:mo>=</m:mo>
+                    <m:mn>1</m:mn>
+                </m:mrow>
+            </m:math>
+            ,
+            <m:math>
+                <m:mrow>
+                    <m:msub>
+                        <m:mi>c</m:mi>
+                        <m:mi>1</m:mi>
+                    </m:msub>
+                    <m:mo>=</m:mo>
+                    <m:mfrac>
+                        <m:mrow>
+                            <m:mn>1</m:mn>
+                            <m:mo>(</m:mo>
+                            <m:mn>1</m:mn>
+                            <m:mo>+</m:mo>
+                            <m:mn>1</m:mn>
+                            <m:mo>)</m:mo>
+                            <m:mo>(</m:mo>
+                            <m:mn>2</m:mn>
+                            <m:mo>(</m:mo>
+                            <m:mn>1</m:mn>
+                            <m:mo>)</m:mo>
+                            <m:mo>+</m:mo>
+                            <m:mn>1</m:mn>
+                            <m:mo>)</m:mo>
+                        </m:mrow>
+                        <m:mrow>
+                            <m:mn>6</m:mn>
+                        </m:mrow>
+                    </m:mfrac>
+                    <m:mo>=</m:mo>
+                    <m:mi>1</m:mi>
+                </m:mrow>
+            </m:math>
         </p>
     </modalFeedback>
 

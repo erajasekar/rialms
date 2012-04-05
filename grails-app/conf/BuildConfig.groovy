@@ -6,6 +6,8 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
+//grails.coffeescript.compiler.location="c:/Documents and Settings/relango/Application Data/npm/coffee"
+
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
     inherits("global") {
@@ -39,7 +41,9 @@ grails.project.dependency.resolution = {
     plugins {
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
+        runtime ":jquery-ui:1.8.15"
         runtime ":resources:1.1.6"
+        runtime ":coffeescript-resources:0.2"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"

@@ -31,6 +31,10 @@ class AssessmentItemInfo {
 
     public List<HiddenElement> hiddenElements = [];
 
+    public static final String controllerActionForProcessItem = 'process';
+
+    public static final String onSuccessCallbackForProcessItem = 'updateRenderedItem(data)';
+
     public AssessmentItemInfo() {
     }
 
@@ -93,20 +97,20 @@ class AssessmentItemInfo {
         return e;
     }
 
-    public Map<String,List<String>> getVisibleAndHiddenElementIds() {
+    public Map<String, List<String>> getVisibleAndHiddenElementIds() {
         List<String> visibleIds = [];
         List<String> hiddenIds = [];
         hiddenElements.each { element ->
-            if(isVisible(element)){
+            if (isVisible(element)) {
                 visibleIds << "#${element.elementId}";
-            }else{
+            } else {
                 hiddenIds << "#${element.elementId}";
             }
         }
-        return [visibleElementIds:visibleIds,hiddenElementIds:hiddenIds]
+        return [visibleElementIds: visibleIds, hiddenElementIds: hiddenIds]
     }
 
-    public boolean isVisible(HiddenElement element){
+    public boolean isVisible(HiddenElement element) {
         Tag tag = element.tag;
         if (Tag.isFeedBackTag(tag)) {
             if (element.isVisible(outcomeValues)) {
@@ -133,14 +137,15 @@ class AssessmentItemInfo {
         return complete;
     }
 
-    public Map getRenderOutput(){
-        Map<String,List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
+    public Map getRenderOutput() {
+        Map<String, List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
         Map output = ['outcomeValues': outcomeValues,
                 'isComplete': isComplete(),
                 'visibleElementIds': visibleAndHiddenElementIds.visibleElementIds,
                 'hiddenElementIds': visibleAndHiddenElementIds.hiddenElementIds];
         return output;
     }
+
     public String getTitle() {
         return assessmentItem.getTitle();
     }
