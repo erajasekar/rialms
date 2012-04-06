@@ -13,12 +13,12 @@
         }
         outcomeValuesText = JSON.stringify(data.outcomeValues);
         $('#itemOutcomeValues').text(outcomeValuesText);
-        _ref3 = data.disableElementIds;
-        for (_k = 0, _len3 = _ref3.length; _k < _len3; _k++) {
-            disableElementId = _ref3[_k];
-            $(disableElementId).click(function () {
-                return false;
-            });
+        if (data.disableElementIds) {
+            _ref3 = data.disableElementIds;
+            for (_k = 0, _len3 = _ref3.length; _k < _len3; _k++) {
+                disableElementId = _ref3[_k];
+                $(disableElementId).attr("disabled", true);
+            }
         }
     };
 }).call(this);

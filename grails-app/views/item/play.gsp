@@ -49,6 +49,7 @@
         <g:render template="/renderer/renderItemSubTree"
                   model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
+        <% assessmentItemInfo.addDisableOnCompletionId('submit') %>
         <g:submitToRemote id='submit' value='Submit' url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
                           name='submit'
                           onSuccess="updateRenderedItem(data)"/>

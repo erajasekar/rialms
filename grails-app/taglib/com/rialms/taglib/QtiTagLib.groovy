@@ -107,19 +107,21 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         assessmentItemInfo.addDisableOnCompletionId(id);
         //TODO remove commented code
-        Map fieldAttributes = [id: id, name: id, value: title, params: [(id): title], action: AssessmentItemInfo.controllerActionForProcessItem, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem];
-        /* if (assessmentItemInfo.isComplete()) {
-            fieldAttributes << [disabled: 'disabled']
-        }*/
+        /*     Map fieldAttributes = [id: id, name: id, value: title, params: [(id): title], action: AssessmentItemInfo.controllerActionForProcessItem, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem];
+        if (assessmentItemInfo.isComplete()) {
+           fieldAttributes << [disabled: 'disabled']
+       }
 
-        def tagBody = {
-            //   g.submitToRemote(fieldAttributes);
-            g.remoteLink(fieldAttributes) {
-                title
-            };
-        }
-        renderTag(attrs, tagBody);
+    /*   def tagBody = {
+           //   g.submitToRemote(fieldAttributes);
+           g.remoteLink(fieldAttributes) {
+               title
+           };
 
+       }
+       renderTag(attrs, tagBody);*/
+
+        out << """ <input type='button' id='${id}' name='${id}' value='${title}' onclick="${remoteFunction(action: 'process', controller: 'item', params: [(id): title], onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" />  """
     }
 
     def choiceInteraction = {  attrs ->

@@ -7,7 +7,7 @@ window.updateRenderedItem = (data) ->
   ;
   $('#itemOutcomeValues').text(outcomeValuesText)
   ;
-  $(disableElementId).attr("disabled", true) for disableElementId in data.disableElementIds
-  ;
+  if data.disableElementIds
+    $(disableElementId).attr("disabled", true) for disableElementId in data.disableElementIds
   return
   ;
