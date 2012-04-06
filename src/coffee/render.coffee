@@ -1,2 +1,13 @@
 window.updateRenderedItem = (data) ->
-  jQuery -> $('#submit').attr("disabled", true)
+  $(visibleElementId).show() for visibleElementId in data.visibleElementIds
+  ;
+  $(hiddenElementId).hide() for hiddenElementId in data.hiddenElementIds
+  ;
+  outcomeValuesText = JSON.stringify(data.outcomeValues)
+  ;
+  $('#itemOutcomeValues').text(outcomeValuesText)
+  ;
+  $(disableElementId).attr("disabled", true) for disableElementId in data.disableElementIds
+  ;
+  return
+  ;

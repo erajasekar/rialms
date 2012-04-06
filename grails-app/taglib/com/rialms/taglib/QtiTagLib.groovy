@@ -105,9 +105,9 @@ class QtiTagLib {
         String id = xmlAttributes.responseIdentifier;
         String title = xmlAttributes.title;
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        assessmentItemInfo.addDisableOnCompletionId(id);
         //TODO remove commented code
-        //Map fieldAttributes = [name: id, value: title,  params:[(id):title] ,mapping:'processItem', onSuccess:"updatePage(data)"];
-        Map fieldAttributes = [name: id, value: title, params: [(id): title], action: AssessmentItemInfo.controllerActionForProcessItem, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem];
+        Map fieldAttributes = [id: id, name: id, value: title, params: [(id): title], action: AssessmentItemInfo.controllerActionForProcessItem, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem];
         /* if (assessmentItemInfo.isComplete()) {
             fieldAttributes << [disabled: 'disabled']
         }*/

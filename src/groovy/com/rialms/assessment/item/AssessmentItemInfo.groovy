@@ -31,6 +31,8 @@ class AssessmentItemInfo {
 
     public List<HiddenElement> hiddenElements = [];
 
+    private List<String> disableOnCompletionIds = [];
+
     public static final String controllerActionForProcessItem = 'process';
 
     public static final String onSuccessCallbackForProcessItem = 'updateRenderedItem(data)';
@@ -97,6 +99,10 @@ class AssessmentItemInfo {
         return e;
     }
 
+    public void addDisableOnCompletionId(String id) {
+        disableOnCompletionIds << id;
+    }
+
     public Map<String, List<String>> getVisibleAndHiddenElementIds() {
         List<String> visibleIds = [];
         List<String> hiddenIds = [];
@@ -139,10 +145,13 @@ class AssessmentItemInfo {
 
     public Map getRenderOutput() {
         Map<String, List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
+
         Map output = ['outcomeValues': outcomeValues,
-                'isComplete': isComplete(),
                 'visibleElementIds': visibleAndHiddenElementIds.visibleElementIds,
                 'hiddenElementIds': visibleAndHiddenElementIds.hiddenElementIds];
+        if (isComplete()) {
+            output['disableElementIds'] = disableOnCompletionIds.collect { "#${it}"};
+        }
         return output;
     }
 

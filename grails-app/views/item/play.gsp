@@ -12,7 +12,7 @@
 
     <meta name="layout" content="primary"/>
     <title>${assessmentItemInfo.title}</title>
-    <r:require module="core"/>
+
     <r:script>
         /*function updateRenderedItem(data) {
 

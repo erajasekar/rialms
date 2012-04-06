@@ -6,7 +6,7 @@ grails.project.target.level = 1.6
 grails.project.source.level = 1.6
 //grails.project.war.file = "target/${appName}-${appVersion}.war"
 
-//grails.coffeescript.compiler.location="c:/Documents and Settings/relango/Application Data/npm/coffee"
+verboseCompile = true
 
 grails.project.dependency.resolution = {
     // inherit Grails' default dependencies
@@ -16,6 +16,7 @@ grails.project.dependency.resolution = {
     }
     log "error" // log level of Ivy resolver, either 'error', 'warn', 'info', 'debug' or 'verbose'
     checksums true // Whether to verify checksums on resolve
+
 
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
@@ -43,7 +44,7 @@ grails.project.dependency.resolution = {
         runtime ":jquery:1.7.1"
         runtime ":jquery-ui:1.8.15"
         runtime ":resources:1.1.6"
-        runtime ":coffeescript-resources:0.2"
+        compile ":coffeescript-resources:0.2"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
@@ -52,4 +53,5 @@ grails.project.dependency.resolution = {
 
         build ":tomcat:$grailsVersion"
     }
+
 }
