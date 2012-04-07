@@ -3,6 +3,7 @@ package com.rialms.assessment.test
 import com.rialms.assessment.item.AssessmentItemInfo
 
 import com.rialms.util.UtilitiesService
+import grails.converters.JSON
 
 class TestController {
 
@@ -82,8 +83,30 @@ class TestController {
             return;
         }
 
+        log.info("testRenderInfo  ==> ${testRenderInfo}");
         params.put('showInternalState', utilitiesService.showInternalState());
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
+    }
+
+    def process() {
+        log.info("Processing Test with param ${params}");
+        Map prevParams = params;
+        if (!params.containsKey("questionId") && !params.containsKey("submit")) {
+            redirect(action: 'play', params: params)
+        }
+        
+        TestCoordinator coordinator = session.coordinator[params.id]
+        coordinator.setValidate(false);
+        log.info("Submiting answser for question Id ${params.questionId}");
+        boolean renderSameItem = coordinator.setCurrentResponse(params);
+        log.warn("renderSameItem ==> ${renderSameItem}");
+        if (renderSameItem){
+            Map renderOutput = coordinator.testController.currentItemInfo.renderOutput
+            log.info("Render Output ${renderOutput}");
+                    render renderOutput as JSON;
+        }else{
+            redirect(action: 'play', params: prevParams)
+        }
     }
 
 }

@@ -187,7 +187,7 @@ class AssessmentItemInfo {
     public String toString() {
         return "AssessmentItemInfo{" +
                 "dataPath='" + dataPath + '\'' +
-                ", assessmentItem=" + assessmentItem +
+                ", assessmentItem=" + assessmentItem.title +
                 '}';
     }
 }

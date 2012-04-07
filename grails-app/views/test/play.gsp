@@ -6,12 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="org.qtitools.qti.validation.ValidationItem" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationItem" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
-    <script type="text/javascript"
-            src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-    </script>
+    <meta name="layout" content="primary"/>
     <title>${assessmentParams.title}</title>
 </head>
 
@@ -58,7 +56,10 @@
             <g:hiddenField name="questionId" value="${assessmentParams.questionId}"/>
 
             <g:if test="${assessmentParams.submitEnabled}">
-                <g:submitButton value="Submit" name="submit"/>
+                <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
+                            url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                            name='submit'
+                            onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
             </g:if>
             <g:else>
                 <g:submitButton value="Submit" name="submit" disabled="disabled"/>
@@ -87,8 +88,8 @@
     </g:else>
 </g:else>
 <g:if test="${params.showInternalState}">
-    <g:render template="/renderer/renderInternalState" model="[outcomeValues:assessmentItemInfo.outcomeValues]" />
-    <g:render template="/renderer/renderInternalState" model="[outcomeValues:assessmentParams.outcomeValues]" />
+    <g:render template="/renderer/renderInternalState" model="[outcomeValues: assessmentItemInfo.outcomeValues]"/>
+    <g:render template="/renderer/renderInternalState" model="[outcomeValues: assessmentParams.outcomeValues]"/>
 </g:if>
 </body>
 </html>

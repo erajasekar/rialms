@@ -60,6 +60,7 @@ class QtiTagLib {
         fieldAttributes += attrs;
 
         //TODO    LOG LEVEL
+        log.info("AssessmentItemInfo ==> ${assessmentItemInfo}");
         log.info("textEntryInteraction Field Attributes ${fieldAttributes}");
 
         def tagBody = {
@@ -308,6 +309,18 @@ class QtiTagLib {
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
             out << "</${sectionTag}> ";
         }
+    }
+
+    def submit = { attrs ->
+        String tag = "submit"
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        String id = attrs.name;
+        assessmentItemInfo.addDisableOnCompletionId(id);
+        Map fieldAttributes = [id: id] + attrs;
+        def tagBody = {
+            g.submitToRemote(fieldAttributes);
+        }
+        renderTag(attrs, tagBody);
     }
 
     def mathML = {  attrs ->

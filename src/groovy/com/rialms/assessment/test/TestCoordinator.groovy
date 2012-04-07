@@ -298,7 +298,8 @@ public class TestCoordinator implements Serializable {
         getNextQuestion(false);
     }
 
-    public void setCurrentResponse(Map params) throws FileNotFoundException, URISyntaxException, QTIException {
+    public boolean setCurrentResponse(Map params) throws FileNotFoundException, URISyntaxException, QTIException {
+        boolean renderSameItem = false;
         test.setCurrentItemResponses(params);
 
         //TODO RENDER Input for canditate comments
@@ -316,6 +317,7 @@ public class TestCoordinator implements Serializable {
         }
 
         if (test.getCurrentTestPart().getSubmissionMode() == SubmissionMode.INDIVIDUAL) {
+            println "ITEM OUTCOMES ${itemOutcomes}"
             if (se) {
                 test.setCurrentItemOutcomes(itemOutcomes);
             } else {
@@ -353,8 +355,10 @@ public class TestCoordinator implements Serializable {
             //test.getCurrentItem().getItemBody().willShowFeedback()
             //test.getCurrentItem().getAdaptive()
         } else {
+            renderSameItem = true;
             renderContent(test.currentItemInfo, makeAssessmentParams());
         }
+        return renderSameItem;
     }
 
     /**

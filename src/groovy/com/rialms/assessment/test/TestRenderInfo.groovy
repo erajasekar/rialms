@@ -45,7 +45,6 @@ class TestRenderInfo {
             sb.append("${it.key} ==> ${it.value} ==> ${it.value.getClass()} \n");
         }
         sb.append("Assessment Params ------------------------- ")
-        sb.append("Page Params =>  ${pageParams} \n");
         return sb.toString();
     }
 

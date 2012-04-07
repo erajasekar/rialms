@@ -12,25 +12,6 @@
 
     <meta name="layout" content="primary"/>
     <title>${assessmentItemInfo.title}</title>
-
-    <r:script>
-        /*function updateRenderedItem(data) {
-
-         if (data.isComplete) {
-         $('#submit').attr("disabled", true);
-         }
-         for (var i = 0; i < data.visibleElementIds.length; i++) {
-         $(data.visibleElementIds[i]).show();
-         }
-         for (var i = 0; i < data.hiddenElementIds.length; i++) {
-         $(data.hiddenElementIds[i]).hide();
-         }
-         var outcomeValuesText = JSON.stringify(data.outcomeValues);
-         $('#itemOutcomeValues').text(outcomeValuesText);
-         }   */
-
-    </r:script>
-
 </head>
 
 <body>
@@ -49,10 +30,9 @@
         <g:render template="/renderer/renderItemSubTree"
                   model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
-        <% assessmentItemInfo.addDisableOnCompletionId('submit') %>
-        <g:submitToRemote id='submit' value='Submit' url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+        <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit' url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
                           name='submit'
-                          onSuccess="updateRenderedItem(data)"/>
+                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
     </g:form>
 </g:else>
 

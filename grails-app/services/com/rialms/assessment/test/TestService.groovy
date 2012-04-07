@@ -46,11 +46,11 @@ class TestService implements InitializingBean {
             coordinator.skipCurrentQuestion();
         } else if (coordinator.getTestController().isTestComplete()) {
             return coordinator.flashMessage("Oops, it appears that you have pressed the browsers back button! This is the question you should be viewing.");
-        } else if (params.containsKey("questionId") || params.containsKey("submit")) { //endAttemptInteraction attempts won't have submit set (but will always have questionId)
+        }/* else if (params.containsKey("questionId") || params.containsKey("submit")) { //endAttemptInteraction attempts won't have submit set (but will always have questionId)
             //TODO LOG LEVEL
             log.info("Submiting answser for question Id ${params.questionId}");
             coordinator.setCurrentResponse(params);
-        } else {
+        } */else {
             log.warn("It appears that page was reloaded");
             //either a reload, or something more suspicious...
             //in any case, just redisplay the original page minus response
