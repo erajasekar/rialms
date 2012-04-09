@@ -47,6 +47,7 @@ class TestController {
 
     def play() {
 
+        log.info("Playing Test with param ${params}");
         if (!params.id) {
             return redirect(action: 'list')
         }
@@ -91,22 +92,28 @@ class TestController {
     def process() {
         log.info("Processing Test with param ${params}");
         Map prevParams = params;
-        if (!params.containsKey("questionId") && !params.containsKey("submit")) {
-            redirect(action: 'play', params: params)
-        }
-        
+        //TODO
+        //TODO appropriate redirects if id or session.coordianator is null
         TestCoordinator coordinator = session.coordinator[params.id]
         coordinator.setValidate(false);
         log.info("Submiting answser for question Id ${params.questionId}");
         boolean renderSameItem = coordinator.setCurrentResponse(params);
         log.warn("renderSameItem ==> ${renderSameItem}");
-        if (renderSameItem){
-            Map renderOutput = coordinator.testController.currentItemInfo.renderOutput
+        if (renderSameItem) {
+            AssessmentItemInfo currentItemInfo = coordinator.testController.currentItemInfo;
+            if (currentItemInfo.isComplete()) {
+                //TODO remove dup
+                String redirectUrl = createLink(controller: 'test', action: 'play', params: prevParams);
+                Map<String, String> renderOutput = ['redirectUrl': redirectUrl];
+                render renderOutput as JSON;
+            }
+            Map renderOutput = currentItemInfo.renderOutput
             log.info("Render Output ${renderOutput}");
-                    render renderOutput as JSON;
-        }else{
-            redirect(action: 'play', params: prevParams)
+            render renderOutput as JSON;
+        } else {
+            String redirectUrl = createLink(controller: 'test', action: 'play', params: prevParams);
+            Map<String, String> renderOutput = ['redirectUrl': redirectUrl];
+            render renderOutput as JSON;
         }
     }
-
 }

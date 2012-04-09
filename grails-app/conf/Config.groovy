@@ -105,7 +105,6 @@ log4j = {
         info 'stdout', 'rialmsServerLog'
         additivity = true
     }
-
 }
 
 coffeescript.modules = {
@@ -113,4 +112,3 @@ coffeescript.modules = {
         files "src/coffee/render"
     }
 }
-

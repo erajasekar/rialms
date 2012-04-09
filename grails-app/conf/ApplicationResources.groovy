@@ -1,6 +1,5 @@
 modules = {
     application {
-        dependsOn 'jquery,jquery-ui'
         resource url: 'js/application.js'
         resource url: 'js/render.js'
     }
