@@ -54,9 +54,6 @@ class TestController {
         if (params.containsKey("report")) {
             return redirect(action: 'report', id: params.id)
         }
-        if (params.containsKey("exit")) {
-            params.goto = list; reset(params)
-        }
 
         TestCoordinator coordinator;
         TestRenderInfo testRenderInfo;
@@ -91,7 +88,6 @@ class TestController {
 
     def process() {
         log.info("Processing Test with param ${params}");
-        Map prevParams = params;
         //TODO
         //TODO appropriate redirects if id or session.coordianator is null
         TestCoordinator coordinator = session.coordinator[params.id]
@@ -99,19 +95,23 @@ class TestController {
         log.info("Submiting answser for question Id ${params.questionId}");
         boolean renderSameItem = coordinator.setCurrentResponse(params);
         log.warn("renderSameItem ==> ${renderSameItem}");
+        boolean renderNextItem = false;
         if (renderSameItem) {
             AssessmentItemInfo currentItemInfo = coordinator.testController.currentItemInfo;
             if (currentItemInfo.isComplete()) {
-                //TODO remove dup
-                String redirectUrl = createLink(controller: 'test', action: 'play', params: prevParams);
-                Map<String, String> renderOutput = ['redirectUrl': redirectUrl];
+                renderNextItem = true;
+            }
+            else {
+                Map renderOutput = currentItemInfo.renderOutput
+                log.info("Render Output ${renderOutput}");
                 render renderOutput as JSON;
             }
-            Map renderOutput = currentItemInfo.renderOutput
-            log.info("Render Output ${renderOutput}");
-            render renderOutput as JSON;
+
         } else {
-            String redirectUrl = createLink(controller: 'test', action: 'play', params: prevParams);
+            renderNextItem = true;
+        }
+        if (renderNextItem) {
+            String redirectUrl = createLink(controller: 'test', action: 'play', params: params);
             Map<String, String> renderOutput = ['redirectUrl': redirectUrl];
             render renderOutput as JSON;
         }

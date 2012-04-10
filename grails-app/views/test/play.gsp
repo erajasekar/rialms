@@ -11,11 +11,6 @@
 <head>
     <meta name="layout" content="primary"/>
     <title>${assessmentParams.title}</title>
-    <r:script>
-        function alertMe(msg) {
-            window.alert(msg);
-        }
-    </r:script>
 </head>
 
 <body>
@@ -53,7 +48,7 @@
 
         </g:if>
 
-        <g:form id="AssessmentForm" name="AssessmentForm" action="play">
+        <g:form name="AssessmentForm" action="play">
             <g:render template="/renderer/renderItemSubTree"
                       model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
@@ -71,7 +66,6 @@
             </g:else>
 
             <hr/>
-            <g:submitButton id="moveon" value="moveon" name="moveon"/>
 
             <g:if test="${assessmentParams.nextEnabled}">
                 <g:submitButton name="next" value="Next"/>
