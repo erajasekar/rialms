@@ -11,6 +11,7 @@
 <html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en">
 <head>
     <g:layoutTitle/>
+
     <script type="text/javascript"
             src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
