@@ -5,7 +5,7 @@
   Time: 11:48 PM
   To change this template use File | Settings | File Templates.
 --%>
-
+<!doctype html>
 <%@ page import="com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationItem" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>

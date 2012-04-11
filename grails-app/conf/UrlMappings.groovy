@@ -14,6 +14,7 @@ class UrlMappings {
             controller = 'item'
             action = 'process'
         }
+        "/fieldFunctionTest"(view: 'uitest/fieldFunctionTest')
 
     }
 }
