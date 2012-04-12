@@ -1,11 +1,14 @@
 $ = jQuery
 window.updateRenderedItem = (data) ->
   if data.redirectUrl
-    $('html').load(data.redirectUrl, data.params, ->
-        $.getScript("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+    $.post(data.redirectUrl, (resp) ->
+        document.open()
+        ;
+        document.write(resp)
+        ;
+        document.close()
+        ;
     )
-    MathJax.Hub.Reprocess()
-    console.log('done redirect')
     return
   else
     if data.responseValues
@@ -45,8 +48,7 @@ $.fn.field = (inputName, value) ->
         else
           $(this).append "<input type=\"hidden\" name=\"" + inputName + "\" value=\"" + value + "\" />"
     else
-      console.log("warning unhandled element " + $inputElement)
-      ;
+    #console.log("warning unhandled element " + $inputElement)
       $inputElement.val value
   $inputElement
 

@@ -3,9 +3,15 @@ window.updateRenderedItem = (data) ->
   if data.redirectUrl
 
     $('html').load(data.redirectUrl, data.params, ->
-        $.getScript("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
+    #$.getScript("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
     )
     MathJax.Hub.Reprocess()
+    $.getScript("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML", (resp, textStatus, jqxhr) ->
+        console.log(resp)
+        console.log(textStatus)
+        console.log(jqxhr.status)
+        console.log('Load was performed.')
+    )
     console.log('done redirect')
     return
   else

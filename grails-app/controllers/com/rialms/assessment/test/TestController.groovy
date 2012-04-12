@@ -112,7 +112,7 @@ class TestController {
         }
         if (renderNextItem) {
             String redirectUrl = createLink(controller: 'test', action: 'play', params: params);
-            Map<String, String> renderOutput = ['redirectUrl': redirectUrl, 'params':params];
+            Map<String, String> renderOutput = ['redirectUrl': redirectUrl];
             render renderOutput as JSON;
         }
     }

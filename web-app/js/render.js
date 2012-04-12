@@ -4,11 +4,11 @@
     window.updateRenderedItem = function (data) {
         var disableElementId, hiddenElementId, name, outcomeValuesText, value, visibleElementId, _i, _j, _k, _len, _len2, _len3, _ref, _ref2, _ref3, _ref4;
         if (data.redirectUrl) {
-            $('html').load(data.redirectUrl, data.params, function () {
-                return $.getScript("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML");
+            $.post(data.redirectUrl, function (resp) {
+                document.open();
+                document.write(resp);
+                return document.close();
             });
-            MathJax.Hub.Reprocess();
-            console.log('done redirect');
             return;
         } else {
             if (data.responseValues) {
@@ -84,7 +84,6 @@
                 }
                 break;
             default:
-                console.log("warning unhandled element " + $inputElement);
                 $inputElement.val(value);
         }
         return $inputElement;
