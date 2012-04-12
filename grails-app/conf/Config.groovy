@@ -100,6 +100,8 @@ log4j = {
             'org.hibernate',
             'net.sf.ehcache.hibernate'
 
+    //debug "org.grails.plugin.resource"
+
     root {
         info 'stdout', 'rialmsServerLog'
         additivity = true

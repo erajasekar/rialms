@@ -1,6 +1,7 @@
 $ = jQuery
 window.updateRenderedItem = (data) ->
   if data.redirectUrl
+
     $('html').load(data.redirectUrl, data.params, ->
         $.getScript("http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML")
     )
