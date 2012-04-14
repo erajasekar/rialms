@@ -37,4 +37,12 @@ class TestReport {
     }
 
 
+    @Override
+    public String toString() {
+        return "TestReport{" +
+                "testTitle='" + testTitle + '\'' +
+                ", summary=" + summary +
+                ", detail=" + detail +
+                '}';
+    }
 }

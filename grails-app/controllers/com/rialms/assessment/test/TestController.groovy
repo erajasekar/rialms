@@ -27,7 +27,7 @@ class TestController {
             redirect(action: 'play', params: params);
         } else {
             TestCoordinator coordinator = session.coordinator[params.id];
-            TestReport report = new TestReportBuilder().buildTestReport(coordinator.test.title, coordinator.getReport())
+            TestReport report = new TestReportBuilder().buildTestReport(coordinator.test.title, coordinator.getReport(), coordinator.testController.testStatus)
             render(view: 'report', model: [testReport: report]);
         }
 
@@ -81,7 +81,7 @@ class TestController {
             return;
         }
 
-        log.info("testRenderInfo  ==> ${testRenderInfo}");
+        //  log.info("testRenderInfo  ==> ${testRenderInfo}");
         params.put('showInternalState', utilitiesService.showInternalState());
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
     }
@@ -96,6 +96,7 @@ class TestController {
         boolean renderSameItem = coordinator.setCurrentResponse(params);
         log.warn("renderSameItem ==> ${renderSameItem}");
         boolean renderNextItem = false;
+        //log.info("NEXT ENABLED ==> ${coordinator.testController.nextEnabled()} === IS COMPLETE => ${coordinator.testController.currentItemInfo.isComplete()}")
         if (renderSameItem) {
             AssessmentItemInfo currentItemInfo = coordinator.testController.currentItemInfo;
             if (currentItemInfo.isComplete()) {
@@ -111,6 +112,7 @@ class TestController {
             renderNextItem = true;
         }
         if (renderNextItem) {
+            // coordinator.getNextQuestion(false);
             String redirectUrl = createLink(controller: 'test', action: 'play', params: params);
             Map<String, String> renderOutput = ['redirectUrl': redirectUrl];
             render renderOutput as JSON;

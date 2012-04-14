@@ -46,7 +46,8 @@ import groovy.util.logging.*
 import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.util.QtiUtils;
 import groovy.util.Node
-import org.qtitools.qti.validation.ValidationItem;
+import org.qtitools.qti.validation.ValidationItem
+import com.rialms.consts.AssessmentItemStatus;
 
 @Log4j
 public class TestCoordinator implements Serializable {
@@ -266,6 +267,7 @@ public class TestCoordinator implements Serializable {
         params.put("numberRemaining", test.getNumberRemaining());
         params.put("timeSelected", test.getTimeSelected());
         params.put("timeRemaining", test.getTimeRemaining());
+        params.put("testStatus", test.testStatus)
 
         if (test.getCurrentItemRef().getItemSessionControl().getAllowComment())
             params.put("allowCandidateComment", true);
@@ -317,7 +319,6 @@ public class TestCoordinator implements Serializable {
         }
 
         if (test.getCurrentTestPart().getSubmissionMode() == SubmissionMode.INDIVIDUAL) {
-            println "ITEM OUTCOMES ${itemOutcomes}"
             if (se) {
                 test.setCurrentItemOutcomes(itemOutcomes);
             } else {
@@ -340,7 +341,7 @@ public class TestCoordinator implements Serializable {
                 testPartItems.clear();
             }
         }
-
+        println "IS FINISHED ${test.getCurrentItemRef().isFinished()}"
         //set the render
         if ((test.getAssessmentFeedback() == null || test.getAssessmentFeedback().size() == 0) &&
                 (test.getTestPartFeedback() == null || test.getTestPartFeedback().size() == 0) &&

@@ -1,15 +1,17 @@
 package com.rialms.assessment.item
 
-import org.qtitools.qti.node.item.AssessmentItem
-import com.rialms.util.QtiUtils
-import org.qtitools.qti.node.outcome.declaration.OutcomeDeclaration
-import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
-import groovy.util.logging.*
-import org.qtitools.qti.node.content.ItemBody
-import org.qtitools.qti.value.Value
-import org.qtitools.qti.validation.ValidationItem
 import com.rialms.assessment.render.HiddenElement
 import com.rialms.consts.Tag
+import com.rialms.util.QtiUtils
+import groovy.util.logging.Log4j
+import org.qtitools.qti.node.content.ItemBody
+import org.qtitools.qti.node.item.AssessmentItem
+import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
+import org.qtitools.qti.node.outcome.declaration.OutcomeDeclaration
+import org.qtitools.qti.node.test.AssessmentItemRef
+import org.qtitools.qti.validation.ValidationItem
+import org.qtitools.qti.value.Value
+import com.rialms.consts.AssessmentItemStatus
 
 /**
  * Created by IntelliJ IDEA.
@@ -36,6 +38,8 @@ class AssessmentItemInfo {
     public static final String controllerActionForProcessItem = 'process';
 
     public static final String onSuccessCallbackForProcessItem = 'updateRenderedItem(data)';
+
+    private AssessmentItemRef assessmentItemRef;
 
     public AssessmentItemInfo() {
     }
@@ -181,6 +185,18 @@ class AssessmentItemInfo {
 
     public List<ValidationItem> validate() {
         return assessmentItem.validate().allItems;
+    }
+
+    public EnumSet<AssessmentItemStatus> getItemStatuses() {
+        if (assessmentItemRef) {
+            return AssessmentItemStatus.getStatuses(assessmentItemRef.presented, assessmentItemRef.skipped, assessmentItemRef.timedOut, assessmentItemRef.responded);
+        } else {
+            EnumSet.noneOf(AssessmentItemStatus.class);
+        }
+    }
+
+    public void setAssessmentItemRef(AssessmentItemRef assessmentItemRef) {
+        this.assessmentItemRef = assessmentItemRef;
     }
 
     @Override

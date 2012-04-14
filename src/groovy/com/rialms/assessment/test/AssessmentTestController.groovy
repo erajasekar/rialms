@@ -51,7 +51,8 @@ import org.qtitools.qti.node.test.TestPart;
 import org.qtitools.qti.node.test.flow.DefaultItemFlow;
 import org.qtitools.qti.node.test.flow.ItemFlow;
 import org.qtitools.qti.value.Value
-import com.rialms.assessment.item.AssessmentItemInfo;
+import com.rialms.assessment.item.AssessmentItemInfo
+import com.rialms.consts.AssessmentItemStatus;
 
 /**
  * This class wraps JQTI to provide a nice interface for building
@@ -69,6 +70,8 @@ public class AssessmentTestController implements Serializable {
     private String dataPath;
 
     AssessmentItemInfo currentItemInfo = null;
+
+    private Map<String, AssessmentItemInfo> processedItems = [:];
 
     /**
      * Create an AssessmentTestController
@@ -128,10 +131,13 @@ public class AssessmentTestController implements Serializable {
 
 
     public AssessmentItemInfo getCurrentItemInfo() {
-        AssessmentItem currentItem = flow.getCurrentItemRef()?.getItem();
+        AssessmentItemRef currentItemRef = flow.getCurrentItemRef();
+        AssessmentItem currentItem = currentItemRef?.getItem();
         if (currentItem) {
             if (currentItemInfo == null || !currentItemInfo.assessmentItem.is(currentItem)) {
                 currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
+                currentItemInfo.setAssessmentItemRef(currentItemRef);
+                processedItems[currentItemRef.identifier] = currentItemInfo;
             }
         }
         return currentItemInfo;
@@ -351,6 +357,9 @@ public class AssessmentTestController implements Serializable {
         return -1;
     }
 
+    public Map<String, EnumSet<AssessmentItemStatus>> getTestStatus() {
+        return processedItems.collectEntries { k, v -> [k, v.itemStatuses]};
+    }
 
     public String getReport() {
         return getTest().getAssessmentResult().toXmlString();

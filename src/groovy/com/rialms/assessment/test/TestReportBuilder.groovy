@@ -1,6 +1,7 @@
 package com.rialms.assessment.test
 
 import groovy.util.logging.Log4j
+import com.rialms.consts.AssessmentItemStatus
 
 /**
  * Created by IntelliJ IDEA.
@@ -16,7 +17,7 @@ class TestReportBuilder {
 
     private List<String> outcomeVariablesToInclude = DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE;
 
-    public TestReport buildTestReport(String testTitle, String xmlString) {
+    public TestReport buildTestReport(String testTitle, String xmlString, Map<String, EnumSet<AssessmentItemStatus>> testStatus) {
         def assessmentResult = new XmlSlurper().parseText(xmlString);
         def testResultDuration = assessmentResult.testResult.outcomeVariable.findAll { outcomeVariable -> outcomeVariable.@identifier =~ 'duration'}
         Map<String, String> summary = [:];
@@ -29,13 +30,16 @@ class TestReportBuilder {
         List<Map<String, String>> detail = [];
         assessmentResult.itemResult.each { itemResult ->
             String itemResultId = itemResult.@identifier;
-            Map<String, String> outcomeVariableResult = [:];
-            outcomeVariableResult['item'] = itemResultId;
+            Map<String, String> detailResult = [:];
+            detailResult['item'] = itemResultId;
             def outcomeVariables = itemResult.outcomeVariable.findAll {outcomeVariable -> outcomeVariablesToInclude.contains(outcomeVariable.@identifier)}
             outcomeVariables.each { it ->
-                outcomeVariableResult[(it.@identifier.toString())] = it.text();
+                detailResult[(it.@identifier.toString())] = it.text();
             }
-            detail << outcomeVariableResult;
+            EnumSet<AssessmentItemStatus> statuses = testStatus?.get(itemResultId);
+            detailResult.STATUS = (statuses) ? AssessmentItemStatus.format(statuses) : AssessmentItemStatus.format(AssessmentItemStatus.NOT_PRESENTED)
+
+            detail << detailResult;
         }
         log.info("Test Report Detail ${detail}");
         return new TestReport(testTitle: testTitle, summary: summary, detail: detail);
