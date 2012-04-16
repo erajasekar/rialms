@@ -12,6 +12,7 @@ import org.qtitools.qti.node.test.AssessmentItemRef
 import org.qtitools.qti.validation.ValidationItem
 import org.qtitools.qti.value.Value
 import com.rialms.consts.AssessmentItemStatus
+import org.qtitools.qti.validation.ValidationResult
 
 /**
  * Created by IntelliJ IDEA.
@@ -183,8 +184,8 @@ class AssessmentItemInfo {
         return assessmentItem;
     }
 
-    public List<ValidationItem> validate() {
-        return assessmentItem.validate().allItems;
+    public ValidationResult validate() {
+        return assessmentItem.validate();
     }
 
     public EnumSet<AssessmentItemStatus> getItemStatuses() {

@@ -17,12 +17,11 @@
 <body>
 
 <h2>${assessmentItemInfo.title}</h2>
-
-<g:if test="${flash.validationErrors}">
-    <g:render template="/renderer/renderValidationErrors" model="[validationErrors: flash.validationErrors]"/>
+<g:if test="${!flash.validationResult.allItems.isEmpty()}">
+    <g:render template="/renderer/renderValidationErrors" model="[validationErrors: flash.validationResult.allItems]"/>
 </g:if>
 
-<g:else>
+<g:if test="${flash.validationResult.getErrors().isEmpty()}">
     <div id='message'></div>
 
     <div id='error'></div>
@@ -30,11 +29,12 @@
         <g:render template="/renderer/renderItemSubTree"
                   model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
-        <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit' url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
-                          name='submit'
-                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
+        <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
+                    url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                    name='submit'
+                    onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
     </g:form>
-</g:else>
+</g:if>
 
 <g:if test="${params.showInternalState}">
     <g:render template="/renderer/renderInternalState"

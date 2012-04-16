@@ -5,6 +5,7 @@ import com.rialms.util.UtilitiesService
 import org.qtitools.qti.validation.ValidationItem
 import grails.web.JSONBuilder
 import grails.converters.JSON
+import org.qtitools.qti.validation.ValidationResult
 
 class ItemController {
 
@@ -30,16 +31,9 @@ class ItemController {
         } else {
             assessmentItemInfo = session.assessmentItemInfo;
         }
-        List<ValidationItem> validationErrors = assessmentItemInfo.validate();
-        if (!validationErrors.isEmpty()) {
-            flash.validationErrors = validationErrors;
-        }
-        //If form submitted via post
-        /* if (request.post) {
-          log.info("Processing Item with param ${params}");
-          assessmentItemInfo.processResponses(params);
+        ValidationResult validationResult = assessmentItemInfo.validate();
+        flash.validationResult = validationResult;
 
-      }  */
         params.put('showInternalState', utilitiesService.showInternalState());
         render(view: 'play', model: ['assessmentItemInfo': assessmentItemInfo]);
 

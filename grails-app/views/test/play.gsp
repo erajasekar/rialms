@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!doctype html>
-<%@ page import="com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationItem" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
@@ -21,21 +21,21 @@
 
 <h2>${assessmentParams.title}</h2>
 
-<g:if test="${assessmentParams.validationErrors}">
+<g:if test="${!assessmentParams.validationResult.allItems.isEmpty()}">
     <g:render template="/renderer/renderValidationErrors"
-              model="[validationErrors: assessmentParams.validationErrors]"/>
+              model="[validationErrors: assessmentParams.validationResult.allItems]"/>
 </g:if>
 
-<g:else>
+<g:if test="${assessmentParams.validationResult.errors.isEmpty()}">
 
-    <% List<ValidationItem> validationErrors = assessmentItemInfo.validate() %>
+    <% ValidationResult validationResult = assessmentItemInfo.validate() %>
 
-    <g:if test="${!validationErrors.isEmpty()}">
+    <g:if test="${!validationResult.allItems.isEmpty()}">
         <g:render template="/renderer/renderValidationErrors"
-                  model="[validationErrors: validationErrors]"/>
+                  model="[validationErrors: validationResult.allItems]"/>
 
     </g:if>
-    <g:else>
+    <g:if test="${validationResult.errors.isEmpty()}">
         <h3>${assessmentItemInfo.title}</h3>
         <qti:assessmentSection sectionTitles="${assessmentParams.sectionTitles}"/>
         <hr/>
@@ -85,8 +85,8 @@
             <g:submitButton name="report" value="Report"/>
 
         </g:form>
-    </g:else>
-</g:else>
+    </g:if>
+</g:if>
 <g:if test="${params.showInternalState}">
     <g:render template="/renderer/renderInternalState" model="[outcomeValues: assessmentItemInfo.outcomeValues]"/>
     <g:render template="/renderer/renderInternalState" model="[outcomeValues: assessmentParams.outcomeValues]"/>

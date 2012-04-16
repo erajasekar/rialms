@@ -10,10 +10,10 @@
 
     <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string">
         <correctResponse>
-            <value>2</value>
+            <value>6</value>
         </correctResponse>
         <mapping defaultValue="0">
-            <mapEntry mapKey="2" mappedValue="1"/>
+            <mapEntry mapKey="6" mappedValue="1"/>
         </mapping>
     </responseDeclaration>
 
@@ -26,7 +26,7 @@
 
     <itemBody>
         <p>Please calculate the following:</p>
-        <p>1+1=
+        <p>5+1=
             <textEntryInteraction responseIdentifier="RESPONSE" expectedLength="15"/>
         </p>
     </itemBody>
