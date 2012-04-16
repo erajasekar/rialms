@@ -96,10 +96,12 @@ class TestController {
         boolean renderSameItem = coordinator.setCurrentResponse(params);
         log.warn("renderSameItem ==> ${renderSameItem}");
         boolean renderNextItem = false;
+
         //log.info("NEXT ENABLED ==> ${coordinator.testController.nextEnabled()} === IS COMPLETE => ${coordinator.testController.currentItemInfo.isComplete()}")
         if (renderSameItem) {
             AssessmentItemInfo currentItemInfo = coordinator.testController.currentItemInfo;
-            if (currentItemInfo.isComplete()) {
+            //TODO: This is actually redirecting to same page with enable/disable of controls, find better way
+            if (currentItemInfo.isComplete() || !coordinator.testController.submitEnabled()) {
                 renderNextItem = true;
             }
             else {

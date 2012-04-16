@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentTest
+        xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+        identifier="IndividualNavigation"
+        title="Individual Navigation">
+    <testPart identifier="part1" navigationMode="nonlinear" submissionMode="simultaneous">
+        <!--TODO test testPart feedback also -->
+        <itemSessionControl showFeedback="false" allowReview="false" showSolution="false"/>
+        <assessmentSection identifier="sectionA" title="Section 1" visible="true">
+            <assessmentItemRef identifier="feedback" href="feedback.xml"></assessmentItemRef>
+            <assessmentItemRef identifier="feedback_adaptive" href="feedback.xml"></assessmentItemRef>
+            <assessmentItemRef identifier="perimeter1" href="perimeter1.xml"></assessmentItemRef>
+            <assessmentItemRef identifier="hint" href="hint.xml"></assessmentItemRef>
+        </assessmentSection>
+    </testPart>
+</assessmentTest>

@@ -90,6 +90,7 @@
 <g:if test="${params.showInternalState}">
     <g:render template="/renderer/renderInternalState" model="[outcomeValues: assessmentItemInfo.outcomeValues]"/>
     <g:render template="/renderer/renderInternalState" model="[outcomeValues: assessmentParams.outcomeValues]"/>
+    <br/>
     ${assessmentParams.testStatus}
 </g:if>
 </body>

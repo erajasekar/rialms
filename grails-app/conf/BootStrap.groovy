@@ -69,8 +69,8 @@ class BootStrap {
         //16-20
         new Test(dataPath: 'tests/qti/MultipleCases', dataFile: 'test-ns-timeLimits_test.xml').save(); //not working
         new Test(dataPath: 'tests/qti/ModulePretest', dataFile: 'Test_Template.xml').save();
-
-
-
+        new Test(dataPath: 'tests/navigation/individual', dataFile: 'individual_navigation.xml').save();
+        new Test(dataPath: 'tests/navigation/simultaneous', dataFile: 'simultaneous_navigation.xml').save();
+        new Test(dataPath: "tests/qti/George", dataFile: "test-li-outcome_expressions.xml").save();
     }
 }

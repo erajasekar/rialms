@@ -122,7 +122,9 @@ class QtiTagLib {
        }
        renderTag(attrs, tagBody);*/
 
-        out << """ <input type='button' id='${id}' name='${id}' value='${title}' onclick="${remoteFunction(action: 'process', controller: 'item', params: [(id): title], onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" />  """
+        Map actionParams = params + [(id): title];
+        log.info("${tag} button action params => ${actionParams}");
+        out << """ <input type='button' id='${id}' name='${id}' value='${title}' onclick="${remoteFunction(action: AssessmentItemInfo.controllerActionForProcessItem, params: actionParams, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" />  """
     }
 
     def choiceInteraction = {  attrs ->
