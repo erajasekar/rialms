@@ -3,11 +3,8 @@ window.updateRenderedItem = (data) ->
   if data.redirectUrl
     $.post(data.redirectUrl, (resp) ->
         document.open()
-        ;
         document.write(resp)
-        ;
         document.close()
-        ;
     )
     return
   else
@@ -23,6 +20,32 @@ window.updateRenderedItem = (data) ->
       $('#itemOutcomeValues').text(outcomeValuesText)
     if data.disableElementIds
       $(disableElementId).attr("disabled", true) for disableElementId in data.disableElementIds
+  return
+
+window.initTimer = (timeRemaining)->
+  console.log("initTimer timeRemaing = " + timeRemaining)
+  window.timeRemaining = timeRemaining
+  window.timeInterval = 1000
+  updateTimer()
+  window.timer = window.setInterval("window.updateTimer()", timeInterval) if $('#submit') && !$('#submit').attr('disabled')
+  return
+
+window.updateTimer = ->
+  if window.timeRemaining <= 0
+    window.clearInterval(window.timer)
+    $('#submit').click()
+    ;
+  timeRemainingSecs = parseInt(timeRemaining / 1000)
+  hours = parseInt(timeRemainingSecs / (3600))
+  hours = "0" + hours  if hours < 10
+  minutes = parseInt((timeRemainingSecs / 60) % 60)
+  minutes = "0" + minutes  if minutes < 10
+  seconds = parseInt(timeRemainingSecs % 60)
+  seconds = "0" + seconds  if seconds < 10
+  prettyTime = hours + ":" + minutes + ":" + seconds
+  $('#timeRemaining').text(prettyTime)
+  ;
+  window.timeRemaining -= window.timeInterval
   return
 
 $.fn.field = (inputName, value) ->

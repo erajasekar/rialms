@@ -28,6 +28,19 @@
 
 <g:if test="${assessmentParams.validationResult.errors.isEmpty()}">
 
+    <g:if test="${assessmentParams.timeRemaining > 0}">
+        <r:script>
+                $(document).ready(function(){
+                   initTimer("${assessmentParams.timeRemaining}")
+                });
+        </r:script>
+
+        <div id="timer">
+            <g:message code="test.time.to.complete.message"/>
+            <b id="timeRemaining">...</b>
+        </div>
+    </g:if>
+
     <% ValidationResult validationResult = assessmentItemInfo.validate() %>
 
     <g:if test="${!validationResult.allItems.isEmpty()}">
@@ -36,7 +49,9 @@
 
     </g:if>
     <g:if test="${validationResult.errors.isEmpty()}">
+
         <h3>${assessmentItemInfo.title}</h3>
+
         <qti:assessmentSection sectionTitles="${assessmentParams.sectionTitles}"/>
         <hr/>
 

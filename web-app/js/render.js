@@ -45,6 +45,38 @@
             }
         }
     };
+    window.initTimer = function (timeRemaining) {
+        console.log("initTimer timeRemaing = " + timeRemaining);
+        window.timeRemaining = timeRemaining;
+        window.timeInterval = 1000;
+        updateTimer();
+        if ($('#submit') && !$('#submit').attr('disabled')) {
+            window.timer = window.setInterval("window.updateTimer()", timeInterval);
+        }
+    };
+    window.updateTimer = function () {
+        var hours, minutes, prettyTime, seconds, timeRemainingSecs;
+        if (window.timeRemaining <= 0) {
+            window.clearInterval(window.timer);
+            $('#submit').click();
+        }
+        timeRemainingSecs = parseInt(timeRemaining / 1000);
+        hours = parseInt(timeRemainingSecs / 3600);
+        if (hours < 10) {
+            hours = "0" + hours;
+        }
+        minutes = parseInt((timeRemainingSecs / 60) % 60);
+        if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        seconds = parseInt(timeRemainingSecs % 60);
+        if (seconds < 10) {
+            seconds = "0" + seconds;
+        }
+        prettyTime = hours + ":" + minutes + ":" + seconds;
+        $('#timeRemaining').text(prettyTime);
+        window.timeRemaining -= window.timeInterval;
+    };
     $.fn.field = function (inputName, value) {
         var $inputElement;
         if (typeof inputName !== "string") {
