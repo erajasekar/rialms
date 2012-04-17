@@ -81,7 +81,7 @@ class TestController {
             return;
         }
 
-        //  log.info("testRenderInfo  ==> ${testRenderInfo}");
+        //log.info("testRenderInfo  ==> ${testRenderInfo}");
         params.put('showInternalState', utilitiesService.showInternalState());
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
     }

@@ -65,6 +65,8 @@
                 <g:submitButton value="Submit" name="submit" disabled="disabled"/>
             </g:else>
 
+            <g:render template="/renderer/renderTestFeedback"/>
+
             <hr/>
 
             <g:if test="${assessmentParams.nextEnabled}">

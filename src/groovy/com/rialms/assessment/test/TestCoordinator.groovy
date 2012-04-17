@@ -48,7 +48,8 @@ import com.rialms.util.QtiUtils;
 import groovy.util.Node
 import org.qtitools.qti.validation.ValidationItem
 import com.rialms.consts.AssessmentItemStatus
-import org.qtitools.qti.validation.ValidationResult;
+import org.qtitools.qti.validation.ValidationResult
+import groovy.xml.XmlUtil;
 
 @Log4j
 public class TestCoordinator implements Serializable {
@@ -242,6 +243,7 @@ public class TestCoordinator implements Serializable {
         if (rubric != null) params.put("rubric", rubric);
 
         Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
+
         if (assessmentFeedback != null) params.put("assessmentFeedback", assessmentFeedback);
 
         Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
@@ -255,7 +257,6 @@ public class TestCoordinator implements Serializable {
             params.put("view", view);
             pageRenderParameters.put("view", view);
         }
-
         //set the state for rendering controls
         params.put("previousEnabled", test.previousEnabled());
         params.put("backwardEnabled", test.backwardEnabled());
@@ -270,6 +271,7 @@ public class TestCoordinator implements Serializable {
         params.put("timeRemaining", test.getTimeRemaining());
         params.put("testStatus", test.testStatus)
 
+        println "REMAINING ${params.numberRemaining} in ${params.timeRemaining}";
         if (test.getCurrentItemRef().getItemSessionControl().getAllowComment())
             params.put("allowCandidateComment", true);
 

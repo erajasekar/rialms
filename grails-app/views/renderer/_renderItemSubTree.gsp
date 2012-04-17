@@ -55,11 +55,11 @@
                                      outcomeValues="${assessmentItemInfo.outcomeValues}"
                                      outcomeDeclarations="${assessmentItemInfo.outcomeDeclarations}"/>
             </g:if>
-            <g:elseif test="${assessmentParams}">
+            <g:if test="${assessmentParams}">
                 <qti:printedVariable xmlAttributes="${n.attributes()}"
                                      outcomeValues="${assessmentParams.outcomeValues}"
                                      outcomeDeclarations="${assessmentParams.outcomeDeclarations}"/>
-            </g:elseif>
+            </g:if>
             <g:else>
                 Error Both  assessmentItemInfo and assessmentParams is null
             </g:else>
@@ -71,7 +71,7 @@
         </g:elseif>
 
         <g:elseif test="${Tag.isFeedBackTag(tag) || Tag.isTemplateTag(tag)}">
-           <qti:hiddenElement xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}" xmlTag="${tag}"/>
+            <qti:hiddenElement xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}" xmlTag="${tag}"/>
         </g:elseif>
 
         <g:elseif test="${n.name().getPrefix().equals("m")}">

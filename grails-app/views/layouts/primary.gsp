@@ -10,8 +10,7 @@
 <!DOCTYPE html>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en">
 <head>
-    <g:layoutTitle/>
-
+    <title><g:layoutTitle/></title>
     <r:require module="core"/>
     <r:layoutResources/>
 </head>
