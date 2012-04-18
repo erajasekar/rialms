@@ -76,8 +76,11 @@
         <hr/>
 
         <g:if test="${assessmentParams.nextEnabled}">
-            <g:submitButton name="next" value="Next"/>
+            <g:submitButton id="next" name="next" value="Next"/>
         </g:if>
+        <g:else>
+            <g:submitButton id="next" name="next" value="Next" style="display:none"/>
+        </g:else>
         <g:if test="${assessmentParams.previousEnabled}">
             <g:submitButton name="previous" value="Previous"/>
         </g:if>

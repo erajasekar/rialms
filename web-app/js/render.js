@@ -55,26 +55,14 @@
         }
     };
     window.updateTimer = function () {
-        var hours, minutes, prettyTime, seconds, timeRemainingSecs;
+        var prettyTime;
         if (window.timeRemaining <= 0) {
             window.clearInterval(window.timer);
             $('#submit').click();
         }
-        timeRemainingSecs = parseInt(timeRemaining / 1000);
-        hours = parseInt(timeRemainingSecs / 3600);
-        if (hours < 10) {
-            hours = "0" + hours;
-        }
-        minutes = parseInt((timeRemainingSecs / 60) % 60);
-        if (minutes < 10) {
-            minutes = "0" + minutes;
-        }
-        seconds = parseInt(timeRemainingSecs % 60);
-        if (seconds < 10) {
-            seconds = "0" + seconds;
-        }
-        prettyTime = hours + ":" + minutes + ":" + seconds;
-        $('#timeRemaining').text(prettyTime);
+        prettyTime = window.convertMillisecondsToHrsMinsSecs(parseInt(timeRemaining));
+        console.log(prettyTime);
+        $('#timeRemaining').text(prettyTime.clock);
         window.timeRemaining -= window.timeInterval;
     };
     $.fn.field = function (inputName, value) {
@@ -119,5 +107,45 @@
                 $inputElement.val(value);
         }
         return $inputElement;
+    };
+    window.convertMillisecondsToHrsMinsSecs = function (ms, p) {
+        var addUnitToClock, arrayPattern, clock, createClock, hours, i, j, minuets, pattern, seconds;
+        createClock = function (unit) {
+            if (pattern.match(unit)) {
+                if (unit.match(/h/)) {
+                    addUnitToClock(hours, unit);
+                }
+                if (unit.match(/m/)) {
+                    addUnitToClock(minuets, unit);
+                }
+                if (unit.match(/s/)) {
+                    return addUnitToClock(seconds, unit);
+                }
+            }
+        };
+        addUnitToClock = function (val, unit) {
+            if (val < 10 && unit.length === 2) {
+                val = "0" + val;
+            }
+            return clock.push(val);
+        };
+        pattern = p || "hh:mm:ss";
+        arrayPattern = pattern.split(":");
+        clock = [];
+        hours = Math.floor(ms / 3600000);
+        minuets = Math.floor((ms % 3600000) / 60000);
+        seconds = Math.floor(((ms % 360000) % 60000) / 1000);
+        i = 0;
+        j = arrayPattern.length;
+        while (i < j) {
+            createClock(arrayPattern[i]);
+            i++;
+        }
+        return {
+            hours:hours,
+            minuets:minuets,
+            seconds:seconds,
+            clock:clock.join(":")
+        };
     };
 }).call(this);

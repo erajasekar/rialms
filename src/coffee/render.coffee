@@ -34,17 +34,9 @@ window.updateTimer = ->
   if window.timeRemaining <= 0
     window.clearInterval(window.timer)
     $('#submit').click()
-    ;
-  timeRemainingSecs = parseInt(timeRemaining / 1000)
-  hours = parseInt(timeRemainingSecs / (3600))
-  hours = "0" + hours  if hours < 10
-  minutes = parseInt((timeRemainingSecs / 60) % 60)
-  minutes = "0" + minutes  if minutes < 10
-  seconds = parseInt(timeRemainingSecs % 60)
-  seconds = "0" + seconds  if seconds < 10
-  prettyTime = hours + ":" + minutes + ":" + seconds
-  $('#timeRemaining').text(prettyTime)
-  ;
+  prettyTime = window.convertMillisecondsToHrsMinsSecs(parseInt(timeRemaining))
+  console.log(prettyTime)
+  $('#timeRemaining').text(prettyTime.clock)
   window.timeRemaining -= window.timeInterval
   return
 

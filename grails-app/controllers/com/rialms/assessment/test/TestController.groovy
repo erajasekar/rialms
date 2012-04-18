@@ -98,8 +98,11 @@ class TestController {
 
     def process() {
         log.info("Processing Test with param ${params}");
-        //TODO
-        //TODO appropriate redirects if id or session.coordianator is null
+
+        if (!params.id) {
+            return redirect(action: 'list')
+        }
+        //TODO session.coordianator is null
         TestCoordinator coordinator = session.coordinator[params.id]
         coordinator.setValidate(false);
         log.info("Submiting answser for question Id ${params.questionId}");
@@ -115,6 +118,12 @@ class TestController {
                 // renderNextItem = true;
                 TestRenderInfo testRenderInfo = coordinator.getTestRenderInfo();
                 log.info("testRenderInfo  ==> ${testRenderInfo.assessmentParams}");
+                Map renderOutput = coordinator.testController.currentItemInfo.renderOutput
+                renderOutput.visibleElementIds = renderOutput.visibleElementIds + "#next";
+                println "visible ${renderOutput.visibleElementIds} ";
+                log.info("Render Output ${renderOutput}");
+                render renderOutput as JSON;
+
             }
             else {
                 Map renderOutput = currentItemInfo.renderOutput

@@ -53,28 +53,28 @@ class BootStrap {
         new Test(dataPath: 'tests/qti/WebDeveloperTest1', dataFile: 'template_test1.xml').save();
 
         //6-10
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-li-disabled_allowReview.xml').save();
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-li-disabled_allowSkipping.xml').save();
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-li-maxAttempts.xml').save();
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-li-timeLimits_test.xml').save();
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-ls-timeLimits_test.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-li-disabled_allowReview.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-li-disabled_allowSkipping.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-li-maxAttempts.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-li-timeLimits_test.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-ls-timeLimits_test.xml').save();
 
         //11-15
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-nested-sections.xml').save();
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-ni-disabled_allowReview.xml').save();
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-ni-disabled_allowSkipping.xml').save();
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-ni-maxAttempts.xml').save();
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-ni-timeLimits_test.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-nested-sections.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-ni-disabled_allowReview.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-ni-disabled_allowSkipping.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-ni-maxAttempts.xml').save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-ni-timeLimits_test.xml').save();
 
         //16-20
-        new Test(dataPath: 'tests/qti/George', dataFile: 'test-ns-timeLimits_test.xml').save();
-        new Test(dataPath: "tests/qti/George", dataFile: "test-li-outcome_expressions.xml").save();
-        new Test(dataPath: "tests/qti/George", dataFile: "test-li-simple.xml").save();
-        new Test(dataPath: "tests/qti/George", dataFile: "test-ls-simple.xml").save();
-        new Test(dataPath: "tests/qti/George", dataFile: "test-ni-simple.xml").save();
+        new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-ns-timeLimits_test.xml').save();
+        new Test(dataPath: "tests/qti/NavigationMixed", dataFile: "test-li-outcome_expressions.xml").save();
+        new Test(dataPath: "tests/qti/NavigationMixed", dataFile: "test-li-simple.xml").save();
+        new Test(dataPath: "tests/qti/NavigationMixed", dataFile: "test-ls-simple.xml").save();
+        new Test(dataPath: "tests/qti/NavigationMixed", dataFile: "test-ni-simple.xml").save();
 
         //21-25
-        new Test(dataPath: "tests/qti/George", dataFile: "test-ns-simple.xml").save();
+        new Test(dataPath: "tests/qti/NavigationMixed", dataFile: "test-ns-simple.xml").save();
         new Test(dataPath: 'tests/qti/ModulePretest', dataFile: 'Test_Template.xml').save();
         new Test(dataPath: 'tests/navigation/individual', dataFile: 'individual_navigation.xml').save();
         new Test(dataPath: 'tests/navigation/simultaneous', dataFile: 'simultaneous_navigation.xml').save();
