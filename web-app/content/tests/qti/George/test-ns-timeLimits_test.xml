@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
         identifier="Test01"
-        title="NS - timeLimits - test">
+        title="Non Linear Simultaneous - timeLimits - test">
 
     <timeLimits maxTime="30.0"/>
 

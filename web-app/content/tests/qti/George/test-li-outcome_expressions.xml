@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
         identifier="Test01"
-        title="LI - outcome expressions">
+        title="Linear Individual - outcome expressions">
     <outcomeDeclaration identifier="numberSelected" cardinality="single" baseType="integer"/>
     <outcomeDeclaration identifier="numberPresented" cardinality="single" baseType="integer"/>
     <outcomeDeclaration identifier="numberResponded" cardinality="single" baseType="integer"/>

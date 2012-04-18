@@ -42,7 +42,7 @@ class TestRenderInfo {
         sb.append("Assessment Item => ${assessmentItemInfo.getTitle()}\n ");
         sb.append("Assessment Params ------------------------- \n");
         assessmentParams.each {
-            sb.append("${it.key} ==> ${it.value} ==> ${it.value.getClass()} \n");
+            sb.append("${it.key} ==> ${it.value} \n");
         }
         sb.append("Assessment Params ------------------------- ")
         return sb.toString();

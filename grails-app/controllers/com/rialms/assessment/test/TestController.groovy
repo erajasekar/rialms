@@ -35,12 +35,17 @@ class TestController {
 
     def reset = {
         if (!params.id) {
-            if (session.coordinator) session.coordinator.clear()
+            if (session.coordinator) {
+                session.coordinator.clear()
+            }
             return redirect(action: 'list')
         } else {
-            def test = Test.get(params.id)
-            if (!test) return redirect(action: 'list')
-            if (session.coordinator) session.coordinator.remove(params.id)
+            if (session.coordinator) {
+                session.coordinator.remove(params.id)
+            }
+            if (params.goto) {
+                return redirect(action: params.goto)
+            }
             return redirect(action: 'play', id: params.id)
         }
     }
@@ -53,6 +58,11 @@ class TestController {
         }
         if (params.containsKey("report")) {
             return redirect(action: 'report', id: params.id)
+        }
+
+        if (params.containsKey("exit")) {
+            params.goto = list;
+            reset(params);
         }
 
         TestCoordinator coordinator;
@@ -81,7 +91,7 @@ class TestController {
             return;
         }
 
-        //log.info("testRenderInfo  ==> ${testRenderInfo}");
+        // log.info("testRenderInfo  ==> ${testRenderInfo}");
         params.put('showInternalState', utilitiesService.showInternalState());
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
     }
@@ -102,7 +112,9 @@ class TestController {
             AssessmentItemInfo currentItemInfo = coordinator.testController.currentItemInfo;
             //TODO: This is actually redirecting to same page with enable/disable of controls, find better way
             if (currentItemInfo.isComplete() || !coordinator.testController.submitEnabled()) {
-                renderNextItem = true;
+                // renderNextItem = true;
+                TestRenderInfo testRenderInfo = coordinator.getTestRenderInfo();
+                log.info("testRenderInfo  ==> ${testRenderInfo.assessmentParams}");
             }
             else {
                 Map renderOutput = currentItemInfo.renderOutput

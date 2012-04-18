@@ -82,8 +82,7 @@ class QtiTagLib {
 
         String id = xmlAttributes.identifier;
 
-        //TODO
-        log.info("${tag} attributes templateValues => ${templateValues} ; outcomeValues => ${outcomeValues} ; id => ${id}");
+        log.debug("${tag} attributes templateValues => ${templateValues} ; outcomeValues => ${outcomeValues} ; id => ${id}");
         String templateValue = templateValues?.get(id);
         String outcomeValue = outcomeValues?.get(id);
         String format = xmlAttributes.format;
