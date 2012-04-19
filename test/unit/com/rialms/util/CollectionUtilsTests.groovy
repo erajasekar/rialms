@@ -33,4 +33,12 @@ class CollectionUtilsTests {
         assertEquals(msg , fixedItems[2],output[2]);
         assertEquals(msg , fixedItems[5],output[5]);
     }
+
+    void testMergeMapsByKeyAsList(){
+        def a = [a: 1, b: 2]
+        def b = [b:1,c:3]
+        def c = CollectionUtils.mergeMapsByKeyAsList( a, b );
+
+        assertEquals("testMergeMapsByKeyAsList Failed", [a:1, b:[2, 1], c:3], c);
+    }
 }

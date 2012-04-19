@@ -4,6 +4,7 @@ import com.rialms.assessment.item.AssessmentItemInfo
 
 import com.rialms.util.UtilitiesService
 import grails.converters.JSON
+import com.rialms.util.CollectionUtils
 
 class TestController {
 
@@ -112,24 +113,23 @@ class TestController {
 
         //log.info("NEXT ENABLED ==> ${coordinator.testController.nextEnabled()} === IS COMPLETE => ${coordinator.testController.currentItemInfo.isComplete()}")
         if (renderSameItem) {
-            AssessmentItemInfo currentItemInfo = coordinator.testController.currentItemInfo;
+         //   AssessmentItemInfo currentItemInfo = coordinator.testController.currentItemInfo;
             //TODO: This is actually redirecting to same page with enable/disable of controls, find better way
-            if (currentItemInfo.isComplete() || !coordinator.testController.submitEnabled()) {
+           // if (currentItemInfo.isComplete() || !coordinator.testController.submitEnabled()) {
                 // renderNextItem = true;
                 TestRenderInfo testRenderInfo = coordinator.getTestRenderInfo();
                 log.info("testRenderInfo  ==> ${testRenderInfo.assessmentParams}");
                 Map renderOutput = coordinator.testController.currentItemInfo.renderOutput
-                renderOutput.visibleElementIds = renderOutput.visibleElementIds + "#next";
-                println "visible ${renderOutput.visibleElementIds} ";
+                renderOutput = CollectionUtils.mergeMapsByKeyAsList(renderOutput,testRenderInfo.assessmentParams.navigationControls.visibleAndHiddenElementIds);
                 log.info("Render Output ${renderOutput}");
                 render renderOutput as JSON;
 
-            }
+        /*    }
             else {
                 Map renderOutput = currentItemInfo.renderOutput
                 log.info("Render Output ${renderOutput}");
                 render renderOutput as JSON;
-            }
+            }  */
 
         } else {
             renderNextItem = true;

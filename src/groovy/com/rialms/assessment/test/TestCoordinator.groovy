@@ -49,7 +49,8 @@ import groovy.util.Node
 import org.qtitools.qti.validation.ValidationItem
 import com.rialms.consts.AssessmentItemStatus
 import org.qtitools.qti.validation.ValidationResult
-import groovy.xml.XmlUtil;
+import groovy.xml.XmlUtil
+import com.rialms.consts.NavButton;
 
 @Log4j
 public class TestCoordinator implements Serializable {
@@ -258,12 +259,14 @@ public class TestCoordinator implements Serializable {
             pageRenderParameters.put("view", view);
         }
         //set the state for rendering controls
-        params.put("previousEnabled", test.previousEnabled());
-        params.put("backwardEnabled", test.backwardEnabled());
-        params.put("nextEnabled", test.nextEnabled());
-        params.put("forwardEnabled", test.forwardEnabled());
         params.put("submitEnabled", test.submitEnabled());
-        params.put("skipEnabled", test.skipEnabled());
+        NavigationControls controls = new NavigationControls();
+        controls.addButtonState(NavButton.previous, test.previousEnabled());
+        controls.addButtonState(NavButton.backward, test.backwardEnabled());
+        controls.addButtonState(NavButton.next, test.nextEnabled());
+        controls.addButtonState(NavButton.forward, test.forwardEnabled());
+        controls.addButtonState(NavButton.skip, test.skipEnabled());
+        params.put("navigationControls" , controls);
 
         params.put("numberSelected", test.getNumberSelected());
         params.put("numberRemaining", test.getNumberRemaining());

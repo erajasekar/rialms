@@ -22,23 +22,7 @@ window.updateRenderedItem = (data) ->
       $(disableElementId).attr("disabled", true) for disableElementId in data.disableElementIds
   return
 
-window.initTimer = (timeRemaining)->
-  console.log("initTimer timeRemaing = " + timeRemaining)
-  window.timeRemaining = timeRemaining
-  window.timeInterval = 1000
-  updateTimer()
-  window.timer = window.setInterval("window.updateTimer()", timeInterval) if $('#submit') && !$('#submit').attr('disabled')
-  return
 
-window.updateTimer = ->
-  if window.timeRemaining <= 0
-    window.clearInterval(window.timer)
-    $('#submit').click()
-  prettyTime = window.convertMillisecondsToHrsMinsSecs(parseInt(timeRemaining))
-  console.log(prettyTime)
-  $('#timeRemaining').text(prettyTime.clock)
-  window.timeRemaining -= window.timeInterval
-  return
 
 $.fn.field = (inputName, value) ->
   return false  if typeof inputName isnt "string"

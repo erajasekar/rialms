@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!doctype html>
-<%@ page import="com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
@@ -75,24 +75,18 @@
 
         <hr/>
 
-        <g:if test="${assessmentParams.nextEnabled}">
-            <g:submitButton id="next" name="next" value="Next"/>
-        </g:if>
-        <g:else>
-            <g:submitButton id="next" name="next" value="Next" style="display:none"/>
-        </g:else>
-        <g:if test="${assessmentParams.previousEnabled}">
-            <g:submitButton name="previous" value="Previous"/>
-        </g:if>
-        <g:if test="${assessmentParams.backwardEnabled}">
-            <g:submitButton name="backward" value="Backward"/>
-        </g:if>
-        <g:if test="${assessmentParams.forwardEnabled}">
-            <g:submitButton name="forward" value="Forward"/>
-        </g:if>
-        <g:if test="${assessmentParams.skipEnabled}">
-            <g:submitButton name="skip" value="Skip"/>
-        </g:if>
+        <% NavigationControls controls = assessmentParams.navigationControls %>
+
+        <g:each in="${controls.getButtonStates()}" var="button">
+            <g:if test="${button.value}">
+                <g:submitButton id="${button.key.id}" name="${button.key.name}" value="${button.key.value}"/>
+            </g:if>
+            <g:else>
+                <g:submitButton id="${button.key.id}" name="${button.key.name}" value="${button.key.value}"
+                                style="display:none"/>
+            </g:else>
+        </g:each>
+
         <g:submitButton name="report" value="Report"/>
         <g:submitButton name="exit" value="Exit Test"
                         onclick="return confirm('Are you sure you want to end this test? All progress will be lost.')"/>
