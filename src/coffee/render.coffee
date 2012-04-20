@@ -15,23 +15,27 @@ window.updateRenderedItem = (data) ->
       $(visibleElementId).show() for visibleElementId in data.visibleElementIds
     if data.hiddenElementIds
       $(hiddenElementId).hide() for hiddenElementId in data.hiddenElementIds
-    if data.outcomeValues
-      outcomeValuesText = JSON.stringify(data.outcomeValues)
+    if data.itemOutcomeValues
+      outcomeValuesText = JSON.stringify(data.itemOutcomeValues)
       $('#itemOutcomeValues').text(outcomeValuesText)
+    if data.testOutcomeValues
+      outcomeValuesText = JSON.stringify(data.testOutcomeValues)
+      $('#testOutcomeValues').text(outcomeValuesText)
     if data.disableElementIds
       $(disableElementId).attr("disabled", true) for disableElementId in data.disableElementIds
     if data.testFeedback
       $('#testFeedback').html(data.testFeedback)
     if data.testContent
       $('#testContent').html(data.testContent)
-      window.MathJax = null;
-      #   $.getScript('http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
-      script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src  = "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
-      document.getElementsByTagName("head")[0].appendChild(script);
+      window.MathJax = null
+      ;
+      $.getScript($("script[src*='MathJax.js']").attr('src'))
+  #Remove commented code based on performance
+  #mathJaxScript = document.createElement("script");
+  #mathJaxScript.type = "text/javascript";
+  #mathJaxScript.src = $("script[src*='MathJax.js']").attr('src');
+  #$('head').append(mathJaxScript);
   return
-
 
 
 $.fn.field = (inputName, value) ->

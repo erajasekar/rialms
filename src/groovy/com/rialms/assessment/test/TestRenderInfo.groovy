@@ -51,4 +51,12 @@ class TestRenderInfo {
     public Map<String, Object> toPropertiesMap() {
         return ['assessmentItemInfo': assessmentItemInfo, 'assessmentParams': assessmentParams]
     }
+
+    public Map getRenderOutput() {
+        Map<String, List<String>> visibleAndHiddenElementIds = assessmentParams.navigationControls.visibleAndHiddenElementIds;
+        Map output = ['testOutcomeValues': assessmentParams.outcomeValues,
+                'visibleElementIds': visibleAndHiddenElementIds.visibleElementIds,
+                'hiddenElementIds': visibleAndHiddenElementIds.hiddenElementIds];
+        return output;
+    }
 }

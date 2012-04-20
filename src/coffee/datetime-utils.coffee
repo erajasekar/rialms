@@ -36,8 +36,9 @@ window.updateTimer = ->
   if window.timeRemaining <= 0
     window.clearInterval(window.timer)
     $('#submit').click()
-  prettyTime = window.convertMillisecondsToHrsMinsSecs(parseInt(timeRemaining))
-  #console.log(prettyTime)
-  $('#timeRemaining').text(prettyTime.clock)
-  window.timeRemaining -= window.timeInterval
+  else
+    prettyTime = window.convertMillisecondsToHrsMinsSecs(parseInt(timeRemaining))
+    #console.log(prettyTime)
+    $('#timeRemaining').text(prettyTime.clock)
+    window.timeRemaining -= window.timeInterval
   return

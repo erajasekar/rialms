@@ -266,7 +266,7 @@ public class TestCoordinator implements Serializable {
         controls.addButtonState(NavButton.next, test.nextEnabled());
         controls.addButtonState(NavButton.forward, test.forwardEnabled());
         controls.addButtonState(NavButton.skip, test.skipEnabled());
-        params.put("navigationControls" , controls);
+        params.put("navigationControls", controls);
 
         params.put("numberSelected", test.getNumberSelected());
         params.put("numberRemaining", test.getNumberRemaining());
@@ -346,7 +346,6 @@ public class TestCoordinator implements Serializable {
                 testPartItems.clear();
             }
         }
-        println "IS FINISHED ${test.getCurrentItemRef().isFinished()}"
         //set the render
         if ((test.getAssessmentFeedback() == null || test.getAssessmentFeedback().size() == 0) &&
                 (test.getTestPartFeedback() == null || test.getTestPartFeedback().size() == 0) &&

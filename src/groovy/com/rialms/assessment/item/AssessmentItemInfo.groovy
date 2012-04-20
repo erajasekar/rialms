@@ -150,7 +150,7 @@ class AssessmentItemInfo {
 
     public Map getRenderOutput() {
         Map<String, List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
-        Map output = ['outcomeValues': outcomeValues,
+        Map output = ['itemOutcomeValues': outcomeValues,
                 'responseValues': responseValues,
                 'visibleElementIds': visibleAndHiddenElementIds.visibleElementIds,
                 'hiddenElementIds': visibleAndHiddenElementIds.hiddenElementIds];
