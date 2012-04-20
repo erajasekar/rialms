@@ -43,6 +43,19 @@
           $(disableElementId).attr("disabled", true);
         }
       }
+      if (data.testFeedback) {
+        $('#testFeedback').html(data.testFeedback);
+      }
+      if (data.testContent) {
+        $('#testContent').html(data.testContent);
+           window.MathJax = null;
+       //   $.getScript('http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML')
+         var script = document.createElement("script");
+            script.type = "text/javascript";
+            script.src  = "http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+            document.getElementsByTagName("head")[0].appendChild(script);
+
+      }
     }
   };
   $.fn.field = function(inputName, value) {

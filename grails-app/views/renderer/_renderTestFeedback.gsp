@@ -5,6 +5,7 @@
   Time: 11:03 PM
   To change this template use File | Settings | File Templates.
 --%>
+<div id='testFeedback'>
 <g:if test="${assessmentParams.assessmentFeedback || assessmentParams.testPartFeedback}">
     <h4><g:message code="test.feedback.message"/></h4>
     <hr/>
@@ -21,5 +22,7 @@
                       model="[node: testPartFeedback, assessmentParams: assessmentParams]"/>
         </g:each>
     </g:if>
+    <br/>
 </g:if>
-<br/>
+
+</div>
