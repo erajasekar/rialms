@@ -259,8 +259,10 @@ public class TestCoordinator implements Serializable {
             pageRenderParameters.put("view", view);
         }
         //set the state for rendering controls
+        //TODO
         params.put("submitEnabled", test.submitEnabled());
         NavigationControls controls = new NavigationControls();
+        controls.addButtonState(NavButton.submit, test.submitEnabled());
         controls.addButtonState(NavButton.previous, test.previousEnabled());
         controls.addButtonState(NavButton.backward, test.backwardEnabled());
         controls.addButtonState(NavButton.next, test.nextEnabled());
@@ -277,7 +279,6 @@ public class TestCoordinator implements Serializable {
         if (test.getCurrentItemRef().getItemSessionControl().getAllowComment())
             params.put("allowCandidateComment", true);
 
-        if (debug) params.put("debug", true);
         if (validate) {
             params.put("validationResult", getTest().validate());
         } else {

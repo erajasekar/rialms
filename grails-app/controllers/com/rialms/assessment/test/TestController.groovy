@@ -159,6 +159,40 @@ class TestController {
         }
     }*/
 
+    def navigate = {
+        log.info("Executing navigate with params ${params}");
+
+        boolean renderSameItem = (params.renderSameItem) ?: false;
+
+        if (!params.id) {
+            return redirect(action: 'list')
+        }
+        //TODO session.coordianator is null
+        TestCoordinator coordinator = session.coordinator[params.id]
+
+        TestRenderInfo testRenderInfo = testService.processAssessmentTest(params, coordinator);
+
+        log.info("testRenderInfo  ==> ${testRenderInfo}");
+
+        if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
+            render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
+        }
+        Map renderOutput = testRenderInfo.renderOutput;
+
+        if (renderSameItem) {
+            //To render same item, just get render output for controls.
+            renderOutput = CollectionUtils.mergeMapsByKeyAsList(coordinator.testController.currentItemInfo.renderOutput, renderOutput);
+        } else {
+            //To render next item, reset testContent
+            renderOutput.testContent = g.render(template: '/renderer/renderTestContent', model: testRenderInfo.toPropertiesMap());
+        }
+
+        //Render if any test feedback
+        renderOutput.testFeedback = g.render(template: '/renderer/renderTestFeedback', model: testRenderInfo.toPropertiesMap());
+        log.info("Render Output ${renderOutput}");
+        render renderOutput as JSON;
+    }
+
     def process() {
         log.info("Processing Test with param ${params}");
 
@@ -168,32 +202,15 @@ class TestController {
         //TODO session.coordianator is null
         TestCoordinator coordinator = session.coordinator[params.id]
         coordinator.setValidate(false);
-
+        //submit should not be disabled automatically.
         log.info("Submiting answser for question Id ${params.questionId}");
         boolean renderSameItem = coordinator.setCurrentResponse(params);
         log.warn("renderSameItem ==> ${renderSameItem}");
-        TestRenderInfo testRenderInfo = testService.processAssessmentTest(params, coordinator);
-
-        if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
-            render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
-        }
-        Map renderOutput = testRenderInfo.renderOutput;
-
-        if (renderSameItem) {
-            //To render same item, just get render output for controls.
-            renderOutput = CollectionUtils.mergeMapsByKeyAsList(renderOutput, coordinator.testController.currentItemInfo.renderOutput);
-        } else {
-            //To render next item, reset testContent
-            renderOutput.testContent = g.render(template: '/renderer/renderTestContent', model: testRenderInfo.toPropertiesMap());
-        }
-
-        log.info("testRenderInfo  ==> ${testRenderInfo}");
-        //Render if any test feedback
-        renderOutput.testFeedback = g.render(template: '/renderer/renderTestFeedback', model: testRenderInfo.toPropertiesMap());   //same
-        log.info("Render Output ${renderOutput}");  //same
-        render renderOutput as JSON;   //same
-
+        params.renderSameItem = renderSameItem;
+        navigate(params);
     }
+
+
 
     def feedback() {
         log.info("Executing feedback with param ${params}");

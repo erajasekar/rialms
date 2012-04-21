@@ -26,12 +26,22 @@
     <g:hiddenField name="questionId" value="${assessmentParams.questionId}"/>
 
     <g:if test="${assessmentParams.submitEnabled}">
-        <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
-                    url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
-                    name='submit'
-                    onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
+        <div id='submit'>
+            <g:submitToRemote value='Submit'
+                              url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                              name='submit'
+                              onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
+
+        </div>
+
     </g:if>
     <g:else>
-        <g:submitButton value="Submit" name="submit" disabled="disabled"/>
+        <!--  <g:submitButton value="Submit" name="submit" disabled="disabled"/> -->
+        <div id='submit' style="display: none">
+            <g:submitToRemote value='Submit'
+                              url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                              name='submit'
+                              onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
+        </div>
     </g:else>
 </div>

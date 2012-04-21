@@ -32,7 +32,7 @@ class TestService implements InitializingBean {
     public TestRenderInfo processAssessmentTest(params, TestCoordinator coordinator) {
         //if params.id is set, use test from database, otherwise use session-bound test
 
-        log.info("getRenderInfo Params ${params}");
+        log.info("processAssessmentTest Params ${params}");
 
         if (params.containsKey("next") && coordinator.getTestController().nextEnabled()) {
             coordinator.getNextQuestion(false);

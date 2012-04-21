@@ -8,17 +8,18 @@ package com.rialms.consts
  * To change this template use File | Settings | File Templates.
  */
 public enum NavButton {
-    previous, backward, next, forward, skip;
-    
-    public String getId(){
-        return name();
-    }
-    
-    public String getName(){
+    previous, backward, next, forward, skip, submit;
+
+
+    public String getId() {
         return name();
     }
 
-    public String getValue(){
+    public String getName() {
+        return name();
+    }
+
+    public String getValue() {
         return name().capitalize();
     }
 }

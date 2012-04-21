@@ -20,25 +20,27 @@ class CollectionUtilsTests {
     }
 
     void testGetValuesOrderedByPosition() {
-        Map input = [5:"e", 1:"a",3:"c",2:"b",4:"d"];
+        Map input = [5: "e", 1: "a", 3: "c", 2: "b", 4: "d"];
         List output = CollectionUtils.orderValuesByPosition(input);
-        assertEquals("testGetValuesOrderedByPosition Failed" , ["a","b","c","d","e"], output);
+        assertEquals("testGetValuesOrderedByPosition Failed", ["a", "b", "c", "d", "e"], output);
     }
-    
-    void testShuffleWithFixedPositions(){
-        List input = [10,15,20,30,50];
-        Map fixedItems = [2:14, 5:23];
-        List output = CollectionUtils.shuffleWithFixedPositions(input,fixedItems);
+
+    void testShuffleWithFixedPositions() {
+        List input = [10, 15, 20, 30, 50];
+        Map fixedItems = [2: 14, 5: 23];
+        List output = CollectionUtils.shuffleWithFixedPositions(input, fixedItems);
         String msg = "testShuffleWithFixedPositions Failed"
-        assertEquals(msg , fixedItems[2],output[2]);
-        assertEquals(msg , fixedItems[5],output[5]);
+        assertEquals(msg, fixedItems[2], output[2]);
+        assertEquals(msg, fixedItems[5], output[5]);
     }
 
-    void testMergeMapsByKeyAsList(){
-        def a = [a: 1, b: 2]
-        def b = [b:1,c:3]
-        def c = CollectionUtils.mergeMapsByKeyAsList( a, b );
+    void testMergeMapsByKeyAsList() {
+        String msg = "testMergeMapsByKeyAsList Failed"
+        def a = [a: 1, b: 2, d: [5, 6]]
+        def b = [b: 1, c: 3, d: []]
+        def c = CollectionUtils.mergeMapsByKeyAsList(a, b);
 
-        assertEquals("testMergeMapsByKeyAsList Failed", [a:1, b:[2, 1], c:3], c);
+        assertEquals(msg, [a: 1, b: [2, 1], c: 3, d: [5, 6]], c);
+        assertEquals("${msg} on swapping params", [a: 1, b: [1, 2], c: 3, d: [5, 6]], CollectionUtils.mergeMapsByKeyAsList(b, a));
     }
 }

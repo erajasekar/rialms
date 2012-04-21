@@ -39,14 +39,13 @@ class CollectionUtils {
         return result;
     }
 
-    public static Map mergeMapsByKeyAsList(Map map1, Map map2){
+    public static Map mergeMapsByKeyAsList(Map map1, Map map2) {
         def result = map1 + map2
         result.each { key, value ->
-            if( map1[key] && map2[key] )
-            {
-              result[key] = [map1[key], map2[key]].flatten();
+            if (map1.containsKey(key) && map2.containsKey(key)) {
+                result[key] = [map1[key], map2[key]].flatten();
             }
-          }
+        }
         return result;
     }
 }
