@@ -55,20 +55,18 @@
 
         <g:each in="${controls.getButtonStates()}" var="button">
             <g:if test="${button.value}">
-                <g:submitToRemote url="[action: 'navigate']"
-                                  id="${button.key.id}"
-                                  name="${button.key.name}"
-                                  value="${button.key.value}"
-                                  onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
+                <input type='button' id="${button.key.id}"
+                       name="${button.key.name}"
+                       value="${button.key.value}"
+                       onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [navButton: button.key.id])}"/>
 
             </g:if>
             <g:else>
-                <g:submitToRemote url="[action: 'navigate']"
-                                  id="${button.key.id}"
-                                  name="${button.key.name}"
-                                  value="${button.key.value}"
-                                  onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                                  style="display:none"/>
+                <input type='button' id="${button.key.id}"
+                       name="${button.key.name}"
+                       value="${button.key.value}"
+                       onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [navButton: button.key.id])}"
+                       style="display:none"/>
             </g:else>
         </g:each>
 

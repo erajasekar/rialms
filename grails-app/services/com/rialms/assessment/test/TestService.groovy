@@ -34,15 +34,15 @@ class TestService implements InitializingBean {
 
         log.info("processAssessmentTest Params ${params}");
 
-        if (params.containsKey("next") && coordinator.getTestController().nextEnabled()) {
+        if (params.navButton == "next" && coordinator.getTestController().nextEnabled()) {
             coordinator.getNextQuestion(false);
-        } else if (params.containsKey("forward") && coordinator.getTestController().forwardEnabled()) {
+        } else if (params.navButton == "forward" && coordinator.getTestController().forwardEnabled()) {
             coordinator.getNextQuestion(true);
-        } else if (params.containsKey("previous") && coordinator.getTestController().previousEnabled()) {
+        } else if (params.navButton == "previous" && coordinator.getTestController().previousEnabled()) {
             coordinator.getPreviousQuestion(false);
-        } else if (params.containsKey("backward") && coordinator.getTestController().backwardEnabled()) {
+        } else if (params.navButton == "backward" && coordinator.getTestController().backwardEnabled()) {
             coordinator.getPreviousQuestion(true);
-        } else if (params.containsKey("skip") && coordinator.getTestController().skipEnabled()) {
+        } else if (params.navButton == "skip" && coordinator.getTestController().skipEnabled()) {
             coordinator.skipCurrentQuestion();
         } else if (coordinator.isCompleted()) {
             coordinator.getCurrentQuestion();
