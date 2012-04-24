@@ -8,7 +8,7 @@ package com.rialms.consts
  * To change this template use File | Settings | File Templates.
  */
 public enum NavButton {
-    previous, backward, next, forward, skip, submit;
+    previous, backward, next, forward, skip;
 
 
     public String getId() {

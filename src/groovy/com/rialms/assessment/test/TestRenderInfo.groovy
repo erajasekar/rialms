@@ -39,7 +39,7 @@ class TestRenderInfo {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Assessment Item => ${assessmentItemInfo.getTitle()}\n ");
+        sb.append("Assessment Item => ${assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM) ? '_BLANK_' : assessmentItemInfo.getTitle()}\n ");
         sb.append("Assessment Params ------------------------- \n");
         assessmentParams.each {
             sb.append("${it.key} ==> ${it.value} \n");
@@ -57,6 +57,9 @@ class TestRenderInfo {
         Map output = ['testOutcomeValues': assessmentParams.outcomeValues,
                 'visibleElementIds': visibleAndHiddenElementIds.visibleElementIds,
                 'hiddenElementIds': visibleAndHiddenElementIds.hiddenElementIds];
+        if (!assessmentParams.submitEnabled) {
+            output.disableElementIds = ['#submit'];
+        }
         return output;
     }
 }

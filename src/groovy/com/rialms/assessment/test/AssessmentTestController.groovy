@@ -361,6 +361,10 @@ public class AssessmentTestController implements Serializable {
         return processedItems.collectEntries { k, v -> [k, v.itemStatuses]};
     }
 
+    public Map<String, String> getItemsPendingSubmission() {
+        return processedItems.collectEntries { k, v -> [k, AssessmentItemStatus.format(v.itemStatuses)]};
+    }
+
     public String getReport() {
         return getTest().getAssessmentResult().toXmlString();
     }

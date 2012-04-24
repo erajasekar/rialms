@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!doctype html>
-<%@ page import="com.rialms.consts.NavButton; com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
@@ -54,22 +54,22 @@
         <% NavigationControls controls = assessmentParams.navigationControls %>
 
         <g:each in="${controls.getButtonStates()}" var="button">
-            <g:if test="${!button.equals(NavButton.submit)}">
-                <g:if test="${button.value}">
-                    <g:submitButton id="${button.key.id}"
-                                    name="${button.key.name}"
-                                    value="${button.key.value}"
-                                    onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}"/>
+            <g:if test="${button.value}">
+                <g:submitToRemote url="[action: 'navigate']"
+                                  id="${button.key.id}"
+                                  name="${button.key.name}"
+                                  value="${button.key.value}"
+                                  onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
 
-                </g:if>
-                <g:else>
-                    <g:submitButton id="${button.key.id}"
-                                    name="${button.key.name}"
-                                    value="${button.key.value}"
-                                    onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}"
-                                    style="display:none"/>
-                </g:else>
             </g:if>
+            <g:else>
+                <g:submitToRemote url="[action: 'navigate']"
+                                  id="${button.key.id}"
+                                  name="${button.key.name}"
+                                  value="${button.key.value}"
+                                  onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
+                                  style="display:none"/>
+            </g:else>
         </g:each>
 
         <g:submitButton name="report" value="Report"/>

@@ -26,22 +26,18 @@
     <g:hiddenField name="questionId" value="${assessmentParams.questionId}"/>
 
     <g:if test="${assessmentParams.submitEnabled}">
-        <div id='submit'>
-            <g:submitToRemote value='Submit'
-                              url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
-                              name='submit'
-                              onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
-
-        </div>
+        <g:submitToRemote id='submit'
+                          value='Submit'
+                          url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                          name='submit'
+                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
 
     </g:if>
     <g:else>
-        <!--  <g:submitButton value="Submit" name="submit" disabled="disabled"/> -->
-        <div id='submit' style="display: none">
-            <g:submitToRemote value='Submit'
-                              url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
-                              name='submit'
-                              onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
-        </div>
+        <g:submitButton id='submit'
+                        value='Submit'
+                        url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                        name='submit'
+                        onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}" disabled="disabled"/>
     </g:else>
 </div>

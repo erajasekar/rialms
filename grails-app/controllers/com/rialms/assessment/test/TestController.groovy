@@ -162,7 +162,7 @@ class TestController {
     def navigate = {
         log.info("Executing navigate with params ${params}");
 
-        boolean renderSameItem = (params.renderSameItem) ?: false;
+        boolean renderNextItem = (params.renderNextItem) ?: true;
 
         if (!params.id) {
             return redirect(action: 'list')
@@ -175,16 +175,22 @@ class TestController {
         log.info("testRenderInfo  ==> ${testRenderInfo}");
 
         if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
-            render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
+            if (testRenderInfo.assessmentParams.itemsPendingSubmission) {
+                render createRedirectLinkJSON(controller: 'test', action: 'confirmSubmission', params: params);
+            } else {
+                render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
+            }
+
         }
         Map renderOutput = testRenderInfo.renderOutput;
 
-        if (renderSameItem) {
-            //To render same item, just get render output for controls.
-            renderOutput = CollectionUtils.mergeMapsByKeyAsList(coordinator.testController.currentItemInfo.renderOutput, renderOutput);
-        } else {
+        if (renderNextItem) {
             //To render next item, reset testContent
             renderOutput.testContent = g.render(template: '/renderer/renderTestContent', model: testRenderInfo.toPropertiesMap());
+        } else {
+
+            //To render same item, just get render output for controls.
+            renderOutput = CollectionUtils.mergeMapsByKeyAsList(coordinator.testController.currentItemInfo.renderOutput, renderOutput);
         }
 
         //Render if any test feedback
@@ -204,9 +210,9 @@ class TestController {
         coordinator.setValidate(false);
         //submit should not be disabled automatically.
         log.info("Submiting answser for question Id ${params.questionId}");
-        boolean renderSameItem = coordinator.setCurrentResponse(params);
-        log.warn("renderSameItem ==> ${renderSameItem}");
-        params.renderSameItem = renderSameItem;
+        boolean renderNextItem = coordinator.setCurrentResponse(params);
+        log.warn("renderNextItem ==> ${renderNextItem}");
+        params.renderNextItem = renderNextItem;
         navigate(params);
     }
 
@@ -221,6 +227,22 @@ class TestController {
         TestCoordinator coordinator = session.coordinator[params.id]
         TestRenderInfo testRenderInfo = coordinator.getTestRenderInfo();
         render(view: 'feedback', model: testRenderInfo.toPropertiesMap());
+    }
+
+    def confirmSubmission() {
+        log.info("Executing confirmSubmission with param ${params}");
+        if (!params.id) {
+            return redirect(action: 'list')
+        }
+        //TODO handle null value
+        TestCoordinator coordinator = session.coordinator[params.id]
+
+        if (request.post) {
+            render "submit confirmed ";
+            return;
+        }
+        TestRenderInfo testRenderInfo = coordinator.getTestRenderInfo();
+        render(view: 'confirmSubmission', model: testRenderInfo.toPropertiesMap());
     }
 
     private JSON createRedirectLinkJSON(Map attributes) {
