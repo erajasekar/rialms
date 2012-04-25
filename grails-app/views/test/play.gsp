@@ -29,7 +29,7 @@
 <g:if test="${assessmentParams.validationResult.errors.isEmpty()}">
 
     <g:if test="${assessmentParams.timeRemaining > 0}">
-        <r:script>
+        <r:script disposition='head'>
                 $(document).ready(function(){
                    initTimer("${assessmentParams.timeRemaining}")
                 });
@@ -71,9 +71,8 @@
         </g:each>
 
         <g:submitButton name="report" value="Report"/>
-        <!-- TODO ADD CONFIRMATION TO MESSAGE.PROPERTIES -->
         <g:submitButton name="exit" value="Exit Test"
-                        onclick="return confirm('Are you sure you want to end this test? All progress will be lost.')"/>
+                        onclick="return confirm(\'${g.message(code:'test.exit.confirm.message')}\')"/>
 
     </g:form>
 

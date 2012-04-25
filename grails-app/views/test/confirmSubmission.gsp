@@ -18,11 +18,16 @@
     <g:message code="${flash.message}"/>
 </g:if>
 
-<h4><g:message code="test.confirm.submission.message"/></h4>
+<h4><g:message code="test.submission.confirm.message"/></h4>
 
-${assessmentParams.itemsPendingSubmission}
+<g:form action="confirmSubmission" name="confirmSubmission" >
 
-<g:submitButton name="submit" value="Submit"/>
+    <g:render template="/renderer/renderMapAsTable" model="[mapTableData:assessmentParams.itemsPendingSubmission]" />
+
+    <g:hiddenField name="id" value="${params.id}"/>
+    <g:submitButton name="submit" value="Submit"/>
+
+</g:form>
 
 </body>
 </html>

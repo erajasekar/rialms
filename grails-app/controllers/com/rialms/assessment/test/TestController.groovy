@@ -91,74 +91,6 @@ class TestController {
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
     }
 
-    //TODO: clean up
-    /* def process() {
-        log.info("Processing Test with param ${params}");
-
-        if (!params.id) {
-            return redirect(action: 'list')
-        }
-        //TODO session.coordianator is null
-        TestCoordinator coordinator = session.coordinator[params.id]
-        coordinator.setValidate(false);
-        log.info("Submiting answser for question Id ${params.questionId}");
-        boolean renderSameItem = coordinator.setCurrentResponse(params);
-        log.warn("renderSameItem ==> ${renderSameItem}");
-        boolean renderNextItem = false;
-        TestRenderInfo testRenderInfo;
-        //log.info("NEXT ENABLED ==> ${coordinator.testController.nextEnabled()} === IS COMPLETE => ${coordinator.testController.currentItemInfo.isComplete()}")
-        if (renderSameItem) {
-            //   AssessmentItemInfo currentItemInfo = coordinator.testController.currentItemInfo;
-            //TODO: This is actually redirecting to same page with enable/disable of controls, find better way
-            // if (currentItemInfo.isComplete() || !coordinator.testController.submitEnabled()) {
-            // renderNextItem = true;
-            testRenderInfo = coordinator.getTestRenderInfo();
-            //Render if any test feedback
-            log.info("testRenderInfo  ==> ${testRenderInfo.assessmentParams}");
-            Map renderOutput = coordinator.testController.currentItemInfo.renderOutput
-            renderOutput = CollectionUtils.mergeMapsByKeyAsList(renderOutput, testRenderInfo.renderOutput);
-            renderOutput.testFeedback = g.render(template: '/renderer/renderTestFeedback', model: testRenderInfo.toPropertiesMap());
-            log.info("Render Output ${renderOutput}");
-            render renderOutput as JSON;
-
-            /*    }
-          else {
-              Map renderOutput = currentItemInfo.renderOutput
-              log.info("Render Output ${renderOutput}");
-              render renderOutput as JSON;
-          }
-
-        } else {
-            renderNextItem = true;
-        }
-        if (renderNextItem) {
-            // coordinator.getNextQuestion(false);
-            /* String redirectUrl = createLink(controller: 'test', action: 'play', params: params);
-         Map<String, String> renderOutput = ['redirectUrl': redirectUrl];
-         render renderOutput as JSON;
-
-            if (coordinator.isCompleted()) {
-                coordinator.getCurrentQuestion();
-                testRenderInfo = coordinator.getTestRenderInfo();
-            } else {
-                testRenderInfo = testService.processAssessmentTest(params, coordinator);
-            }
-            if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
-                //TODO refactor to common method
-                String redirectUrl = createLink(controller: 'test', action: 'feedback', params: params);
-                Map<String, String> renderOutput = ['redirectUrl': redirectUrl];
-                render renderOutput as JSON;
-            }
-            //TODO fix timer last value
-            log.info("testRenderInfo  ==> ${testRenderInfo.assessmentParams}");
-            Map renderOutput = testRenderInfo.assessmentParams.navigationControls.visibleAndHiddenElementIds;
-            renderOutput.testContent = g.render(template: '/renderer/renderTestContent', model: testRenderInfo.toPropertiesMap());
-            renderOutput.testFeedback = g.render(template: '/renderer/renderTestFeedback', model: testRenderInfo.toPropertiesMap());
-            log.info("Render Output ${renderOutput}");
-            render renderOutput as JSON;
-        }
-    }*/
-
     def navigate = {
         log.info("Executing navigate with params ${params}");
 
@@ -172,7 +104,7 @@ class TestController {
 
         TestRenderInfo testRenderInfo = testService.processAssessmentTest(params, coordinator);
 
-        log.info("testRenderInfo  ==> ${testRenderInfo}");
+        log.info("testRenderInfo ==> ${testRenderInfo.assessmentParams}");
 
         if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
             if (testRenderInfo.assessmentParams.itemsPendingSubmission) {
@@ -181,22 +113,24 @@ class TestController {
                 render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
             }
 
-        }
-        Map renderOutput = testRenderInfo.renderOutput;
-
-        if (renderNextItem) {
-            //To render next item, reset testContent
-            renderOutput.testContent = g.render(template: '/renderer/renderTestContent', model: testRenderInfo.toPropertiesMap());
         } else {
+            Map renderOutput = testRenderInfo.renderOutput;
 
-            //To render same item, just get render output for controls.
-            renderOutput = CollectionUtils.mergeMapsByKeyAsList(coordinator.testController.currentItemInfo.renderOutput, renderOutput);
+            if (renderNextItem) {
+                //To render next item, reset testContent
+                renderOutput.testContent = g.render(template: '/renderer/renderTestContent', model: testRenderInfo.toPropertiesMap());
+            } else {
+
+                //To render same item, just get render output for controls.
+                renderOutput = CollectionUtils.mergeMapsByKeyAsList(coordinator.testController.currentItemInfo.renderOutput, renderOutput);
+            }
+
+            //Render if any test feedback
+            renderOutput.testFeedback = g.render(template: '/renderer/renderTestFeedback', model: testRenderInfo.toPropertiesMap());
+            log.info("Render Output ${renderOutput}");
+            render renderOutput as JSON;
         }
 
-        //Render if any test feedback
-        renderOutput.testFeedback = g.render(template: '/renderer/renderTestFeedback', model: testRenderInfo.toPropertiesMap());
-        log.info("Render Output ${renderOutput}");
-        render renderOutput as JSON;
     }
 
     def process() {
@@ -236,10 +170,10 @@ class TestController {
         }
         //TODO handle null value
         TestCoordinator coordinator = session.coordinator[params.id]
-
-        if (request.post) {
-            render "submit confirmed ";
-            return;
+        if (params.submit == 'Submit') {
+            coordinator.doSimultaneousSubmission();
+            println "redirect ===> ${params}"
+            redirect(action: 'play', params: params)
         }
         TestRenderInfo testRenderInfo = coordinator.getTestRenderInfo();
         render(view: 'confirmSubmission', model: testRenderInfo.toPropertiesMap());

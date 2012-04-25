@@ -20,14 +20,7 @@
 
 <h2><g:message code="test.report.summary.message"/></h2>
 
-<table>
-    <g:each var='summary' in="${testReport.summary}">
-        <tr>
-            <td>${summary.key}</td>
-            <td>${summary.value}</td>
-        </tr>
-    </g:each>
-</table>
+<g:render template="/renderer/renderMapAsTable" model="[mapTableData:testReport.summary]" />
 
 <h2><g:message code="test.report.detail.message"/></h2>
 

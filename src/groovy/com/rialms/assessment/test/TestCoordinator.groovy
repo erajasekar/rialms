@@ -162,56 +162,16 @@ public class TestCoordinator implements Serializable {
         //if the renderedContent is still active, just return
         if (cachedTestRenderInfo != null) return;
 
-        if (test.isTestComplete()) {
+        if (test.isTestComplete() || test.getCurrentItemRef().isTimedOut()) {
+            //TODO doesn't work if no item is submitted
             if (testPartItems) {
                 log.info("Finished simultaneous submission mode test, render pending submission content");
                 // doSimultaneousSubmission();
                 renderPendingSubmissionContent();
+            } else {
+                renderFeedbackContent();
             }
-
-//			ItemData id = new ItemData();
-//			id.setImageBasePath(getImageBasePath());
-//			id.setTestTitle(test.getTestTitle());
-//			if (test.getAssessmentFeedback() != null)
-//			id.getAssessmentFeedback().addAll(test.getAssessmentFeedback());
-//			if (test.getTestPartFeedback() != null)
-//			id.getTestPartFeedback().addAll(test.getTestPartFeedback());
-//			cachedTestRenderInfo = RenderingEngine.renderItem(renderer, view, id);
-
-            Map<String, Object> params = new HashMap<String, Object>();
-
-            //set the test title from the cached version (to avoid lookups)
-            params.put("title", test.getTestTitle());
-
-            Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
-            if (assessmentFeedback != null) params.put("assessmentFeedback", assessmentFeedback);
-
-            Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
-            if (testPartFeedback != null) params.put("testPartFeedback", testPartFeedback);
-
-            params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
-            params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
-
-            if (view != null) {
-                params.put("view", view);
-            }
-            renderContent(AssessmentItemInfo.BLANK_ITEM, params);
         } else {
-//			ItemSessionControl itemSessionControl = test.getCurrentItemSessionControl();
-
-//			String identifier = test.getCurrentItemIdentifier();
-//			byte [] render = null;
-//			String href = test.getCurrentItemHREF();
-
-            //this deals with content packages that have mutliple levels, and item images are relative to the item, not the test
-//			String base = "";
-//			if (href.lastIndexOf("/") != -1) {
-//			base = href.substring(0, href.lastIndexOf("/"));
-//			}
-//			ai = new R2Q2AssessmentItem(new URI(href), testdir, itemSessionControl.getShowFeedback(), getImageBasePath()+base, test.getCurrentItemRef().getTemplateDefaults());
-//			render = ai.render();
-
-            //assemble and render (call service)
             renderContent(test.currentItemInfo, makeAssessmentParams());
         }
     }
@@ -224,6 +184,27 @@ public class TestCoordinator implements Serializable {
         params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
         params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
         params.put("itemsPendingSubmission", test.itemsPendingSubmission);
+        renderContent(AssessmentItemInfo.BLANK_ITEM, params);
+    }
+
+    private void renderFeedbackContent() {
+        Map<String, Object> params = new HashMap<String, Object>();
+
+        //set the test title from the cached version (to avoid lookups)
+        params.put("title", test.getTestTitle());
+
+        Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
+        if (assessmentFeedback != null) params.put("assessmentFeedback", assessmentFeedback);
+
+        Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
+        if (testPartFeedback != null) params.put("testPartFeedback", testPartFeedback);
+
+        params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
+        params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
+
+        if (view != null) {
+            params.put("view", view);
+        }
         renderContent(AssessmentItemInfo.BLANK_ITEM, params);
     }
 
@@ -334,19 +315,22 @@ public class TestCoordinator implements Serializable {
             if (se) {
                 testPartItems.put(test.getCurrentItemRef(), itemOutcomes);
             } else {
-                if (!test.getCurrentItemRef().isTimedOut())
+                if (!test.getCurrentItemRef().isTimedOut()) {
                     test.getCurrentItemRef().timeOut();
+                }
             }
-            if (!test.getItemFlow().hasNextItemRef(true)) {
+            if (!test.getCurrentItemRef().passMaximumTimeLimit()) {
+                println "RAJA 2"
+                test.getCurrentItemRef().timeOut();
+                log.info("Test timedout");
+                cachedTestRenderInfo = null;
+                getCurrentQuestion();
+            }
+            //TODO : remove commented code
+            /*if (!test.getItemFlow().hasNextItemRef(true)) {
                 doSimultaneousSubmission();
-            }
+            } */
         }
-        //set the render
-        /*  if ((test.getAssessmentFeedback() == null || test.getAssessmentFeedback().size() == 0) &&
-       (test.getTestPartFeedback() == null || test.getTestPartFeedback().size() == 0) &&
-       !test.currentItemInfo.itemBody.willShowFeedback() &&
-       !test.currentItemInfo.adaptive &&
-       test.getCurrentItemRef().isFinished() */
 
         boolean shouldRenderNextItem = shouldRenderNextItem();
         if (shouldRenderNextItem) {
@@ -362,7 +346,7 @@ public class TestCoordinator implements Serializable {
         return shouldRenderNextItem;
     }
 
-    private void doSimultaneousSubmission() {
+    public void doSimultaneousSubmission() {
         //TODO Test it for multiple testPart
         log.info("Doing simultaneous submission");
         //write all vars
@@ -374,10 +358,6 @@ public class TestCoordinator implements Serializable {
     }
 
     private boolean shouldRenderNextItem() {
-        if (test.getCurrentItemRef().isTimedOut()) {
-            log.info("Test timedout, rendering next item");
-            return true;
-        }
         boolean hasNoFeedbackAndNotAdaptive = ((test.getAssessmentFeedback() == null || test.getAssessmentFeedback().size() == 0) &&
                 (test.getTestPartFeedback() == null || test.getTestPartFeedback().size() == 0) &&
                 !test.currentItemInfo.itemBody.willShowFeedback() &&
