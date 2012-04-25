@@ -327,9 +327,9 @@ public class TestCoordinator implements Serializable {
                 getCurrentQuestion();
             }
             //TODO : remove commented code
-            /*if (!test.getItemFlow().hasNextItemRef(true)) {
+            if (!test.getItemFlow().hasNextItemRef(true)) {
                 doSimultaneousSubmission();
-            } */
+            }
         }
 
         boolean shouldRenderNextItem = shouldRenderNextItem();
