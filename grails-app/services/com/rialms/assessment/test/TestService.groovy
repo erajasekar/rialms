@@ -10,6 +10,7 @@ class TestService implements InitializingBean {
 
     def grailsApplication;
     String contentPath;
+    def g;
 
     public File getTestDataFile(Test t) {
         return grailsApplication.parentContext.getResource("${getDataPath(t)}" + t.dataFile).getFile();
@@ -52,6 +53,8 @@ class TestService implements InitializingBean {
 
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
+        g = grailsApplication.mainContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib');
+
     }
 
 }

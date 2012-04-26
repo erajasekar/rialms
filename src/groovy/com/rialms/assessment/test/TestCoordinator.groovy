@@ -136,6 +136,7 @@ public class TestCoordinator implements Serializable {
     }
 
     public TestRenderInfo getTestRenderInfo() {
+
         if (cachedTestRenderInfo == null) {
             getCurrentQuestion();
         }
@@ -162,15 +163,20 @@ public class TestCoordinator implements Serializable {
         //if the renderedContent is still active, just return
         if (cachedTestRenderInfo != null) return;
 
-        if (test.isTestComplete() || test.getCurrentItemRef().isTimedOut()) {
+    /*    if (!test.getItemFlow().hasNextItemRef(true)) {
+            log.info("Finished current part in simultaneous submission mode test, render pending submission content");
+            // doSimultaneousSubmission();
+            renderPendingSubmissionContent();
+        }
+        else */ if (test.isTestComplete()) {
             //TODO doesn't work if no item is submitted
-            if (testPartItems) {
-                log.info("Finished simultaneous submission mode test, render pending submission content");
-                // doSimultaneousSubmission();
-                renderPendingSubmissionContent();
-            } else {
-                renderFeedbackContent();
-            }
+            /* if (testPartItems) {
+            log.info("Finished simultaneous submission mode test, render pending submission content");
+            // doSimultaneousSubmission();
+            renderPendingSubmissionContent();
+        } else {  */
+            renderFeedbackContent();
+            //}
         } else {
             renderContent(test.currentItemInfo, makeAssessmentParams());
         }
@@ -319,17 +325,11 @@ public class TestCoordinator implements Serializable {
                     test.getCurrentItemRef().timeOut();
                 }
             }
-            if (!test.getCurrentItemRef().passMaximumTimeLimit()) {
-                println "RAJA 2"
-                test.getCurrentItemRef().timeOut();
-                log.info("Test timedout");
-                cachedTestRenderInfo = null;
-                getCurrentQuestion();
-            }
+
             //TODO : remove commented code
-            if (!test.getItemFlow().hasNextItemRef(true)) {
-                doSimultaneousSubmission();
-            }
+            /* if (!test.getItemFlow().hasNextItemRef(true)) {
+             doSimultaneousSubmission();
+         }   */
         }
 
         boolean shouldRenderNextItem = shouldRenderNextItem();
