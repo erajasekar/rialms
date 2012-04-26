@@ -144,10 +144,18 @@ public class TestCoordinator implements Serializable {
     }
 
     public void getNextQuestion(boolean includeFinished) throws QTIException {
-        test.getNextItemHREF(includeFinished);
 
+        log.info("hasNextItem if current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
+        //TODO should works event if all items are skipped.
+        //For simultaneous submission mode, if no more items in current test part, renderSubmitTestPartContent();
+        if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && testPartItems) {
+            renderSubmitTestPartContent();
+        } else {
+            test.getNextItemHREF(includeFinished);
+            cachedTestRenderInfo = null;
+        }
         //invalidate renderedContent
-        cachedTestRenderInfo = null;
+
     }
 
     public void getPreviousQuestion(boolean includeFinished) throws QTIException {
@@ -163,26 +171,14 @@ public class TestCoordinator implements Serializable {
         //if the renderedContent is still active, just return
         if (cachedTestRenderInfo != null) return;
 
-    /*    if (!test.getItemFlow().hasNextItemRef(true)) {
-            log.info("Finished current part in simultaneous submission mode test, render pending submission content");
-            // doSimultaneousSubmission();
-            renderPendingSubmissionContent();
-        }
-        else */ if (test.isTestComplete()) {
-            //TODO doesn't work if no item is submitted
-            /* if (testPartItems) {
-            log.info("Finished simultaneous submission mode test, render pending submission content");
-            // doSimultaneousSubmission();
-            renderPendingSubmissionContent();
-        } else {  */
+        if (test.isTestComplete()) {
             renderFeedbackContent();
-            //}
         } else {
             renderContent(test.currentItemInfo, makeAssessmentParams());
         }
     }
 
-    private void renderPendingSubmissionContent() {
+    private void renderSubmitTestPartContent() {
         Map<String, Object> params = new HashMap<String, Object>();
 
         //set the test title from the cached version (to avoid lookups)
@@ -190,6 +186,8 @@ public class TestCoordinator implements Serializable {
         params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
         params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
         params.put("itemsPendingSubmission", test.itemsPendingSubmission);
+
+        log.info("renderSubmitTestPartContent params ==> ${params}");
         renderContent(AssessmentItemInfo.BLANK_ITEM, params);
     }
 
@@ -279,7 +277,6 @@ public class TestCoordinator implements Serializable {
         //TODO fix logging
         log.info("IS BLANK ${assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)}");
         cachedTestRenderInfo = new TestRenderInfo(assessmentItemInfo, assessmentParams)
-
     }
 
     public String getCurrentQuestionId() {
@@ -310,7 +307,7 @@ public class TestCoordinator implements Serializable {
             }
         }
 
-        if (test.getCurrentTestPart().getSubmissionMode() == SubmissionMode.INDIVIDUAL) {
+        if (test.isCurrentTestPartSubmissionModeIndividual()) {
             if (se) {
                 test.setCurrentItemOutcomes(itemOutcomes);
             } else {
@@ -332,14 +329,19 @@ public class TestCoordinator implements Serializable {
          }   */
         }
 
+        return navigate();
+    }
+
+    /**
+     * Navigate to nextItem or remain on same item based on feedback or adaptive.
+     * @return shouldRenderNextItem
+     */
+    public boolean navigate() {
         boolean shouldRenderNextItem = shouldRenderNextItem();
         if (shouldRenderNextItem) {
             //there is no feedback (at the test level), so we'll show the next item instead
+            println "RAJA getting next quesiton"
             getNextQuestion(false);
-
-            //TODO: this is broken if there is item feedback, as you won't see it!!! Also it will break adaptive items!!!
-            //test.getCurrentItem().getItemBody().willShowFeedback()
-            //test.getCurrentItem().getAdaptive()
         } else {
             renderContent(test.currentItemInfo, makeAssessmentParams());
         }
@@ -355,6 +357,7 @@ public class TestCoordinator implements Serializable {
         }
         test.getTest().processOutcome();
         testPartItems.clear();
+        navigate();
     }
 
     private boolean shouldRenderNextItem() {

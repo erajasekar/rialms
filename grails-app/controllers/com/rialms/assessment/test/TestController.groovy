@@ -5,6 +5,7 @@ import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.util.UtilitiesService
 import grails.converters.JSON
 import com.rialms.util.CollectionUtils
+import com.rialms.consts.NavButton
 
 class TestController {
 
@@ -170,7 +171,8 @@ class TestController {
         }
         //TODO handle null value
         TestCoordinator coordinator = session.coordinator[params.id]
-        if (params.submit == 'Submit') {
+        //TODO find better way to exclude next
+        if (params['submit-test'] == 'Submit Test' && params.navButton != NavButton.next.name) {
             coordinator.doSimultaneousSubmission();
             println "redirect ===> ${params}"
             redirect(action: 'play', params: params)

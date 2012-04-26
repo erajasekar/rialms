@@ -78,7 +78,8 @@ class BootStrap {
         new Test(dataPath: 'tests/qti/ModulePretest', dataFile: 'Test_Template.xml').save();
         new Test(dataPath: 'tests/navigation/individual', dataFile: 'individual_navigation.xml').save();
         new Test(dataPath: 'tests/navigation/simultaneous', dataFile: 'simultaneous_navigation.xml').save();
-        new Test(dataPath: 'tests/qti/MultipleTestPartTest', dataFile: 'MultipleTestPartTest.xml').save();
+        new Test(dataPath: 'tests/qti/MultipleTestPartTest', dataFile: 'MultipleTestPartTest-Simultaneous.xml').save();
+        new Test(dataPath: 'tests/qti/MultipleTestPartTest', dataFile: 'MultipleTestPartTest-Individual.xml').save();
 
     }
 }

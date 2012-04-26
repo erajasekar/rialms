@@ -48,7 +48,7 @@ import org.qtitools.qti.node.test.SubmissionMode;
 import org.qtitools.qti.node.test.TestFeedback;
 import org.qtitools.qti.node.test.TestFeedbackAccess;
 import org.qtitools.qti.node.test.TestPart;
-import org.qtitools.qti.node.test.flow.DefaultItemFlow;
+import com.rialms.qti.node.test.flow.DefaultItemFlow;
 import org.qtitools.qti.node.test.flow.ItemFlow;
 import org.qtitools.qti.value.Value
 import com.rialms.assessment.item.AssessmentItemInfo
@@ -129,6 +129,18 @@ public class AssessmentTestController implements Serializable {
         return flow.getCurrentItemRef();
     }
 
+
+    public boolean isCurrentTestPartSubmissionModeIndividual() {
+        return getCurrentTestPart()?.submissionMode == SubmissionMode.INDIVIDUAL;
+    }
+
+    public boolean isCurrentTestPartSubmissionModeSimultaneous() {
+        return getCurrentTestPart()?.submissionMode == SubmissionMode.SIMULTANEOUS;
+    }
+
+    public boolean hasNoMoreItemsInCurrentTestPart() {
+        return !getItemFlow().hasNextItemRef(true);
+    }
 
     public AssessmentItemInfo getCurrentItemInfo() {
         AssessmentItemRef currentItemRef = flow.getCurrentItemRef();

@@ -20,12 +20,12 @@
 
 <h4><g:message code="test.submission.confirm.message"/></h4>
 
-<g:form action="confirmSubmission" name="confirmSubmission" >
+<g:form action="confirmSubmission" name="confirmSubmission">
 
-    <g:render template="/renderer/renderMapAsTable" model="[mapTableData:assessmentParams.itemsPendingSubmission]" />
+    <g:render template="/renderer/renderMapAsTable" model="[mapTableData: assessmentParams.itemsPendingSubmission]"/>
 
     <g:hiddenField name="id" value="${params.id}"/>
-    <g:submitButton name="submit" value="Submit"/>
+    <g:submitButton name="submit-test" value="Submit Test"/>
 
 </g:form>
 
