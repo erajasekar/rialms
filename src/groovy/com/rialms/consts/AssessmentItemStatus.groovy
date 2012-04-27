@@ -13,9 +13,11 @@ public enum AssessmentItemStatus {
     PRESENTED,
     SKIPPED,
     TIMED_OUT,
-    RESPONDED;
+    RESPONDED,
+    SUBMITTED;
 
-    public static EnumSet<AssessmentItemStatus> getStatuses(boolean isPresented, boolean isSkipped, boolean isIimedOut, boolean isResponded) {
+    //TODO : remove
+    /* public static EnumSet<AssessmentItemStatus> getStatuses(boolean isPresented, boolean isSkipped, boolean isIimedOut, boolean isResponded) {
         EnumSet<AssessmentItemStatus> statuses = EnumSet.noneOf(AssessmentItemStatus.class);
         if (isPresented) {
             statuses.addAll(EnumSet.of(PRESENTED));
@@ -30,7 +32,7 @@ public enum AssessmentItemStatus {
             statuses.addAll(EnumSet.of(RESPONDED));
         }
         return statuses
-    }
+    }*/
 
     public static String format(EnumSet<AssessmentItemStatus> statuses) {
         return statuses.collect {it.name()}.join(" , ");

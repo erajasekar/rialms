@@ -7,7 +7,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!-- TODO Include test part name in message -->
-<h4><g:message code="test.submission.confirm.message"/></h4>
+<h4>
+    <g:if test="${assessmentParams.testPart}">
+        <g:message code="testpart.submission.confirm.message" args="${[assessmentParams.testPart]}"/>
+    </g:if>
+    <g:else>
+        <g:message code="test.submission.confirm.message"/>
+    </g:else>
+</h4>
 
 <g:render template="/renderer/renderMapAsTable" model="[mapTableData: assessmentParams.itemsPendingSubmission]"/>
 

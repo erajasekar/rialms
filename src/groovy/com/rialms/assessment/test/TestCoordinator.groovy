@@ -81,7 +81,7 @@ public class TestCoordinator implements Serializable {
       * Storage for responses in simultaneous mode
       */
     private Map<AssessmentItemRef, Map<String, Value>> testPartItems = new HashMap<AssessmentItemRef, Map<String, Value>>();
-    
+
     private Set<String> submittedTestPartIds = [];
 
     /*
@@ -190,6 +190,10 @@ public class TestCoordinator implements Serializable {
         params.put("itemsPendingSubmission", test.getItemsPendingSubmission(test.currentTestPart.identifier));
         params.put("testStatus", test.testStatus)
 
+        if (test.test?.testParts?.size() > 1) {
+            params.put("testPart", test.currentTestPart.identifier);
+        }
+
         //TODO currently hidding all navbutton's check if this is OK
         NavigationControls controls = new NavigationControls(false);
         params.put("navigationControls", controls);
@@ -212,7 +216,7 @@ public class TestCoordinator implements Serializable {
 
         params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
         params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
-        params.put("renderFeedbackContent" , true);
+        params.put("renderFeedbackContent", true);
 
         if (view != null) {
             params.put("view", view);
@@ -319,18 +323,15 @@ public class TestCoordinator implements Serializable {
             if (se) {
                 test.setCurrentItemOutcomes(itemOutcomes);
             } else {
-                if (!test.getCurrentItemRef().isTimedOut())
-                    test.getCurrentItemRef().timeOut();
+                test.timeOut();
             }
         } else {
+            println "RAJA se ===> ${se}";
             if (se) {
                 testPartItems.put(test.getCurrentItemRef(), itemOutcomes);
             } else {
-                if (!test.getCurrentItemRef().isTimedOut()) {
-                    test.getCurrentItemRef().timeOut();
-                }
+                test.timeOut();
             }
-
             //TODO : remove commented code
             /* if (!test.getItemFlow().hasNextItemRef(true)) {
              doSimultaneousSubmission();

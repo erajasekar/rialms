@@ -13,6 +13,7 @@ import org.qtitools.qti.validation.ValidationItem
 import org.qtitools.qti.value.Value
 import com.rialms.consts.AssessmentItemStatus
 import org.qtitools.qti.validation.ValidationResult
+import static com.rialms.consts.AssessmentItemStatus.*;
 
 /**
  * Created by IntelliJ IDEA.
@@ -42,6 +43,8 @@ class AssessmentItemInfo {
 
     private AssessmentItemRef assessmentItemRef;
 
+    private AssessmentItemStatus status = NOT_PRESENTED;
+
     public AssessmentItemInfo() {
     }
 
@@ -52,6 +55,7 @@ class AssessmentItemInfo {
         this.assessmentItem = item;
         this.dataPath = dataPath;
         xmlRoot = new XmlParser().parse(assessmentItem.sourceFile);
+        status = PRESENTED;
     }
 
     public Map<String, String> getResponseValues() {
@@ -83,6 +87,7 @@ class AssessmentItemInfo {
     }
 
     private void setResponses(Map params) {
+        status = RESPONDED;
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
@@ -106,6 +111,14 @@ class AssessmentItemInfo {
 
     public void addDisableOnCompletionId(String id) {
         disableOnCompletionIds << id;
+    }
+
+    private void skip() {
+        status = SKIPPED;
+    }
+
+    private void timeOut() {
+        status = TIMED_OUT;
     }
 
     public Map<String, List<String>> getVisibleAndHiddenElementIds() {
@@ -188,12 +201,8 @@ class AssessmentItemInfo {
         return assessmentItem.validate();
     }
 
-    public EnumSet<AssessmentItemStatus> getItemStatuses() {
-        if (assessmentItemRef) {
-            return AssessmentItemStatus.getStatuses(assessmentItemRef.presented, assessmentItemRef.skipped, assessmentItemRef.timedOut, assessmentItemRef.responded);
-        } else {
-            EnumSet.noneOf(AssessmentItemStatus.class);
-        }
+    public AssessmentItemStatus getItemStatus() {
+        return status;
     }
 
     public void setAssessmentItemRef(AssessmentItemRef assessmentItemRef) {

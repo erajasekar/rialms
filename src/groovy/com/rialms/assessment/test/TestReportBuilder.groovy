@@ -17,7 +17,7 @@ class TestReportBuilder {
 
     private List<String> outcomeVariablesToInclude = DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE;
 
-    public TestReport buildTestReport(String testTitle, String xmlString, Map<String, EnumSet<AssessmentItemStatus>> testStatus) {
+    public TestReport buildTestReport(String testTitle, String xmlString, Map<String, AssessmentItemStatus> testStatus) {
         def assessmentResult = new XmlSlurper().parseText(xmlString);
         def testResultDuration = assessmentResult.testResult.outcomeVariable.findAll { outcomeVariable -> outcomeVariable.@identifier =~ 'duration'}
         Map<String, String> summary = [:];
@@ -36,8 +36,8 @@ class TestReportBuilder {
             outcomeVariables.each { it ->
                 detailResult[(it.@identifier.toString())] = it.text();
             }
-            EnumSet<AssessmentItemStatus> statuses = testStatus?.get(itemResultId);
-            detailResult.STATUS = (statuses) ? AssessmentItemStatus.format(statuses) : AssessmentItemStatus.format(AssessmentItemStatus.NOT_PRESENTED)
+            AssessmentItemStatus status = testStatus?.get(itemResultId);
+            detailResult.STATUS = (status) ? AssessmentItemStatus.format(status) : AssessmentItemStatus.format(AssessmentItemStatus.NOT_PRESENTED)
 
             detail << detailResult;
         }

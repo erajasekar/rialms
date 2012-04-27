@@ -71,7 +71,7 @@ public class AssessmentTestController implements Serializable {
 
     AssessmentItemInfo currentItemInfo = null;
 
-    private Map<String,Map<String, AssessmentItemInfo>> processedItems = [:];
+    private Map<String, Map<String, AssessmentItemInfo>> processedItems = [:];
 
     /**
      * Create an AssessmentTestController
@@ -143,7 +143,7 @@ public class AssessmentTestController implements Serializable {
     }
 
     public AssessmentItemInfo getCurrentItemInfo() {
-        if (currentTestPart && !processedItems[currentTestPart.identifier]){
+        if (currentTestPart && !processedItems[currentTestPart.identifier]) {
             processedItems[currentTestPart.identifier] = [:];
         }
         AssessmentItemRef currentItemRef = flow.getCurrentItemRef();
@@ -152,7 +152,7 @@ public class AssessmentTestController implements Serializable {
             if (currentItemInfo == null || !currentItemInfo.assessmentItem.is(currentItem)) {
                 currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
                 currentItemInfo.setAssessmentItemRef(currentItemRef);
-                processedItems[currentTestPart.identifier] << [(currentItemRef.identifier):currentItemInfo];
+                processedItems[currentTestPart.identifier] << [(currentItemRef.identifier): currentItemInfo];
             }
         }
         return currentItemInfo;
@@ -219,6 +219,8 @@ public class AssessmentTestController implements Serializable {
         currentItemInfo.processResponses(params);
     }
 
+
+
     public Map<String, Value> getCurrentItemResponses() {
         List<ResponseDeclaration> responseDeclarations = getCurrentItemRef().getItem().getResponseDeclarations();
         Map<String, Value> responseMap = new HashMap<String, Value>();
@@ -235,9 +237,18 @@ public class AssessmentTestController implements Serializable {
     }
 
     public void skipCurrentItem() {
+        currentItemInfo.skip();
         getCurrentItemRef().skip();
 
         getTest().processOutcome();
+    }
+
+    public void timeOut() {
+        currentItemInfo.timeOut();
+        AssessmentItemRef air = getCurrentItemRef();
+        if (air.isTimedOut()) {
+            air.timeOut();
+        }
     }
 
     public String getTestTitle() {
@@ -372,14 +383,14 @@ public class AssessmentTestController implements Serializable {
         return -1;
     }
 
-    public Map<String, EnumSet<AssessmentItemStatus>> getTestStatus() {
-        processedItems.values().collectEntries {it.collectEntries{k, v -> [k, v.itemStatuses]}}
+    public Map<String, AssessmentItemStatus> getTestStatus() {
+        processedItems.values().collectEntries {it.collectEntries {k, v -> [k, v.itemStatus]}}
         //return processedItems.collectEntries { k, v -> [k, v.itemStatuses]};
     }
 
     public Map<String, String> getItemsPendingSubmission(String testPartId) {
-      //  return testPartItems.collectEntries{String itemId = it.identifier ; [itemId, AssessmentItemStatus.format(processedItems[itemId].itemStatuses) ]}
-        return processedItems[testPartId].collectEntries { k, v -> [k, AssessmentItemStatus.format(v.itemStatuses)]};
+        //  return testPartItems.collectEntries{String itemId = it.identifier ; [itemId, AssessmentItemStatus.format(processedItems[itemId].itemStatuses) ]}
+        return processedItems[testPartId].collectEntries { k, v -> [k, AssessmentItemStatus.format(v.itemStatus)]};
     }
 
     public String getReport() {
