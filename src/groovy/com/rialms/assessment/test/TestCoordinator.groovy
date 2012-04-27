@@ -81,6 +81,8 @@ public class TestCoordinator implements Serializable {
       * Storage for responses in simultaneous mode
       */
     private Map<AssessmentItemRef, Map<String, Value>> testPartItems = new HashMap<AssessmentItemRef, Map<String, Value>>();
+    
+    private Set<String> submittedTestPartIds = [];
 
     /*
       * Maximum amount of time allowed for network delay
@@ -145,10 +147,10 @@ public class TestCoordinator implements Serializable {
 
     public void getNextQuestion(boolean includeFinished) throws QTIException {
 
-        log.info("hasNextItem if current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
+        log.info("hasNextItem in current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
         //TODO should works event if all items are skipped.
         //For simultaneous submission mode, if no more items in current test part, renderSubmitTestPartContent();
-        if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && testPartItems) {
+        if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)) {
             renderSubmitTestPartContent();
         } else {
             test.getNextItemHREF(includeFinished);
@@ -185,7 +187,12 @@ public class TestCoordinator implements Serializable {
         params.put("title", test.getTestTitle());
         params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
         params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
-        params.put("itemsPendingSubmission", test.itemsPendingSubmission);
+        params.put("itemsPendingSubmission", test.getItemsPendingSubmission(test.currentTestPart.identifier));
+        params.put("testStatus", test.testStatus)
+
+        //TODO currently hidding all navbutton's check if this is OK
+        NavigationControls controls = new NavigationControls(false);
+        params.put("navigationControls", controls);
 
         log.info("renderSubmitTestPartContent params ==> ${params}");
         renderContent(AssessmentItemInfo.BLANK_ITEM, params);
@@ -205,6 +212,7 @@ public class TestCoordinator implements Serializable {
 
         params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
         params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
+        params.put("renderFeedbackContent" , true);
 
         if (view != null) {
             params.put("view", view);
@@ -340,7 +348,6 @@ public class TestCoordinator implements Serializable {
         boolean shouldRenderNextItem = shouldRenderNextItem();
         if (shouldRenderNextItem) {
             //there is no feedback (at the test level), so we'll show the next item instead
-            println "RAJA getting next quesiton"
             getNextQuestion(false);
         } else {
             renderContent(test.currentItemInfo, makeAssessmentParams());
@@ -348,16 +355,17 @@ public class TestCoordinator implements Serializable {
         return shouldRenderNextItem;
     }
 
-    public void doSimultaneousSubmission() {
+    public boolean doSimultaneousSubmission() {
         //TODO Test it for multiple testPart
         log.info("Doing simultaneous submission");
         //write all vars
         for (AssessmentItemRef key: testPartItems.keySet()) {
             key.setOutcomes(testPartItems.get(key));
         }
+        submittedTestPartIds << test.currentTestPart.identifier;
         test.getTest().processOutcome();
         testPartItems.clear();
-        navigate();
+        return navigate();
     }
 
     private boolean shouldRenderNextItem() {

@@ -18,16 +18,6 @@
     <g:message code="${flash.message}"/>
 </g:if>
 
-<h4><g:message code="test.submission.confirm.message"/></h4>
-
-<g:form action="confirmSubmission" name="confirmSubmission">
-
-    <g:render template="/renderer/renderMapAsTable" model="[mapTableData: assessmentParams.itemsPendingSubmission]"/>
-
-    <g:hiddenField name="id" value="${params.id}"/>
-    <g:submitButton name="submit-test" value="Submit Test"/>
-
-</g:form>
-
+<g:render template="/renderer/renderTestPartSubmission" model="[assessmentParams:assessmentParams]" />
 </body>
 </html>

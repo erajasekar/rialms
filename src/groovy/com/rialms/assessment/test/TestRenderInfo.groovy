@@ -53,10 +53,13 @@ class TestRenderInfo {
     }
 
     public Map getRenderOutput() {
-        Map<String, List<String>> visibleAndHiddenElementIds = assessmentParams.navigationControls.visibleAndHiddenElementIds;
-        Map output = ['testOutcomeValues': assessmentParams.outcomeValues,
-                'visibleElementIds': visibleAndHiddenElementIds.visibleElementIds,
-                'hiddenElementIds': visibleAndHiddenElementIds.hiddenElementIds];
+        Map<String, List<String>> visibleAndHiddenElementIds = assessmentParams.navigationControls?.visibleAndHiddenElementIds;
+        Map output = ['testOutcomeValues': assessmentParams.outcomeValues];
+        
+        if(visibleAndHiddenElementIds){
+            output.visibleElementIds = visibleAndHiddenElementIds.visibleElementIds;
+            output.hiddenElementIds = visibleAndHiddenElementIds.hiddenElementIds;
+        }
         if (!assessmentParams.submitEnabled) {
             output.disableElementIds = ['#submit'];
         }

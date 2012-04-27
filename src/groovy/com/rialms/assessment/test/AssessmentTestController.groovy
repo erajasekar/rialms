@@ -71,7 +71,7 @@ public class AssessmentTestController implements Serializable {
 
     AssessmentItemInfo currentItemInfo = null;
 
-    private Map<String, AssessmentItemInfo> processedItems = [:];
+    private Map<String,Map<String, AssessmentItemInfo>> processedItems = [:];
 
     /**
      * Create an AssessmentTestController
@@ -143,13 +143,16 @@ public class AssessmentTestController implements Serializable {
     }
 
     public AssessmentItemInfo getCurrentItemInfo() {
+        if (currentTestPart && !processedItems[currentTestPart.identifier]){
+            processedItems[currentTestPart.identifier] = [:];
+        }
         AssessmentItemRef currentItemRef = flow.getCurrentItemRef();
         AssessmentItem currentItem = currentItemRef?.getItem();
         if (currentItem) {
             if (currentItemInfo == null || !currentItemInfo.assessmentItem.is(currentItem)) {
                 currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
                 currentItemInfo.setAssessmentItemRef(currentItemRef);
-                processedItems[currentItemRef.identifier] = currentItemInfo;
+                processedItems[currentTestPart.identifier] << [(currentItemRef.identifier):currentItemInfo];
             }
         }
         return currentItemInfo;
@@ -370,11 +373,13 @@ public class AssessmentTestController implements Serializable {
     }
 
     public Map<String, EnumSet<AssessmentItemStatus>> getTestStatus() {
-        return processedItems.collectEntries { k, v -> [k, v.itemStatuses]};
+        processedItems.values().collectEntries {it.collectEntries{k, v -> [k, v.itemStatuses]}}
+        //return processedItems.collectEntries { k, v -> [k, v.itemStatuses]};
     }
 
-    public Map<String, String> getItemsPendingSubmission() {
-        return processedItems.collectEntries { k, v -> [k, AssessmentItemStatus.format(v.itemStatuses)]};
+    public Map<String, String> getItemsPendingSubmission(String testPartId) {
+      //  return testPartItems.collectEntries{String itemId = it.identifier ; [itemId, AssessmentItemStatus.format(processedItems[itemId].itemStatuses) ]}
+        return processedItems[testPartId].collectEntries { k, v -> [k, AssessmentItemStatus.format(v.itemStatuses)]};
     }
 
     public String getReport() {

@@ -45,7 +45,7 @@
 
     <g:form name="AssessmentForm" action="play">
 
-        <g:render template="/renderer/renderTestContent"/>
+        <g:render template="/renderer/renderAssessmentItem"/>
 
         <g:render template="/renderer/renderTestFeedback"/>
 

@@ -82,7 +82,7 @@ class TestController {
             testRenderInfo = testService.processAssessmentTest(params, coordinator);
         }
 
-        if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
+        if (testRenderInfo.assessmentParams.renderFeedbackContent) {
             render(view: 'feedback', model: testRenderInfo.toPropertiesMap());
             return;
         }
@@ -107,19 +107,18 @@ class TestController {
 
         log.info("testRenderInfo ==> ${testRenderInfo.assessmentParams}");
 
-        if (testRenderInfo.assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)) {
-            if (testRenderInfo.assessmentParams.itemsPendingSubmission) {
-                render createRedirectLinkJSON(controller: 'test', action: 'confirmSubmission', params: params);
-            } else {
-                render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
-            }
-
+        if (testRenderInfo.assessmentParams.renderFeedbackContent) {
+            render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
         } else {
             Map renderOutput = testRenderInfo.renderOutput;
 
             if (renderNextItem) {
                 //To render next item, reset testContent
-                renderOutput.testContent = g.render(template: '/renderer/renderTestContent', model: testRenderInfo.toPropertiesMap());
+                if (testRenderInfo.assessmentParams.itemsPendingSubmission){
+                    renderOutput.testContent = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
+                }else{
+                    renderOutput.testContent = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
+                }
             } else {
 
                 //To render same item, just get render output for controls.
@@ -164,21 +163,17 @@ class TestController {
         render(view: 'feedback', model: testRenderInfo.toPropertiesMap());
     }
 
-    def confirmSubmission() {
-        log.info("Executing confirmSubmission with param ${params}");
+    def submitTestPart() {
+        log.info("Executing submitTestPart with param ${params}");
         if (!params.id) {
             return redirect(action: 'list')
         }
         //TODO handle null value
         TestCoordinator coordinator = session.coordinator[params.id]
-        //TODO find better way to exclude next
-        if (params['submit-test'] == 'Submit Test' && params.navButton != NavButton.next.name) {
-            coordinator.doSimultaneousSubmission();
-            println "redirect ===> ${params}"
-            redirect(action: 'play', params: params)
-        }
-        TestRenderInfo testRenderInfo = coordinator.getTestRenderInfo();
-        render(view: 'confirmSubmission', model: testRenderInfo.toPropertiesMap());
+        boolean renderNextItem = coordinator.doSimultaneousSubmission();
+        params.renderNextItem = renderNextItem;
+        log.info("submitTestPart ==> renderNextItem ==> ${renderNextItem}")
+        navigate(params);
     }
 
     private JSON createRedirectLinkJSON(Map attributes) {

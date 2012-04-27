@@ -13,8 +13,17 @@ class NavigationControls {
 
     private EnumMap<NavButton, Boolean> buttonStates = new EnumMap<NavButton, Boolean>(NavButton.class);
 
-    public void addButtonState(NavButton navButton, boolean visible) {
+    public NavigationControls(){}
+
+    //Add all buttons with given state.
+    public NavigationControls(boolean visible){
+        NavButton.values().each { b->
+            buttonStates[b] = visible;
+        }
+    }
+    public NavigationControls addButtonState(NavButton navButton, boolean visible) {
         buttonStates[navButton] = visible;
+        return this;
     }
 
     public boolean getButtonState(NavButton navButton) {
