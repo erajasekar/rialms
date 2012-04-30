@@ -49,7 +49,7 @@ import org.qtitools.qti.node.test.TestFeedback;
 import org.qtitools.qti.node.test.TestFeedbackAccess;
 import org.qtitools.qti.node.test.TestPart;
 import com.rialms.qti.node.test.flow.DefaultItemFlow;
-import org.qtitools.qti.node.test.flow.ItemFlow;
+import com.rialms.qti.node.test.flow.ItemFlow;
 import org.qtitools.qti.value.Value
 import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.consts.AssessmentItemStatus;
@@ -143,6 +143,7 @@ public class AssessmentTestController implements Serializable {
     }
 
     public AssessmentItemInfo getCurrentItemInfo() {
+        log.debug("Executing getCurrentItemInfo() ==> ${processedItems}");
         if (currentTestPart && !processedItems[currentTestPart.identifier]) {
             processedItems[currentTestPart.identifier] = [:];
         }
@@ -151,8 +152,9 @@ public class AssessmentTestController implements Serializable {
         if (currentItem) {
             if (currentItemInfo == null || !currentItemInfo.assessmentItem.is(currentItem)) {
                 if (processedItems[currentTestPart.identifier].containsKey(currentItemRef.identifier)) {
-                    log.debug("Found exisiting itemInfo for identifier ${currentItemRef.identifier} ");
-                    return processedItems[currentTestPart.identifier][currentItemRef.identifier];
+                    currentItemInfo = processedItems[currentTestPart.identifier][currentItemRef.identifier];
+                    log.debug("Found exisiting itemInfo for identifier ${currentItemRef.identifier} ==>  ${currentItemInfo} ");
+                    return currentItemInfo;
                 } else {
                     currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
                     currentItemInfo.setAssessmentItemRef(currentItemRef);
@@ -169,6 +171,10 @@ public class AssessmentTestController implements Serializable {
 
     private AssessmentItemRef getNextItem(boolean includeFinished) {
         return flow.getNextItemRef(includeFinished);
+    }
+
+    public AssessmentItemRef getItemByIdentifier(String identifier, boolean forward) {
+        return flow.getItemRefByIdentifier(identifier, forward);
     }
 
     /**

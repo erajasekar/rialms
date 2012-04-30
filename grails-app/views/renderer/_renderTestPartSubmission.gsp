@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.assessment.item.AssessmentItemInfo" %>
+<%@ page import="com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -16,7 +16,23 @@
     </g:else>
 </h4>
 
-<g:render template="/renderer/renderMapAsTable" model="[mapTableData: assessmentParams.itemsPendingSubmission]"/>
+<table>
+    <g:each var='entry' in="${assessmentParams.itemsPendingSubmission}">
+        <tr>
+            <td><!-- Make links to show only if its not timed out -->
+            <g:if test="${AssessmentItemStatus.valueOf(entry.value) == AssessmentItemStatus.TIMED_OUT}">
+                ${entry.key}
+            </g:if>
+            <g:else>
+                <g:remoteLink action="navigate" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
+                              params="${params + [showItem: entry.key]}">${entry.key}</g:remoteLink>
+
+            </g:else>
+            </td>
+            <td>${entry.value}</td>
+        </tr>
+    </g:each>
+</table>
 
 <g:hiddenField name="id" value="${params.id}"/>
 <g:submitToRemote id='submit'

@@ -103,7 +103,17 @@ class TestController {
         //TODO session.coordianator is null
         TestCoordinator coordinator = session.coordinator[params.id]
 
-        TestRenderInfo testRenderInfo = testService.processAssessmentTest(params, coordinator);
+        TestRenderInfo testRenderInfo;
+
+        //TODO move to service
+        if (params.containsKey('showItem')) {
+            log.info("Showing item ${params.showItem}");
+            coordinator.getQuestionByIdentifier(params.showItem, false);
+            testRenderInfo = coordinator.getTestRenderInfo();
+        } else {
+            testRenderInfo = testService.processAssessmentTest(params, coordinator);
+        }
+
 
         log.info("testRenderInfo ==> ${testRenderInfo.assessmentParams}");
 
@@ -114,9 +124,9 @@ class TestController {
 
             if (renderNextItem) {
                 //To render next item, reset testContent
-                if (testRenderInfo.assessmentParams.itemsPendingSubmission){
+                if (testRenderInfo.assessmentParams.itemsPendingSubmission) {
                     renderOutput.testContent = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
-                }else{
+                } else {
                     renderOutput.testContent = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
                 }
             } else {

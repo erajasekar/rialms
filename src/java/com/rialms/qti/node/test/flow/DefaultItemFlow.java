@@ -319,6 +319,24 @@ public class DefaultItemFlow implements ItemFlow {
         return node;
     }
 
+    public AssessmentItemRef getItemRefByIdentifier(String identifier, boolean forward) {
+        AssessmentItemRef itemRef = null;
+
+        if (forward) {
+            itemRef = getCurrentItemRef();
+            while ((itemRef != null) && !(itemRef.getItem().getIdentifier().equals(identifier))) {
+                itemRef = getNextItemRef(true);
+            }
+        } else {
+            itemRef = getCurrentItemRef();
+            while ((itemRef != null) && !(itemRef.getItem().getIdentifier().equals(identifier))) {
+                itemRef = getPrevItemRef(true);
+            }
+
+        }
+        return itemRef;
+    }
+
     private void checkUnfinished(AssessmentItemRef itemRef) {
         if (!itemRef.isFinished()) {
             TestPart testPart = itemRef.getParentTestPart();

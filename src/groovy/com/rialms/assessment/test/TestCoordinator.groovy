@@ -165,10 +165,16 @@ public class TestCoordinator implements Serializable {
         cachedTestRenderInfo = null;
     }
 
+    public void getQuestionByIdentifier(String identifier, boolean forward) {
+        test.getItemByIdentifier(identifier, forward);
+        cachedTestRenderInfo = null;
+    }
+
     public void getCurrentQuestion() {
         log.info("getCurrentQuestion() - " + test.currentItemInfo);
 
-        if (test.isTestTimedOut()) {
+        //don't set timeout for already responded items
+        if (test.isTestTimedOut() && test.currentItemInfo.itemStatus != AssessmentItemStatus.RESPONDED) {
             test.timeOut();
         }
 
