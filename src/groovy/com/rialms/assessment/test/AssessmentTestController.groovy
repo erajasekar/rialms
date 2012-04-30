@@ -150,9 +150,14 @@ public class AssessmentTestController implements Serializable {
         AssessmentItem currentItem = currentItemRef?.getItem();
         if (currentItem) {
             if (currentItemInfo == null || !currentItemInfo.assessmentItem.is(currentItem)) {
-                currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
-                currentItemInfo.setAssessmentItemRef(currentItemRef);
-                processedItems[currentTestPart.identifier] << [(currentItemRef.identifier): currentItemInfo];
+                if (processedItems[currentTestPart.identifier].containsKey(currentItemRef.identifier)) {
+                    log.debug("Found exisiting itemInfo for identifier ${currentItemRef.identifier} ");
+                    return processedItems[currentTestPart.identifier][currentItemRef.identifier];
+                } else {
+                    currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
+                    currentItemInfo.setAssessmentItemRef(currentItemRef);
+                    processedItems[currentTestPart.identifier] << [(currentItemRef.identifier): currentItemInfo];
+                }
             }
         }
         return currentItemInfo;
@@ -246,9 +251,14 @@ public class AssessmentTestController implements Serializable {
     public void timeOut() {
         currentItemInfo.timeOut();
         AssessmentItemRef air = getCurrentItemRef();
-        if (air.isTimedOut()) {
+        if (air?.isTimedOut()) {
             air.timeOut();
         }
+    }
+
+    public boolean isTestTimedOut() {
+        AssessmentItemRef air = getCurrentItemRef();
+        return (air && !air.passMaximumTimeLimit());
     }
 
     public String getTestTitle() {

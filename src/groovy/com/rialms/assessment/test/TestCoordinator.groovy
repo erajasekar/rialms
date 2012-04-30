@@ -148,7 +148,7 @@ public class TestCoordinator implements Serializable {
     public void getNextQuestion(boolean includeFinished) throws QTIException {
 
         log.info("hasNextItem in current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
-        //TODO should works event if all items are skipped.
+
         //For simultaneous submission mode, if no more items in current test part, renderSubmitTestPartContent();
         if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)) {
             renderSubmitTestPartContent();
@@ -156,8 +156,6 @@ public class TestCoordinator implements Serializable {
             test.getNextItemHREF(includeFinished);
             cachedTestRenderInfo = null;
         }
-        //invalidate renderedContent
-
     }
 
     public void getPreviousQuestion(boolean includeFinished) throws QTIException {
@@ -169,6 +167,10 @@ public class TestCoordinator implements Serializable {
 
     public void getCurrentQuestion() {
         log.info("getCurrentQuestion() - " + test.currentItemInfo);
+
+        if (test.isTestTimedOut()) {
+            test.timeOut();
+        }
 
         //if the renderedContent is still active, just return
         if (cachedTestRenderInfo != null) return;
@@ -286,8 +288,7 @@ public class TestCoordinator implements Serializable {
 
 
     private void renderContent(AssessmentItemInfo assessmentItemInfo, Map<String, Object> assessmentParams) {
-        //TODO fix logging
-        log.info("IS BLANK ${assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)}");
+        log.debug("IS BLANK ${assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)}");
         cachedTestRenderInfo = new TestRenderInfo(assessmentItemInfo, assessmentParams)
     }
 
@@ -326,16 +327,15 @@ public class TestCoordinator implements Serializable {
                 test.timeOut();
             }
         } else {
-            println "RAJA se ===> ${se}";
+
             if (se) {
                 testPartItems.put(test.getCurrentItemRef(), itemOutcomes);
             } else {
                 test.timeOut();
             }
-            //TODO : remove commented code
-            /* if (!test.getItemFlow().hasNextItemRef(true)) {
-             doSimultaneousSubmission();
-         }   */
+            if (test.isTestTimedOut()) {
+                test.timeOut();
+            }
         }
 
         return navigate();
@@ -357,7 +357,6 @@ public class TestCoordinator implements Serializable {
     }
 
     public boolean doSimultaneousSubmission() {
-        //TODO Test it for multiple testPart
         log.info("Doing simultaneous submission");
         //write all vars
         for (AssessmentItemRef key: testPartItems.keySet()) {
