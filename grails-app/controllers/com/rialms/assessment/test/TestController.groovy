@@ -105,15 +105,7 @@ class TestController {
 
         TestRenderInfo testRenderInfo;
 
-        //TODO move to service
-        if (params.containsKey('showItem')) {
-            log.info("Showing item ${params.showItem}");
-            coordinator.getQuestionByIdentifier(params.showItem, false);
-            testRenderInfo = coordinator.getTestRenderInfo();
-        } else {
-            testRenderInfo = testService.processAssessmentTest(params, coordinator);
-        }
-
+        testRenderInfo = testService.processAssessmentTest(params, coordinator);
 
         log.info("testRenderInfo ==> ${testRenderInfo.assessmentParams}");
 

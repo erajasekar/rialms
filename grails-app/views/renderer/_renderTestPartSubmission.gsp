@@ -25,7 +25,7 @@
             </g:if>
             <g:else>
                 <g:remoteLink action="navigate" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                              params="${params + [showItem: entry.key]}">${entry.key}</g:remoteLink>
+                              params="${params + [renderItem: entry.key]}">${entry.key}</g:remoteLink>
 
             </g:else>
             </td>

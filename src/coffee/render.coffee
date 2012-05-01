@@ -37,7 +37,6 @@ window.updateRenderedItem = (data) ->
   #$('head').append(mathJaxScript);
   return
 
-
 $.fn.field = (inputName, value) ->
   return false  if typeof inputName isnt "string"
   $inputElement = $(this).find("[name=" + inputName + "]")

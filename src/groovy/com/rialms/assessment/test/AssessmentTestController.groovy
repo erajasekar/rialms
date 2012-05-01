@@ -52,7 +52,8 @@ import com.rialms.qti.node.test.flow.DefaultItemFlow;
 import com.rialms.qti.node.test.flow.ItemFlow;
 import org.qtitools.qti.value.Value
 import com.rialms.assessment.item.AssessmentItemInfo
-import com.rialms.consts.AssessmentItemStatus;
+import com.rialms.consts.AssessmentItemStatus
+import org.qtitools.qti.node.test.SectionPart;
 
 /**
  * This class wraps JQTI to provide a nice interface for building
@@ -457,4 +458,22 @@ public class AssessmentTestController implements Serializable {
 
         return blocks;
     }
+
+    public List<String> getItemsInCurrentTestPart(){
+        List <AssessmentSection> sections = currentTestPart.getAssessmentSections();
+        List<String> itemIds = [];
+        while(sections){
+            itemIds << sections.collect{it.getSimpleName() + " : "+ it.identifier};
+            sections = sections.collect{it.children}.flatten();
+        }
+        return itemIds;
+    }
+
+   /* private Map<String,List<String>> getItemsInSection(SectionPart section){
+        List <String> items = [];
+        if (section.simpleName == 'assessmentSection'){
+             items[section.identifier]
+        }
+
+    }*/
 }

@@ -9,6 +9,12 @@
 <div id='testContent'>
     <h3>${assessmentItemInfo.title}</h3>
 
+    <g:if test="${assessmentParams.timeRemaining > 0}">
+        <script type="text/javascript">
+                   initTimer("${assessmentParams.timeRemaining}")
+        </script>
+    </g:if>
+
     <qti:assessmentSection sectionTitles="${assessmentParams.sectionTitles}"/>
     <hr/>
 

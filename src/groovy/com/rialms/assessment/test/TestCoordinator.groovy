@@ -279,6 +279,12 @@ public class TestCoordinator implements Serializable {
         params.put("timeSelected", test.getTimeSelected());
         params.put("timeRemaining", test.getTimeRemaining());
         params.put("testStatus", test.testStatus)
+        
+        List<String> testPartStatus = test.getItemsInCurrentTestPart();
+        log.info("RAJA testPartStatus =======> ${testPartStatus}");
+        params.put("testPartStatus", testPartStatus)
+
+        log.info("timeRemaining ==> ${params.timeRemaining}")
 
         if (test.getCurrentItemRef().getItemSessionControl().getAllowComment())
             params.put("allowCandidateComment", true);
