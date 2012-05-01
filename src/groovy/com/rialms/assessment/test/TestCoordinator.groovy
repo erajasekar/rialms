@@ -166,6 +166,7 @@ public class TestCoordinator implements Serializable {
     }
 
     public void getQuestionByIdentifier(String identifier, boolean forward) {
+        log.info("Getting Question by identifier ${identifier} ; isForward ${forward}")
         test.getItemByIdentifier(identifier, forward);
         cachedTestRenderInfo = null;
     }
@@ -182,6 +183,7 @@ public class TestCoordinator implements Serializable {
         if (cachedTestRenderInfo != null) return;
 
         if (test.isTestComplete()) {
+            log.info("DEBUG test is complete");
             renderFeedbackContent();
         } else {
             renderContent(test.currentItemInfo, makeAssessmentParams());
@@ -211,6 +213,7 @@ public class TestCoordinator implements Serializable {
     }
 
     private void renderFeedbackContent() {
+        log.info("Rendering Feedback Content");
         Map<String, Object> params = new HashMap<String, Object>();
 
         //set the test title from the cached version (to avoid lookups)
@@ -279,9 +282,8 @@ public class TestCoordinator implements Serializable {
         params.put("timeSelected", test.getTimeSelected());
         params.put("timeRemaining", test.getTimeRemaining());
         params.put("testStatus", test.testStatus)
-        
-        List<String> testPartStatus = test.getItemsInCurrentTestPart();
-        log.info("RAJA testPartStatus =======> ${testPartStatus}");
+
+        List<SectionPartStatus> testPartStatus = test.getSectionPartsStatusInCurrentTestPart();
         params.put("testPartStatus", testPartStatus)
 
         log.info("timeRemaining ==> ${params.timeRemaining}")

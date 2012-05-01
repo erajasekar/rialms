@@ -11,7 +11,7 @@
 
     <g:if test="${assessmentParams.timeRemaining > 0}">
         <script type="text/javascript">
-                   initTimer("${assessmentParams.timeRemaining}")
+            initTimer("${assessmentParams.timeRemaining}")
         </script>
     </g:if>
 
@@ -46,4 +46,5 @@
                         name='submit'
                         onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}" disabled="disabled"/>
     </g:else>
+    <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 </div>

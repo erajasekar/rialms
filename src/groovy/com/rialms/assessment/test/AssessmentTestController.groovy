@@ -144,7 +144,7 @@ public class AssessmentTestController implements Serializable {
     }
 
     public AssessmentItemInfo getCurrentItemInfo() {
-        log.debug("Executing getCurrentItemInfo() ==> ${processedItems}");
+        log.info("DEBUG Executing getCurrentItemInfo() ==> ${processedItems}");
         if (currentTestPart && !processedItems[currentTestPart.identifier]) {
             processedItems[currentTestPart.identifier] = [:];
         }
@@ -154,7 +154,7 @@ public class AssessmentTestController implements Serializable {
             if (currentItemInfo == null || !currentItemInfo.assessmentItem.is(currentItem)) {
                 if (processedItems[currentTestPart.identifier].containsKey(currentItemRef.identifier)) {
                     currentItemInfo = processedItems[currentTestPart.identifier][currentItemRef.identifier];
-                    log.debug("Found exisiting itemInfo for identifier ${currentItemRef.identifier} ==>  ${currentItemInfo} ");
+                    log.info("DEBUG Found exisiting itemInfo for identifier ${currentItemRef.identifier} ==>  ${currentItemInfo} ");
                     return currentItemInfo;
                 } else {
                     currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
@@ -405,9 +405,14 @@ public class AssessmentTestController implements Serializable {
         //return processedItems.collectEntries { k, v -> [k, v.itemStatuses]};
     }
 
-    public Map<String, String> getItemsPendingSubmission(String testPartId) {
-        //  return testPartItems.collectEntries{String itemId = it.identifier ; [itemId, AssessmentItemStatus.format(processedItems[itemId].itemStatuses) ]}
-        return processedItems[testPartId].collectEntries { k, v -> [k, AssessmentItemStatus.format(v.itemStatus)]};
+    public AssessmentItemStatus getAssessmentItemStatus(String itemIdentifier) {
+        AssessmentItemInfo itemInfo = processedItems[currentTestPart.identifier][itemIdentifier];
+        return (itemInfo ? itemInfo.itemStatus : null);
+    }
+
+    //TODO this is broken if user jumps to last item and submits
+    public Map<String, AssessmentItemStatus> getItemsPendingSubmission(String testPartId) {
+        return processedItems[testPartId].collectEntries { k, v -> [k, v.itemStatus]};
     }
 
     public String getReport() {
@@ -459,17 +464,38 @@ public class AssessmentTestController implements Serializable {
         return blocks;
     }
 
-    public List<String> getItemsInCurrentTestPart(){
-        List <AssessmentSection> sections = currentTestPart.getAssessmentSections();
-        List<String> itemIds = [];
-        while(sections){
-            itemIds << sections.collect{it.getSimpleName() + " : "+ it.identifier};
-            sections = sections.collect{it.children}.flatten();
+    public List<SectionPartStatus> getSectionPartsStatusInCurrentTestPart() {
+        List<AssessmentSection> sections = currentTestPart.getAssessmentSections();
+        List<SectionPartStatus> sectionPartStatusList = [];
+
+        sections.each { section ->
+            sectionPartStatusList << getSectionPartsStatus(section, SectionPartStatus.Position.BEFORE);
         }
-        return itemIds;
+        return sectionPartStatusList.flatten();
     }
 
-   /* private Map<String,List<String>> getItemsInSection(SectionPart section){
+    private List<SectionPartStatus> getSectionPartsStatus(SectionPart section, SectionPartStatus.Position position) {
+        List<SectionPartStatus> sectionPartStatusList = [];
+        String identifier = section.identifier;
+        SectionPartStatus.Position currentPosition = position;
+        if (section.classTag.equalsIgnoreCase('assessmentSection')) {
+            sectionPartStatusList << new SectionPartStatus(identifier);
+            section.children.each {
+                List<SectionPartStatus> childPartStatusList = getSectionPartsStatus(it, currentPosition);
+                sectionPartStatusList << childPartStatusList;
+                if (!childPartStatusList[-1].isPositionedBeforeCurrent()) {
+                    currentPosition = SectionPartStatus.Position.AFTER;
+                }
+            }
+        } else {
+            currentPosition = currentItemIdentifier == identifier ? SectionPartStatus.Position.CURRENT : position;
+            sectionPartStatusList << new SectionPartStatus(identifier, true, getAssessmentItemStatus(identifier), currentPosition);
+
+        }
+        return sectionPartStatusList;
+    }
+
+    /* private Map<String,List<String>> getItemsInSection(SectionPart section){
         List <String> items = [];
         if (section.simpleName == 'assessmentSection'){
              items[section.identifier]

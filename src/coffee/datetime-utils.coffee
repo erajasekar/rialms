@@ -27,11 +27,14 @@ window.convertMillisecondsToHrsMinsSecs = (ms, p) ->
 window.initTimer = (timeRemaining)->
   console.log("initTimer timeRemaing = " + timeRemaining)
 
-  if !window.timerRunning
-    window.timeRemaining = timeRemaining
-    window.timeInterval = 1000
-    updateTimer()
-    window.timer = window.setInterval("window.updateTimer()", timeInterval) if $('#submit') && !$('#submit').attr('disabled')
+  window.timeInterval = 1000
+  if window.timerRunning
+    window.clearInterval(window.timer)
+    window.timerRunning = false
+
+  window.timeRemaining = timeRemaining
+  window.updateTimer()
+  window.timer = window.setInterval("window.updateTimer()", timeInterval) if $('#submit') && !$('#submit').attr('disabled')
   return
 
 window.updateTimer = ->

@@ -27,8 +27,8 @@
        <assessmentItemRef identifier="math5" href="math5.xml"></assessmentItemRef>
        <assessmentItemRef identifier="math6" href="math6.xml"></assessmentItemRef>   -->
         </assessmentSection>
-        <testFeedback access="atEnd" showHide="hide" outcomeIdentifier="something" identifier="something">
-            Part2 of test completed.
-        </testFeedback>
+        <!-- <testFeedback access="atEnd" showHide="hide" outcomeIdentifier="something" identifier="something">
+           Part2 of test completed.
+       </testFeedback> -->
     </testPart>
 </assessmentTest>
