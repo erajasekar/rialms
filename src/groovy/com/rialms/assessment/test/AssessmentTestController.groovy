@@ -481,9 +481,9 @@ public class AssessmentTestController implements Serializable {
         if (section.classTag.equalsIgnoreCase('assessmentSection')) {
             sectionPartStatusList << new SectionPartStatus(identifier);
             section.children.each {
-                List<SectionPartStatus> childPartStatusList = getSectionPartsStatus(it, currentPosition);
+                List<SectionPartStatus> childPartStatusList = getSectionPartsStatus(it, currentPosition).flatten();
                 sectionPartStatusList << childPartStatusList;
-                if (!childPartStatusList[-1].isPositionedBeforeCurrent()) {
+                if (!childPartStatusList.isEmpty() && !childPartStatusList[childPartStatusList.size() - 1].isPositionedBeforeCurrent()) {
                     currentPosition = SectionPartStatus.Position.AFTER;
                 }
             }

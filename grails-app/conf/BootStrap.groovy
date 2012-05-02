@@ -83,6 +83,7 @@ class BootStrap {
         //26-30
         new Test(dataPath: 'tests/qti/MultipleTestPartTest', dataFile: 'MultipleTestPartTest-Individual.xml').save();
         new Test(dataPath: 'tests/qti/MultipleTestPartTest', dataFile: 'MultipleTestPartTest-Simultaneous-Timeout.xml').save();
+        new Test(dataPath: "tests/qti/NavigationMixed", dataFile: "test-ns-deep-nested.xml").save();
 
     }
 }

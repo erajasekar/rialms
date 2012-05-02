@@ -286,6 +286,7 @@ public class TestCoordinator implements Serializable {
         List<SectionPartStatus> testPartStatus = test.getSectionPartsStatusInCurrentTestPart();
         params.put("testPartStatus", testPartStatus)
 
+        log.info("DEBUG testPartStatus ${testPartStatus}");
         log.info("timeRemaining ==> ${params.timeRemaining}")
 
         if (test.getCurrentItemRef().getItemSessionControl().getAllowComment())

@@ -324,7 +324,8 @@ public class DefaultItemFlow implements ItemFlow {
 
         if (forward) {
             itemRef = getCurrentItemRef();
-            while ((itemRef != null) && !(itemRef.getItem().getIdentifier().equals(identifier))) {
+            while ((itemRef != null) && !(itemRef.getIdentifier().equals(identifier))) {
+                logger.debug("DEBUG looking for  " + identifier + " current == "+ itemRef.getItem().getIdentifier() + "equals == " + itemRef.getIdentifier().equals(identifier));
                 itemRef = getNextItemRef(true);
             }
         } else {
