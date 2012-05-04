@@ -17,14 +17,15 @@ class SectionPartStatus {
         BEFORE, CURRENT, AFTER
     };
 
+    private static final String PARENT_SECTION_DELIMITER = ' > ';
     private String identifier;
-    private boolean isItemRef;
+    private String parentSection;
     private AssessmentItemStatus status;
     private Position position;
 
-    public SectionPartStatus(String identifier, isItemRef = false, AssessmentItemStatus status = AssessmentItemStatus.NOT_PRESENTED, Position position = Position.BEFORE) {
+    public SectionPartStatus(String identifier, String parentSection, AssessmentItemStatus status = AssessmentItemStatus.NOT_PRESENTED, Position position = Position.BEFORE) {
         this.identifier = identifier;
-        this.isItemRef = isItemRef;
+        this.parentSection = parentSection;
         this.status = (status ?: AssessmentItemStatus.NOT_PRESENTED);
         this.position = position;
     }
@@ -33,8 +34,8 @@ class SectionPartStatus {
         return identifier
     }
 
-    public boolean isItemRef() {
-        return isItemRef
+    public String getParentSection(){
+        return parentSection;
     }
 
     public boolean isCurrentItem() {
@@ -55,5 +56,9 @@ class SectionPartStatus {
 
     public AssessmentItemStatus getStatus() {
         return status
+    }
+
+    public static String formatParentSection(String parentSection, String currentSection){
+        return (parentSection) ?  "${parentSection}${PARENT_SECTION_DELIMITER}${currentSection}" : currentSection;
     }
 }

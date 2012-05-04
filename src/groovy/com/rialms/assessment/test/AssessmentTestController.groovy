@@ -407,7 +407,7 @@ public class AssessmentTestController implements Serializable {
 
     public AssessmentItemStatus getAssessmentItemStatus(String itemIdentifier) {
         AssessmentItemInfo itemInfo = processedItems[currentTestPart.identifier][itemIdentifier];
-        return (itemInfo ? itemInfo.itemStatus : null);
+        return (itemInfo ? itemInfo.itemStatus : AssessmentItemStatus.NOT_PRESENTED);
     }
 
     //TODO this is broken if user jumps to last item and submits
@@ -464,24 +464,37 @@ public class AssessmentTestController implements Serializable {
         return blocks;
     }
 
-    public List<SectionPartStatus> getSectionPartsStatusInCurrentTestPart() {
+    private List<SectionPartStatus> getSectionPartsStatusInCurrentTestPart() {
         List<AssessmentSection> sections = currentTestPart.getAssessmentSections();
         List<SectionPartStatus> sectionPartStatusList = [];
-
+        SectionPartStatus.Position currentPosition = SectionPartStatus.Position.BEFORE;
         sections.each { section ->
-            sectionPartStatusList << getSectionPartsStatus(section, SectionPartStatus.Position.BEFORE);
+            List<SectionPartStatus> childPartStatusList = getSectionPartsStatus(section, null, currentPosition).flatten();
+            sectionPartStatusList << childPartStatusList;
+            if (!childPartStatusList.isEmpty() && !childPartStatusList[childPartStatusList.size() - 1].isPositionedBeforeCurrent()) {
+                currentPosition = SectionPartStatus.Position.AFTER;
+            }
         }
         return sectionPartStatusList.flatten();
     }
 
-    private List<SectionPartStatus> getSectionPartsStatus(SectionPart section, SectionPartStatus.Position position) {
+    public Map<String, List<SectionPartStatus>> getCurrentTestPartStatus() {
+        Map<String, List<SectionPartStatus>> testPartStatus = getSectionPartsStatusInCurrentTestPart()
+                .groupBy {it.parentSection}
+                .collectEntries {k, v ->
+            [k, v.flatten()]
+        };
+
+        return testPartStatus;
+    }
+
+    private List<SectionPartStatus> getSectionPartsStatus(SectionPart section, String parentSection, SectionPartStatus.Position position) {
         List<SectionPartStatus> sectionPartStatusList = [];
         String identifier = section.identifier;
         SectionPartStatus.Position currentPosition = position;
         if (section.classTag.equalsIgnoreCase('assessmentSection')) {
-            sectionPartStatusList << new SectionPartStatus(identifier);
             section.children.each {
-                List<SectionPartStatus> childPartStatusList = getSectionPartsStatus(it, currentPosition).flatten();
+                List<SectionPartStatus> childPartStatusList = getSectionPartsStatus(it, SectionPartStatus.formatParentSection(parentSection, section.identifier), currentPosition).flatten();
                 sectionPartStatusList << childPartStatusList;
                 if (!childPartStatusList.isEmpty() && !childPartStatusList[childPartStatusList.size() - 1].isPositionedBeforeCurrent()) {
                     currentPosition = SectionPartStatus.Position.AFTER;
@@ -489,17 +502,38 @@ public class AssessmentTestController implements Serializable {
             }
         } else {
             currentPosition = currentItemIdentifier == identifier ? SectionPartStatus.Position.CURRENT : position;
-            sectionPartStatusList << new SectionPartStatus(identifier, true, getAssessmentItemStatus(identifier), currentPosition);
-
+            if (currentPosition == SectionPartStatus.Position.AFTER ){
+                if (nextEnabled()){
+                    sectionPartStatusList << createSectionPartStatus(identifier,parentSection,currentPosition) ;
+                }
+            }else if (currentPosition == SectionPartStatus.Position.BEFORE ){
+                if (backwardEnabled()){
+                    sectionPartStatusList << createSectionPartStatus(identifier,parentSection,currentPosition) ;
+                }
+            }else{
+                sectionPartStatusList << createSectionPartStatus(identifier,parentSection,currentPosition) ;
+            }
         }
         return sectionPartStatusList;
     }
 
-    /* private Map<String,List<String>> getItemsInSection(SectionPart section){
-        List <String> items = [];
-        if (section.simpleName == 'assessmentSection'){
-             items[section.identifier]
+    private List<SectionPartStatus> createSectionPartStatus(String identifier, String parentSection, SectionPartStatus.Position currentPosition){
+        AssessmentItemStatus itemStatus = getAssessmentItemStatus(identifier);
+        List<SectionPartStatus> sectionPartStatusList = [];
+        if (canJumpWithoutPresenting()){
+            //don't add any not presented items
+            if (itemStatus != AssessmentItemStatus.NOT_PRESENTED){
+                sectionPartStatusList << new SectionPartStatus(identifier, parentSection, itemStatus, currentPosition);
+            }
+        }else{
+            sectionPartStatusList << new SectionPartStatus(identifier, parentSection, itemStatus, currentPosition);
         }
 
-    }*/
+        return sectionPartStatusList;
+    }
+    
+    private boolean canJumpWithoutPresenting(){
+        TestPart testPart = currentTestPart;
+        return testPart && testPart.areJumpsEnabled();
+    }
 }

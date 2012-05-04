@@ -283,7 +283,7 @@ public class TestCoordinator implements Serializable {
         params.put("timeRemaining", test.getTimeRemaining());
         params.put("testStatus", test.testStatus)
 
-        List<SectionPartStatus> testPartStatus = test.getSectionPartsStatusInCurrentTestPart();
+        Map<String, List<SectionPartStatus>> testPartStatus = test.getCurrentTestPartStatus();
         params.put("testPartStatus", testPartStatus)
 
         log.info("DEBUG testPartStatus ${testPartStatus}");
