@@ -13,7 +13,7 @@ public enum AssessmentItemStatus {
     SKIPPED,
     TIMED_OUT,
     RESPONDED,
-    SUBMITTED;
+    SUBMITTED;//NOT USED
 
     public static String format(EnumSet<AssessmentItemStatus> statuses) {
         return statuses.collect {it.name()}.join(" , ");

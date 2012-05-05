@@ -7,12 +7,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <div id='testContent'>
-    <h3>${assessmentItemInfo.title}</h3>
+    <h2>${assessmentItemInfo.title}</h2>
 
     <g:if test="${assessmentParams.timeRemaining > 0}">
         <script type="text/javascript">
             initTimer("${assessmentParams.timeRemaining}")
         </script>
+    </g:if>
+
+    <g:if test="${assessmentParams.testPart}">
+        <h3>${assessmentParams.testPart}</h3>
     </g:if>
 
     <qti:assessmentSection sectionTitles="${assessmentParams.sectionTitles}"/>
@@ -30,6 +34,8 @@
 
     <g:hiddenField name="id" value="${params.id}"/>
     <g:hiddenField name="questionId" value="${assessmentParams.questionId}"/>
+    <g:hiddenField name="submitClicked"
+                   value="true"/> <!-- Used to indicate if submit button was clicked. This param will be set only if submit was clicked -->
 
     <g:if test="${assessmentParams.submitEnabled}">
         <g:submitToRemote id='submit'

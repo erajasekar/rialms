@@ -87,7 +87,12 @@ class AssessmentItemInfo {
     }
 
     private void setResponses(Map params) {
-        status = RESPONDED;
+        if (params.containsKey('submitClicked')) {
+            status = RESPONDED;
+        } else {
+            log.debug("DEBUG submit was not clicked, other endAttempt interaction like show hint/solution clicked, not setting status to RESPONDED");
+        }
+
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
@@ -154,12 +159,16 @@ class AssessmentItemInfo {
     public boolean isComplete() {
         boolean complete = false;
         if (assessmentItem.adaptive) {
-            Value completionStatus = assessmentItem.getOutcomeValue(AssessmentItem.VARIABLE_COMPLETION_STATUS)
-            complete = (completionStatus && completionStatus.toString().equals(AssessmentItem.VALUE_ITEM_IS_COMPLETED))
+            complete = isAdaptiveItemComplete();
         } else {
             complete = assessmentItem.isCorrect();
         }
         return complete;
+    }
+
+    public boolean isAdaptiveItemComplete() {
+        Value completionStatus = assessmentItem.getOutcomeValue(AssessmentItem.VARIABLE_COMPLETION_STATUS)
+        return (completionStatus && completionStatus.toString().equals(AssessmentItem.VALUE_ITEM_IS_COMPLETED))
     }
 
     public Map getRenderOutput() {

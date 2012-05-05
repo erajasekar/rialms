@@ -22,19 +22,21 @@ class SectionPartStatus {
     private String parentSection;
     private AssessmentItemStatus status;
     private Position position;
+    private boolean enabled;
 
-    public SectionPartStatus(String identifier, String parentSection, AssessmentItemStatus status = AssessmentItemStatus.NOT_PRESENTED, Position position = Position.BEFORE) {
+    public SectionPartStatus(String identifier, String parentSection, AssessmentItemStatus status = AssessmentItemStatus.NOT_PRESENTED, Position position = Position.BEFORE, boolean enabled = true) {
         this.identifier = identifier;
         this.parentSection = parentSection;
         this.status = (status ?: AssessmentItemStatus.NOT_PRESENTED);
         this.position = position;
+        this.enabled = enabled;
     }
 
     public String getIdentifier() {
         return identifier
     }
 
-    public String getParentSection(){
+    public String getParentSection() {
         return parentSection;
     }
 
@@ -50,6 +52,10 @@ class SectionPartStatus {
         return position == Position.AFTER
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
     public Position getPosition() {
         return position;
     }
@@ -58,7 +64,7 @@ class SectionPartStatus {
         return status
     }
 
-    public static String formatParentSection(String parentSection, String currentSection){
-        return (parentSection) ?  "${parentSection}${PARENT_SECTION_DELIMITER}${currentSection}" : currentSection;
+    public static String formatParentSection(String parentSection, String currentSection) {
+        return (parentSection) ? "${parentSection}${PARENT_SECTION_DELIMITER}${currentSection}" : currentSection;
     }
 }

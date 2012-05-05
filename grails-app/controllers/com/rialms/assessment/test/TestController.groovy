@@ -149,6 +149,8 @@ class TestController {
         boolean renderNextItem = coordinator.setCurrentResponse(params);
         log.warn("renderNextItem ==> ${renderNextItem}");
         params.renderNextItem = renderNextItem;
+        //We are navigating after submit and not after clicking nav button, so remove that parameter.
+        params.remove('navButton');
         navigate(params);
     }
 

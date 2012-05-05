@@ -17,14 +17,14 @@
     <ul>
         <g:each var='section' in="${entry.value}">
             <li>
-                <g:if test="${section.isCurrentItem()}" >
-                    *
+                <g:if test="${section.isEnabled()}">
+                    <g:remoteLink action="navigate" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
+                                  params="${params + [renderItem: section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">${section.identifier}</g:remoteLink>
+
                 </g:if>
                 <g:else>
-                    &nbsp;
+                    ${section.identifier}
                 </g:else>
-                <g:remoteLink action="navigate" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                              params="${params + [renderItem: section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">${section.identifier}</g:remoteLink>
                 &nbsp;|&nbsp;
                 ${AssessmentItemStatus.format(section.status)}
             </li>

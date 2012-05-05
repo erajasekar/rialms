@@ -402,12 +402,12 @@ public class AssessmentTestController implements Serializable {
 
     public Map<String, AssessmentItemStatus> getTestStatus() {
         processedItems.values().collectEntries {it.collectEntries {k, v -> [k, v.itemStatus]}}
-        //return processedItems.collectEntries { k, v -> [k, v.itemStatuses]};
     }
 
     public AssessmentItemStatus getAssessmentItemStatus(String itemIdentifier) {
         AssessmentItemInfo itemInfo = processedItems[currentTestPart.identifier][itemIdentifier];
-        return (itemInfo ? itemInfo.itemStatus : AssessmentItemStatus.NOT_PRESENTED);
+        AssessmentItemStatus itemStatus = (itemInfo ? itemInfo.itemStatus : AssessmentItemStatus.NOT_PRESENTED);
+        return itemStatus;
     }
 
     //TODO this is broken if user jumps to last item and submits
@@ -502,37 +502,41 @@ public class AssessmentTestController implements Serializable {
             }
         } else {
             currentPosition = currentItemIdentifier == identifier ? SectionPartStatus.Position.CURRENT : position;
-            if (currentPosition == SectionPartStatus.Position.AFTER ){
-                if (nextEnabled()){
-                    sectionPartStatusList << createSectionPartStatus(identifier,parentSection,currentPosition) ;
-                }
-            }else if (currentPosition == SectionPartStatus.Position.BEFORE ){
-                if (backwardEnabled()){
-                    sectionPartStatusList << createSectionPartStatus(identifier,parentSection,currentPosition) ;
-                }
-            }else{
-                sectionPartStatusList << createSectionPartStatus(identifier,parentSection,currentPosition) ;
+            AssessmentItemStatus itemStatus = getAssessmentItemStatus(identifier);
+            if (shouldAddSectionPartStatus(currentPosition, itemStatus)) {
+                boolean isSectionPartStatusEnabled = isSectionPartStatusEnabled(currentPosition, itemStatus)
+                sectionPartStatusList << new SectionPartStatus(identifier, parentSection, itemStatus, currentPosition, isSectionPartStatusEnabled);
             }
         }
         return sectionPartStatusList;
     }
 
-    private List<SectionPartStatus> createSectionPartStatus(String identifier, String parentSection, SectionPartStatus.Position currentPosition){
-        AssessmentItemStatus itemStatus = getAssessmentItemStatus(identifier);
-        List<SectionPartStatus> sectionPartStatusList = [];
-        if (canJumpWithoutPresenting()){
-            //don't add any not presented items
-            if (itemStatus != AssessmentItemStatus.NOT_PRESENTED){
-                sectionPartStatusList << new SectionPartStatus(identifier, parentSection, itemStatus, currentPosition);
-            }
-        }else{
-            sectionPartStatusList << new SectionPartStatus(identifier, parentSection, itemStatus, currentPosition);
+    private boolean shouldAddSectionPartStatus(SectionPartStatus.Position position, AssessmentItemStatus itemStatus) {
+        boolean shouldAddSectionPartStatus = true;
+        if (position == SectionPartStatus.Position.AFTER) {
+            shouldAddSectionPartStatus = nextEnabled();
+        }
+        if (shouldAddSectionPartStatus && canJumpWithoutPresenting()) {
+            //don't add any not presented items if canJumpWithoutPresenting is true
+            shouldAddSectionPartStatus = (itemStatus != AssessmentItemStatus.NOT_PRESENTED)
         }
 
-        return sectionPartStatusList;
+        return shouldAddSectionPartStatus;
     }
-    
-    private boolean canJumpWithoutPresenting(){
+
+    private boolean isSectionPartStatusEnabled(SectionPartStatus.Position position, AssessmentItemStatus itemStatus) {
+        boolean enabled = true;
+        if (itemStatus == AssessmentItemStatus.TIMED_OUT || position == SectionPartStatus.Position.CURRENT) {
+            enabled = false;
+        }
+        //TODO BROKEN FOR DISABLE REVIEW IF IMMEDIATE PREV IS NOT RESPONDED WHILE OTHERS ARE RESPONDED
+        if (position == SectionPartStatus.Position.BEFORE) {
+            enabled = enabled && backwardEnabled();
+        }
+        return enabled;
+    }
+
+    private boolean canJumpWithoutPresenting() {
         TestPart testPart = currentTestPart;
         return testPart && testPart.areJumpsEnabled();
     }
