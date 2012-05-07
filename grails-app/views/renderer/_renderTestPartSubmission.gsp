@@ -15,23 +15,7 @@
     </g:else>
 </h4>
 
-<table>
-    <g:each var='entry' in="${assessmentParams.itemsPendingSubmission}">
-        <tr>
-            <td><!-- Make links to show only if its not timed out -->
-            <g:if test="${entry.value == AssessmentItemStatus.TIMED_OUT}">
-                ${entry.key}
-            </g:if>
-            <g:else>
-                <g:remoteLink action="navigate" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                              params="${params + [renderItem: entry.key, isPositionedAfterCurrent: false]}">${entry.key}</g:remoteLink>
-
-            </g:else>
-            </td>
-            <td>${AssessmentItemStatus.format(entry.value)}</td>
-        </tr>
-    </g:each>
-</table>
+<g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
 <g:hiddenField name="id" value="${params.id}"/>
 <g:submitToRemote id='submit'

@@ -10,7 +10,6 @@
 <h4>
     <g:message code="test.status.message"/>
 </h4>
-<% Stack<String> stack = new Stack<String>(); %>
 <g:each var='entry' in="${assessmentParams.testPartStatus}">
 
     <li>${entry.key}</li>

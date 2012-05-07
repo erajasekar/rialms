@@ -96,8 +96,7 @@ class AssessmentItemInfo {
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
-        //TODO   LOG LEVEL
-        log.info("Response Values ${this} ==> ${responseValues}");
+        log.debug("Response Values ${this} ==> ${responseValues}");
         assessmentItem.setResponses(responseValues);
     }
 
@@ -105,8 +104,7 @@ class AssessmentItemInfo {
         setResponses(params);
         assessmentItem.processResponses();
         log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
-        //TODO UPDATE LOG LEVEL
-        log.info("IS COMPLETE ==> ${this.complete}");
+
     }
 
     public HiddenElement addHiddenElement(HiddenElement e) {

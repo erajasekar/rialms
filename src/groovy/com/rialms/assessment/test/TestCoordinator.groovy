@@ -197,7 +197,9 @@ public class TestCoordinator implements Serializable {
         params.put("title", test.getTestTitle());
         params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
         params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
-        params.put("itemsPendingSubmission", test.getItemsPendingSubmission(test.currentTestPart.identifier));
+        //  params.put("itemsPendingSubmission", test.getItemsPendingSubmission(test.currentTestPart.identifier));
+        params.put("renderSubmitTestPartContent", true);
+        params.put("testPartStatus", test.currentTestPartStatus);
         params.put("testStatus", test.testStatus)
 
         if (test.test?.testParts?.size() > 1) {

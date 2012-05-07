@@ -505,6 +505,12 @@ public class AssessmentTestController implements Serializable {
             AssessmentItemStatus itemStatus = getAssessmentItemStatus(identifier);
             if (shouldAddSectionPartStatus(currentPosition, itemStatus)) {
                 boolean isSectionPartStatusEnabled = isSectionPartStatusEnabled(currentPosition, itemStatus)
+                if (!isSectionPartStatusEnabled) {
+                    //disable all previously added items
+                    sectionPartStatusList.each {
+                        it.enabled = false;
+                    }
+                }
                 sectionPartStatusList << new SectionPartStatus(identifier, parentSection, itemStatus, currentPosition, isSectionPartStatusEnabled);
             }
         }
@@ -526,12 +532,12 @@ public class AssessmentTestController implements Serializable {
 
     private boolean isSectionPartStatusEnabled(SectionPartStatus.Position position, AssessmentItemStatus itemStatus) {
         boolean enabled = true;
-        if (itemStatus == AssessmentItemStatus.TIMED_OUT || position == SectionPartStatus.Position.CURRENT) {
+        if (itemStatus == AssessmentItemStatus.TIMED_OUT) {
             enabled = false;
         }
-        //TODO BROKEN FOR DISABLE REVIEW IF IMMEDIATE PREV IS NOT RESPONDED WHILE OTHERS ARE RESPONDED
+        //TODO LATER IF REVIEW IS DISABLED, USER CAN'T CLICK ON UN RESPONDED ITEMS, ALTHOUGTH HE CAN NAVIGATE VIA BACK.
         if (position == SectionPartStatus.Position.BEFORE) {
-            enabled = enabled && backwardEnabled();
+            enabled = enabled && backwardEnabled() && currentItemRef.itemSessionControl.allowReview;
         }
         return enabled;
     }

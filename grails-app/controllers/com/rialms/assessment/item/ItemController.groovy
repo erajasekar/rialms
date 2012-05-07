@@ -45,7 +45,6 @@ class ItemController {
         AssessmentItemInfo assessmentItemInfo = session.assessmentItemInfo;
         assessmentItemInfo.processResponses(params);
         Map renderOutput = assessmentItemInfo.renderOutput;
-        //TODO
         log.info("Render Output ${renderOutput}");
         render renderOutput as JSON;
     }

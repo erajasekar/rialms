@@ -36,7 +36,6 @@ class TestService implements InitializingBean {
         log.info("processAssessmentTest Params ${params}");
 
         if (params.containsKey('renderItem')) {
-            //TODO: direction shouldn't be hardcoded
             coordinator.getQuestionByIdentifier(params.renderItem, params.isPositionedAfterCurrent.toBoolean());
         } else if (params.navButton == "next" && coordinator.getTestController().nextEnabled()) {
             coordinator.getNextQuestion(false);

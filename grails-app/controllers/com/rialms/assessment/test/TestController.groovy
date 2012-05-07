@@ -116,7 +116,7 @@ class TestController {
 
             if (renderNextItem) {
                 //To render next item, reset testContent
-                if (testRenderInfo.assessmentParams.itemsPendingSubmission) {
+                if (testRenderInfo.assessmentParams.renderSubmitTestPartContent) {
                     renderOutput.testContent = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
                 } else {
                     renderOutput.testContent = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());

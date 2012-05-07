@@ -6,7 +6,6 @@
         identifier="IndividualNavigation"
         title="Individual Navigation">
     <testPart identifier="part1" navigationMode="linear" submissionMode="individual">
-        <!--TODO test testPart feedback also -->
         <itemSessionControl showFeedback="false" allowReview="false" showSolution="false"/>
         <assessmentSection identifier="sectionA" title="Section 1" visible="true">
             <assessmentItemRef identifier="feedback" href="feedback.xml"></assessmentItemRef>

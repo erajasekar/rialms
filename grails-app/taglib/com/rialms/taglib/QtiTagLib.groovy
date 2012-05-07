@@ -24,8 +24,7 @@ class QtiTagLib {
         Map fieldAttributes = [dir: fullPath.substring(0, i), file: fullPath.substring(i + 1)];
         fieldAttributes += xmlNode.attributes();
 
-        //TODO    LOG LEVEL
-        log.info("img Field Attributes ${fieldAttributes}");
+        log.debug("img Field Attributes ${fieldAttributes}");
 
         def tagBody = {
             g.img(fieldAttributes);
@@ -59,9 +58,8 @@ class QtiTagLib {
 
         fieldAttributes += attrs;
 
-        //TODO    LOG LEVEL
-        log.info("AssessmentItemInfo ==> ${assessmentItemInfo}");
-        log.info("textEntryInteraction Field Attributes ${fieldAttributes}");
+        log.debug("AssessmentItemInfo ==> ${assessmentItemInfo}");
+        log.debug("textEntryInteraction Field Attributes ${fieldAttributes}");
 
         def tagBody = {
             g.textField(fieldAttributes);
@@ -109,20 +107,6 @@ class QtiTagLib {
         String title = xmlAttributes.title;
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         assessmentItemInfo.addDisableOnCompletionId(id);
-        //TODO remove commented code
-        /*     Map fieldAttributes = [id: id, name: id, value: title, params: [(id): title], action: AssessmentItemInfo.controllerActionForProcessItem, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem];
-        if (assessmentItemInfo.isComplete()) {
-           fieldAttributes << [disabled: 'disabled']
-       }
-
-    /*   def tagBody = {
-           //   g.submitToRemote(fieldAttributes);
-           g.remoteLink(fieldAttributes) {
-               title
-           };
-
-       }
-       renderTag(attrs, tagBody);*/
 
         Map actionParams = params + [(id): title];
         log.info("${tag} button action params => ${actionParams}");
@@ -191,8 +175,7 @@ class QtiTagLib {
 
         def value = responseValues[id];
 
-        //TODO  LOG LEVEL
-        log.info("choiceInteraction Field Attributes ${fieldAttributes}");
+        log.debug("choiceInteraction Field Attributes ${fieldAttributes}");
 
         if (maxChoices.toInteger() == 1) {
             if (value) {
@@ -276,8 +259,7 @@ class QtiTagLib {
         if (value) {
             fieldAttributes['value'] = value[0];
         }
-        //TODO  LOG LEVEL
-        log.info("inlineChoiceInteraction ${fieldAttributes}")
+        log.debug("inlineChoiceInteraction ${fieldAttributes}")
 
         def tagBody = {
             g.select(fieldAttributes);

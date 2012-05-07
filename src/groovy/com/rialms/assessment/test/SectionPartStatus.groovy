@@ -29,7 +29,8 @@ class SectionPartStatus {
         this.parentSection = parentSection;
         this.status = (status ?: AssessmentItemStatus.NOT_PRESENTED);
         this.position = position;
-        this.enabled = enabled;
+        //Always disable for current position.
+        this.enabled = enabled && position != Position.CURRENT;
     }
 
     public String getIdentifier() {
@@ -66,5 +67,9 @@ class SectionPartStatus {
 
     public static String formatParentSection(String parentSection, String currentSection) {
         return (parentSection) ? "${parentSection}${PARENT_SECTION_DELIMITER}${currentSection}" : currentSection;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }
