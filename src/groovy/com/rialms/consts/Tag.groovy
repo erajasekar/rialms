@@ -79,11 +79,6 @@ public enum Tag {
         return map;
     }
 
-    ///TODO : Remove this after cleaning up com.rialms.util.SampleParsing
-    public boolean equals(QName qn) {
-        return name().equalsIgnoreCase(qn.getLocalPart());
-    }
-
     public static boolean isMixedTag(Tag t) {
         return mixedTags.contains(t);
     }

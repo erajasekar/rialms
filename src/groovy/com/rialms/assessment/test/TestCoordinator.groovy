@@ -206,7 +206,6 @@ public class TestCoordinator implements Serializable {
             params.put("testPart", test.currentTestPart.identifier);
         }
 
-        //TODO currently hidding all navbutton's check if this is OK
         NavigationControls controls = new NavigationControls(false);
         params.put("navigationControls", controls);
 
@@ -327,7 +326,7 @@ public class TestCoordinator implements Serializable {
 
         test.setCurrentItemResponses(params);
 
-        //TODO RENDER Input for canditate comments
+        //TODO LATER RENDER Input for canditate comments
         if (params.containsKey("candidateComment"))
             test.getCurrentItemRef().setCandidateComment(params.get("candidateComment").get(0));
 

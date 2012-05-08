@@ -27,7 +27,7 @@
                 <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
             </p>
         </g:if>
-        <g:if test="${tag == Tag.rubricBlock}"><!-- TODO ADD VIEW SUPPORT FOR RUBRIC -->
+        <g:if test="${tag == Tag.rubricBlock}"><!-- TODO LATER ADD VIEW SUPPORT FOR RUBRIC -->
             <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
         </g:if>
         <g:elseif test="${tag == Tag.img}">

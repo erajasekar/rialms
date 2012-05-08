@@ -14,6 +14,7 @@ import org.qtitools.qti.value.Value
 import com.rialms.consts.AssessmentItemStatus
 import org.qtitools.qti.validation.ValidationResult
 import static com.rialms.consts.AssessmentItemStatus.*;
+import com.rialms.consts.Constants as Consts;
 
 /**
  * Created by IntelliJ IDEA.
@@ -121,7 +122,6 @@ class AssessmentItemInfo {
     }
 
     private void timeOut() {
-        println "Raja setting timeout for ==> ${assessmentItemRef.identifier} "
         status = TIMED_OUT;
     }
 
@@ -135,7 +135,7 @@ class AssessmentItemInfo {
                 hiddenIds << "#${element.elementId}";
             }
         }
-        return [visibleElementIds: visibleIds, hiddenElementIds: hiddenIds]
+        return [(Consts.visibleElementIds): visibleIds, (Consts.hiddenElementIds): hiddenIds]
     }
 
     public boolean isVisible(HiddenElement element) {
@@ -171,12 +171,12 @@ class AssessmentItemInfo {
 
     public Map getRenderOutput() {
         Map<String, List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
-        Map output = ['itemOutcomeValues': outcomeValues,
-                'responseValues': responseValues,
-                'visibleElementIds': visibleAndHiddenElementIds.visibleElementIds,
-                'hiddenElementIds': visibleAndHiddenElementIds.hiddenElementIds];
+        Map output = [(Consts.itemOutcomeValues): outcomeValues,
+                (Consts.responseValues): responseValues,
+                (Consts.visibleElementIds): visibleAndHiddenElementIds[Consts.visibleElementIds],
+                (Consts.hiddenElementIds): visibleAndHiddenElementIds[Consts.hiddenElementIds]];
         if (isComplete()) {
-            output['disableElementIds'] = disableOnCompletionIds.collect { "#${it}"};
+            output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
         return output;
     }

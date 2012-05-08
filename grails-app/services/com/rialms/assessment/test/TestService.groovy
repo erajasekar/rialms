@@ -1,16 +1,14 @@
 package com.rialms.assessment.test
 
-import org.springframework.beans.factory.InitializingBean
-import com.rialms.assessment.test.TestCoordinator
-import com.rialms.assessment.test.TestRenderInfo
+import com.rialms.consts.Constants as Consts
 
-import com.rialms.assessment.test.Test
+import com.rialms.consts.NavButton
+import org.springframework.beans.factory.InitializingBean
 
 class TestService implements InitializingBean {
 
     def grailsApplication;
     String contentPath;
-    def g;
 
     public File getTestDataFile(Test t) {
         return grailsApplication.parentContext.getResource("${getDataPath(t)}" + t.dataFile).getFile();
@@ -35,17 +33,17 @@ class TestService implements InitializingBean {
 
         log.info("processAssessmentTest Params ${params}");
 
-        if (params.containsKey('renderItem')) {
+        if (params.containsKey(Consts.renderItem)) {
             coordinator.getQuestionByIdentifier(params.renderItem, params.isPositionedAfterCurrent.toBoolean());
-        } else if (params.navButton == "next" && coordinator.getTestController().nextEnabled()) {
+        } else if (params.navButton == NavButton.next.name() && coordinator.getTestController().nextEnabled()) {
             coordinator.getNextQuestion(false);
-        } else if (params.navButton == "forward" && coordinator.getTestController().forwardEnabled()) {
+        } else if (params.navButton == NavButton.forward.name() && coordinator.getTestController().forwardEnabled()) {
             coordinator.getNextQuestion(true);
-        } else if (params.navButton == "previous" && coordinator.getTestController().previousEnabled()) {
+        } else if (params.navButton == NavButton.previous.name() && coordinator.getTestController().previousEnabled()) {
             coordinator.getPreviousQuestion(false);
-        } else if (params.navButton == "backward" && coordinator.getTestController().backwardEnabled()) {
+        } else if (params.navButton == NavButton.backward.name() && coordinator.getTestController().backwardEnabled()) {
             coordinator.getPreviousQuestion(true);
-        } else if (params.navButton == "skip" && coordinator.getTestController().skipEnabled()) {
+        } else if (params.navButton == NavButton.skip.name() && coordinator.getTestController().skipEnabled()) {
             coordinator.skipCurrentQuestion();
         } else if (coordinator.isCompleted()) {
             coordinator.getCurrentQuestion();
@@ -55,8 +53,6 @@ class TestService implements InitializingBean {
 
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
-        g = grailsApplication.mainContext.getBean('org.codehaus.groovy.grails.plugins.web.taglib.ApplicationTagLib');
-
     }
 
 }

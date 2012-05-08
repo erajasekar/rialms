@@ -410,7 +410,6 @@ public class AssessmentTestController implements Serializable {
         return itemStatus;
     }
 
-    //TODO this is broken if user jumps to last item and submits
     public Map<String, AssessmentItemStatus> getItemsPendingSubmission(String testPartId) {
         return processedItems[testPartId].collectEntries { k, v -> [k, v.itemStatus]};
     }

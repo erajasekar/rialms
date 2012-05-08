@@ -6,6 +6,7 @@ import org.qtitools.qti.validation.ValidationItem
 import grails.web.JSONBuilder
 import grails.converters.JSON
 import org.qtitools.qti.validation.ValidationResult
+import com.rialms.consts.Constants as Consts
 
 class ItemController {
 
@@ -27,22 +28,21 @@ class ItemController {
 
         String id = params.id;
         if (id) {
-            session.assessmentItemInfo = assessmentItemInfo = itemService.getAssessmentItemInfo(id);
+            session[Consts.assessmentItemInfo] = assessmentItemInfo = itemService.getAssessmentItemInfo(id);
         } else {
             assessmentItemInfo = session.assessmentItemInfo;
         }
         ValidationResult validationResult = assessmentItemInfo.validate();
-        flash.validationResult = validationResult;
+        flash[Consts.validationResult] = validationResult;
 
-        params.put('showInternalState', utilitiesService.showInternalState());
-        render(view: 'play', model: ['assessmentItemInfo': assessmentItemInfo]);
+        params.put(Consts.showInternalState, utilitiesService.showInternalState());
+        render(view: 'play', model: [(Consts.assessmentItemInfo): assessmentItemInfo]);
 
     }
 
     def process() {
         log.info("Processing Item with param ${params}");
-        //TODO, see if we can eliminate session
-        AssessmentItemInfo assessmentItemInfo = session.assessmentItemInfo;
+        AssessmentItemInfo assessmentItemInfo = session[Consts.assessmentItemInfo];
         assessmentItemInfo.processResponses(params);
         Map renderOutput = assessmentItemInfo.renderOutput;
         log.info("Render Output ${renderOutput}");
