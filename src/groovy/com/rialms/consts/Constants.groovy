@@ -11,8 +11,8 @@ class Constants {
     public static final String renderItem = 'renderItem';
     public static final String exit = 'exit';
     public static final String renderNextItem = 'renderNextItem';
-    public static final String renderFeedbackContent = 'renderFeedbackContent';
-    public static final String renderSubmitTestPartContent = 'renderSubmitTestPartContent';
+    public static final String feedbackContent = 'feedbackContent';
+    public static final String submitTestPartContent = 'submitTestPartContent';
     public static final String questionId = 'questionId';
     public static final String redirectUrl = 'redirectUrl';
     public static final String title = 'title';
@@ -35,6 +35,7 @@ class Constants {
     public static final String validationResult = 'validationResult';
     public static final String candidateComment = 'candidateComment';
     public static final String itemOutcomeValues = 'itemOutcomeValues';
+    public static final String testOutcomeValues = 'testOutcomeValues';
     public static final String responseValues = 'responseValues';
     public static final String visibleElementIds = 'visibleElementIds';
     public static final String hiddenElementIds = 'hiddenElementIds';
@@ -56,5 +57,10 @@ class Constants {
     public static final String assessmentParams = 'assessmentParams';
     public static final String navButton = 'navButton';
     public static final String submitClicked = 'submitClicked';
+    public static final String submitEnabled = 'submitEnabled';
+    public static final String submit = 'submit';
+    public static final String mathMLPrefix = "m";
+    public static final String testReport = 'testReport';
+    public static final String testTitle = 'testTitle';
 
 }

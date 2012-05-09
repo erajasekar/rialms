@@ -39,18 +39,21 @@ import org.qtitools.qti.exception.QTIException;
 import org.qtitools.qti.node.test.AssessmentItemRef;
 import org.qtitools.qti.node.test.AssessmentTest;
 import org.qtitools.qti.node.test.ControlObject;
-import org.qtitools.qti.node.test.SubmissionMode;
+
+
 import org.qtitools.qti.node.test.flow.ItemFlow;
 import org.qtitools.qti.value.Value;
 import groovy.util.logging.*
 import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.util.QtiUtils;
-import groovy.util.Node
-import org.qtitools.qti.validation.ValidationItem
+
+
 import com.rialms.consts.AssessmentItemStatus
 import org.qtitools.qti.validation.ValidationResult
-import groovy.xml.XmlUtil
+
 import com.rialms.consts.NavButton;
+import static com.rialms.consts.Constants.*
+import com.rialms.consts.Constants as Consts;
 
 @Log4j
 public class TestCoordinator implements Serializable {
@@ -192,22 +195,18 @@ public class TestCoordinator implements Serializable {
 
     private void renderSubmitTestPartContent() {
         Map<String, Object> params = new HashMap<String, Object>();
-
         //set the test title from the cached version (to avoid lookups)
-        params.put("title", test.getTestTitle());
-        params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
-        params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
-        //  params.put("itemsPendingSubmission", test.getItemsPendingSubmission(test.currentTestPart.identifier));
-        params.put("renderSubmitTestPartContent", true);
-        params.put("testPartStatus", test.currentTestPartStatus);
-        params.put("testStatus", test.testStatus)
-
+        params.put(title, test.getTestTitle());
+        params.put(outcomeValues, QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
+        params.put(outcomeDeclarations, test.getTest().getOutcomeDeclarations());
+        params.put(submitTestPartContent, true);
+        params.put(testPartStatus, test.currentTestPartStatus);
         if (test.test?.testParts?.size() > 1) {
-            params.put("testPart", test.currentTestPart.identifier);
+            params.put(testPart, test.currentTestPart.identifier);
         }
 
         NavigationControls controls = new NavigationControls(false);
-        params.put("navigationControls", controls);
+        params.put(navigationControls, controls);
 
         log.info("renderSubmitTestPartContent params ==> ${params}");
         renderContent(AssessmentItemInfo.BLANK_ITEM, params);
@@ -218,20 +217,24 @@ public class TestCoordinator implements Serializable {
         Map<String, Object> params = new HashMap<String, Object>();
 
         //set the test title from the cached version (to avoid lookups)
-        params.put("title", test.getTestTitle());
+        params.put(title, test.getTestTitle());
 
-        Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
-        if (assessmentFeedback != null) params.put("assessmentFeedback", assessmentFeedback);
+        Node assessmentFeedbackNode = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
+        if (assessmentFeedbackNode != null) {
+            params.put(assessmentFeedback, assessmentFeedbackNode);
+        }
 
-        Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
-        if (testPartFeedback != null) params.put("testPartFeedback", testPartFeedback);
+        Node testPartFeedbackNode = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
+        if (testPartFeedbackNode != null) {
+            params.put(testPartFeedback, testPartFeedbackNode)
+        }
 
-        params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
-        params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
-        params.put("renderFeedbackContent", true);
+        params.put(outcomeValues, QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
+        params.put(outcomeDeclarations, test.getTest().getOutcomeDeclarations());
+        params.put(feedbackContent, true);
 
         if (view != null) {
-            params.put("view", view);
+            params.put(Consts.view, view);
         }
         renderContent(AssessmentItemInfo.BLANK_ITEM, params);
     }
@@ -240,68 +243,74 @@ public class TestCoordinator implements Serializable {
         Map<String, Object> params = new HashMap<String, Object>();
 
         //set the question id
-        params.put("questionId", getCurrentQuestionId());
+        params.put(questionId, getCurrentQuestionId());
 
         //set the test title from the cached version (to avoid lookups)
-        params.put("title", test.getTestTitle());
+        params.put(title, test.getTestTitle());
 
         //set the section titles
-        Node sectionTitles = QtiUtils.convertStringArrayToNode(test.getCurrentSectionTitles());
-        if (sectionTitles != null) params.put("sectionTitles", sectionTitles);
+        Node sectionTitlesNode = QtiUtils.convertStringArrayToNode(test.getCurrentSectionTitles());
+        if (sectionTitlesNode != null) params.put(sectionTitles, sectionTitlesNode);
 
         //set the rubric
-        Node rubric = QtiUtils.convertRubricToNode(test.getRubricBlocks());
-        if (rubric != null) params.put("rubric", rubric);
+        Node rubricNode = QtiUtils.convertRubricToNode(test.getRubricBlocks());
+        if (rubricNode != null) {
+            params.put(rubric, rubricNode)
+        }
 
-        Node assessmentFeedback = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
+        Node assessmentFeedbackNode = QtiUtils.convertFeedbackToNode(test.getAssessmentFeedback());
 
-        if (assessmentFeedback != null) params.put("assessmentFeedback", assessmentFeedback);
+        if (assessmentFeedbackNode != null) {
+            params.put(assessmentFeedback, assessmentFeedbackNode)
+        }
 
-        Node testPartFeedback = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
-        if (testPartFeedback != null) params.put("testPartFeedback", testPartFeedback);
+        Node testPartFeedbackNode = QtiUtils.convertFeedbackToNode(test.getTestPartFeedback());
+        if (testPartFeedbackNode != null) {
+            params.put(testPartFeedback, testPartFeedbackNode)
+        }
 
-        params.put("outcomeValues", QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
+        params.put(outcomeValues, QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
 
-        params.put("outcomeDeclarations", test.getTest().getOutcomeDeclarations());
+        params.put(outcomeDeclarations, test.getTest().getOutcomeDeclarations());
 
         if (test.test?.testParts?.size() > 1) {
-            params.put("testPart", test.currentTestPart.identifier);
+            params.put(testPart, test.currentTestPart.identifier);
         }
 
         if (view != null) {
-            params.put("view", view);
-            pageRenderParameters.put("view", view);
+            params.put(Consts.view, view);
         }
         //set the state for rendering controls
-        params.put("submitEnabled", test.submitEnabled());
+        params.put(submitEnabled, test.submitEnabled());
         NavigationControls controls = new NavigationControls();
         controls.addButtonState(NavButton.previous, test.previousEnabled());
         controls.addButtonState(NavButton.backward, test.backwardEnabled());
         controls.addButtonState(NavButton.next, test.nextEnabled());
         controls.addButtonState(NavButton.forward, test.forwardEnabled());
         controls.addButtonState(NavButton.skip, test.skipEnabled());
-        params.put("navigationControls", controls);
+        params.put(navigationControls, controls);
 
-        params.put("numberSelected", test.getNumberSelected());
-        params.put("numberRemaining", test.getNumberRemaining());
-        params.put("timeSelected", test.getTimeSelected());
-        params.put("timeRemaining", test.getTimeRemaining());
-        params.put("testStatus", test.testStatus)
+        params.put(numberSelected, test.getNumberSelected());
+        params.put(numberRemaining, test.getNumberRemaining());
+        params.put(timeSelected, test.getTimeSelected());
+        params.put(timeRemaining, test.getTimeRemaining());
+        params.put(testPartStatus, test.currentTestPartStatus)
+        params.put(testStatus, test.testStatus)
 
         Map<String, List<SectionPartStatus>> testPartStatus = test.getCurrentTestPartStatus();
-        params.put("testPartStatus", testPartStatus)
+        params.put(testPartStatus, testPartStatus)
 
         log.info("DEBUG testPartStatus ${testPartStatus}");
-        log.info("timeRemaining ==> ${params.timeRemaining}")
+        log.info("timeRemaining ==> ${params[timeRemaining]}")
 
         if (test.getCurrentItemRef().getItemSessionControl().getAllowComment())
-            params.put("allowCandidateComment", true);
+            params.put(allowCandidateComment, true);
 
         if (validate) {
-            params.put("validationResult", getTest().validate());
+            params.put(validationResult, getTest().validate());
         } else {
             //Create empty Validation Result
-            params.put("validationResult", new ValidationResult());
+            params.put(validationResult, new ValidationResult());
         }
         return params;
     }
@@ -327,8 +336,8 @@ public class TestCoordinator implements Serializable {
         test.setCurrentItemResponses(params);
 
         //TODO LATER RENDER Input for canditate comments
-        if (params.containsKey("candidateComment"))
-            test.getCurrentItemRef().setCandidateComment(params.get("candidateComment").get(0));
+        if (params.containsKey(candidateComment))
+            test.getCurrentItemRef().setCandidateComment(params.get(candidateComment).get(0));
 
         Map<String, Value> itemOutcomes = test.getCurrentItemRef().getItem().getOutcomeValues();
 

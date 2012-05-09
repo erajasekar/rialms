@@ -4,6 +4,7 @@ import com.rialms.util.CollectionUtils
 import com.rialms.util.UtilitiesService
 import grails.converters.JSON
 import com.rialms.consts.Constants as Consts
+import sun.reflect.generics.scope.ConstructorScope
 
 class TestController {
 
@@ -28,7 +29,7 @@ class TestController {
         } else {
             TestCoordinator coordinator = session.coordinator[params.id];
             TestReport report = new TestReportBuilder().buildTestReport(coordinator.test.title, coordinator.getReport(), coordinator.testController.testStatus)
-            render(view: 'report', model: [testReport: report]);
+            render(view: 'report', model: [(Consts.testReport): report]);
         }
 
     }
@@ -80,11 +81,12 @@ class TestController {
             testRenderInfo = testService.processAssessmentTest(params, coordinator);
         }
 
-        if (testRenderInfo.assessmentParams[Consts.renderFeedbackContent]) {
+        if (testRenderInfo.assessmentParams[Consts.feedbackContent]) {
             render(view: 'feedback', model: testRenderInfo.toPropertiesMap());
             return;
         }
 
+        log.info("testRenderInfo ==> ${testRenderInfo}");
         params.put(Consts.showInternalState, utilitiesService.showInternalState());
         render(view: 'play', model: testRenderInfo.toPropertiesMap())
     }
@@ -108,14 +110,14 @@ class TestController {
 
         log.info("testRenderInfo ==> ${testRenderInfo[Consts.assessmentParams]}");
 
-        if (testRenderInfo[Consts.assessmentParams][Consts.renderFeedbackContent]) {
+        if (testRenderInfo[Consts.assessmentParams][Consts.feedbackContent]) {
             render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
         } else {
             Map renderOutput = testRenderInfo.renderOutput;
 
             if (renderNextItem) {
                 //To render next item, reset testContent
-                if (testRenderInfo[Consts.assessmentParams][Consts.renderSubmitTestPartContent]) {
+                if (testRenderInfo[Consts.assessmentParams][Consts.submitTestPartContent]) {
                     renderOutput.testContent = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
                 } else {
                     renderOutput.testContent = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
@@ -171,7 +173,7 @@ class TestController {
     }
 
     def submitTestPart() {
-        log.info("Executing submitTestPart with param ${params}");
+        log.info("Executing submitTestPartContent with param ${params}");
         if (!params.id) {
             return redirect(action: 'list')
         }
@@ -181,7 +183,7 @@ class TestController {
         TestCoordinator coordinator = session[Consts.coordinator][params.id]
         boolean renderNextItem = coordinator.doSimultaneousSubmission();
         params[Consts.renderNextItem] = renderNextItem;
-        log.info("submitTestPart ==> renderNextItem ==> ${renderNextItem}")
+        log.info("submitTestPartContent ==> renderNextItem ==> ${renderNextItem}")
         navigate(params);
     }
 

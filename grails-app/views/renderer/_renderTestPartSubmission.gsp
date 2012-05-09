@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
+<%@ page import="com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -7,8 +7,8 @@
   To change this template use File | Settings | File Templates.
 --%>
 <h4>
-    <g:if test="${assessmentParams.testPart}">
-        <g:message code="testpart.submission.confirm.message" args="${[assessmentParams.testPart]}"/>
+    <g:if test="${assessmentParams[Consts.testPart]}">
+        <g:message code="testpart.submission.confirm.message" args="${[assessmentParams[Consts.testPart]]}"/>
     </g:if>
     <g:else>
         <g:message code="test.submission.confirm.message"/>

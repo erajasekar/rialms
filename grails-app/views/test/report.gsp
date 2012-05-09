@@ -7,11 +7,10 @@
 --%>
 
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.consts.Constants as Consts" %>
 <html>
 <head>
-    <title>
 
-    </title>
 </head>
 
 <body>
@@ -20,7 +19,7 @@
 
 <h2><g:message code="test.report.summary.message"/></h2>
 
-<g:render template="/renderer/renderMapAsTable" model="[mapTableData:testReport.summary]" />
+<g:render template="/renderer/renderMapAsTable" model="[mapTableData: testReport.summary]"/>
 
 <h2><g:message code="test.report.detail.message"/></h2>
 

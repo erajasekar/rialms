@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="com.rialms.assessment.render.HiddenElement; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Tag" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.assessment.render.HiddenElement; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Tag; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
 <g:each var="n" in="${node.children()}">
 
     <g:if test="${n instanceof String}">
@@ -74,7 +74,7 @@
             <qti:hiddenElement xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}" xmlTag="${tag}"/>
         </g:elseif>
 
-        <g:elseif test="${n.name().getPrefix().equals("m")}">
+        <g:elseif test="${n.name().getPrefix().equals(Consts.mathMLPrefix)}">
             <qti:mathML xmlNode="${n}" templateValues="${assessmentItemInfo.templateValues}"/>
         </g:elseif>
 

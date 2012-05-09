@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.assessment.item.AssessmentItemInfo" %>
+<%@ page import="com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rajasekar Elango
@@ -9,9 +9,9 @@
 <div id='testContent'>
     <h2>${assessmentItemInfo.title}</h2>
 
-    <g:if test="${assessmentParams.timeRemaining > 0}">
+    <g:if test="${assessmentParams[Consts.timeRemaining] > 0}">
         <script type="text/javascript">
-            initTimer("${assessmentParams.timeRemaining}")
+            initTimer("${assessmentParams[Consts.timeRemaining]}")
         </script>
     </g:if>
 
@@ -19,7 +19,7 @@
         <h3>${assessmentParams.testPart}</h3>
     </g:if>
 
-    <qti:assessmentSection sectionTitles="${assessmentParams.sectionTitles}"/>
+    <qti:assessmentSection sectionTitles="${assessmentParams[Consts.sectionTitles]}"/>
     <hr/>
 
     <g:if test="${assessmentParams.rubric}">
@@ -33,7 +33,7 @@
               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
     <g:hiddenField name="id" value="${params.id}"/>
-    <g:hiddenField name="questionId" value="${assessmentParams.questionId}"/>
+    <g:hiddenField name="questionId" value="${assessmentParams[Consts.questionId]}"/>
     <g:hiddenField name="submitClicked"
                    value="true"/> <!-- Used to indicate if submit button was clicked. This param will be set only if submit was clicked -->
 

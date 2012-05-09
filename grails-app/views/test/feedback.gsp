@@ -6,14 +6,14 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="groovy.xml.XmlUtil" contentType="text/html;charset=UTF-8" %>
+<%@ page import="groovy.xml.XmlUtil; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>${assessmentParams.title}</title>
+    <title>${assessmentParams[Consts.title]}</title>
 </head>
 
 <body>
-<h2>${assessmentParams.title}</h2>
+<h2>${assessmentParams[Consts.title]}</h2>
 
 <g:if test="${flash.message}">
     <g:message code="${flash.message}"/>

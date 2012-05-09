@@ -144,7 +144,7 @@ public class AssessmentTestController implements Serializable {
     }
 
     public AssessmentItemInfo getCurrentItemInfo() {
-        log.info("DEBUG Executing getCurrentItemInfo() ==> ${processedItems}");
+        log.info("DEBUG Executing getCurrentItemInfo() Processed Items==> ${processedItems}");
         if (currentTestPart && !processedItems[currentTestPart.identifier]) {
             processedItems[currentTestPart.identifier] = [:];
         }
@@ -408,10 +408,6 @@ public class AssessmentTestController implements Serializable {
         AssessmentItemInfo itemInfo = processedItems[currentTestPart.identifier][itemIdentifier];
         AssessmentItemStatus itemStatus = (itemInfo ? itemInfo.itemStatus : AssessmentItemStatus.NOT_PRESENTED);
         return itemStatus;
-    }
-
-    public Map<String, AssessmentItemStatus> getItemsPendingSubmission(String testPartId) {
-        return processedItems[testPartId].collectEntries { k, v -> [k, v.itemStatus]};
     }
 
     public String getReport() {

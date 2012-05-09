@@ -1,6 +1,9 @@
 package com.rialms.assessment.item
 
+import com.rialms.consts.Constants as Consts
+
 import com.rialms.assessment.render.HiddenElement
+import com.rialms.consts.AssessmentItemStatus
 import com.rialms.consts.Tag
 import com.rialms.util.QtiUtils
 import groovy.util.logging.Log4j
@@ -9,12 +12,9 @@ import org.qtitools.qti.node.item.AssessmentItem
 import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
 import org.qtitools.qti.node.outcome.declaration.OutcomeDeclaration
 import org.qtitools.qti.node.test.AssessmentItemRef
-import org.qtitools.qti.validation.ValidationItem
-import org.qtitools.qti.value.Value
-import com.rialms.consts.AssessmentItemStatus
 import org.qtitools.qti.validation.ValidationResult
-import static com.rialms.consts.AssessmentItemStatus.*;
-import com.rialms.consts.Constants as Consts;
+import org.qtitools.qti.value.Value
+import static com.rialms.consts.AssessmentItemStatus.*
 
 /**
  * Created by IntelliJ IDEA.
@@ -97,7 +97,7 @@ class AssessmentItemInfo {
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
-        log.debug("Response Values ${this} ==> ${responseValues}");
+        log.info("Response Values ${this} ==> ${responseValues}");
         assessmentItem.setResponses(responseValues);
     }
 

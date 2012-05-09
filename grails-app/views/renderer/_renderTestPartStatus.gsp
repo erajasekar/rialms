@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.consts.Constants; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
+<%@ page import="com.rialms.consts.Constants as Consts; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -10,7 +10,7 @@
 <h4>
     <g:message code="test.status.message"/>
 </h4>
-<g:each var='entry' in="${assessmentParams.testPartStatus}">
+<g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 
     <li>${entry.key}</li>
     <ul>
@@ -18,7 +18,7 @@
             <li>
                 <g:if test="${section.isEnabled()}">
                     <g:remoteLink action="navigate" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                                  params="${params + [(Constants.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">${section.identifier}</g:remoteLink>
+                                  params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">${section.identifier}</g:remoteLink>
 
                 </g:if>
                 <g:else>
