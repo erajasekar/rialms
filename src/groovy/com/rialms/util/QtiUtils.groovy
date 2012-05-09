@@ -28,12 +28,8 @@ class QtiUtils {
             if (respValue) {
                 if (respValue instanceof String) {
                     values << respValue;
-                } else {   //TODO: broken from sequence exercise show hint button
-                    respValue.each {
-                        if (it) {
-                            values.add(it)
-                        }
-                    }
+                } else {
+                    respValue.each {values.add(it)}
                 }
 
                 map.put(i, values)

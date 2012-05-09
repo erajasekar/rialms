@@ -108,7 +108,7 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         assessmentItemInfo.addDisableOnCompletionId(id);
 
-        Map actionParams = params + [(id): title];
+        Map actionParams = [id: params.id, (id): title];
         log.info("${tag} button action params => ${actionParams}");
         out << """ <input type='button' id='${id}' name='${id}' value='${title}' onclick="${remoteFunction(action: AssessmentItemInfo.controllerActionForProcessItem, params: actionParams, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" />  """
     }

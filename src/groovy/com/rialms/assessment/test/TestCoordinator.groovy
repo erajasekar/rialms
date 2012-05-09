@@ -156,13 +156,13 @@ public class TestCoordinator implements Serializable {
         if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)) {
             renderSubmitTestPartContent();
         } else {
-            test.getNextItemHREF(includeFinished);
+            test.getNextItem(includeFinished);
             cachedTestRenderInfo = null;
         }
     }
 
     public void getPreviousQuestion(boolean includeFinished) throws QTIException {
-        test.getPrevItemHREF(includeFinished);
+        test.getPreviousItem(includeFinished);
 
         //invalidate renderedContent
         cachedTestRenderInfo = null;

@@ -18,6 +18,8 @@ class TestReportBuilder {
     private List<String> outcomeVariablesToInclude = DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE;
 
     public TestReport buildTestReport(String testTitle, String xmlString, Map<String, AssessmentItemStatus> testStatus) {
+
+        log.debug("Report xmlString ${xmlString}");
         def assessmentResult = new XmlSlurper().parseText(xmlString);
         def testResultDuration = assessmentResult.testResult.outcomeVariable.findAll { outcomeVariable -> outcomeVariable.@identifier =~ 'duration'}
         Map<String, String> summary = [:];

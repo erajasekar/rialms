@@ -70,7 +70,7 @@ public class AssessmentTestController implements Serializable {
 
     private String dataPath;
 
-    AssessmentItemInfo currentItemInfo = null;
+    private AssessmentItemInfo currentItemInfo = null;
 
     private Map<String, Map<String, AssessmentItemInfo>> processedItems = [:];
 
@@ -144,7 +144,7 @@ public class AssessmentTestController implements Serializable {
     }
 
     public AssessmentItemInfo getCurrentItemInfo() {
-        log.info("DEBUG Executing getCurrentItemInfo() Processed Items==> ${processedItems}");
+        log.debug("Executing getCurrentItemInfo() Processed Items==> ${processedItems}");
         if (currentTestPart && !processedItems[currentTestPart.identifier]) {
             processedItems[currentTestPart.identifier] = [:];
         }
@@ -166,11 +166,11 @@ public class AssessmentTestController implements Serializable {
         return currentItemInfo;
     }
 
-    private AssessmentItemRef getPreviousItem(boolean includeFinished) {
+    public AssessmentItemRef getPreviousItem(boolean includeFinished) {
         return flow.getPrevItemRef(includeFinished);
     }
 
-    private AssessmentItemRef getNextItem(boolean includeFinished) {
+    public AssessmentItemRef getNextItem(boolean includeFinished) {
         return flow.getNextItemRef(includeFinished);
     }
 
@@ -201,24 +201,6 @@ public class AssessmentTestController implements Serializable {
         return air.getIdentifier();
     }
 
-    public String getCurrentItemHREF() throws QTIException {
-        AssessmentItemRef air = getCurrentItemRef();
-        if (air == null) return null;
-        return air.getHref().toString();
-    }
-
-    public String getNextItemHREF(boolean includeFinished) throws QTIException {
-        AssessmentItemRef air = getNextItem(includeFinished);
-        if (air == null) return null;
-        return air.getHref().toString();
-    }
-
-    public String getPrevItemHREF(boolean includeFinished) throws QTIException {
-        AssessmentItemRef air = getPreviousItem(includeFinished);
-        if (air == null) return null;
-        return air.getHref().toString();
-    }
-
     public ItemSessionControl getCurrentItemSessionControl() {
         if (getCurrentItemRef() != null)
             return getCurrentItemRef().getItemSessionControl();
@@ -230,8 +212,6 @@ public class AssessmentTestController implements Serializable {
         //set and process responses at the item level
         currentItemInfo.processResponses(params);
     }
-
-
 
     public Map<String, Value> getCurrentItemResponses() {
         List<ResponseDeclaration> responseDeclarations = getCurrentItemRef().getItem().getResponseDeclarations();

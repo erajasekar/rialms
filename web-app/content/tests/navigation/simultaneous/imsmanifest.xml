@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cp:manifest xmlns:cp="http://www.imsglobal.org/xsd/imscp_v1p1" identifier="SCENARIO">
+    <cp:resources>
+
+        <cp:resource identifier="assessment" type="imsqti_test_xmlv2p1" href="simultaneous_navigation.xml">
+            <cp:file href="simultaneous_navigation.xml"/>
+        </cp:resource>
+
+        <cp:resource identifier="feedback" type="imsqti_item_xmlv2p0" href="feedback.xml">
+            <cp:file href="feedback.xml"/>
+        </cp:resource>
+
+        <cp:resource identifier="feedback_adaptive" type="imsqti_item_xmlv2p0" href="feedback_adaptive.xml">
+            <cp:file href="feedback_adaptive.xml"/>
+        </cp:resource>
+
+
+        <cp:resource identifier="hint" type="imsqti_item_xmlv2p0" href="hint.xml">
+            <cp:file href="hint.xml"/>
+        </cp:resource>
+
+        <cp:resource identifier="perimeter1" type="imsqti_item_xmlv2p0" href="perimeter1.xml">
+            <cp:file href="perimeter1.xml"/>
+        </cp:resource>
+
+    </cp:resources>
+</cp:manifest>

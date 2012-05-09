@@ -22,7 +22,7 @@
               model="[validationErrors: flash[Consts.validationResult].allItems]"/>
 </g:if>
 
-<g:if test="${flash[Consts.validationResult.getErrors()].isEmpty()}">
+<g:if test="${flash[Consts.validationResult].getErrors().isEmpty()}">
     <div id='message'></div>
 
     <div id='error'></div>
