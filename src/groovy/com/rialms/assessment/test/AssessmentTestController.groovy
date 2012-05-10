@@ -144,7 +144,7 @@ public class AssessmentTestController implements Serializable {
     }
 
     public AssessmentItemInfo getCurrentItemInfo() {
-        log.debug("Executing getCurrentItemInfo() Processed Items==> ${processedItems}");
+        log.info("DEBUG Executing getCurrentItemInfo() Processed Items==> ${processedItems}");
         if (currentTestPart && !processedItems[currentTestPart.identifier]) {
             processedItems[currentTestPart.identifier] = [:];
         }

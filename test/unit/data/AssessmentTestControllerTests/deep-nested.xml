@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<assessmentTest
+        xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+        identifier="Test01"
+        title="Non Linear Simultaneous Deep Nested">
+
+    <testPart identifier="P01" navigationMode="nonlinear" submissionMode="simultaneous">
+        <assessmentSection identifier="A" title="Section A" visible="true">
+            <assessmentItemRef identifier="math1" href="math1.xml"/>
+            <assessmentItemRef identifier="math2" href="math2.xml"/>
+        </assessmentSection>
+        <assessmentSection identifier="B" title="Section B" visible="true">
+            <assessmentItemRef identifier="math3" href="math3.xml"/>
+            <assessmentItemRef identifier="math4" href="math4.xml"/>
+        </assessmentSection>
+        <assessmentSection identifier="C" title="Section C" visible="true">
+            <assessmentSection identifier="D" title="Section 1" visible="true">
+                <assessmentItemRef identifier="math5" href="math5.xml"/>
+                <assessmentItemRef identifier="math6" href="math6.xml"/>
+            </assessmentSection>
+        </assessmentSection>
+        <assessmentSection identifier="E" title="Section E" visible="true">
+            <assessmentItemRef identifier="math7" href="math7.xml"/>
+        </assessmentSection>
+        <assessmentSection identifier="F" title="Section F" visible="true">
+            <assessmentSection identifier="G" title="Section G" visible="true">
+                <assessmentSection identifier="H" title="Section H" visible="true">
+                    <assessmentItemRef identifier="math8" href="math8.xml"/>
+                    <assessmentItemRef identifier="math9" href="math9.xml"/>
+                </assessmentSection>
+            </assessmentSection>
+        </assessmentSection>
+    </testPart>
+
+</assessmentTest>
