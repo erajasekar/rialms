@@ -4,9 +4,10 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
         identifier="Test01"
-        title="Non Linear Simultaneous Deep Nested">
+        title="Non Linear Simultaneous Deep Nested - Disabled review">
 
     <testPart identifier="P01" navigationMode="nonlinear" submissionMode="simultaneous">
+        <itemSessionControl allowReview="false"/>
         <assessmentSection identifier="A" title="Section A" visible="true">
             <assessmentItemRef identifier="math1" href="math1.xml"/>
             <assessmentItemRef identifier="math2" href="math2.xml"/>

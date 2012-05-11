@@ -92,7 +92,7 @@ public class TestCoordinator implements Serializable {
       */
     private static long magic_time = 15000;
 
-    public TestCoordinator(File assessmentTestFile, String dataPath, String view) throws Exception {
+    public TestCoordinator(File assessmentTestFile, String dataPath, String view = null) throws Exception {
         this.view = view;
         test = new AssessmentTestController(assessmentTestFile, dataPath);
     }

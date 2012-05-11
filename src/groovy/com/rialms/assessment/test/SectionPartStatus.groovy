@@ -2,6 +2,7 @@ package com.rialms.assessment.test
 
 import groovy.transform.ToString
 import com.rialms.consts.AssessmentItemStatus
+import groovy.transform.EqualsAndHashCode
 
 /**
  * Created by IntelliJ IDEA.
@@ -11,13 +12,14 @@ import com.rialms.consts.AssessmentItemStatus
  * To change this template use File | Settings | File Templates.
  */
 @ToString(includeFields = true)
+@EqualsAndHashCode(includeFields = true)
 class SectionPartStatus {
 
     public enum Position {
         BEFORE, CURRENT, AFTER
     };
 
-    private static final String PARENT_SECTION_DELIMITER = ' > ';
+    public static final String PARENT_SECTION_DELIMITER = ' > ';
     private String identifier;
     private String parentSection;
     private AssessmentItemStatus status;

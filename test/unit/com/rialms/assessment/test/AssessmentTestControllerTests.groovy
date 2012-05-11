@@ -1,3 +1,10 @@
+/**
+ * Created by IntelliJ IDEA.
+ * User: relango
+ * Date: 5/09/12
+ * Time: 11:18 PM
+ * To change this template use File | Settings | File Templates.
+ */
 package com.rialms.assessment.test
 
 import static org.junit.Assert.*
@@ -6,12 +13,13 @@ import grails.test.mixin.*
 import grails.test.mixin.support.*
 import org.junit.*
 import org.springframework.core.io.ClassPathResource
+
 import static org.junit.Assert.assertNull
-import static org.junit.Assert.assertNull
-import org.qtitools.qti.node.item.AssessmentItem
-import org.qtitools.qti.node.test.AssessmentItemRef
+
 import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.consts.AssessmentItemStatus
+import static com.rialms.assessment.test.SectionPartStatus.Position.*
+import static com.rialms.consts.AssessmentItemStatus.*
 
 /**
  * See the API for {@link grails.test.mixin.support.GrailsUnitTestMixin} for usage instructions
@@ -19,14 +27,16 @@ import com.rialms.consts.AssessmentItemStatus
 @TestMixin(GrailsUnitTestMixin)
 class AssessmentTestControllerTests {
 
-    public static final String TEST_FILE_INDIVIDUAL = 'Individual.xml';
+    public static final String TEST_FILE_NL_INDIVIDUAL = 'NonLinearIndividual.xml';
+    public static final String TEST_FILE_L_INDIVIDUAL = 'LinearIndividual.xml';
     public static final String TEST_FILE_SIMULTANEOUS = 'Simultaneous.xml';
     public static final String TEST_FILE_DEEP_NESTED = 'deep-nested.xml';
+    public static final String TEST_FILE_DEEP_NESTED_DISABLED_REVIEW = 'deep-nested-disabled-review.xml';
+    public static final String DATA_PATH = 'data/AssessmentTestControllerTests';
 
-    @Ignore
     void testGetItemByIdentifier() {
         String msg = "testGetItemByIdentifier Failed ";
-        AssessmentTestController test = createTestController(TEST_FILE_INDIVIDUAL);
+        AssessmentTestController test = createTestController(TEST_FILE_NL_INDIVIDUAL);
 
         assertEquals("${msg} on check find next item by identifier", 'math5', test.getItemByIdentifier('math5', true)?.identifier);
         assertEquals("${msg} on check find previous item by identifier", 'math1', test.getItemByIdentifier('math1', false)?.identifier);
@@ -42,10 +52,9 @@ class AssessmentTestControllerTests {
 
     }
 
-    @Ignore
     void testGetCurrentItemInfo() {
         String msg = "testGetCurrentItemInfo Failed ";
-        AssessmentTestController test = createTestController(TEST_FILE_INDIVIDUAL);
+        AssessmentTestController test = createTestController(TEST_FILE_NL_INDIVIDUAL);
 
         Map presented = [:]
         //navigate couple on items
@@ -62,26 +71,93 @@ class AssessmentTestControllerTests {
         assertEquals("${msg}, did not return existing instance from processedItems ", presented[itemInfo.assessmentItemRef.identifier], itemInfo)
     }
 
-    @Ignore
     void testIsTestComplete() {
         String msg = "testIsTestComplete Failed ";
-        doTestIsComplete(msg, TEST_FILE_INDIVIDUAL);
+        doTestIsComplete(msg, TEST_FILE_NL_INDIVIDUAL);
         doTestIsComplete(msg, TEST_FILE_SIMULTANEOUS);
     }
 
     void testGetCurrentTestPartStatus() {
         String msg = "testGetItemByIdentifier Failed ";
-        AssessmentTestController test = createTestController(TEST_FILE_DEEP_NESTED);
+        doTestGetCurrentTestPartStatusForNested(msg, TEST_FILE_DEEP_NESTED, true);
+        doTestGetCurrentTestPartStatusForNested(msg, TEST_FILE_DEEP_NESTED_DISABLED_REVIEW, false);
+        AssessmentTestController test = createTestController(TEST_FILE_L_INDIVIDUAL);
         test.getNextItem(true);
-        while (test.hasNoMoreItemsInCurrentTestPart()) {
+        2.times {
             test.getCurrentItemInfo();
+            test.skipCurrentItem();
             test.getNextItem(true);
-            //TODO test for current item
         }
 
-        test.getCurrentTestPartStatus().each { k, v ->
-            println "${k} ===> ${v}";
+        String sectionA = 'sectionA';
+        Map expected = [(sectionA): [new SectionPartStatus('math1', sectionA, SKIPPED, BEFORE, true), new SectionPartStatus('math2', sectionA, SKIPPED, BEFORE, true)]]
+
+        log.info("--------- Expected CurrentTestPartStatus ------------------")
+        expected.each { k, v ->
+            log.info("${k} ===> ${v}");;
         }
+        log.info("------- Actual CurrentTestPartStatus ----------------------")
+        test.getCurrentTestPartStatus().each { k, v ->
+            log.info("${k} ===> ${v}");
+        }
+
+        assertEquals("${msg} on linear invidual items check", expected, test.getCurrentTestPartStatus());
+    }
+
+    private void doTestGetCurrentTestPartStatusForNested(String msg, String inputFile, boolean allowReview) {
+        AssessmentTestController test = createTestController(inputFile);
+        test.getNextItem(true);
+        List<String> presentedIds = [test.currentItemRef.identifier];
+        while (!test.hasNoMoreItemsInCurrentTestPart()) {
+            test.getCurrentItemInfo();
+            test.getNextItem(true);
+
+            Map testPartStatus = test.getCurrentTestPartStatus();
+
+            log.info("Presented ids ==> ${presentedIds}")
+            Map<String, SectionPartStatus> testPartStatusById = testPartStatus.values().flatten().collectEntries {[it.identifier, it]};
+            String currentId = test.currentItemRef.identifier;
+            testPartStatusById.each { id, partStatus ->
+                if (presentedIds.contains(id)) {
+                    assertEquals("${msg} on status check", PRESENTED, partStatus.status)
+                    assertEquals("${msg} on position check", BEFORE, partStatus.position)
+                } else {
+                    assertEquals("${msg} on status check", NOT_PRESENTED, partStatus.status)
+                    if (id == currentId) {
+                        assertEquals("${msg} on position check", CURRENT, partStatus.position)
+                    } else {
+                        assertEquals("${msg} on position check", AFTER, partStatus.position)
+                    }
+                }
+            }
+            presentedIds << currentId;
+
+        }
+
+        String A = "A";
+        String B = "B";
+        String C_D = "C${SectionPartStatus.PARENT_SECTION_DELIMITER}D";
+        String E = "E";
+        String F_G_H = "F${SectionPartStatus.PARENT_SECTION_DELIMITER}G${SectionPartStatus.PARENT_SECTION_DELIMITER}H";
+
+        Map expected = [(A): [new SectionPartStatus('math1', A, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math2', A, PRESENTED, BEFORE, allowReview)],
+                (B): [new SectionPartStatus('math3', B, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math4', B, PRESENTED, BEFORE, allowReview)],
+                (C_D): [new SectionPartStatus('math5', C_D, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math6', C_D, PRESENTED, BEFORE, allowReview)],
+                (E): [new SectionPartStatus('math7', E, PRESENTED, BEFORE, allowReview)],
+                (F_G_H): [new SectionPartStatus('math8', F_G_H, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math9', F_G_H, NOT_PRESENTED, CURRENT, false)]
+        ]
+
+        log.info("------- Actual CurrentTestPartStatus ----------------------")
+        test.getCurrentTestPartStatus().each { k, v ->
+            log.info("${k} ===> ${v}");
+        }
+
+        log.info("--------- Expected CurrentTestPartStatus ------------------")
+        expected.each { k, v ->
+            log.info("${k} ===> ${v}");;
+        }
+
+        assertEquals("${msg} on nested section items check", expected, test.getCurrentTestPartStatus());
     }
 
     private void doTestIsComplete(String msg, String inputFile) {
@@ -95,7 +171,8 @@ class AssessmentTestControllerTests {
     }
 
     private AssessmentTestController createTestController(String fileName) {
-        File inputFile = new ClassPathResource("data/AssessmentTestControllerTests/Individual.xml").getFile();
-        AssessmentTestController test = new AssessmentTestController(inputFile, "data/AssessmentTestControllerTests");
+        File inputFile = new ClassPathResource("${DATA_PATH}${File.separator}${fileName}").getFile();
+        AssessmentTestController test = new AssessmentTestController(inputFile, DATA_PATH);
+        return test;
     }
 }
