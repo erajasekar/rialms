@@ -208,7 +208,6 @@ public class AssessmentTestController implements Serializable {
     }
 
     public void setCurrentItemResponses(Map params) throws QTIException {
-        println "${currentItemInfo} ==> setCurrentItemResponses ==> ${params}"
         //set and process responses at the item level
         currentItemInfo.processResponses(params);
     }

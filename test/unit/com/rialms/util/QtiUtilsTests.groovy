@@ -37,7 +37,7 @@ class QtiUtilsTests {
         assertTrue(msg, expectedFile.exists());
 
         AssessmentTestController controller = new AssessmentTestController(inputFile, null);
-        controller.getNextItemHREF(true);
+        controller.getNextItem(true);
         List<List<RubricBlock>> blocks = controller.getRubricBlocks();
 
         Node actual = QtiUtils.convertRubricToNode(blocks);
