@@ -49,6 +49,7 @@
                             href="${createLink(controller: 'test')}"><g:message code="test.label"/></a></li>
                 </ul>
             </div><!--/.nav-collapse -->
+
         </div>
     </div>
 </nav>

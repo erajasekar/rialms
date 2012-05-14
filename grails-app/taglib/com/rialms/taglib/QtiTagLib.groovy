@@ -304,8 +304,23 @@ class QtiTagLib {
         assessmentItemInfo.addDisableOnCompletionId(id);
         Map fieldAttributes = [id: id, class: 'btn btn-primary'] + attrs;
         log.info("${tag} fieldAttributes ==> ${fieldAttributes}")
+        /*  def tagBody = {
+          out << "<div class='input-prepend'> "
+          out << "<span class='add-on'><i class='icon-ok icon-white'></i></span>";
+          g.submitToRemote(fieldAttributes);
+          out << "</div>"
+       }
+       renderTag(attrs, tagBody);*/
+        /*  out << """
+     <div class='btn btn-primary'>
+     <span class='add-on'><i class='icon-ok icon-white'></i></span>
+     ${g.submitToRemote(fieldAttributes)}
+     </div>
+ """       */
+        log.info("RAJA ${params}");
         def tagBody = {
             g.submitToRemote(fieldAttributes);
+
         }
         renderTag(attrs, tagBody);
     }

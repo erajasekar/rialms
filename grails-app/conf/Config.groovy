@@ -70,7 +70,7 @@ environments {
     development {
         grails.logging.jul.usebridge = true
         //grails.resources.processing.enabled = false
-        //  grails.resources.debug = true
+        grails.resources.debug = true    //TODO: Disabling debug breaks mathjax include
     }
     production {
         grails.logging.jul.usebridge = false

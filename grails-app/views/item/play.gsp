@@ -17,9 +17,11 @@
 <body>
 
 <div class="row-fluid">
-    <div class="span4 offset3">
-
-        <h2>${assessmentItemInfo[Consts.title]}</h2>
+    <div class="span3">&nbsp;</div> <!-- Place holder for navigation -->
+    <div class="span8">
+        <div class="well">
+            <h4>${assessmentItemInfo[Consts.title]}</h4>
+        </div>
         <g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
                       model="[validationErrors: flash[Consts.validationResult].allItems]"/>
