@@ -70,7 +70,7 @@ environments {
     development {
         grails.logging.jul.usebridge = true
         //grails.resources.processing.enabled = false
-        grails.resources.debug = true
+        //  grails.resources.debug = true
     }
     production {
         grails.logging.jul.usebridge = false
@@ -113,3 +113,6 @@ coffeescript.modules = {
         files "src/coffee/render", "src/coffee/datetime-utils"
     }
 }
+
+grails.plugins.twitterbootstrap.fixtaglib = true
+grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'

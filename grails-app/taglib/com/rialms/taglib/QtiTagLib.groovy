@@ -302,7 +302,7 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         String id = attrs.name;
         assessmentItemInfo.addDisableOnCompletionId(id);
-        Map fieldAttributes = [id: id] + attrs;
+        Map fieldAttributes = [id: id, class: 'btn btn-primary'] + attrs;
         log.info("${tag} fieldAttributes ==> ${fieldAttributes}")
         def tagBody = {
             g.submitToRemote(fieldAttributes);

@@ -16,30 +16,36 @@
 
 <body>
 
-<h2>${assessmentItemInfo[Consts.title]}</h2>
-<g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
-    <g:render template="/renderer/renderValidationErrors"
-              model="[validationErrors: flash[Consts.validationResult].allItems]"/>
-</g:if>
+<div class="row-fluid">
+    <div class="span4 offset3">
 
-<g:if test="${flash[Consts.validationResult].getErrors().isEmpty()}">
-    <div id='message'></div>
+        <h2>${assessmentItemInfo[Consts.title]}</h2>
+        <g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
+            <g:render template="/renderer/renderValidationErrors"
+                      model="[validationErrors: flash[Consts.validationResult].allItems]"/>
+        </g:if>
 
-    <div id='error'></div>
-    <g:form name="AssessmentItemForm" action="${AssessmentItemInfo.controllerActionForProcessItem}">
-        <g:render template="/renderer/renderItemSubTree"
-                  model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
+        <g:if test="${flash[Consts.validationResult].getErrors().isEmpty()}">
+            <div id='message'></div>
 
-        <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
-                    url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
-                    name="${Consts.submit}"
-                    onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
-    </g:form>
-</g:if>
+            <div id='error'></div>
+            <g:form name="AssessmentItemForm" action="${AssessmentItemInfo.controllerActionForProcessItem}">
+                <g:render template="/renderer/renderItemSubTree"
+                          model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
-<g:if test="${params[Consts.showInternalState]}">
-    <g:render template="/renderer/renderInternalState"
-              model="[outcomeValues: assessmentItemInfo[Consts.outcomeValues], divId: Consts.itemOutcomeValues]"/>
-</g:if>
+                <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
+                            url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                            name="${Consts.submit}"
+                            onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
+            </g:form>
+        </g:if>
+
+        <g:if test="${params[Consts.showInternalState]}">
+            <g:render template="/renderer/renderInternalState"
+                      model="[outcomeValues: assessmentItemInfo[Consts.outcomeValues], divId: Consts.itemOutcomeValues]"/>
+        </g:if>
+    </div>
+</div>
+
 </body>
 </html>

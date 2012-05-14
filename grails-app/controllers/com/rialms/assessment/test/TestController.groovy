@@ -11,7 +11,7 @@ class TestController {
     TestService testService;
     UtilitiesService utilitiesService;
 
-    def index() { }
+    def index() { redirect(action: list, params: params) }
 
     def list = {
         if (!params.max) params.max = 50
