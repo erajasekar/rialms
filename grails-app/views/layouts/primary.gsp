@@ -43,9 +43,10 @@
 
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li class="active"><a href="${createLink(controller: 'item')}"><g:message code="item.label"/></a>
+                    <li  <%='item' == params.controller ? ' class="active"' : ''%>><a
+                            href="${createLink(controller: 'item')}"><g:message code="item.label"/></a>
                     </li>
-                    <li <%='test' == controllerName ? ' class="active"' : ''%>><a
+                    <li <%='test' == params.controller ? ' class="active"' : ''%>><a
                             href="${createLink(controller: 'test')}"><g:message code="test.label"/></a></li>
                 </ul>
             </div><!--/.nav-collapse -->
