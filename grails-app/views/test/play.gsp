@@ -43,7 +43,7 @@
 
 
 
-    <g:form name="AssessmentForm" action="play">
+    <g:formRemote name="AssessmentForm" url="[action: AssessmentItemInfo.controllerActionForProcessItem]" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
 
         <g:render template="/renderer/renderAssessmentItem"/>
 
@@ -70,11 +70,13 @@
             </g:else>
         </g:each>
 
-        <g:submitButton name="report" value="Report"/>
-        <g:submitButton name="exit" value="Exit Test"
-                        onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"/>
+       <!-- TODO: Internalize all button labels -->
+       <g:link action="report" params="[id:params.id]" class="btn btn-primary"><i class="icon-signal icon-white"></i> Report</g:link>
 
-    </g:form>
+       <g:link name='exit' action="reset" params="[id:params.id,redirectto:'list']" class="btn btn-danger" onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"><i class="icon-remove icon-white"></i> Exit Test</g:link>
+
+
+    </g:formRemote>
 
 </g:if>
 <g:if test="${params.showInternalState}">

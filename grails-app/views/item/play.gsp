@@ -31,15 +31,13 @@
             <div id='message'></div>
 
             <div id='error'></div>
-            <g:form name="AssessmentItemForm" action="${AssessmentItemInfo.controllerActionForProcessItem}">
+            <g:formRemote name="AssessmentItemForm" url="[action: AssessmentItemInfo.controllerActionForProcessItem]" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
                 <g:render template="/renderer/renderItemSubTree"
                           model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
                 <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
-                            url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
-                            name="${Consts.submit}"
-                            onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
-            </g:form>
+                             name="${Consts.submit}"/>
+         </g:formRemote>
         </g:if>
 
         <g:if test="${params[Consts.showInternalState]}">

@@ -38,19 +38,23 @@
                    value="true"/> <!-- Used to indicate if submit button was clicked. This param will be set only if submit was clicked -->
 
     <g:if test="${assessmentParams.submitEnabled}">
-        <g:submitToRemote id='submit'
+        <button type='submit'
                           value='Submit'
-                          url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
-                          name='submit'
-                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
+                          id='submit'
+                          class="btn btn-primary">
+            <i class="icon-ok icon-white"></i>Submit
+
+        </button>
 
     </g:if>
     <g:else>
-        <g:submitButton id='submit'
+        <button type='submit'
                         value='Submit'
-                        url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
-                        name='submit'
-                        onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}" disabled="disabled"/>
+                        id='submit'
+                        class="btn btn-primary"
+                        disabled="disabled">
+            <i class="icon-ok icon-white"></i>Submit
+        </button>
     </g:else>
     <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 </div>

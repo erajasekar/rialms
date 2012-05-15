@@ -18,7 +18,7 @@ class TestController {
         [testList: Test.list(params)]
     }
 
-    def report() {
+    def report = {
         log.info("Executing Report with params ${params}");
         if (!params.id) {
             redirect(action: 'list')
@@ -56,14 +56,6 @@ class TestController {
         log.info("Playing Test with param ${params}");
         if (!params.id) {
             return redirect(action: 'list')
-        }
-        if (params.containsKey(Consts.report)) {
-            return redirect(action: 'report', id: params.id)
-        }
-
-        if (params.containsKey(Consts.exit)) {
-            params[Consts.redirectto] = list;
-            reset(params);
         }
 
         TestCoordinator coordinator;
