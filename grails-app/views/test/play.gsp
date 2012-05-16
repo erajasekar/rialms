@@ -43,7 +43,8 @@
 
 
 
-    <g:formRemote name="AssessmentForm" url="[action: AssessmentItemInfo.controllerActionForProcessItem]" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
+    <g:formRemote name="AssessmentForm" url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                  onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
 
         <g:render template="/renderer/renderAssessmentItem"/>
 
@@ -55,26 +56,30 @@
 
         <g:each in="${controls.getButtonStates()}" var="button">
             <g:if test="${button.value}">
-                <input type='button' id="${button.key.id}"
-                       name="${button.key.name}"
-                       value="${button.key.value}"
-                       onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}"/>
+
+                <button id="${button.key.id}" type="button" class="btn btn-primary"
+                        onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
+                    <i class="${button.key.iconClass}"></i>${button.key.value}
+                </button>
 
             </g:if>
             <g:else>
-                <input type='button' id="${button.key.id}"
-                       name="${button.key.name}"
-                       value="${button.key.value}"
-                       onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}"
-                       style="display:none"/>
+
+                <button id="${button.key.id}" style="display:none" type="button" class="btn btn-primary"
+                        onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
+                    <i class="${button.key.iconClass}"></i>${button.key.value}
+                </button>
+
             </g:else>
         </g:each>
 
-       <!-- TODO: Internalize all button labels -->
-       <g:link action="report" params="[id:params.id]" class="btn btn-primary"><i class="icon-signal icon-white"></i> Report</g:link>
+        <!-- TODO: Internalize all button labels -->
+        <g:link action="report" params="[id: params.id]" class="btn btn-primary"><i
+                class="icon-signal icon-white"></i> Report</g:link>
 
-       <g:link name='exit' action="reset" params="[id:params.id,redirectto:'list']" class="btn btn-danger" onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"><i class="icon-remove icon-white"></i> Exit Test</g:link>
-
+        <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']" class="btn btn-danger"
+                onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"><i
+                class="icon-remove icon-white"></i> Exit Test</g:link>
 
     </g:formRemote>
 

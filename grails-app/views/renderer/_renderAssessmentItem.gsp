@@ -39,9 +39,9 @@
 
     <g:if test="${assessmentParams.submitEnabled}">
         <button type='submit'
-                          value='Submit'
-                          id='submit'
-                          class="btn btn-primary">
+                value='Submit'
+                id='submit'
+                class="btn btn-success">
             <i class="icon-ok icon-white"></i>Submit
 
         </button>
@@ -49,10 +49,10 @@
     </g:if>
     <g:else>
         <button type='submit'
-                        value='Submit'
-                        id='submit'
-                        class="btn btn-primary"
-                        disabled="disabled">
+                value='Submit'
+                id='submit'
+                class="btn btn-success"
+                disabled="disabled">
             <i class="icon-ok icon-white"></i>Submit
         </button>
     </g:else>

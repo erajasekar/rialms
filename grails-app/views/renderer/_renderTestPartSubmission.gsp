@@ -18,9 +18,8 @@
 <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
 <g:hiddenField name="id" value="${params.id}"/>
-<g:submitToRemote id='submit'
-                  value='Submit'
-                  url="[action: 'submitTestPart']"
-                  name='submit'
-                  onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"/>
 
+<button id="submit" type="button" class="btn btn-success"
+        onclick="${remoteFunction(action: 'submitTestPart', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: [id: params.id])}">
+    <i class="icon-ok icon-white"></i>Submit
+</button>
