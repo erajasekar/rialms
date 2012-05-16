@@ -10,6 +10,7 @@
 <h4>
     <g:message code="test.status.message"/>
 </h4>
+<!-- TODO make sure testpart is shown -->
 <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 
     <li>${entry.key}</li>

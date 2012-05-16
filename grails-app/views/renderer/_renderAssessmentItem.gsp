@@ -7,7 +7,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 <div id='testContent'>
-    <h2>${assessmentItemInfo.title}</h2>
 
     <g:if test="${assessmentParams[Consts.timeRemaining] > 0}">
         <script type="text/javascript">
@@ -15,12 +14,8 @@
         </script>
     </g:if>
 
-    <g:if test="${assessmentParams.testPart}">
-        <h3>${assessmentParams.testPart}</h3>
-    </g:if>
 
-    <qti:assessmentSection sectionTitles="${assessmentParams[Consts.sectionTitles]}"/>
-    <hr/>
+
 
     <g:if test="${assessmentParams.rubric}">
 
@@ -56,5 +51,5 @@
             <i class="icon-ok icon-white"></i>Submit
         </button>
     </g:else>
-    <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
+
 </div>

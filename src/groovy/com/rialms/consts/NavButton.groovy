@@ -14,11 +14,11 @@ public enum NavButton {
     private static final EnumMap<NavButton, String> icons = new EnumMap<NavButton, String>(NavButton.class);
 
     static {
-        icons[forward] = 'icon-chevron-right';
-        icons[backward] = 'icon-chevron-left';
-        icons[previous] = 'icon-backward';
-        icons[next] = 'icon-forward';
-        icons[skip] = 'icon-share-alt';
+        icons[forward] = 'icon-forward';
+        icons[backward] = 'icon-backward';
+        icons[previous] = 'icon-hand-left';
+        icons[next] = 'icon-hand-right';
+        icons[skip] = 'icon-flag';
     }
 
     public String getId() {

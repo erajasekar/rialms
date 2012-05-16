@@ -19,7 +19,7 @@
 <div class="row-fluid">
     <div class="span3">&nbsp;</div> <!-- Place holder for navigation -->
     <div class="span8">
-        <div class="well">
+        <div class="breadcrumb">
             <h4>${assessmentItemInfo[Consts.title]}</h4>
         </div>
         <g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
@@ -31,13 +31,15 @@
             <div id='message'></div>
 
             <div id='error'></div>
-            <g:formRemote name="AssessmentItemForm" url="[action: AssessmentItemInfo.controllerActionForProcessItem]" onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
+            <g:formRemote class="well" name="AssessmentItemForm"
+                          url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
                 <g:render template="/renderer/renderItemSubTree"
                           model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
                 <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
-                             name="${Consts.submit}"/>
-         </g:formRemote>
+                            name="${Consts.submit}"/>
+            </g:formRemote>
         </g:if>
 
         <g:if test="${params[Consts.showInternalState]}">
