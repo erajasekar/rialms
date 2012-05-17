@@ -25,10 +25,11 @@ window.updateRenderedItem = (data) ->
       $(disableElementId).attr("disabled", true) for disableElementId in data.disableElementIds
     if data.testFeedback
       $('#testFeedback').html(data.testFeedback)
+    if data.testNavigationStatus
+      $('#testNavigationStatus').html(data.testNavigationStatus)
     if data.testContent
       $('#testContent').html(data.testContent)
       window.MathJax = null
-      ;
       $.getScript($("script[src*='MathJax.js']").attr('src'))
   #Remove commented code based on performance
   #mathJaxScript = document.createElement("script");

@@ -14,9 +14,6 @@
         </script>
     </g:if>
 
-
-
-
     <g:if test="${assessmentParams.rubric}">
 
         <g:each var="section" in="${assessmentParams.rubric.children()}">

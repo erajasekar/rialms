@@ -50,6 +50,9 @@
             if (data.testFeedback) {
                 $('#testFeedback').html(data.testFeedback);
             }
+            if (data.testNavigationStatus) {
+                $('#testNavigationStatus').html(data.testNavigationStatus);
+            }
             if (data.testContent) {
                 $('#testContent').html(data.testContent);
                 window.MathJax = null;

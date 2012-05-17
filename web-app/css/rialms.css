@@ -1,0 +1,61 @@
+.clearfix {
+    *zoom: 1;
+}
+
+.clearfix:before,
+.clearfix:after {
+    display: table;
+    content: "";
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.hide-text {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+
+.input-block-level {
+    display: block;
+    width: 100%;
+    min-height: 28px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body {
+    padding-top: 65px;
+}
+
+#AssessmentForm {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+#AssessmentForm .block-header {
+    border: solid 1px #e6633a;
+    padding: 10px 0px 10px 20px;
+    background-color: #f89406;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #fff;
+}
+
+#AssessmentForm form {
+    background-color: #fff;
+    border-top: 0px;
+    border: 1px solid #e6633a;
+    padding: 20px 20px 40px 20px;
+}
+
+#AssessmentForm .control-label {
+    font-size: 14px;
+    color: #999;
+}

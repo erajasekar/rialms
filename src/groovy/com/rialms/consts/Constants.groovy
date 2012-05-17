@@ -62,5 +62,7 @@ class Constants {
     public static final String mathMLPrefix = "m";
     public static final String testReport = 'testReport';
     public static final String testTitle = 'testTitle';
+    public static final String testContent = 'testContent';
+    public static final String testNavigationStatus = 'testNavigationStatus';
 
 }

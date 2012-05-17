@@ -110,9 +110,10 @@ class TestController {
             if (renderNextItem) {
                 //To render next item, reset testContent
                 if (testRenderInfo[Consts.assessmentParams][Consts.submitTestPartContent]) {
-                    renderOutput.testContent = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
+                    renderOutput[Consts.testContent] = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
                 } else {
-                    renderOutput.testContent = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
+                    renderOutput[Consts.testContent] = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
+                    renderOutput[Consts.testNavigationStatus] = g.render(template: '/renderer/renderTestPartStatus', model: testRenderInfo.toPropertiesMap());
                 }
             } else {
 

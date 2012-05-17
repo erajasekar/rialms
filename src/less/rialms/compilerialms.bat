@@ -1,0 +1,1 @@
+lessc rialms.less > ..\..\..\web-app\css\rialms.css
