@@ -43,7 +43,6 @@ body {
 }
 .block-header a:hover {
   background-color: #fbbf69;
-  outline: 3px solid #f89406;
 }
 .block-content {
   background-color: #fff;

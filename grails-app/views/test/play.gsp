@@ -61,11 +61,11 @@
 
                     <div class="block-header">
                         <h4>${assessmentItemInfo.title} <span class="pull-right">
-                            <g:link action="report" params="[id: params.id]" >
+                            <g:link action="report" params="[id: params.id]" rel="tooltip" title="${message(code: 'button.report.label')}" >
                                 <i class="icon-signal icon-white"></i></g:link>
 
                             <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
-                                onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')">
+                                onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')" title="${message(code: 'button.exitTest.label')}" >
                                 <i class="icon-remove icon-white"></i>
                             </g:link> </span></h4>
                     </div>

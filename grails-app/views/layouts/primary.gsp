@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.util.Less2Css" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en">
 <head>
@@ -16,6 +16,7 @@
 </head>
 
 <body>
+<qti:less2Css/>
 <nav class="navbar navbar-fixed-top">
     <div class="navbar-inner">
 

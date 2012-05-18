@@ -344,6 +344,10 @@ class QtiTagLib {
                    </div> """
     }
 
+    def less2Css = { attrs ->
+        com.rialms.util.Less2Css.run();
+    }
+
     private void renderTag(Map fieldAttributes, Closure tagBody) {
         out << """  ${tagBody()} """;
     }
