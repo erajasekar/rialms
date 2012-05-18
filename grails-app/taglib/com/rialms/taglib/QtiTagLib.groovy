@@ -7,6 +7,8 @@ import com.rialms.assessment.item.AssessmentItemInfo
 
 import com.rialms.util.QtiUtils
 import com.rialms.assessment.render.HiddenElement
+import com.rialms.assessment.test.SectionPartStatus
+import com.rialms.consts.Constants
 
 class QtiTagLib {
     static namespace = "qti";
@@ -327,9 +329,19 @@ class QtiTagLib {
     def assessmentSection = { attrs ->
         String tag = "assessmentSection";
         Node node = getRequiredAttribute(attrs, 'sectionTitles', tag);
+        String sectionTitle = "";
+        String parentTitle = null;
+
         node.children().each { Node title ->
-            out << "<h4> ${title.text()} </h4>"
+            sectionTitle = SectionPartStatus.formatParentSection(parentTitle, title.text());
+            parentTitle = sectionTitle
         }
+
+        out << """ <div id="${Constants.testSectionTitleContent}" class="row-fluid">
+                       <div class="breadcrumb">
+                            <h4> ${sectionTitle} </h4>
+                       </div>
+                   </div> """
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {

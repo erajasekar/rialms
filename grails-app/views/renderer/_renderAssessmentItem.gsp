@@ -6,7 +6,7 @@
   Time: 11:55 PM
   To change this template use File | Settings | File Templates.
 --%>
-<div id='testContent'>
+<div id='testContent' class="block-content">
 
     <g:if test="${assessmentParams[Consts.timeRemaining] > 0}">
         <script type="text/javascript">

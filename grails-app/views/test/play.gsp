@@ -31,6 +31,8 @@
             <g:message code="${flash.message}"/>
         </g:if>
 
+        <qti:assessmentSection sectionTitles="${assessmentParams[Consts.sectionTitles]}"/>
+        
         <g:if test="${!assessmentParams.validationResult.allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
                       model="[validationErrors: assessmentParams[Consts.validationResult].allItems]"/>
@@ -51,22 +53,32 @@
                 </div>
             </g:if>
 
-            <div class="breadcrumb">
-                <qti:assessmentSection sectionTitles="${assessmentParams[Consts.sectionTitles]}"/>
-            </div>
+            <g:formRemote name="AssessmentForm"
+                          url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
+                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
 
-            <div id="AssessmentForm">
-                <h4 class='block-header'>${assessmentItemInfo.title}</h4>
-                <g:formRemote name="AssessmentForm"
-                              url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
-                              onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
+                <div id="AssessmentForm">
+
+                    <div class="block-header">
+                        <h4>${assessmentItemInfo.title} <span class="pull-right">
+                            <g:link action="report" params="[id: params.id]" >
+                                <i class="icon-signal icon-white"></i></g:link>
+
+                            <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
+                                onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')">
+                                <i class="icon-remove icon-white"></i>
+                            </g:link> </span></h4>
+                    </div>
 
                     <g:render template="/renderer/renderAssessmentItem"/>
 
-                    <g:render template="/renderer/renderTestFeedback"/>
-
                     <hr/>
 
+                    <g:render template="/renderer/renderTestFeedback"/>
+
+                </div>
+
+                <div class="well">
                     <% NavigationControls controls = assessmentParams[Consts.navigationControls] %>
 
                     <g:each in="${controls.getButtonStates()}" var="button">
@@ -88,7 +100,7 @@
                         </g:else>
                     </g:each>
 
-                    <!-- TODO: Internalize all button labels -->
+                <!-- TODO: Internalize all button labels -->
                     <g:link action="report" params="[id: params.id]" class="btn btn-primary"><i
                             class="icon-signal icon-white"></i> Report</g:link>
 
@@ -96,9 +108,8 @@
                             class="btn btn-danger"
                             onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"><i
                             class="icon-remove icon-white"></i> Exit Test</g:link>
-
-                </g:formRemote>
-            </div>
+                </div>
+            </g:formRemote>
 
         </g:if>
         <g:if test="${params.showInternalState}">

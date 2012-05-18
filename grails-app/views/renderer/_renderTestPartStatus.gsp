@@ -6,7 +6,7 @@
   Time: 12:37 AM
   To change this template use File | Settings | File Templates.
 --%>
-<div id="${Consts.testNavigationStatus}">
+<div id="${Consts.testStatusContent}">
     <h4>
         <g:message code="test.status.message"/>
     </h4>

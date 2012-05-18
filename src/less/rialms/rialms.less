@@ -3,28 +3,31 @@
 body {
   padding-top: 65px;
 }  
-#AssessmentForm {
-	margin-left: auto !important;
-	margin-right: auto !important;
-}
 
-#AssessmentForm .block-header {
-	border: solid 1px @blockBorder; //same as border-left of nav seperator
+.block-header {
+	border: solid 1px @blockHeaderBorder; //same as border-left of nav seperator
+
 	padding: 10px 0px 10px 20px;
-	background-color: @orange;
+	background-color: @blockHeaderBackgroud;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
 	color: #fff;
+    a{
+       padding:5px;
+       border : none;
+       margin: 1px;
+       &:hover{
+             background-color: lighten(@blockHeaderBackgroud, 20%);
+             //outline: 1px solid @blockHeaderBackgroud;
+       }
+    }
 }
 
-#AssessmentForm form {
+.block-content {
 	background-color: #fff;
     border-top: 0px;
-    border: 1px solid @blockBorder;
-	padding: 20px 20px 40px 20px;
-}
-
-#AssessmentForm  .control-label {
-	font-size: 14px;
-	color: #999;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid @blockHeaderBorder;
+	padding: 20px 20px 20px 20px;
 }

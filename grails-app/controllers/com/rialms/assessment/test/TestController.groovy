@@ -4,7 +4,6 @@ import com.rialms.util.CollectionUtils
 import com.rialms.util.UtilitiesService
 import grails.converters.JSON
 import com.rialms.consts.Constants as Consts
-import sun.reflect.generics.scope.ConstructorScope
 
 class TestController {
 
@@ -113,7 +112,8 @@ class TestController {
                     renderOutput[Consts.testContent] = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
                 } else {
                     renderOutput[Consts.testContent] = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
-                    renderOutput[Consts.testNavigationStatus] = g.render(template: '/renderer/renderTestPartStatus', model: testRenderInfo.toPropertiesMap());
+                    renderOutput[Consts.testStatusContent] = g.render(template: '/renderer/renderTestPartStatus', model: testRenderInfo.toPropertiesMap());
+                    renderOutput[Consts.testSectionTitleContent] = qti.assessmentSection(sectionTitles:testRenderInfo.assessmentParams[Consts.sectionTitles]);
                 }
             } else {
 

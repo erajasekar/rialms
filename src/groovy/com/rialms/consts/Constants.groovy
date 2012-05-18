@@ -63,6 +63,7 @@ class Constants {
     public static final String testReport = 'testReport';
     public static final String testTitle = 'testTitle';
     public static final String testContent = 'testContent';
-    public static final String testNavigationStatus = 'testNavigationStatus';
+    public static final String testStatusContent = 'testStatusContent';
+    public static final String testSectionTitleContent = 'testSectionTitleContent';
 
 }

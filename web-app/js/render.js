@@ -50,8 +50,11 @@
       if (data.testFeedback) {
         $('#testFeedback').html(data.testFeedback);
       }
-      if (data.testNavigationStatus) {
-        $('#testNavigationStatus').html(data.testNavigationStatus);
+      if (data.testStatusContent) {
+        $('#testStatusContent').html(data.testStatusContent);
+      }
+      if (data.testSectionTitleContent) {
+        $('#testSectionTitleContent').html(data.testSectionTitleContent);
       }
       if (data.testContent) {
         $('#testContent').html(data.testContent);
