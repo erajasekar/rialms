@@ -10,6 +10,8 @@
 #267365,#013435
 
 
+#47A340,#8BEF96
+
 navBar text #FFFAD5
 
 blockheader - #47A644, #458764 -> var2
