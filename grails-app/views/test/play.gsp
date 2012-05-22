@@ -71,14 +71,11 @@
                     </div>
 
                     <g:render template="/renderer/renderAssessmentItem"/>
-
-                    <hr/>
-
                     <g:render template="/renderer/renderTestFeedback"/>
 
                 </div>
-
-                <div class="well">
+                <br/>
+                <div class="block-controls">
                     <% NavigationControls controls = assessmentParams[Consts.navigationControls] %>
 
                     <g:each in="${controls.getButtonStates()}" var="button">

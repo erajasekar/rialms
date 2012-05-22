@@ -1,17 +1,18 @@
 @import "rialms-variables.less";
+@import "rialms-mixins.less";
 @import "../bootstrap/mixins.less";
 body {
   padding-top: 65px;
 }  
 
 .block-header {
-	border: solid 1px @blockHeaderBorder; //same as border-left of nav seperator
-
+	.create-border(@blockHeaderBackgroud);
+    border-bottom: none;
 	padding: 10px 0px 10px 20px;
 	background-color: @blockHeaderBackgroud;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
-	color: #fff;
+	color:@blockHeaderTextColor;
     a{
        padding:5px;
        border : none;
@@ -24,10 +25,22 @@ body {
 }
 
 .block-content {
-	background-color: #fff;
-    border-top: 0px;
+	background-color: @blockContentBackground;
+
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    border: 1px solid @blockHeaderBorder;
-	padding: 20px 20px 20px 20px;
+    border: 1px solid @blockContentBorder;
+    border-top: 0px;
+	padding: 20px 20px 0px 20px;
+    .box-shadow(0px 1px 1px rgba(0,0,0,0.2));
+}
+
+.block-controls {
+  padding: 17px 20px 18px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  background-color: @blockControlsBackground;
+  .create-border(@blockControlsBackground);
+  .border-radius(5px);
+  .box-shadow(0px 1px 1px rgba(0,0,0,0.2));
 }

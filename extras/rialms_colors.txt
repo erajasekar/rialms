@@ -16,6 +16,9 @@ SORTLISTED
 
 #078C03,47A644 -> header -> 60C65B,7AD375,92D38E
 
+pearl green ECE9D8
+dark pearl green DAD8C8
+
 navBar text #FFFAD5
 
 blockheader - #47A644, #458764 -> var2
