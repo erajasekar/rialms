@@ -16,7 +16,7 @@
 <body>
 
 <div class="row-fluid">
-    <div class="span11 breadcrumb">
+    <div class="span11 block-controls">
         <h2>${assessmentParams[Consts.title]}</h2>
     </div>
 </div>
@@ -62,7 +62,7 @@
                     <div class="block-header">
                         <h4>${assessmentItemInfo.title} <span class="pull-right">
                             <g:link action="report" params="[id: params.id]" rel="tooltip" title="${message(code: 'button.report.label')}" >
-                                <i class="icon-signal icon-white"></i></g:link>
+                                <i class="icon-signal"></i></g:link>
 
                             <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
                                 onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')" title="${message(code: 'button.exitTest.label')}" >

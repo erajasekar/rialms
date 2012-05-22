@@ -29,26 +29,24 @@
         <g:hiddenField name="questionId" value="${assessmentParams[Consts.questionId]}"/>
         <g:hiddenField name="submitClicked"
                        value="true"/> <!-- Used to indicate if submit button was clicked. This param will be set only if submit was clicked -->
-        <div class='form-actions'>
-            <g:if test="${assessmentParams.submitEnabled}">
-                <button type='submit'
-                        value='Submit'
-                        id='submit'
-                        class="btn btn-primary">
-                    <i class="icon-ok icon-white"></i>Submit
+        <g:if test="${assessmentParams.submitEnabled}">
+            <button type='submit'
+                    value='Submit'
+                    id='submit'
+                    class="btn btn-primary">
+                <i class="icon-ok icon-white"></i>Submit
 
-                </button>
+            </button>
 
-            </g:if>
-            <g:else>
-                <button type='submit'
-                        value='Submit'
-                        id='submit'
-                        class="btn btn-primary"
-                        disabled="disabled">
-                    <i class="icon-ok icon-white"></i>Submit
-                </button>
-            </g:else>
-        </div>
+        </g:if>
+        <g:else>
+            <button type='submit'
+                    value='Submit'
+                    id='submit'
+                    class="btn btn-primary"
+                    disabled="disabled">
+                <i class="icon-ok icon-white"></i>Submit
+            </button>
+        </g:else>
     </div>
 </div>
