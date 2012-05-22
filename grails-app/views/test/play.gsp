@@ -66,7 +66,7 @@
 
                             <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
                                 onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')" title="${message(code: 'button.exitTest.label')}" >
-                                <i class="icon-remove icon-white"></i>
+                                <i class="icon-remove"></i>
                             </g:link> </span></h4>
                     </div>
 
@@ -84,7 +84,7 @@
                     <g:each in="${controls.getButtonStates()}" var="button">
                         <g:if test="${button.value}">
 
-                            <button id="${button.key.id}" type="button" class="btn btn-primary"
+                            <button id="${button.key.id}" type="button" class="btn btn-success"
                                     onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
                                 <i class="${button.key.iconClass}"></i>${button.key.value}
                             </button>
@@ -92,7 +92,7 @@
                         </g:if>
                         <g:else>
 
-                            <button id="${button.key.id}" style="display:none" type="button" class="btn btn-primary"
+                            <button id="${button.key.id}" style="display:none" type="button" class="btn btn-success"
                                     onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
                                 <i class="${button.key.iconClass}"></i>${button.key.value}
                             </button>
@@ -101,13 +101,6 @@
                     </g:each>
 
                 <!-- TODO: Internalize all button labels -->
-                    <g:link action="report" params="[id: params.id]" class="btn btn-primary"><i
-                            class="icon-signal icon-white"></i> Report</g:link>
-
-                    <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
-                            class="btn btn-danger"
-                            onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"><i
-                            class="icon-remove icon-white"></i> Exit Test</g:link>
                 </div>
             </g:formRemote>
 

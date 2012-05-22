@@ -31,7 +31,7 @@ body {
 .block-header {
   border: solid 1px #dddddd;
   padding: 10px 0px 10px 20px;
-  background-color: #47a644;
+  background-color: #7ad375;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   color: #fff;
@@ -42,7 +42,8 @@ body {
   margin: 1px;
 }
 .block-header a:hover {
-  background-color: #86cc84;
+  background-color: #55c74e;
+  outline: 1px solid #49a644;
 }
 .block-content {
   background-color: #fff;

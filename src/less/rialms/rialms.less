@@ -1,4 +1,4 @@
-@import "variables.less";
+@import "rialms-variables.less";
 @import "../bootstrap/mixins.less";
 body {
   padding-top: 65px;
@@ -17,8 +17,8 @@ body {
        border : none;
        margin: 1px;
        &:hover{
-             background-color: lighten(@blockHeaderBackgroud, 20%);
-             //outline: 1px solid @blockHeaderBackgroud;
+             background-color: darken(@blockHeaderBackgroud, 10%);
+             outline: 1px solid @blockHeaderLinkBorder;
        }
     }
 }
