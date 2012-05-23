@@ -6,32 +6,41 @@
   Time: 12:37 AM
   To change this template use File | Settings | File Templates.
 --%>
+
 <div id="${Consts.testStatusContent}">
-    <h4>
-        <g:message code="test.status.message"/>
-    </h4>
-<!-- TODO make sure testpart is shown -->
-    <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 
-        <li>${entry.key}</li>
-        <ul>
-            <g:each var='section' in="${entry.value}">
-                <li>
-                    <g:if test="${section.isEnabled()}">
-                        <g:remoteLink action="navigate"
-                                      onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                                      params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">${section.identifier}</g:remoteLink>
+    <div class="span3 well sidebar-nav">
+        <h4>
+            <g:message code="test.status.message"/>
+        </h4>
+    <!-- TODO make sure testpart is shown -->
+    <ul class="nav nav-list">
+        <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 
-                    </g:if>
-                    <g:else>
-                        ${section.identifier}
-                    </g:else>
-                    &nbsp;|&nbsp;
-                    ${AssessmentItemStatus.format(section.status)}
-                </li>
-            </g:each>
-        </ul>
-    </g:each>
+            <li class="nav-header">${entry.key}</li>
+
+                <g:each var='section' in="${entry.value}">
+                        <g:if test="${section.isEnabled()}">
+                            <li>
+                            <g:remoteLink action="navigate"
+                                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
+                                          params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">
+                                ${section.identifier} |  ${AssessmentItemStatus.format(section.status)}
+                            </g:remoteLink>
+                            </li>
+
+                        </g:if>
+                        <g:else>
+                            <li class="active">
+                                ${section.identifier} |  ${AssessmentItemStatus.format(section.status)}
+                            </li>
+                        </g:else>
+
+
+                </g:each>
+
+        </g:each>
+    </ul>
+    </div>
 </div>
-
 

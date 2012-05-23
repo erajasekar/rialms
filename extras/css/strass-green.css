@@ -1,0 +1,163 @@
+body {
+    background: url("../img/bg.png") repeat scroll 0 0 transparent;
+    padding-bottom: 40px;
+    padding-top: 60px;
+}
+.sidebar-nav {
+    padding: 9px 0;
+}
+.navbar-inner {
+    background-color: #00260E;
+    background-image: -moz-linear-gradient(center top , #134024, #00260E);
+    background-repeat: repeat-x;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), 0 -1px 0 rgba(0, 0, 0, 0.1) inset;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.navbar .brand {
+    color: #FFFFFF;
+    display: block;
+    float: left;
+    font-size: 20px;
+    font-weight: 200;
+    line-height: 1;
+    margin-left: -20px;
+    padding: 8px 20px 12px;
+}
+.navbar .nav > li > a {
+    color: #D3D3D3;
+    float: none;
+    font-size: 13px;
+    line-height: 19px;
+    padding: 10px 10px 11px;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+.navbar .nav > li > a:hover {
+    background-color: transparent;
+    color: #FFFFFF !important;
+    text-decoration: none;
+}
+.navbar .nav .active > a, .navbar .nav .active > a:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.navbar .divider-vertical {
+    background-color: #00260E;
+    border-right: 1px solid #134024;
+    height: 40px;
+    margin: 0 9px;
+    overflow: hidden;
+    width: 1px;
+}
+.dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
+    background-color: #51A351;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+a {
+    color: #51A351;
+}
+a:hover {
+    color: #00260E;
+}
+.nav-list > .active > a, .nav-list > .active > a:hover {
+    background-color: #51A351;
+}
+.nav-pills > .active > a, .nav-pills > .active > a:hover {
+}
+.dropdown-menu .nav-header {
+    color: #999999;
+    display: block;
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 18px;
+    padding: 3px 15px;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+}
+span.user-actions, td div.btn-group {
+    visibility: hidden;
+}
+table {
+    background-color: #FDFDFD;
+}
+tr.pending-user:hover span.user-actions, tr.list-users:hover td div.btn-group, tr.list-roles:hover td div.btn-group {
+    visibility: visible;
+}
+.table th, .table td {
+    border-top: 0 none;
+    padding-left: 50%;
+}
+table, thead, tbody, th, td, tr {
+    display: block;
+}
+thead tr {
+    left: -9999px;
+    position: absolute;
+    top: -9999px;
+}
+tr {
+    border: 1px solid #CCCCCC;
+}
+td {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-color: -moz-use-text-color -moz-use-text-color #EEEEEE;
+    border-style: none none solid;
+    border-width: medium medium 1px;
+    padding-left: 50%;
+    position: relative;
+}
+td:before {
+    left: 6px;
+    padding-right: 10px;
+    position: absolute;
+    top: 6px;
+    white-space: nowrap;
+    width: 45%;
+}
+.list-users td:nth-of-type(1):before, .pending-user td:nth-of-type(1):before {
+    content: "ID";
+}
+.list-users td:nth-of-type(2):before, .pending-user td:nth-of-type(2):before {
+    content: "Name";
+}
+.list-users td:nth-of-type(3):before, .pending-user td:nth-of-type(3):before {
+    content: "E-mail";
+}
+.list-users td:nth-of-type(4):before, .pending-user td:nth-of-type(4):before {
+    content: "Phone";
+}
+.list-users td:nth-of-type(5):before, .pending-user td:nth-of-type(5):before {
+    content: "City";
+}
+.list-users td:nth-of-type(6):before, .pending-user td:nth-of-type(6):before {
+    content: "Role";
+}
+.list-users td:nth-of-type(7):before, .pending-user td:nth-of-type(7):before {
+    content: "Status";
+}
+.list-users td:nth-of-type(8):before, .pending-user td:nth-of-type(8):before {
+    content: "Actions";
+}
+.list-roles td:nth-of-type(1):before {
+    content: "ID";
+}
+.list-roles td:nth-of-type(2):before {
+    content: "Role";
+}
+.list-roles td:nth-of-type(3):before {
+    content: "Description";
+}
+.list-roles td:nth-of-type(4):before {
+    content: "Slug";
+}
+.list-roles td:nth-of-type(5):before {
+    content: "Actions";
+}

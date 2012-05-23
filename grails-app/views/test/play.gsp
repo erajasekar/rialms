@@ -15,6 +15,12 @@
 
 <body>
 
+<r:script>
+    $(document).ready(function () {
+        $('a').tooltip();
+    });
+</r:script>
+
 <div class="row-fluid">
     <div class="span11 block-controls">
         <h2>${assessmentParams[Consts.title]}</h2>
@@ -22,9 +28,8 @@
 </div>
 
 <div class="row-fluid">
-    <div class="span3 well">
-        <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
-    </div>
+
+    <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
     <div class="span8">
         <g:if test="${flash.message}">
@@ -32,7 +37,7 @@
         </g:if>
 
         <qti:assessmentSection sectionTitles="${assessmentParams[Consts.sectionTitles]}"/>
-        
+
         <g:if test="${!assessmentParams.validationResult.allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
                       model="[validationErrors: assessmentParams[Consts.validationResult].allItems]"/>
@@ -43,7 +48,8 @@
             <g:if test="${assessmentParams[Consts.timeRemaining] > 0}">
                 <r:script disposition='head'>
                 $(document).ready(function(){
-                   initTimer("${assessmentParams[Consts.timeRemaining]}")
+                   initTimer("${assessmentParams[Consts.timeRemaining]}");
+                   $("[rel=tooltip]").tooltip();
                 });
                 </r:script>
 
@@ -61,13 +67,15 @@
 
                     <div class="block-header">
                         <h4>${assessmentItemInfo.title} <span class="pull-right">
-                            <g:link action="report" params="[id: params.id]" rel="tooltip" title="${message(code: 'button.report.label')}" >
+                            <g:link action="report" params="[id: params.id]" rel="tooltip"
+                                    title="${message(code: 'button.report.label')}">
                                 <i class="icon-signal"></i></g:link>
 
                             <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
-                                onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')" title="${message(code: 'button.exitTest.label')}" >
+                                    onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"
+                                    title="${message(code: 'button.exitTest.label')}">
                                 <i class="icon-remove"></i>
-                            </g:link> </span></h4>
+                            </g:link></span></h4>
                     </div>
 
                     <g:render template="/renderer/renderAssessmentItem"/>
@@ -75,6 +83,7 @@
 
                 </div>
                 <br/>
+
                 <div class="block-controls">
                     <% NavigationControls controls = assessmentParams[Consts.navigationControls] %>
 
