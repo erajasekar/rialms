@@ -15,7 +15,7 @@
 
 <body>
 
-<r:script>
+<r:script>  <!--TODO move it to seperate file -->
     $(document).ready(function () {
         $('a').tooltip();
     });

@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.consts.Constants as Consts; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
+<%@ page import="com.rialms.assessment.test.SectionPartStatus; com.rialms.consts.Constants as Consts; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -7,9 +7,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<div id="${Consts.testStatusContent}">
 
-    <div class="span3 sidebar-nav">
+<div id="${Consts.testStatusContent}" >
+
+    <div class="span3 sidebar-nav" >
         <div class="block-header">
             <h4> <g:message code="test.status.message"/> </h4>
         </div>
@@ -17,7 +18,12 @@
         <ul class="nav nav-list">
             <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 
-                <li class="nav-header">${entry.key}</li>
+                <li class="nav-header">
+                   <!-- <g:each var="parent" in="${entry.key.split(SectionPartStatus.PARENT_SECTION_DELIMITER)}" >
+                        <li>${parent}</li>
+                    </g:each>  -->
+                    ${entry.key}
+                </li>
 
                 <g:each var='section' in="${entry.value}">
                     <li class="${!section.isEnabled() ? 'active' : ''}">
