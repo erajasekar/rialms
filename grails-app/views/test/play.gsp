@@ -16,9 +16,20 @@
 <body>
 
 <r:script>  <!--TODO move it to seperate file -->
-    $(document).ready(function () {
-        $('a').tooltip();
+$(document).ready(function () {
+    $('a').tooltip();
+    $('a.toggles').click(function () {
+        $('a.toggles i').toggleClass('icon-chevron-left icon-chevron-right');
+
+        $('#sidebar').animate({
+            width:'toggle'
+        }, 0);
+        $('#content').toggleClass('span11 span8');
+        $('#content').toggleClass('no-sidebar');
+        $('#sidebar').toggleClass('span3');
     });
+});
+
 </r:script>
 
 <div class="row-fluid">
@@ -31,7 +42,7 @@
 
     <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
-    <div class="span8">
+    <div class="span8" id="content">
         <g:if test="${flash.message}">
             <g:message code="${flash.message}"/>
         </g:if>
@@ -121,5 +132,6 @@
         </g:if>
     </div>
 </div>
+<a href="#" class="toggles"><i class="icon-chevron-left"></i></a>
 </body>
 </html>

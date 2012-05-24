@@ -26,10 +26,12 @@ window.updateRenderedItem = (data) ->
     if data.testFeedback
       $('#testFeedback').html(data.testFeedback)
     if data.testStatusContent
+      console.log("sidebar class" + $('#sidebar').attr("class"));
       $('#testStatusContent').html(data.testStatusContent)
     if data.testSectionTitleContent
       $('#testSectionTitleContent').html(data.testSectionTitleContent)
     if data.testContent
+      console.log("content class" + $('#content').attr("class"));
       $('#testContent').html(data.testContent)
       window.MathJax = null
       $.getScript($("script[src*='MathJax.js']").attr('src'))

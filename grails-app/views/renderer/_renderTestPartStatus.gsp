@@ -8,35 +8,36 @@
 --%>
 
 
-<div id="${Consts.testStatusContent}" >
+<div id="${Consts.testStatusContent}">
+    <div class="span3" id="sidebar">
+        <div class="sidebar-nav">
+            <div class="block-header">
+                <h4><g:message code="test.status.message"/></h4>
+            </div>
+            <!-- TODO make sure testpart is shown -->
+            <ul class="nav nav-list">
+                <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 
-    <div class="span3 sidebar-nav" >
-        <div class="block-header">
-            <h4> <g:message code="test.status.message"/> </h4>
-        </div>
-        <!-- TODO make sure testpart is shown -->
-        <ul class="nav nav-list">
-            <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
-
-                <li class="nav-header">
-                   <!-- <g:each var="parent" in="${entry.key.split(SectionPartStatus.PARENT_SECTION_DELIMITER)}" >
-                        <li>${parent}</li>
-                    </g:each>  -->
-                    ${entry.key}
-                </li>
-
-                <g:each var='section' in="${entry.value}">
-                    <li class="${!section.isEnabled() ? 'active' : ''}">
-                        <g:remoteLink action="navigate"
-                                      onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                                      params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">
-                            ${section.identifier} |  ${AssessmentItemStatus.format(section.status)}
-                        </g:remoteLink>
+                    <li class="nav-header">
+                        <!-- <g:each var="parent" in="${entry.key.split(SectionPartStatus.PARENT_SECTION_DELIMITER)}">
+                            <li>${parent}</li>
+                        </g:each>  -->
+                        ${entry.key}
                     </li>
-                </g:each>
 
-            </g:each>
-        </ul>
+                    <g:each var='section' in="${entry.value}">
+                        <li class="${!section.isEnabled() ? 'active' : ''}">
+                            <g:remoteLink action="navigate"
+                                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
+                                          params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">
+                                ${section.identifier} |  ${AssessmentItemStatus.format(section.status)}
+                            </g:remoteLink>
+                        </li>
+                    </g:each>
+
+                </g:each>
+            </ul>
+        </div>
     </div>
 </div>
 
