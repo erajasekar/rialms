@@ -22,7 +22,7 @@
 </r:script>
 
 <div class="row-fluid">
-    <div class="span11 block-controls">
+    <div class="span11 breadcrumb">
         <h2>${assessmentParams[Consts.title]}</h2>
     </div>
 </div>
@@ -90,7 +90,7 @@
                     <g:each in="${controls.getButtonStates()}" var="button">
                         <g:if test="${button.value}">
 
-                            <button id="${button.key.id}" type="button" class="btn btn-success"
+                            <button id="${button.key.id}" type="button" class="btn btn-info"
                                     onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
                                 <i class="${button.key.iconClass}"></i>${button.key.value}
                             </button>
@@ -98,7 +98,7 @@
                         </g:if>
                         <g:else>
 
-                            <button id="${button.key.id}" style="display:none" type="button" class="btn btn-success"
+                            <button id="${button.key.id}" style="display:none" type="button" class="btn btn-info"
                                     onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
                                 <i class="${button.key.iconClass}"></i>${button.key.value}
                             </button>

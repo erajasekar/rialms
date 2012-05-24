@@ -9,38 +9,28 @@
 
 <div id="${Consts.testStatusContent}">
 
-    <div class="span3 well sidebar-nav">
-        <h4>
-            <g:message code="test.status.message"/>
-        </h4>
-    <!-- TODO make sure testpart is shown -->
-    <ul class="nav nav-list">
-        <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
+    <div class="span3 sidebar-nav">
+        <div class="block-header">
+            <h4> <g:message code="test.status.message"/> </h4>
+        </div>
+        <!-- TODO make sure testpart is shown -->
+        <ul class="nav nav-list">
+            <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 
-            <li class="nav-header">${entry.key}</li>
+                <li class="nav-header">${entry.key}</li>
 
                 <g:each var='section' in="${entry.value}">
-                        <g:if test="${section.isEnabled()}">
-                            <li>
-                            <g:remoteLink action="navigate"
-                                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                                          params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">
-                                ${section.identifier} |  ${AssessmentItemStatus.format(section.status)}
-                            </g:remoteLink>
-                            </li>
-
-                        </g:if>
-                        <g:else>
-                            <li class="active">
-                                ${section.identifier} |  ${AssessmentItemStatus.format(section.status)}
-                            </li>
-                        </g:else>
-
-
+                    <li class="${!section.isEnabled() ? 'active' : ''}">
+                        <g:remoteLink action="navigate"
+                                      onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
+                                      params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">
+                            ${section.identifier} |  ${AssessmentItemStatus.format(section.status)}
+                        </g:remoteLink>
+                    </li>
                 </g:each>
 
-        </g:each>
-    </ul>
+            </g:each>
+        </ul>
     </div>
 </div>
 
