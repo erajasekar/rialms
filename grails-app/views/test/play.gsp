@@ -15,20 +15,10 @@
 
 <body>
 
-<r:script>  <!--TODO move it to seperate file -->
-$(document).ready(function () {
-    $('a').tooltip();
-    $('a.toggles').click(function () {
-        $('a.toggles i').toggleClass('icon-chevron-left icon-chevron-right');
-
-        $('#sidebar').animate({
-            width:'toggle'
-        }, 0);
-        $('#content').toggleClass('span11 span8');
-        $('#content').toggleClass('no-sidebar');
-        $('#sidebar').toggleClass('span3');
+<r:script>
+    $(document).ready(function () {
+        initTestRendering();
     });
-});
 
 </r:script>
 
@@ -60,7 +50,6 @@ $(document).ready(function () {
                 <r:script disposition='head'>
                 $(document).ready(function(){
                    initTimer("${assessmentParams[Consts.timeRemaining]}");
-                   $("[rel=tooltip]").tooltip();
                 });
                 </r:script>
 

@@ -26,13 +26,20 @@ window.updateRenderedItem = (data) ->
     if data.testFeedback
       $('#testFeedback').html(data.testFeedback)
     if data.testStatusContent
-      console.log("sidebar class" + $('#sidebar').attr("class"));
+      sidebarClass = $('#sidebar').attr("class")
+      ;
       $('#testStatusContent').html(data.testStatusContent)
+      if (!sidebarClass)
+        $('#sidebar').attr("class", sidebarClass)
+        $('#sidebar').animate({width: 'toggle'}, 0)
     if data.testSectionTitleContent
       $('#testSectionTitleContent').html(data.testSectionTitleContent)
     if data.testContent
-      console.log("content class" + $('#content').attr("class"));
+      contentClass = $('#content').attr("class")
+      ;
       $('#testContent').html(data.testContent)
+      $('#content').attr("class", contentClass)
+      ;
       window.MathJax = null
       $.getScript($("script[src*='MathJax.js']").attr('src'))
   #Remove commented code based on performance
@@ -68,5 +75,14 @@ $.fn.field = (inputName, value) ->
     #console.log("warning unhandled element " + $inputElement)
       $inputElement.val value
   $inputElement
+
+window.initTestRendering = ->
+  $("a").tooltip()
+  $("a.toggles").click ->
+    $("a.toggles i").toggleClass ("icon-chevron-left icon-chevron-right")
+    $('#sidebar').animate({width: 'toggle'}, 0)
+    $("#content").toggleClass ("span11 span8")
+    $("#content").toggleClass ("no-sidebar")
+    $("#sidebar").toggleClass ("span3")
 
 

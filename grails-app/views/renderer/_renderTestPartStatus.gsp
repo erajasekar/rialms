@@ -26,11 +26,12 @@
                     </li>
 
                     <g:each var='section' in="${entry.value}">
-                        <li class="${!section.isEnabled() ? 'active' : ''}">
+                        <li class="${section.isCurrentItem() ? 'active' : ''}">
                             <g:remoteLink action="navigate"
                                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
                                           params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">
-                                ${section.identifier} |  ${AssessmentItemStatus.format(section.status)}
+                                ${section.identifier} &nbsp;&nbsp; <span
+                                    class="${section.status.statusClass}">${AssessmentItemStatus.format(section.status)}</span>
                             </g:remoteLink>
                         </li>
                     </g:each>
@@ -38,6 +39,10 @@
                 </g:each>
             </ul>
         </div>
+        <!-- FIXME
+        <div class="offset3 span1">
+          <a href="#" id="separator">&nbsp;dsfads</a>
+        </div>    -->
     </div>
 </div>
 

@@ -15,11 +15,27 @@ public enum AssessmentItemStatus {
     RESPONDED,
     SUBMITTED;//NOT USED
 
+    private static final String BADGE = "badge";
+
+    private static EnumMap<AssessmentItemStatus, String> statusClass = new EnumMap<AssessmentItemStatus, String>(AssessmentItemStatus.class);
+
+    static {
+        statusClass[NOT_PRESENTED] = "badge-info";
+        statusClass[PRESENTED] = "badge-warning";
+        statusClass[SKIPPED] = "badge-important";
+        statusClass[TIMED_OUT] = "";
+        statusClass[RESPONDED] = "badge-success";
+    }
+
     public static String format(EnumSet<AssessmentItemStatus> statuses) {
-        return statuses.collect {it.name()}.join(" , ");
+        return statuses.collect {it.name().replaceAll("_", " ").toLowerCase().capitalize()}.join(" , ");
     }
 
     public static String format(AssessmentItemStatus status) {
         return format(EnumSet.of(status));
+    }
+
+    public String getStatusClass() {
+        return "${BADGE} ${statusClass[this]}";
     }
 }
