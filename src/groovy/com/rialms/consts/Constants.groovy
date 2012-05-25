@@ -65,5 +65,6 @@ class Constants {
     public static final String testContent = 'testContent';
     public static final String testStatusContent = 'testStatusContent';
     public static final String testSectionTitleContent = 'testSectionTitleContent';
+    public static final String filterByStatus = 'filterByStatus';
 
 }

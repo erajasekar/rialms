@@ -147,17 +147,33 @@ class AssessmentTestControllerTests {
                 (F_G_H): [new SectionPartStatus('math8', F_G_H, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math9', F_G_H, NOT_PRESENTED, CURRENT, false)]
         ]
 
+        Map actual = test.getCurrentTestPartStatus();
         log.info("------- Actual CurrentTestPartStatus ----------------------")
-        test.getCurrentTestPartStatus().each { k, v ->
+        actual.each { k, v ->
             log.info("${k} ===> ${v}");
         }
 
         log.info("--------- Expected CurrentTestPartStatus ------------------")
         expected.each { k, v ->
-            log.info("${k} ===> ${v}");;
+            log.info("${k} ===> ${v}");
         }
 
-        assertEquals("${msg} on nested section items check", expected, test.getCurrentTestPartStatus());
+        assertEquals("${msg} on nested section items check", expected,actual);
+
+        //test filtering
+        assertEquals("${msg} on nested section items filter by presented check", filterTestPartStatus(expected,AssessmentItemStatus.PRESENTED), test.getCurrentTestPartStatus(AssessmentItemStatus.PRESENTED));
+        assertEquals("${msg} on nested section items filter by not presented check", filterTestPartStatus(expected,AssessmentItemStatus.NOT_PRESENTED), test.getCurrentTestPartStatus(AssessmentItemStatus.NOT_PRESENTED));
+    }
+
+    private static Map filterTestPartStatus(Map testPartStatus, AssessmentItemStatus filterByStatus){
+        Map filteredStatus = [:];
+        testPartStatus.each{ k, v ->
+            List filteredValues = v.findAll{it.status == filterByStatus};
+            if (filteredValues){
+                filteredStatus[k] = filteredValues.flatten();
+            }
+        }
+        return filteredStatus;
     }
 
     private void doTestIsComplete(String msg, String inputFile) {

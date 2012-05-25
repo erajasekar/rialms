@@ -87,6 +87,8 @@ public class TestCoordinator implements Serializable {
 
     private Set<String> submittedTestPartIds = [];
 
+    private AssessmentItemStatus filterItemByStatus = AssessmentItemStatus.ALL;
+
     /*
       * Maximum amount of time allowed for network delay
       */
@@ -273,9 +275,7 @@ public class TestCoordinator implements Serializable {
 
         params.put(outcomeDeclarations, test.getTest().getOutcomeDeclarations());
 
-        if (test.test?.testParts?.size() > 1) {
-            params.put(testPart, test.currentTestPart.identifier);
-        }
+        params.put(testPart, test?.currentTestPart.identifier);
 
         if (view != null) {
             params.put(Consts.view, view);
@@ -296,6 +296,7 @@ public class TestCoordinator implements Serializable {
         params.put(timeRemaining, test.getTimeRemaining());
         params.put(testPartStatus, test.currentTestPartStatus)
         params.put(testStatus, test.testStatus)
+        params.put(filterByStatus, this.filterItemByStatus);
 
         Map<String, List<SectionPartStatus>> testPartStatus = test.getCurrentTestPartStatus();
         params.put(testPartStatus, testPartStatus)
@@ -411,5 +412,13 @@ public class TestCoordinator implements Serializable {
      */
     public String getReport() {
         return test.getReport();
+    }
+
+    public void setFilterItemByStatus(AssessmentItemStatus filterByStatus){
+        this.filterItemByStatus = filterByStatus;
+    }
+
+    public AssessmentItemStatus getFilterItemByStatus(){
+        return filterItemByStatus;
     }
 }

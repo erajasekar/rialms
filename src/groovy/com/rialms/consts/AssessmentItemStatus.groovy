@@ -13,6 +13,7 @@ public enum AssessmentItemStatus {
     SKIPPED,
     TIMED_OUT,
     RESPONDED,
+    ALL, // Used for filtering
     SUBMITTED;//NOT USED
 
     private static final String BADGE = "badge";

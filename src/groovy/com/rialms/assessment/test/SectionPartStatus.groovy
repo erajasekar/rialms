@@ -12,7 +12,6 @@ import groovy.transform.EqualsAndHashCode
  * To change this template use File | Settings | File Templates.
  */
 @ToString(includeFields = true)
-@EqualsAndHashCode(includeFields = true)
 class SectionPartStatus {
 
     public enum Position {
@@ -73,5 +72,30 @@ class SectionPartStatus {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean equals(o) {
+        if (this.is(o)) return true
+        if (getClass() != o.class) return false
+
+        SectionPartStatus that = (SectionPartStatus) o
+
+        if (enabled != that.enabled) return false
+        if (identifier != that.identifier) return false
+        if (parentSection != that.parentSection) return false
+        if (position != that.position) return false
+        if (status != that.status) return false
+
+        return true
+    }
+
+    public int hashCode() {
+        int result
+        result = identifier.hashCode()
+        result = 31 * result + parentSection.hashCode()
+        result = 31 * result + status.hashCode()
+        result = 31 * result + position.hashCode()
+        result = 31 * result + (enabled ? 1 : 0)
+        return result
     }
 }

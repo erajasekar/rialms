@@ -438,7 +438,7 @@ public class AssessmentTestController implements Serializable {
         return blocks;
     }
 
-    private List<SectionPartStatus> getSectionPartsStatusInCurrentTestPart() {
+    private List<SectionPartStatus> getSectionPartsStatusInCurrentTestPart(AssessmentItemStatus filterByStatus) {
         List<AssessmentSection> sections = currentTestPart.getAssessmentSections();
         List<SectionPartStatus> sectionPartStatusList = [];
         SectionPartStatus.Position currentPosition = SectionPartStatus.Position.BEFORE;
@@ -449,16 +449,19 @@ public class AssessmentTestController implements Serializable {
                 currentPosition = SectionPartStatus.Position.AFTER;
             }
         }
-        return sectionPartStatusList.flatten();
+        sectionPartStatusList = sectionPartStatusList.flatten();
+        if (filterByStatus != AssessmentItemStatus.ALL){
+            sectionPartStatusList = sectionPartStatusList.findAll {SectionPartStatus it-> it.status == filterByStatus};
+        }
+        return sectionPartStatusList;
     }
 
-    public Map<String, List<SectionPartStatus>> getCurrentTestPartStatus() {
-        Map<String, List<SectionPartStatus>> testPartStatus = getSectionPartsStatusInCurrentTestPart()
+    public Map<String, List<SectionPartStatus>> getCurrentTestPartStatus(AssessmentItemStatus filterByStatus=AssessmentItemStatus.ALL) {
+        Map<String, List<SectionPartStatus>> testPartStatus = getSectionPartsStatusInCurrentTestPart(filterByStatus)
                 .groupBy {it.parentSection}
                 .collectEntries {k, v ->
             [k, v.flatten()]
         };
-
         return testPartStatus;
     }
 

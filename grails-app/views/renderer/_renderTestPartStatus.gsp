@@ -39,10 +39,10 @@
                 </g:each>
             </ul>
         </div>
-        <!-- FIXME
-        <div class="offset3 span1">
-          <a href="#" id="separator">&nbsp;dsfads</a>
-        </div>    -->
+        <span class="">
+            <a href="#" id="separator">&nbsp;</a>
+        </span>
     </div>
+
 </div>
 
