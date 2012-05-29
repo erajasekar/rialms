@@ -39,9 +39,6 @@
                 </g:each>
             </ul>
         </div>
-        <span class="">
-            <a href="#" id="separator">&nbsp;</a>
-        </span>
     </div>
 
 </div>

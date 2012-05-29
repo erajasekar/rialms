@@ -78,11 +78,21 @@ $.fn.field = (inputName, value) ->
 
 window.initTestRendering = ->
   $("a").tooltip()
-  $("a.toggles").click ->
-    $("a.toggles i").toggleClass ("icon-chevron-left icon-chevron-right")
-    $('#sidebar').animate({width: 'toggle'}, 0)
-    $("#content").toggleClass ("span11 span8")
-    $("#content").toggleClass ("no-sidebar")
-    $("#sidebar").toggleClass ("span3")
+  $("a.toggleNav").click ->
+    if $("a.toggleNav span").text() is $("<div>").html("&laquo;").text()
+      $("a.toggleNav span").html "&raquo;"
+    else
+      $("a.toggleNav span").html "&laquo;"
+    $("a.toggleNav").toggleClass "pull-right pull-left"
+    if $("a.toggleNav").attr("data-original-title") is "Hide Sidebar"
+      $("a.toggleNav").attr("title", "Show Sidebar").tooltip("fixTitle").tooltip "show"
+    else
+      $("a.toggleNav").attr("title", "Hide Sidebar").tooltip("fixTitle").tooltip "show"
+    $("#sidebar").animate
+      width: "toggle"
+      , 0
+    $("#content").toggleClass "span12 span9"
+    $("#content").toggleClass "no-sidebar"
+    $("#sidebar").toggleClass "span3"
 
 

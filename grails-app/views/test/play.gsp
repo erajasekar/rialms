@@ -23,8 +23,15 @@
 </r:script>
 
 <div class="row-fluid">
-    <div class="span11 breadcrumb">
+    <div class="span12 breadcrumb">
         <h2>${assessmentParams[Consts.title]}</h2>
+    </div>
+</div>
+
+<div class="row-fluid">
+    <div class="span3">
+        <a href="#" rel="tooltip" class="toggleNav pull-right" title="Hide Sidebar"><span>&laquo;</span></a>
+        <!--TODO MAKE title read from message.properties  -->
     </div>
 </div>
 
@@ -32,12 +39,10 @@
 
     <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
-    <div class="span8" id="content">
+    <div class="span9" id="content">
         <g:if test="${flash.message}">
             <g:message code="${flash.message}"/>
         </g:if>
-
-        <qti:assessmentSection sectionTitles="${assessmentParams[Consts.sectionTitles]}"/>
 
         <g:if test="${!assessmentParams.validationResult.allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
@@ -121,6 +126,6 @@
         </g:if>
     </div>
 </div>
-<a href="#" class="toggles"><i class="icon-chevron-left"></i></a>
+
 </body>
 </html>
