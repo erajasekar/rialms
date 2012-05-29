@@ -471,7 +471,8 @@ public class AssessmentTestController implements Serializable {
         SectionPartStatus.Position currentPosition = position;
         if (section.classTag.equalsIgnoreCase('assessmentSection')) {
             section.children.each {
-                List<SectionPartStatus> childPartStatusList = getSectionPartsStatus(it, SectionPartStatus.formatParentSection(parentSection, section.identifier), currentPosition).flatten();
+                String sectionTitle = section.attributes.get('title').valueToString();
+                List<SectionPartStatus> childPartStatusList = getSectionPartsStatus(it, SectionPartStatus.formatParentSection(parentSection, sectionTitle), currentPosition).flatten();
                 sectionPartStatusList << childPartStatusList;
                 if (!childPartStatusList.isEmpty() && !childPartStatusList[childPartStatusList.size() - 1].isPositionedBeforeCurrent()) {
                     currentPosition = SectionPartStatus.Position.AFTER;

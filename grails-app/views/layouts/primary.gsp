@@ -48,7 +48,7 @@
                             href="${createLink(controller: 'item')}"><g:message code="item.label"/></a>
                     </li>
                     <li <%='test' == params.controller ? ' class="active"' : ''%>><a
-                            href="${createLink(controller: 'test')}"><g:message code="test.label"/></a></li>
+                            href="${createLink(controller: 'test')}"><g:message code="tests.label"/></a></li>
                 </ul>
             </div><!--/.nav-collapse -->
 

@@ -23,8 +23,10 @@
 </r:script>
 
 <div class="row-fluid">
-    <div class="span12 breadcrumb">
-        <h2>${assessmentParams[Consts.title]}</h2>
+    <div class="span3">&nbsp;</div>
+
+    <div class="span9 page-header">
+        <h1>${assessmentParams[Consts.title]}</h1>
     </div>
 </div>
 
@@ -69,49 +71,43 @@
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
 
                 <div id="AssessmentForm">
-
-                    <div class="block-header">
-                        <h4>${assessmentItemInfo.title} <span class="pull-right">
-                            <g:link action="report" params="[id: params.id]" rel="tooltip"
-                                    title="${message(code: 'button.report.label')}">
-                                <i class="icon-signal"></i></g:link>
-
-                            <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
-                                    onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"
-                                    title="${message(code: 'button.exitTest.label')}">
-                                <i class="icon-remove"></i>
-                            </g:link></span></h4>
-                    </div>
-
                     <g:render template="/renderer/renderAssessmentItem"/>
                     <g:render template="/renderer/renderTestFeedback"/>
+                    <div class="block-controls">
+                        <% NavigationControls controls = assessmentParams[Consts.navigationControls] %>
 
-                </div>
-                <br/>
+                        <g:each in="${controls.getButtonStates()}" var="button">
+                            <g:if test="${button.value}">
 
-                <div class="block-controls">
-                    <% NavigationControls controls = assessmentParams[Consts.navigationControls] %>
+                                <button id="${button.key.id}" type="button" class="btn btn-info"
+                                        onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
+                                    <g:if test="${button.key.appendIcon}">
+                                        ${button.key.value}&nbsp;<i class="${button.key.iconClass}"></i>
+                                    </g:if>
+                                    <g:else>
+                                        <i class="${button.key.iconClass}"></i>&nbsp;${button.key.value}
+                                    </g:else>
 
-                    <g:each in="${controls.getButtonStates()}" var="button">
-                        <g:if test="${button.value}">
+                                </button>
 
-                            <button id="${button.key.id}" type="button" class="btn btn-info"
-                                    onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
-                                <i class="${button.key.iconClass}"></i>${button.key.value}
-                            </button>
+                            </g:if>
+                            <g:else>
 
-                        </g:if>
-                        <g:else>
+                                <button id="${button.key.id}" style="display:none" type="button" class="btn btn-info"
+                                        onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
+                                    <g:if test="${button.key.appendIcon}">
+                                        ${button.key.value}&nbsp;<i class="${button.key.iconClass}"></i>
+                                    </g:if>
+                                    <g:else>
+                                        <i class="${button.key.iconClass}"></i>&nbsp;${button.key.value}
+                                    </g:else>
+                                </button>
 
-                            <button id="${button.key.id}" style="display:none" type="button" class="btn btn-info"
-                                    onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
-                                <i class="${button.key.iconClass}"></i>${button.key.value}
-                            </button>
+                            </g:else>
+                        </g:each>
 
-                        </g:else>
-                    </g:each>
-
-                <!-- TODO: Internalize all button labels -->
+                    <!-- TODO: Internalize all button labels -->
+                    </div>
                 </div>
             </g:formRemote>
 

@@ -12,7 +12,13 @@
     <div class="span3" id="sidebar">
         <div class="sidebar-nav">
             <div class="block-header">
-                <h4><g:message code="test.status.message"/></h4>
+                <h4>
+                    <g:message code="test.label"/>&nbsp;
+                    <g:if test="${assessmentParams[Consts.testPart]}">
+                        ${assessmentParams[Consts.testPart]}&nbsp;
+                    </g:if>
+                    <g:message code="test.status.message"/>
+                </h4>
             </div>
             <!-- TODO make sure testpart is shown -->
             <ul class="nav nav-list">
@@ -40,6 +46,5 @@
             </ul>
         </div>
     </div>
-
 </div>
 

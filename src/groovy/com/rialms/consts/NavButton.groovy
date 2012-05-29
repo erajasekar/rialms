@@ -36,4 +36,8 @@ public enum NavButton {
     public String getIconClass() {
         return "${icons[this]} ${ICON_WHITE}";
     }
+    
+    public boolean getAppendIcon(){
+        return (this == next || this == forward);
+    }
 }

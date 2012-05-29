@@ -275,7 +275,9 @@ public class TestCoordinator implements Serializable {
 
         params.put(outcomeDeclarations, test.getTest().getOutcomeDeclarations());
 
-        params.put(testPart, test?.currentTestPart.identifier);
+        if (test.test?.testParts?.size() > 1) {
+            params.put(testPart, test.currentTestPart.identifier);
+        }
 
         if (view != null) {
             params.put(Consts.view, view);

@@ -1,126 +1,114 @@
 .clearfix {
-    *zoom: 1;
+  *zoom: 1;
 }
-
 .clearfix:before,
 .clearfix:after {
-    display: table;
-    content: "";
+  display: table;
+  content: "";
 }
-
 .clearfix:after {
-    clear: both;
+  clear: both;
 }
-
 .hide-text {
-    font: 0/0 a;
-    color: transparent;
-    text-shadow: none;
-    background-color: transparent;
-    border: 0;
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
 }
-
 .input-block-level {
-    display: block;
-    width: 100%;
-    min-height: 28px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
-    box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 28px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
 }
-
 body {
-    padding-top: 65px;
+  padding-top: 65px;
 }
-
 .block-header {
-    border: 1px solid #c9da68;
-    font-size: 11px;
-    font-weight: bold;
-    line-height: 18px;
-    border-bottom: none;
-    padding: 10px 0px 10px 20px;
-    background-color: #c0df7c;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    color: #013435;
+  border: 1px solid #c9da68;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 18px;
+  border-bottom: none;
+  padding: 10px 0px 10px 20px;
+  background-color: #c0df7c;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  color: #013435;
 }
-
 .block-header a {
-    padding: 5px;
-    border: none;
-    margin: 1px;
+  padding: 5px;
+  border: none;
+  margin: 1px;
 }
-
 .block-header a:hover {
-    background-color: #acd553;
-    outline: 1px solid #49a644;
+  background-color: #acd553;
+  outline: 1px solid #49a644;
 }
-
 .block-content {
-    background-color: #ffffff;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border: 1px solid #c3c3c3;
-    border-top: 0px;
-    padding: 20px 20px 20px 20px;
-    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  background-color: #ffffff;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  border: 1px solid #c3c3c3;
+  border-top: 0px;
+  padding: 20px 20px 20px 20px;
+  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 }
-
 .block-controls {
-    padding: 17px 20px 18px;
-    margin-top: 18px;
-    margin-bottom: 18px;
-    background-color: #eefdd2;
-    border: 1px solid #f0fcba;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  padding: 17px 20px 18px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  background-color: #eefdd2;
+  border: 1px solid #f0fcba;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
 }
-
 .sidebar-nav {
-    padding: 0px 0px 10px;
-    min-height: 200px;
-    margin-bottom: 20px;
-    background-color: #eefdd2;
-    border: 1px solid #f0fcba;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-    -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
-    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  padding: 0px 0px 10px;
+  min-height: 200px;
+  margin-bottom: 20px;
+  background-color: #eefdd2;
+  border: 1px solid #f0fcba;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.2);
 }
-
 .sidebar-nav a:hover {
-    color: #cb5356;
+  color: #cb5356;
 }
-
 .nav .nav-header {
-    color: #cb5356;
+  padding: 10px;
+  border-top: 2px solid #eeeeee;
+  color: #cb5356;
 }
-
 a.toggleNav {
-    padding: 0px 0px 0px 15px;
-    font-size: large;
-    color: #0088cc;
+  padding: 0px 0px 0px 15px;
+  font-size: large;
+  color: #2d9b3b;
 }
-
 a.toggleNav:hover {
-    color: #004466;
-    text-decoration: none;
+  color: #164c1d;
+  text-decoration: none;
 }
-
 .no-sidebar {
-    margin-left: 0 !important;
+  margin-left: 0 !important;
 }
-
 .submission {
-    padding: 20px;
+  padding: 20px;
+}
+.page-header {
+  color: #2d9b3b;
 }
