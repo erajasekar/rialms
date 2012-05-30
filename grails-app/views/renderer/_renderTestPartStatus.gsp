@@ -25,10 +25,9 @@
                 <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 
                     <li class="nav-header">
-                        <!-- <g:each var="parent" in="${entry.key.split(SectionPartStatus.PARENT_SECTION_DELIMITER)}">
-                            <li>${parent}</li>
-                        </g:each>  -->
-                        ${entry.key}
+                        <g:each var="parent" in="${entry.key.split(SectionPartStatus.PARENT_SECTION_DELIMITER)}">
+                            ${parent}&nbsp;&rsaquo;
+                        </g:each>
                     </li>
 
                     <g:each var='section' in="${entry.value}">

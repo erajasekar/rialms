@@ -286,19 +286,19 @@
             </responseElseIf>
         </responseCondition>
     </responseProcessing>
-    <modalFeedback outcomeIdentifier="FEEDBACK" showHide="show" identifier="stickStrategy">No.
+    <modalFeedback title="Feedback" outcomeIdentifier="FEEDBACK" showHide="show" identifier="stickStrategy">No.
         Initially, the probability of the prize being behind each door is 1/3. Opening a losing door
         can't possibly make this go down for the remaining closed one! In fact you should
         <em>never</em>
         stick to your original decision.
     </modalFeedback>
-    <modalFeedback outcomeIdentifier="FEEDBACK" showHide="show" identifier="switchStrategy">Yes,
+    <modalFeedback title="Feedback" outcomeIdentifier="FEEDBACK" showHide="show" identifier="switchStrategy">Yes,
         you should
         <em>always</em>
         switch doors when offered the chance. Congratulations, perhaps
         you should think about a career as a TV game show contestant?
     </modalFeedback>
-    <modalFeedback outcomeIdentifier="FEEDBACK" showHide="show" identifier="noStrategy">
+    <modalFeedback title="Feedback" outcomeIdentifier="FEEDBACK" showHide="show" identifier="noStrategy">
         <p>No, you should infact
             <em>always</em>
             switch doors. This problem has fooled many

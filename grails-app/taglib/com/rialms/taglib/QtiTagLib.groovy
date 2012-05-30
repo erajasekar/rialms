@@ -276,6 +276,8 @@ class QtiTagLib {
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         Tag xmlTag = getRequiredAttribute(attrs, 'xmlTag', tag);
+
+        String title = xmlNode.'@title';
         String identifier = xmlNode.'@identifier';
         String valueLookupKey;
         if (Tag.isFeedBackTag(xmlTag)) {
@@ -287,16 +289,27 @@ class QtiTagLib {
         HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(new HiddenElement(identifier, valueLookupKey, xmlTag, visibilityMode));
 
         String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' : 'div';
-
-        if (assessmentItemInfo.isVisible(hiddenElement)) {
-            out << "<${sectionTag} id='${hiddenElement.elementId}'>";
-            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
-            out << "</${sectionTag}> ";
-        } else {
-            out << "<${sectionTag} id='${hiddenElement.elementId}' style='display: none'>";
-            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
-            out << "</${sectionTag}> ";
+        Map sectionTagAttributes = [id: hiddenElement.elementId];
+        boolean isModelFeedback = xmlTag == Tag.modalFeedback;
+        if (isModelFeedback) {
+            sectionTagAttributes['class'] = 'alert alert-success';
         }
+        if (!assessmentItemInfo.isVisible(hiddenElement)) {
+            sectionTagAttributes['style'] = 'display: none';
+        }
+        out << "<${sectionTag} ";
+        sectionTagAttributes.each { k, v ->
+            out << "${k}='${v}' ";
+        }
+        out << ">";
+        if (isModelFeedback) {
+            out << "<a class='close' data-dismiss='alert' href='#'>&times;</a>"
+            if (title) {
+                out << "<h4> ${title}! </h4>";
+            }
+        }
+        out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+        out << "</${sectionTag}> ";
     }
 
     def submit = { attrs ->
@@ -345,7 +358,7 @@ class QtiTagLib {
     }
 
     def less2Css = { attrs ->
-       //  com.rialms.util.Less2Css.run();
+        //  com.rialms.util.Less2Css.run();
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {
