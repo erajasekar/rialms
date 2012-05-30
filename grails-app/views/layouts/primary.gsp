@@ -8,7 +8,7 @@
 
 <%@ page import="com.rialms.util.Less2Css" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
-<html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en">
+<html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en" ng-app>
 <head>
     <title><g:layoutTitle/></title>
     <r:require module="core"/>

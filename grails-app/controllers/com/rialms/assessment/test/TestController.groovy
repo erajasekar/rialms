@@ -16,7 +16,10 @@ class TestController {
         if (!params.max) params.max = 50
         [testList: Test.list(params)]
     }
-
+    //TODO remove after testing
+    def angular = {
+        render (view:'angular');
+    }
     def report = {
         log.info("Executing Report with params ${params}");
         if (!params.id) {
