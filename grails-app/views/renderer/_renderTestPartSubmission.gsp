@@ -7,9 +7,9 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-
-<div class='submission'>
-
+<g:render template="/renderer/renderAssessmentTitle"
+          model="[assessmentTitle: g.message(code: 'test.submission.title')]"/>
+<div class='submission block-content'>
     <h4>
         <g:if test="${assessmentParams[Consts.testPart]}">
             <g:message code="testpart.submission.confirm.message" args="${[assessmentParams[Consts.testPart]]}"/>
@@ -26,4 +26,5 @@
             onclick="${remoteFunction(action: 'submitTestPart', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: [id: params.id])}">
         <i class="icon-ok icon-white"></i>Submit
     </button>
+
 </div>

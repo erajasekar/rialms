@@ -8,9 +8,6 @@
 --%>
 <div id='testFeedback'>
     <g:if test="${assessmentParams[Consts.assessmentFeedback] || assessmentParams[Consts.testPartFeedback]}">
-        <h4><g:message code="test.feedback.message"/></h4>
-        <hr/>
-        <br/>
         <g:if test="${assessmentParams[Consts.assessmentFeedback]}">
             <g:each var="assessmentFeedback" in="${assessmentParams[Consts.assessmentFeedback].children()}">
                 <g:render template="/renderer/renderItemSubTree"
@@ -23,7 +20,9 @@
                           model="[node: testPartFeedback, assessmentParams: assessmentParams]"/>
             </g:each>
         </g:if>
-        <br/>
     </g:if>
+    <g:else>
+        <g:message code="test.nofeedback.message"/>
+    </g:else>
 
 </div>

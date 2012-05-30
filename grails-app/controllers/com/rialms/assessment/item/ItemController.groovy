@@ -22,6 +22,13 @@ class ItemController {
 
     }
 
+    def reset = {
+        if (params[Consts.redirectto]) {
+            return redirect(action: params[Consts.redirectto])
+        }
+        return redirect(action: 'list')
+    }
+
     def play() {
 
         AssessmentItemInfo assessmentItemInfo;

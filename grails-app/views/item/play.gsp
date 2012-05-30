@@ -17,11 +17,8 @@
 <body>
 
 <div class="row-fluid">
-    <div class="span3">&nbsp;</div> <!-- Place holder for navigation -->
-    <div class="span8">
-        <div class="breadcrumb">
-            <h4>${assessmentItemInfo[Consts.title]}</h4>
-        </div>
+    <div class="span12">
+
         <g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
                       model="[validationErrors: flash[Consts.validationResult].allItems]"/>
@@ -31,14 +28,18 @@
             <div id='message'></div>
 
             <div id='error'></div>
-            <g:formRemote class="well" name="AssessmentItemForm"
+            <g:formRemote name="AssessmentItemForm"
                           url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
-                <g:render template="/renderer/renderItemSubTree"
-                          model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
+                <g:render template="/renderer/renderAssessmentTitle"
+                          model="[assessmentTitle: assessmentItemInfo[Consts.title]]"/>
+                <div class="block-content">
+                    <g:render template="/renderer/renderItemSubTree"
+                              model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
 
-                <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
-                            name="${Consts.submit}"/>
+                    <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
+                                name="${Consts.submit}"/>
+                </div>
             </g:formRemote>
         </g:if>
 

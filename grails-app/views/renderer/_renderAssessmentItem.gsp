@@ -7,18 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <div id='testContent'>
-    <div class="block-header">
-        <h4>${assessmentItemInfo.title} <span class="pull-right">
-            <g:link action="report" params="[id: params.id]" rel="tooltip"
-                    title="${message(code: 'button.report.label')}">
-                <i class="icon-signal"></i></g:link>
-
-            <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
-                    onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"
-                    title="${message(code: 'button.exitTest.label')}">
-                <i class="icon-remove"></i>
-            </g:link></span></h4>
-    </div>
+    <g:render template="/renderer/renderAssessmentTitle" model="[assessmentTitle: assessmentItemInfo.title]"/>
     <div class="block-content">
 
         <g:if test="${assessmentParams[Consts.timeRemaining] > 0}">
