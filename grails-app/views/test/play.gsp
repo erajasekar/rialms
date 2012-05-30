@@ -79,7 +79,7 @@
                         <g:each in="${controls.getButtonStates()}" var="button">
                             <g:if test="${button.value}">
 
-                                <button id="${button.key.id}" type="button" class="btn btn-info"
+                                <button id="${button.key.id}" type="button" class="btn btn-primary"
                                         onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
                                     <g:if test="${button.key.appendIcon}">
                                         ${button.key.value}&nbsp;<i class="${button.key.iconClass}"></i>
@@ -93,7 +93,7 @@
                             </g:if>
                             <g:else>
 
-                                <button id="${button.key.id}" style="display:none" type="button" class="btn btn-info"
+                                <button id="${button.key.id}" style="display:none" type="button" class="btn btn-primary"
                                         onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
                                     <g:if test="${button.key.appendIcon}">
                                         ${button.key.value}&nbsp;<i class="${button.key.iconClass}"></i>

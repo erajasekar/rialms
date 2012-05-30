@@ -24,7 +24,7 @@ class Less2Css {
     }
     
     public static void run(){
-        compile("${LESS_SRC_DIR}/rialms/bootstrapmakker.less","${CSS_OUTPUT_DIR}/bootstrap.css");
+       // compile("${LESS_SRC_DIR}/rialms/bootstrapmakker.less","${CSS_OUTPUT_DIR}/bootstrap.css");
         compile("${LESS_SRC_DIR}/rialms/rialms.less","${CSS_OUTPUT_DIR}/rialms.css");
     }
 }

@@ -22,7 +22,9 @@
         </g:if>
     </g:if>
     <g:else>
-        <g:message code="test.nofeedback.message"/>
+        <g:if test="${params.action == 'feedback'}">
+            <g:message code="test.nofeedback.message"/>
+        </g:if>
     </g:else>
 
 </div>

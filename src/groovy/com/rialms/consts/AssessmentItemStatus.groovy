@@ -21,10 +21,10 @@ public enum AssessmentItemStatus {
     private static EnumMap<AssessmentItemStatus, String> statusClass = new EnumMap<AssessmentItemStatus, String>(AssessmentItemStatus.class);
 
     static {
-        statusClass[NOT_PRESENTED] = "badge-info";
-        statusClass[PRESENTED] = "badge-warning";
+        statusClass[NOT_PRESENTED] = "";
+        statusClass[PRESENTED] = "badge-info";
         statusClass[SKIPPED] = "badge-important";
-        statusClass[TIMED_OUT] = "";
+        statusClass[TIMED_OUT] = "badge-warning";
         statusClass[RESPONDED] = "badge-success";
     }
 

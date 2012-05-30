@@ -33,7 +33,7 @@
           model="[assessmentTitle: g.message(code: 'test.feedback.message')]"/>
 <div class="block-content">
     <g:render template="/renderer/renderTestFeedback"/>
-    <div class="form-actions">
+    <div>
         <g:link action="report" params="[id: params.id]" class="btn btn-primary" target="_blank"><i
                 class="icon-signal icon-white"></i> Report</g:link>
 

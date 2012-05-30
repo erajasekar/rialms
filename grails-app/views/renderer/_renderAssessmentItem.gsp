@@ -34,7 +34,7 @@
             <button type='submit'
                     value='Submit'
                     id='submit'
-                    class="btn btn-primary">
+                    class="btn btn-success">
                 <i class="icon-ok icon-white"></i>Submit
 
             </button>
@@ -44,7 +44,7 @@
             <button type='submit'
                     value='Submit'
                     id='submit'
-                    class="btn btn-primary"
+                    class="btn btn-success"
                     disabled="disabled">
                 <i class="icon-ok icon-white"></i>Submit
             </button>

@@ -13,9 +13,9 @@
         <div class="sidebar-nav">
             <div class="block-header">
                 <h4>
-                    <g:message code="test.label"/>&nbsp;
+                    <g:message code="test.label"/>
                     <g:if test="${assessmentParams[Consts.testPart]}">
-                        ${assessmentParams[Consts.testPart]}&nbsp;
+                        ${assessmentParams[Consts.testPart]}
                     </g:if>
                     <g:message code="test.status.message"/>
                 </h4>
