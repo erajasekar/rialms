@@ -4,7 +4,7 @@ modules = {
     }
 
     core {
-        dependsOn 'jquery,jquery-ui,mybootstrap,angular,angular-autobind'
+        dependsOn 'jquery,jquery-ui,mybootstrap,angular'
         resource url: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML', disposition: 'head'
         resource url: 'js/render.js', disposition: 'head'
         resource url: 'js/sample.js'
@@ -27,5 +27,9 @@ modules = {
         resource url: 'js/bootstrap-tooltip.js'
         resource url: 'js/bootstrap-transition.js'
         resource url: 'js/bootstrap-typeahead.js'
+    }
+
+    angular {
+          resource url: 'js/angular/angular-1.0.0rc10.js' , disposition: 'head'
     }
 }

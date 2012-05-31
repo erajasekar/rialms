@@ -47,7 +47,7 @@ grails.project.dependency.resolution = {
         compile ":jquery-ui:1.8.15"
         runtime ":resources:1.1.6"
         compile ":coffeescript-resources:0.2"
-        compile ":angularjs-resources:0.1.2"
+
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
