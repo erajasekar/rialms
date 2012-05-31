@@ -5,7 +5,7 @@
   Time: 10:48 PM
   To change this template use File | Settings | File Templates.
 --%>
-<table>
+<table class="table table-bordered table-striped">
     <g:each var='entry' in="${mapTableData}">
         <tr>
             <td>${entry.key}</td>

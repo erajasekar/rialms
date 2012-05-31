@@ -16,6 +16,12 @@
 
 <body>
 
+<r:script>
+    $(document).ready(function () {
+        initTestRendering();
+    });
+</r:script>
+
 <div class="row-fluid">
     <div class="span12">
 

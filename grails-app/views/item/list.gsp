@@ -14,47 +14,52 @@
 </head>
 
 <body>
-<div class="body">
-    <h1><g:message code="item.list.title"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
-    </g:if>
-    <div class="list">
-        <table>
-            <thead>
-            <tr>
-                <g:sortableColumn property="id" title="Id"/>
+<div class="row-fluid">
+    <div class="span2">&nbsp;</div>
 
-                <g:sortableColumn property="title" title="title"/>
+    <div class="span8">
 
-                <g:sortableColumn property="dataFile" title="Data File"/>
+        <div class="title">
+            <h1><g:message code="item.list.title"/></h1>
+        </div>
+        <g:if test="${flash.message}">
+            <div class="message">${flash.message}</div>
+        </g:if>
+        <div>
+            <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <g:sortableColumn property="id" title="Id"/>
 
-                <td>Action</td>
+                    <g:sortableColumn property="title" title="title"/>
 
-            </tr>
-            </thead>
-            <tbody>
-            <g:each in="${itemList}" status="i" var="item">
-                <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-
-                    <td>${fieldValue(bean: item, field: 'id')}</td>
-
-                    <td>${fieldValue(bean: item, field: 'title')}</td>
-
-                    <td>${fieldValue(bean: item, field: 'dataFile')}</td>
-
-                    <td>
-                        <g:link action="play" id="${item.id}">play</g:link>
-                    </td>
+                    <th>Action</th>
 
                 </tr>
-            </g:each>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                <g:each in="${itemList}" status="i" var="item">
+                    <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-    <div class="paginateButtons">
-        <g:paginate total="${Item.count()}"/>
+                        <td>${fieldValue(bean: item, field: 'id')}</td>
+
+                        <td>${fieldValue(bean: item, field: 'title')}</td>
+
+                        <td>
+                            <g:link class="btn btn-info"  action="play" id="${item.id}" target="_blank">
+                                <i class="icon-play">&nbsp;</i><g:message code="play.label" />
+                            </g:link>
+                        </td>
+
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="paginateButtons">
+            <g:paginate total="${Item.count()}"/>
+        </div>
     </div>
 </div>
 </body>

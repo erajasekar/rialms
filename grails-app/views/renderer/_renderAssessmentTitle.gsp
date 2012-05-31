@@ -13,7 +13,7 @@
                     title="${message(code: 'button.report.label')}">
                 <i class="icon-signal"></i></g:link>
         </g:if>
-        <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
+        <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"  rel="tooltip"
                 onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"
                 title="${message(code: 'button.exitTest.label')}">
             <i class="icon-remove"></i>

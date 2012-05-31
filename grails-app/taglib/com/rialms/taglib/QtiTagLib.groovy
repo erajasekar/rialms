@@ -309,7 +309,7 @@ class QtiTagLib {
             }
         }
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
-        out << "</${sectionTag}> ";
+        out << "</${sectionTag}>";
     }
 
     def submit = { attrs ->
@@ -318,7 +318,7 @@ class QtiTagLib {
         String id = attrs.name;
         String value = attrs.value;
         assessmentItemInfo.addDisableOnCompletionId(id);
-        out << """ <button type="submit" class="btn btn-primary" id="${id}">
+        out << """ <button type="submit" class="btn btn-success" id="${id}">
         									<i class="icon-ok icon-white"></i>
         									${value}
         								</button>  """

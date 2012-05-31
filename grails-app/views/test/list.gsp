@@ -15,47 +15,51 @@
 </head>
 
 <body>
-<div class="body">
-    <h1><g:message code="test.list.title"/></h1>
-    <g:if test="${flash.message}">
-        <div class="message">${flash.message}</div>
-    </g:if>
-    <div class="list">
-        <table>
-            <thead>
-            <tr>
-                <g:sortableColumn property="id" title="Id"/>
+<div class="row-fluid">
+    <div class="span2">&nbsp;</div>
 
-                <g:sortableColumn property="title" title="Title"/>
+    <div class="span8">
+        <div class="title">
+            <h1><g:message code="test.list.title"/></h1>
+        </div>
+        <g:if test="${flash.message}">
+            <div class="message">${flash.message}</div>
+        </g:if>
+        <div>
+            <table class="table table-stripped">
+                <thead>
+                <tr>
+                    <g:sortableColumn property="id" title="Id"/>
 
-                <g:sortableColumn property="dataFile" title="Data File"/>
+                    <g:sortableColumn property="title" title="Title"/>
 
-                <td>Action</td>
-
-            </tr>
-            </thead>
-            <tbody>
-            <g:each in="${testList}" status="i" var="test">
-                <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-
-                    <td>${fieldValue(bean: test, field: 'id')}</td>
-
-                    <td>${fieldValue(bean: test, field: 'title')}</td>
-
-                    <td>${fieldValue(bean: test, field: 'dataFile')}</td>
-
-                    <td>
-                        <g:link action="play" id="${test.id}">play</g:link>
-                    </td>
+                    <th>Action</th>
 
                 </tr>
-            </g:each>
-            </tbody>
-        </table>
-    </div>
+                </thead>
+                <tbody>
+                <g:each in="${testList}" status="i" var="test">
+                    <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-    <div class="paginateButtons">
-        <g:paginate total="${com.rialms.assessment.test.Test.count()}"/>
+                        <td>${fieldValue(bean: test, field: 'id')}</td>
+
+                        <td>${fieldValue(bean: test, field: 'title')}</td>
+
+                        <td>
+                            <g:link class="btn btn-info" action="play" id="${test.id}" target="_blank">
+                                <i class="icon-play">&nbsp;</i><g:message code="play.label"/>
+                            </g:link>
+                        </td>
+
+                    </tr>
+                </g:each>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="paginateButtons">
+            <g:paginate total="${com.rialms.assessment.test.Test.count()}"/>
+        </div>
     </div>
 </div>
 </body>

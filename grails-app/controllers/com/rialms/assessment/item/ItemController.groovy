@@ -17,7 +17,7 @@ class ItemController {
     def index = { redirect(action: list, params: params) }
 
     def list = {
-        if (!params.max) params.max = 50
+        if (!params.max) params.max = 10
         [itemList: Item.list(params)]
 
     }
