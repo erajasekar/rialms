@@ -31,21 +31,15 @@
             <a class='close' data-dismiss='alert' href='#'>&times;</a>
             <h4><g:message code="test.complete.message"/></h4>
         </div>
-        <g:render template="/renderer/renderAssessmentTitle"
-                  model="[assessmentTitle: g.message(code: 'test.feedback.message')]"/>
-        <div class="block-content">
-            <g:render template="/renderer/renderTestFeedback"/>
-            <br/>
-            <div>
-                <g:link action="report" params="[id: params.id]" class="btn btn-primary" target="_blank"><i
-                        class="icon-signal icon-white"></i> Report</g:link>
-
-                <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
-                        class="btn btn-danger"
-                        onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"><i
-                        class="icon-remove icon-white"></i> Exit Test</g:link>
+        <g:if test="${assessmentParams[Consts.assessmentFeedback] || assessmentParams[Consts.testPartFeedback]}">
+            <g:render template="/renderer/renderAssessmentTitle"
+                      model="[assessmentTitle: g.message(code: 'test.feedback.message')]"/>
+            <div class="block-content">
+                <g:render template="/renderer/renderTestFeedback"/>
             </div>
-        </div>
+        </g:if>
+        <g:render template="/renderer/renderReportAndExitButtons" />
+
     </div>
 </div>
 </body>

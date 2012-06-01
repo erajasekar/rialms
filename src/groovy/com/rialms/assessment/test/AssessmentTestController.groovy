@@ -390,6 +390,7 @@ public class AssessmentTestController implements Serializable {
     }
 
     public String getReport() {
+        //log.info("RAJA ${getTest().getAssessmentResult().toXmlString()}")
         return getTest().getAssessmentResult().toXmlString();
     }
 

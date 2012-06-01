@@ -74,11 +74,11 @@ environments {
     development {
         grails.logging.jul.usebridge = true
         //grails.resources.processing.enabled = false
-        grails.resources.debug = true    //TODO: Disabling debug breaks mathjax include
+        //grails.resources.debug = true
     }
     production {
         grails.logging.jul.usebridge = false
-        grails.resources.debug = true    //TODO: Disabling debug breaks mathjax include
+        //grails.resources.debug = true
         // TODO LATER: grails.serverURL = "http://www.changeme.com"
     }
 }
