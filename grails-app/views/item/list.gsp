@@ -29,9 +29,9 @@
             <table class="table table-stripped">
                 <thead>
                 <tr>
-                    <g:sortableColumn property="id" title="Id"/>
+                    <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"/>
 
-                    <g:sortableColumn property="title" title="title"/>
+                    <th><g:message code="title.label" /></th>  <!-- TODO: fix sort by title -->
 
                     <th>Action</th>
 
@@ -46,8 +46,8 @@
                         <td>${fieldValue(bean: item, field: 'title')}</td>
 
                         <td>
-                            <g:link class="btn btn-info"  action="play" id="${item.id}" target="_blank">
-                                <i class="icon-play">&nbsp;</i><g:message code="play.label" />
+                            <g:link class="btn btn-info" action="play" id="${item.id}" target="_blank">
+                                <i class="icon-play">&nbsp;</i><g:message code="play.label"/>
                             </g:link>
                         </td>
 
@@ -56,10 +56,7 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="paginateButtons">
-            <g:paginate total="${Item.count()}"/>
-        </div>
+        <b:paginate total="${Item.count()}"/>
     </div>
 </div>
 </body>

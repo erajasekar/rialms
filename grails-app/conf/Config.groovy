@@ -65,6 +65,10 @@ grails.exceptionresolver.params.exclude = ['password']
 // enable query caching by default
 grails.hibernate.cache.queries = true
 
+grails.plugin.cloudfoundry.username = "e.rajasekar@gmail.com"
+grails.plugin.cloudfoundry.password = "Raja1733"
+grails.plugin.cloudfoundry.appname = 'rialms'
+
 // set per-environment serverURL stem for creating absolute links
 environments {
     development {
@@ -74,6 +78,7 @@ environments {
     }
     production {
         grails.logging.jul.usebridge = false
+        grails.resources.debug = true    //TODO: Disabling debug breaks mathjax include
         // TODO LATER: grails.serverURL = "http://www.changeme.com"
     }
 }
@@ -113,6 +118,3 @@ coffeescript.modules = {
         files "src/coffee/render", "src/coffee/datetime-utils"
     }
 }
-
-grails.plugins.twitterbootstrap.fixtaglib = true
-grails.plugins.twitterbootstrap.defaultBundle = 'bundle_bootstrap'

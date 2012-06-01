@@ -13,6 +13,7 @@ import com.rialms.consts.AssessmentItemStatus
 @Log4j
 class TestReportBuilder {
 
+    //TODO: Report should not include not-presented items for individual-non-linear and should have badges for status.
     private static final List<String> DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE = ['SCORE'];
 
     private List<String> outcomeVariablesToInclude = DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE;

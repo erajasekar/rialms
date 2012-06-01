@@ -29,9 +29,10 @@
             <table class="table table-stripped">
                 <thead>
                 <tr>
-                    <g:sortableColumn property="id" title="Id"/>
 
-                    <g:sortableColumn property="title" title="Title"/>
+                    <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"/>
+
+                    <th><g:message code="title.label"/></th>  <!-- TODO: fix sort by title -->
 
                     <th>Action</th>
 

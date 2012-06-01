@@ -1,17 +1,24 @@
 import com.rialms.assessment.item.Item
 import com.rialms.assessment.test.Test
 import com.rialms.assessment.item.Item
+import grails.util.Environment;
 
 class BootStrap {
 
     def init = { servletContext ->
-
-        createItems();
-        createTests()
-
-
+           initData();
     }
     def destroy = {
+    }
+
+    def initData(){
+
+        boolean isInitialized = Item.list().size() > 0;   //TODO find better way to do this check
+        log.info("BootStrap: ${Environment.current} ==> ${isInitialized}")
+        if (Environment.current == Environment.DEVELOPMENT || !isInitialized){
+            createItems();
+            createTests();
+        }
     }
 
     def createItems() {

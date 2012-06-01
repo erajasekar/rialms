@@ -5285,7 +5285,7 @@ blockquote small {
 @font-face {
   font-family: 'IcoMoonBase';
   src: url('../extras/icomoon/full-webfont.eot');
-  src: url('../extras/icomoon/full-webfont.eot?#iefix') format('embedded-opentype'), url('../extras/icomoon/full-webfont.woff') format('woff'), url('../extras/icomoon/full-webfont.ttf') format('truetype'), url('../extras/icomoon/full-webfont.svgz#IcoMoon') format('svg'), url('../extras/icomoon/full-webfont.svg#IcoMoon') format('svg');
+  src: url('../extras/icomoon/full-webfont.eot?#iefix') format('embedded-opentype'), url('../extras/icomoon/full-webfont.woff') format('woff'), url('../extras/icomoon/full-webfont.ttf') format('truetype'), url('../extras/icomoon/full-webfont.svg#IcoMoon') format('svg');
   font-weight: normal;
   font-style: normal;
 }

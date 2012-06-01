@@ -66,7 +66,7 @@
                 <div id="AssessmentForm">
                     <g:render template="/renderer/renderAssessmentItem"/>
                     <g:render template="/renderer/renderTestFeedback"/>
-                    <div class="block-controls">
+                    <div class="form-actions">
                         <% NavigationControls controls = assessmentParams[Consts.navigationControls] %>
 
                         <g:each in="${controls.getButtonStates()}" var="button">
