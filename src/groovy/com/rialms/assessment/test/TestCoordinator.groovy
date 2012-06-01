@@ -188,7 +188,7 @@ public class TestCoordinator implements Serializable {
         if (cachedTestRenderInfo != null) return;
 
         if (test.isTestComplete()) {
-            log.info("DEBUG test is complete");
+            log.debug("Test is complete");
             renderFeedbackContent();
         } else {
             renderContent(test.currentItemInfo, makeAssessmentParams());
@@ -303,7 +303,7 @@ public class TestCoordinator implements Serializable {
         Map<String, List<SectionPartStatus>> testPartStatus = test.getCurrentTestPartStatus();
         params.put(testPartStatus, testPartStatus)
 
-        log.info("DEBUG testPartStatus ${testPartStatus}");
+        log.debug("testPartStatus ${testPartStatus}");
         log.info("timeRemaining ==> ${params[timeRemaining]}")
 
         if (test.getCurrentItemRef().getItemSessionControl().getAllowComment())

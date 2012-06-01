@@ -144,7 +144,7 @@ public class AssessmentTestController implements Serializable {
     }
 
     public AssessmentItemInfo getCurrentItemInfo() {
-        log.info("DEBUG Executing getCurrentItemInfo() Processed Items==> ${processedItems}");
+        log.debug("Executing getCurrentItemInfo() Processed Items==> ${processedItems}");
         if (currentTestPart && !processedItems[currentTestPart.identifier]) {
             processedItems[currentTestPart.identifier] = [:];
         }
@@ -154,7 +154,7 @@ public class AssessmentTestController implements Serializable {
             if (currentItemInfo == null || !currentItemInfo.assessmentItem.is(currentItem)) {
                 if (processedItems[currentTestPart.identifier].containsKey(currentItemRef.identifier)) {
                     currentItemInfo = processedItems[currentTestPart.identifier][currentItemRef.identifier];
-                    log.info("DEBUG Found exisiting itemInfo for identifier ${currentItemRef.identifier} ==>  ${currentItemInfo} ");
+                    log.debug("Found exisiting itemInfo for identifier ${currentItemRef.identifier} ==>  ${currentItemInfo} ");
                     return currentItemInfo;
                 } else {
                     currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);

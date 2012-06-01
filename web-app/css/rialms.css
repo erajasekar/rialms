@@ -120,3 +120,6 @@ a.toggleNav:hover {
   text-align: center;
   padding: 10px;
 }
+.form-actions {
+  background-color: #f3f8ed;
+}

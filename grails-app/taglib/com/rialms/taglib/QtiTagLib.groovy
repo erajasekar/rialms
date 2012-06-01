@@ -112,7 +112,7 @@ class QtiTagLib {
 
         Map actionParams = [id: params.id, (id): title];
         log.info("${tag} button action params => ${actionParams}");
-        out << """ <input type='button' id='${id}' name='${id}' value='${title}' onclick="${remoteFunction(action: AssessmentItemInfo.controllerActionForProcessItem, params: actionParams, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" />  """
+        out << """ <button id='${id}' name='${id}' class='btn btn-primary' onclick="${remoteFunction(action: AssessmentItemInfo.controllerActionForProcessItem, params: actionParams, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" >${title}</button>  """
     }
 
     def choiceInteraction = {  attrs ->
@@ -358,7 +358,7 @@ class QtiTagLib {
     }
 
     def less2Css = { attrs ->
-         // com.rialms.util.Less2Css.run();
+          com.rialms.util.Less2Css.run();
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {
