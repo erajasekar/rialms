@@ -13,7 +13,6 @@ import com.rialms.consts.Constants
 class QtiTagLib {
     static namespace = "qti";
 
-
     def img = {  attrs ->
 
         String tag = "img";
@@ -112,7 +111,17 @@ class QtiTagLib {
 
         Map actionParams = [id: params.id, (id): title];
         log.info("${tag} button action params => ${actionParams}");
-        out << """ <button id='${id}' name='${id}' class='btn btn-primary' onclick="${remoteFunction(action: AssessmentItemInfo.controllerActionForProcessItem, params: actionParams, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" >${title}</button>  """
+
+        String hintIdentifier = grailsApplication.config.rialms.hintIdentifier;
+        String solutionIdentifier = grailsApplication.config.rialms.solutionIdentifier;
+
+        if (id == hintIdentifier || id == solutionIdentifier ){
+            String buttonObj = (id == hintIdentifier) ? Constants.hintJsObj : Constants.solutionJsObj;
+            out << """<div ng-init="${buttonObj}.title='${title}';${buttonObj}.itemId='${params.id}';${buttonObj}.id='${id}'"></div>"""
+        }else{
+            out << """ <button id='${id}' name='${id}' class='btn btn-primary' onclick="${remoteFunction(action: AssessmentItemInfo.controllerActionForProcessItem, params: actionParams, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" >${title}</button>  """
+        }
+
     }
 
     def choiceInteraction = {  attrs ->

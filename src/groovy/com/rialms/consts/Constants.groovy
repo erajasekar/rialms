@@ -66,5 +66,7 @@ class Constants {
     public static final String testStatusContent = 'testStatusContent';
     public static final String testSectionTitleContent = 'testSectionTitleContent';
     public static final String filterByStatus = 'filterByStatus';
+    public static final String hintJsObj = 'hintButton';
+    public static final String solutionJsObj = 'solutionButton';
 
 }

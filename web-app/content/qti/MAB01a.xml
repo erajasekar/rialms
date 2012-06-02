@@ -18,9 +18,9 @@
         </correctResponse>
     </responseDeclaration>
     <responseDeclaration baseType="boolean"
-                         cardinality="single" identifier="HINTREQUEST"/>
+                         cardinality="single" identifier="HINT"/>
     <responseDeclaration baseType="boolean"
-                         cardinality="single" identifier="SOLREQUEST"/>
+                         cardinality="single" identifier="SOLUTION"/>
     <outcomeDeclaration identifier="SCORE" cardinality="single"
                         baseType="float">
         <defaultValue>
@@ -103,20 +103,20 @@
 
 
         <p>
-            <endAttemptInteraction responseIdentifier="HINTREQUEST" title="Show Hint"/>
-            <endAttemptInteraction responseIdentifier="SOLREQUEST" title="Show Solution"/>
+            <endAttemptInteraction responseIdentifier="HINT" title="Show Hint"/>
+            <endAttemptInteraction responseIdentifier="SOLUTION" title="Show Solution"/>
         </p>
     </itemBody>
     <responseProcessing><!-- basic string match, includes feedback on specific errors -->
         <responseCondition>
             <responseIf>
-                <variable identifier="HINTREQUEST"/>
+                <variable identifier="HINT"/>
                 <setOutcomeValue identifier="FEEDBACK">
                     <baseValue baseType="identifier">HINT</baseValue>
                 </setOutcomeValue>
             </responseIf>
             <responseElseIf>
-                <variable identifier="SOLREQUEST"/>
+                <variable identifier="SOLUTION"/>
                 <setOutcomeValue identifier="FEEDBACK">
                     <baseValue baseType="identifier">SOLUTION</baseValue>
                 </setOutcomeValue>

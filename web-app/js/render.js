@@ -66,6 +66,8 @@
       if (data.testContent) {
         contentClass = $('#content').attr("class");
         $('#testContent').html(data.testContent);
+        var $container = $('#testContent');
+        angular.compile($container)().$apply();
         $('#content').attr("class", contentClass);
         window.MathJax = null;
         $.getScript($("script[src*='MathJax.js']").attr('src'));
