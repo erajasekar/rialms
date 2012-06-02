@@ -358,7 +358,7 @@ class QtiTagLib {
     }
 
     def less2Css = { attrs ->
-          com.rialms.util.Less2Css.run();
+         // com.rialms.util.Less2Css.run();
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {

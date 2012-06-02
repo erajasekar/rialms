@@ -8,9 +8,11 @@
 <div>
     <label>Name:</label>
     <input type="text" ng-model="yourName" placeholder="Enter a name here">
+
     <hr>
 
     <h1>Hello {{yourName}}!</h1>
+    <div ng-init="yourName='Hello'"></div>
 
 </div>
 </body>
