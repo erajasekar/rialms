@@ -8,6 +8,7 @@ modules = {
         resource url: 'js/render.js', disposition: 'head'
         resource url: 'js/sample.js'
         resource url: 'css/rialms.css'
+        resource url: 'coffee/render.coffee'
     }
 
     mybootstrap {
