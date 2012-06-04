@@ -6,7 +6,7 @@
   Time: 11:55 PM
   To change this template use File | Settings | File Templates.
 --%>
-<div class="block-header">
+<div id='assessmentTitle' class="block-header" ng-controller="HeaderController">
     <% boolean isTest = params.controller == 'test' %>
     HINT {{hintButton}}
     <h4>${assessmentTitle}

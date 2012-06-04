@@ -115,8 +115,8 @@ log4j = {
     }
 }
 
-coffeescript.modules = {
+/*coffeescript.modules = {
     render {
         files "src/coffee/render", "src/coffee/datetime-utils"
     }
-}
+} */

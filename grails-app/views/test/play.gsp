@@ -64,6 +64,7 @@
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
 
                 <div id="AssessmentForm">
+                    <g:render template="/renderer/renderAssessmentTitle" model="[assessmentTitle: assessmentItemInfo.title]"/>
                     <g:render template="/renderer/renderAssessmentItem"/>
                     <g:render template="/renderer/renderTestFeedback"/>
                     <div class="form-actions">

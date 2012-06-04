@@ -7,7 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <div id='testContent'>
-    <g:render template="/renderer/renderAssessmentTitle" model="[assessmentTitle: assessmentItemInfo.title]"/>
+
     <div class="block-content">
 
         <g:if test="${assessmentParams[Consts.timeRemaining] > 0}">

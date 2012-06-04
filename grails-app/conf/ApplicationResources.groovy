@@ -4,11 +4,17 @@ modules = {
     }
 
     core {
-        dependsOn 'jquery,jquery-ui,mybootstrap,angular'
-        resource url: 'js/render.js', disposition: 'head'
+        dependsOn 'jquery,jquery-ui,mybootstrap,angular,coffee'
+       // resource url: 'js/render.js', disposition: 'head'
         resource url: 'js/sample.js'
         resource url: 'css/rialms.css'
-        resource url: 'coffee/render.coffee'
+
+    }
+
+    coffee {
+        resource url: 'coffee/render.coffee', bundle:'render'
+        resource url: 'coffee/datetime-utils.coffee', bundle:'render'
+        resource url: 'coffee/controllers.coffee', bundle:'render'
     }
 
     mybootstrap {

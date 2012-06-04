@@ -7,8 +7,6 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<g:render template="/renderer/renderAssessmentTitle"
-          model="[assessmentTitle: g.message(code: 'test.submission.title')]"/>
 <div class='submission block-content'>
     <h4>
         <g:if test="${assessmentParams[Consts.testPart]}">
