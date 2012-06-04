@@ -3,6 +3,7 @@ package com.rialms.assessment.test
 import org.qtitools.qti.node.item.AssessmentItem
 import org.qtitools.qti.value.Value
 import com.rialms.assessment.item.AssessmentItemInfo
+import com.rialms.consts.Constants
 
 /**
  * Created by IntelliJ IDEA.
@@ -63,6 +64,7 @@ class TestRenderInfo {
         if (!assessmentParams.submitEnabled) {
             output.disableElementIds = ['#submit'];
         }
+        output[Constants.assessmentHeader] = assessmentItemInfo.header;
         return output;
     }
 }

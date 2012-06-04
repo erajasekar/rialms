@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.consts.Constants; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
+<%@ page import="sun.reflect.generics.scope.ConstructorScope; com.rialms.consts.Constants; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rajasekar Elango
@@ -6,10 +6,10 @@
   Time: 11:55 PM
   To change this template use File | Settings | File Templates.
 --%>
-<div id='assessmentTitle' class="block-header" ng-controller="HeaderController">
+<div id="${Consts.assessmentHeader}" class="block-header" ng-controller="HeaderController">
     <% boolean isTest = params.controller == 'test' %>
-    HINT {{hintButton}}
-    <h4>${assessmentTitle}
+    <div ng-init="${Consts.assessmentHeader}.title='${assessmentTitle}'" ></div>
+    <h4>{{${Consts.assessmentHeader}.title}}
         <span class="pull-right">
            <g:remoteLink ng-hide="!${Constants.hintJsObj}" rel="tooltip"
                    action="${AssessmentItemInfo.controllerActionForProcessItem}"

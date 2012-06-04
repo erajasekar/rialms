@@ -46,6 +46,9 @@ class AssessmentItemInfo {
 
     private AssessmentItemStatus status = NOT_PRESENTED;
 
+    //Used to hold header title and hint/solution buttons
+    private Map header = [:];
+
     public AssessmentItemInfo() {
     }
 
@@ -57,6 +60,7 @@ class AssessmentItemInfo {
         this.dataPath = dataPath;
         xmlRoot = new XmlParser().parse(assessmentItem.sourceFile);
         status = PRESENTED;
+        createHeader();
     }
 
     public Map<String, String> getResponseValues() {
@@ -113,6 +117,18 @@ class AssessmentItemInfo {
         return e;
     }
 
+    public void addHeaderButton(String buttonId, String buttonTitle){
+        //TODO remove comments
+       /* if (!header){
+            throw IllegalStateException("Header is null, should invoke createHeader first");
+        }*/
+        header[Consts.buttons] = [(buttonId), buttonTitle];
+    }
+
+    public void createHeader(){
+        header = [(Consts.title):title, (Consts.id) : null,  (Consts.buttons):[:]];
+    }
+
     public void addDisableOnCompletionId(String id) {
         disableOnCompletionIds << id;
     }
@@ -123,6 +139,11 @@ class AssessmentItemInfo {
 
     private void timeOut() {
         status = TIMED_OUT;
+    }
+
+
+    public Map getHeader(){
+        return header;
     }
 
     public Map<String, List<String>> getVisibleAndHiddenElementIds() {
@@ -178,11 +199,13 @@ class AssessmentItemInfo {
         if (isComplete()) {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
+        output[Consts.assessmentHeader] = header;
+        println "RAJA RENDERED OUTPUT  ===> ${output}";
         return output;
     }
 
     public String getTitle() {
-        return assessmentItem.getTitle();
+        return assessmentItem?.getTitle();
     }
 
     public String getDataPath() {

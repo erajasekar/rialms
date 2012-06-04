@@ -1,13 +1,13 @@
 $ = jQuery
 window.updateRenderedItem = (data) ->
-  controller = angular.element('#assessmentTitle').controller()
-  scope = angular.element('#assessmentTitle').scope()
+  scope = angular.element('#assessmentHeader').scope()
   scope.$apply ->
     scope.hintButton = {
         title: "Show Hint",
         itemId: "24",
         id: "HINT"}
-  console.log(angular.element('#assessmentTitle').scope().hintButton)
+    scope.assessmentHeader = data.assessmentHeader
+  console.log(angular.element('#assessmentHeader').scope().assessmentHeader)
   if data.redirectUrl
     $.post(data.redirectUrl, (resp) ->
         document.open()

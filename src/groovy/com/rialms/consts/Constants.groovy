@@ -16,6 +16,7 @@ class Constants {
     public static final String questionId = 'questionId';
     public static final String redirectUrl = 'redirectUrl';
     public static final String title = 'title';
+    public static final String id = 'id';
     public static final String outcomeValues = 'outcomeValues';
     public static final String outcomeDeclarations = 'outcomeDeclarations';
     public static final String testPartStatus = 'testPartStatus';
@@ -66,7 +67,10 @@ class Constants {
     public static final String testStatusContent = 'testStatusContent';
     public static final String testSectionTitleContent = 'testSectionTitleContent';
     public static final String filterByStatus = 'filterByStatus';
+    //TODO : remove next two lines
     public static final String hintJsObj = 'hintButton';
     public static final String solutionJsObj = 'solutionButton';
+    public static final String buttons = 'buttons';
+    public static final String assessmentHeader = 'assessmentHeader';
 
 }
