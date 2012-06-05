@@ -117,12 +117,10 @@ class AssessmentItemInfo {
         return e;
     }
 
-    public void addHeaderButton(String buttonId, String buttonTitle){
-        //TODO remove comments
-       /* if (!header){
-            throw IllegalStateException("Header is null, should invoke createHeader first");
-        }*/
-        header[Consts.buttons] = [(buttonId), buttonTitle];
+    //TODO find better way to pass id
+    public void addHeaderButton(String id, String buttonId, String buttonTitle){
+        header[Consts.id] = id;
+        header[Consts.buttons] = header[Consts.buttons] + [(buttonId): buttonTitle];
     }
 
     public void createHeader(){

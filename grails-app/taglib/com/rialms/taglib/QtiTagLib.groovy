@@ -9,6 +9,7 @@ import com.rialms.util.QtiUtils
 import com.rialms.assessment.render.HiddenElement
 import com.rialms.assessment.test.SectionPartStatus
 import com.rialms.consts.Constants
+import com.rialms.angular.JsObjectUtil
 
 class QtiTagLib {
     static namespace = "qti";
@@ -112,16 +113,47 @@ class QtiTagLib {
         Map actionParams = [id: params.id, (id): title];
         log.info("${tag} button action params => ${actionParams}");
 
-        String hintIdentifier = grailsApplication.config.rialms.hintIdentifier;
-        String solutionIdentifier = grailsApplication.config.rialms.solutionIdentifier;
+        String hintIdentifier = getHintIdentifier();
+        String solutionIdentifier = getSolutionIdentifier();
 
-        if (id == hintIdentifier || id == solutionIdentifier ){
-            String buttonObj = (id == hintIdentifier) ? Constants.hintJsObj : Constants.solutionJsObj;
-            out << """<div ng-init="${buttonObj}.title='${title}';${buttonObj}.itemId='${params.id}';${buttonObj}.id='${id}'"></div>"""
-        }else{
+        if (id == hintIdentifier || id == solutionIdentifier) {
+            out << """<div ng-init="${JsObjectUtil.getHeaderButton(id)}='${title}';${JsObjectUtil.headerId}='${params.id}'"></div>"""
+            assessmentItemInfo.addHeaderButton(params.id, id, title);
+        } else {
             out << """ <button id='${id}' name='${id}' class='btn btn-primary' onclick="${remoteFunction(action: AssessmentItemInfo.controllerActionForProcessItem, params: actionParams, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" >${title}</button>  """
         }
+   }
 
+    def headerButton = {attrs ->
+        String tag = "headerButton";
+        String type = getRequiredAttribute(attrs, 'type', tag);
+        String buttonIdentifier, buttonObject, title, iconClass;
+        
+        if (type == Constants.hint){
+            buttonIdentifier = getHintIdentifier();
+            iconClass = "icon-question-sign";
+        }else if (type == Constants.solution){
+            buttonIdentifier = getSolutionIdentifier();
+            iconClass = "icon-book";
+        }else{
+            throwTagError("Tag [${tag}] has invalid attribute unsupported type ${type}, valid values are '${Constants.hint}', '${Constants.solution}' ");
+        }
+        buttonObject = JsObjectUtil.getHeaderButton(buttonIdentifier);
+        title =  JsObjectUtil.getTemplateVar(buttonObject);
+        
+        Map fieldAttributes = [action: AssessmentItemInfo.controllerActionForProcessItem,
+                onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
+                title: title];
+
+        fieldAttributes.params = ['id': JsObjectUtil.getTemplateVar(JsObjectUtil.headerId), (buttonIdentifier): title];
+        fieldAttributes.'ng-hide' = "!${buttonObject}";
+
+        def tagBody = {
+            g.remoteLink(fieldAttributes) {
+                "<i class='${iconClass}'></i>"
+            }
+        }
+        renderTag(attrs, tagBody);
     }
 
     def choiceInteraction = {  attrs ->
@@ -367,7 +399,7 @@ class QtiTagLib {
     }
 
     def less2Css = { attrs ->
-         // com.rialms.util.Less2Css.run();
+        // com.rialms.util.Less2Css.run();
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {
@@ -387,5 +419,12 @@ class QtiTagLib {
 
     protected getOptionalAttribute(attrs, String name) {
         return getAttribute(attrs, name, null, false);
+    }
+
+    private String getHintIdentifier(){
+        return grailsApplication.config.rialms.hintIdentifier;
+    }
+    private String getSolutionIdentifier(){
+       return grailsApplication.config.rialms.solutionIdentifier;
     }
 }

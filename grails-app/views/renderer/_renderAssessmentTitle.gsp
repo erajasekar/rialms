@@ -1,4 +1,4 @@
-<%@ page import="sun.reflect.generics.scope.ConstructorScope; com.rialms.consts.Constants; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
+<%@ page import="com.rialms.angular.JsObjectUtil; sun.reflect.generics.scope.ConstructorScope; com.rialms.consts.Constants; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rajasekar Elango
@@ -6,26 +6,14 @@
   Time: 11:55 PM
   To change this template use File | Settings | File Templates.
 --%>
-<div id="${Consts.assessmentHeader}" class="block-header" ng-controller="HeaderController">
+<div id="${Consts.assessmentHeader}" class="block-header">
     <% boolean isTest = params.controller == 'test' %>
-    <div ng-init="${Consts.assessmentHeader}.title='${assessmentTitle}'" ></div>
-    <h4>{{${Consts.assessmentHeader}.title}}
+    <div ng-init="${JsObjectUtil.headerTitle}='${assessmentTitle}'" ></div>
+    <h4>{{${JsObjectUtil.headerTitle}}}
         <span class="pull-right">
-           <g:remoteLink ng-hide="!${Constants.hintJsObj}" rel="tooltip"
-                   action="${AssessmentItemInfo.controllerActionForProcessItem}"
-                   onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                   params="['id':'{{'+ Constants.hintJsObj + '.itemId}}',('{{' + Constants.hintJsObj + '.id}}'):'{{' + Constants.hintJsObj +'.title}}']"
-                   title="{{hintButton.title}}">
-                        <i class="icon-question-sign"></i>
-            </g:remoteLink>
-            <g:remoteLink ng-hide="!${Constants.solutionJsObj}" rel="tooltip"
-                    action="${AssessmentItemInfo.controllerActionForProcessItem}"
-                    onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                    params="['id':'{{'+ Constants.solutionJsObj + '.itemId}}',('{{' + Constants.solutionJsObj + '.id}}'):'{{' + Constants.solutionJsObj +'.title}}']"
-                    title="{{solutionButton.title}}">
-                         <i class="icon-book"></i>
-             </g:remoteLink>
-            <g:if test="${isTest}">
+           <qti:headerButton type='${Constants.hint}'/>
+           <qti:headerButton type='${Constants.solution}'/>
+           <g:if test="${isTest}">
                 <g:link action="report" params="[id: params.id]" rel="tooltip"
                         title="${message(code: 'button.report.label')}">
                     <i class="icon-bar-chart"></i>

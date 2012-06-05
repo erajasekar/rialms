@@ -14,5 +14,6 @@ class UtilitiesService {
      public boolean showInternalState(){
          grailsApplication.config.rialms.showInternalState;
      }
-     
+
+
 }
