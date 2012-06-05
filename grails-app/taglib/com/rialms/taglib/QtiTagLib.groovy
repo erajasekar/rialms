@@ -117,8 +117,8 @@ class QtiTagLib {
         String solutionIdentifier = getSolutionIdentifier();
 
         if (id == hintIdentifier || id == solutionIdentifier) {
-            out << """<div ng-init="${JsObjectUtil.getHeaderButton(id)}='${title}';${JsObjectUtil.headerId}='${params.id}'"></div>"""
-            assessmentItemInfo.addHeaderButton(params.id, id, title);
+            out << """<div ng-init="${JsObjectUtil.getHeaderButton(id)}='${title}'"></div>"""
+            assessmentItemInfo.addHeaderButton(id, title);
         } else {
             out << """ <button id='${id}' name='${id}' class='btn btn-primary' onclick="${remoteFunction(action: AssessmentItemInfo.controllerActionForProcessItem, params: actionParams, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" >${title}</button>  """
         }
@@ -145,7 +145,7 @@ class QtiTagLib {
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
                 title: title];
 
-        fieldAttributes.params = ['id': JsObjectUtil.getTemplateVar(JsObjectUtil.headerId), (buttonIdentifier): title];
+        fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];
         fieldAttributes.'ng-hide' = "!${buttonObject}";
 
         def tagBody = {

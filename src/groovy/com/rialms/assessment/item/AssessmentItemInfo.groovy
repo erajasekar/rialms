@@ -117,14 +117,16 @@ class AssessmentItemInfo {
         return e;
     }
 
-    //TODO find better way to pass id
-    public void addHeaderButton(String id, String buttonId, String buttonTitle){
-        header[Consts.id] = id;
+    public void addHeaderButton(String buttonId, String buttonTitle){
         header[Consts.buttons] = header[Consts.buttons] + [(buttonId): buttonTitle];
     }
 
     public void createHeader(){
-        header = [(Consts.title):title, (Consts.id) : null,  (Consts.buttons):[:]];
+        header = createHeader(title);
+    }
+
+    public static Map createHeader(String title){
+        return [(Consts.title):title,  (Consts.buttons):[:]];
     }
 
     public void addDisableOnCompletionId(String id) {
@@ -191,14 +193,12 @@ class AssessmentItemInfo {
     public Map getRenderOutput() {
         Map<String, List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
         Map output = [(Consts.itemOutcomeValues): outcomeValues,
-                (Consts.responseValues): responseValues,
                 (Consts.visibleElementIds): visibleAndHiddenElementIds[Consts.visibleElementIds],
                 (Consts.hiddenElementIds): visibleAndHiddenElementIds[Consts.hiddenElementIds]];
         if (isComplete()) {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
         output[Consts.assessmentHeader] = header;
-        println "RAJA RENDERED OUTPUT  ===> ${output}";
         return output;
     }
 

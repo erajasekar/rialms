@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.assessment.test.SectionPartStatus; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
+<%@ page import="com.rialms.angular.JsObjectUtil; com.rialms.assessment.test.SectionPartStatus; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango

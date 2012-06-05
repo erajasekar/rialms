@@ -4,6 +4,8 @@ import com.rialms.util.CollectionUtils
 import com.rialms.util.UtilitiesService
 import grails.converters.JSON
 import com.rialms.consts.Constants as Consts
+import com.rialms.consts.Constants
+import com.rialms.assessment.item.AssessmentItemInfo
 
 class TestController {
 
@@ -108,11 +110,13 @@ class TestController {
             render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
         } else {
             Map renderOutput = testRenderInfo.renderOutput;
-
             if (renderNextItem) {
                 //To render next item, reset testContent
                 if (testRenderInfo[Consts.assessmentParams][Consts.submitTestPartContent]) {
                     renderOutput[Consts.testContent] = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
+                    //Override header with appropriate title
+                    renderOutput[Consts.assessmentHeader] = AssessmentItemInfo.createHeader(g.message(code: 'test.submission.title'));
+
                 } else {
                     renderOutput[Consts.testContent] = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
                     renderOutput[Consts.testStatusContent] = g.render(template: '/renderer/renderTestPartStatus', model: testRenderInfo.toPropertiesMap());

@@ -11,7 +11,6 @@ import com.rialms.consts.Constants as Consts;
  */
 class JsObjectUtil {
 
-    public static final String headerId = "${Consts.assessmentHeader}.${Consts.id}";
     public static final String headerTitle = "${Consts.assessmentHeader}.${Consts.title}";
     public static final String headerButton = "${Consts.assessmentHeader}.${Consts.buttons}";
 

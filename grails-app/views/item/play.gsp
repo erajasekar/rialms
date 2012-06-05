@@ -42,7 +42,6 @@
                 <div class="block-content">
                     <g:render template="/renderer/renderItemSubTree"
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
-
                     <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
                                 name="${Consts.submit}"/>
                 </div>

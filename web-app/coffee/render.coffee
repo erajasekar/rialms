@@ -1,9 +1,11 @@
 $ = jQuery
 window.updateRenderedItem = (data) ->
+  console.log(data)
+
   scope = angular.element('#assessmentHeader').scope()
   scope.$apply ->
-    scope.assessmentHeader = data.assessmentHeader
-  console.log('here ' + angular.element('#assessmentHeader').scope().assessmentHeader)
+    scope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
+
   if data.redirectUrl
     $.post(data.redirectUrl, (resp) ->
         document.open()
@@ -12,9 +14,6 @@ window.updateRenderedItem = (data) ->
     )
     return
   else
-    if data.responseValues
-      for name,value of data.responseValues
-        $('form').field(name, value)
     if data.visibleElementIds
       $(visibleElementId).show() for visibleElementId in data.visibleElementIds
     if data.hiddenElementIds
@@ -31,7 +30,6 @@ window.updateRenderedItem = (data) ->
       $('#testFeedback').html(data.testFeedback)
     if data.testStatusContent
       sidebarClass = $('#sidebar').attr("class")
-      ;
       $('#testStatusContent').html(data.testStatusContent)
       if (!sidebarClass)
         $('#sidebar').attr("class", sidebarClass)
@@ -40,10 +38,8 @@ window.updateRenderedItem = (data) ->
       $('#testSectionTitleContent').html(data.testSectionTitleContent)
     if data.testContent
       contentClass = $('#content').attr("class")
-      ;
       $('#testContent').html(data.testContent)
       $('#content').attr("class", contentClass)
-      ;
       window.MathJax = null
       $.getScript($("script[src*='MathJax.js']").attr('src'))
   #Remove commented code based on performance
