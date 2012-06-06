@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.angular.JsObjectUtil; sun.reflect.generics.scope.ConstructorScope; com.rialms.consts.Constants; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
+<%@ page import="com.rialms.consts.EndAttemptButton; com.rialms.angular.JsObjectUtil; sun.reflect.generics.scope.ConstructorScope; com.rialms.consts.Constants; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rajasekar Elango
@@ -11,8 +11,8 @@
     <div ng-init="${JsObjectUtil.headerTitle}='${assessmentTitle}'" ></div>
     <h4>{{${JsObjectUtil.headerTitle}}}
         <span class="pull-right">
-           <qti:headerButton type='${Constants.hint}'/>
-           <qti:headerButton type='${Constants.solution}'/>
+           <qti:headerButton type='${EndAttemptButton.hint}'/>
+           <qti:headerButton type='${EndAttemptButton.solution}'/>
            <g:if test="${isTest}">
                 <g:link action="report" params="[id: params.id]" rel="tooltip"
                         title="${message(code: 'button.report.label')}">

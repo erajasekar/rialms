@@ -20,7 +20,6 @@
                     <g:message code="test.status.message"/>
                 </h4>
             </div>
-            <!-- TODO make sure testpart is shown -->
             <ul class="nav nav-list">
                 <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 

@@ -26,7 +26,6 @@
 <div class="row-fluid">
     <div class="span3">
         <a href="#" rel="tooltip" class="toggleNav pull-right" title="Hide Sidebar"><span>&laquo;</span></a>
-        <!--TODO MAKE title read from message.properties  -->
     </div>
 </div>
 
@@ -64,7 +63,7 @@
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
 
                 <div id="AssessmentForm">
-                    <g:render template="/renderer/renderAssessmentTitle" model="[assessmentTitle: assessmentItemInfo.title]"/>
+                    <g:render template="/renderer/renderAssessmentHeader" model="[assessmentTitle: assessmentItemInfo.title]"/>
                     <g:render template="/renderer/renderAssessmentItem"/>
                     <g:render template="/renderer/renderTestFeedback"/>
                     <div class="form-actions">

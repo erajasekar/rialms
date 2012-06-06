@@ -10,6 +10,7 @@ import com.rialms.assessment.render.HiddenElement
 import com.rialms.assessment.test.SectionPartStatus
 import com.rialms.consts.Constants
 import com.rialms.angular.JsObjectUtil
+import com.rialms.consts.EndAttemptButton
 
 class QtiTagLib {
     static namespace = "qti";
@@ -126,18 +127,11 @@ class QtiTagLib {
 
     def headerButton = {attrs ->
         String tag = "headerButton";
-        String type = getRequiredAttribute(attrs, 'type', tag);
+        EndAttemptButton type = getRequiredAttribute(attrs, 'type', tag);
         String buttonIdentifier, buttonObject, title, iconClass;
-        
-        if (type == Constants.hint){
-            buttonIdentifier = getHintIdentifier();
-            iconClass = "icon-question-sign";
-        }else if (type == Constants.solution){
-            buttonIdentifier = getSolutionIdentifier();
-            iconClass = "icon-book";
-        }else{
-            throwTagError("Tag [${tag}] has invalid attribute unsupported type ${type}, valid values are '${Constants.hint}', '${Constants.solution}' ");
-        }
+        buttonIdentifier = grailsApplication.config.rialms[type.configIdentifier()];
+        iconClass = type.iconClass;
+
         buttonObject = JsObjectUtil.getHeaderButton(buttonIdentifier);
         title =  JsObjectUtil.getTemplateVar(buttonObject);
         
@@ -150,7 +144,7 @@ class QtiTagLib {
 
         def tagBody = {
             g.remoteLink(fieldAttributes) {
-                "<i class='${iconClass}'></i>"
+                "<i class='${iconClass}'></i>&nbsp;&nbsp;${title}"
             }
         }
         renderTag(attrs, tagBody);

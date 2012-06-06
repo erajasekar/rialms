@@ -32,7 +32,7 @@
             <h4><g:message code="test.complete.message"/></h4>
         </div>
         <g:if test="${assessmentParams[Consts.assessmentFeedback] || assessmentParams[Consts.testPartFeedback]}">
-            <g:render template="/renderer/renderAssessmentTitle"
+            <g:render template="/renderer/renderAssessmentHeader"
                       model="[assessmentTitle: g.message(code: 'test.feedback.message')]"/>
             <div class="block-content">
                 <g:render template="/renderer/renderTestFeedback"/>
