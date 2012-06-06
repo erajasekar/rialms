@@ -67,9 +67,8 @@ class Constants {
     public static final String testStatusContent = 'testStatusContent';
     public static final String testSectionTitleContent = 'testSectionTitleContent';
     public static final String filterByStatus = 'filterByStatus';
-    public static final String hint = 'hint';
-    public static final String solution = 'solution';
     public static final String buttons = 'buttons';
     public static final String assessmentHeader = 'assessmentHeader';
+    public static final String testStatusModel = 'testStatusModel';
 
 }

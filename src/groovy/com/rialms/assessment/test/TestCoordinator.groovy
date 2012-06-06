@@ -300,8 +300,9 @@ public class TestCoordinator implements Serializable {
         params.put(testStatus, test.testStatus)
         params.put(filterByStatus, this.filterItemByStatus);
 
-        Map<String, List<SectionPartStatus>> testPartStatus = test.getCurrentTestPartStatus();
-        params.put(testPartStatus, testPartStatus)
+        //TODO remove commented code
+       /* Map<String, List<SectionPartStatus>> testPartStatus = test.getCurrentTestPartStatus();
+        params.put(testPartStatus, testPartStatus)*/
 
         log.debug("testPartStatus ${testPartStatus}");
         log.info("timeRemaining ==> ${params[timeRemaining]}")

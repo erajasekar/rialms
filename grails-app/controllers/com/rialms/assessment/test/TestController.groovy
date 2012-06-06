@@ -119,7 +119,7 @@ class TestController {
 
                 } else {
                     renderOutput[Consts.testContent] = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
-                    renderOutput[Consts.testStatusContent] = g.render(template: '/renderer/renderTestPartStatus', model: testRenderInfo.toPropertiesMap());
+                  //  renderOutput[Consts.testStatusContent] = g.render(template: '/renderer/renderTestPartStatus', model: testRenderInfo.toPropertiesMap());
                     renderOutput[Consts.testSectionTitleContent] = qti.assessmentSection(sectionTitles:testRenderInfo.assessmentParams[Consts.sectionTitles]);
                 }
             } else {

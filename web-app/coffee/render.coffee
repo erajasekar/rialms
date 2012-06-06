@@ -2,9 +2,13 @@ $ = jQuery
 window.updateRenderedItem = (data) ->
   console.log(data)
 
-  scope = angular.element('#assessmentHeader').scope()
-  scope.$apply ->
-    scope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
+  headerScope = angular.element('#assessmentHeader').scope()
+  headerScope.$apply ->
+    headerScope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
+
+  testStatusScope = angular.element('#testStatusContent').scope()
+  testStatusScope.$apply ->
+    testStatusScope.testStatusModel = data.testStatusModel if data.testStatusModel
 
   if data.redirectUrl
     $.post(data.redirectUrl, (resp) ->
@@ -30,7 +34,7 @@ window.updateRenderedItem = (data) ->
       $('#testFeedback').html(data.testFeedback)
     if data.testStatusContent
       sidebarClass = $('#sidebar').attr("class")
-      $('#testStatusContent').html(data.testStatusContent)
+     ## $('#testStatusContent').html(data.testStatusContent)
       if (!sidebarClass)
         $('#sidebar').attr("class", sidebarClass)
         $('#sidebar').animate({width: 'toggle'}, 0)

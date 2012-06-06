@@ -1,5 +1,6 @@
-window.HeaderController = ($scope)->
+window.TestStatusController = ($scope)->
 
+  $scope.hello = "Raja"
 
   ###$scope.hintButton = { title: "title" ,  itemId: "item",  id: "id"}###
 

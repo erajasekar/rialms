@@ -8,7 +8,7 @@
 --%>
 
 
-<div id="${Consts.testStatusContent}">
+<div id="${Consts.testStatusContent}" ng-controller="TestStatusController">
     <div class="span3" id="sidebar">
         <div class="sidebar-nav">
             <div class="block-header">
@@ -20,27 +20,9 @@
                     <g:message code="test.status.message"/>
                 </h4>
             </div>
-            <ul class="nav nav-list">
-                <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
 
-                    <li class="nav-header">
-                        <g:each var="parent" in="${entry.key.split(SectionPartStatus.PARENT_SECTION_DELIMITER)}">
-                            ${parent}&nbsp;&rsaquo;
-                        </g:each>
-                    </li>
-
-                    <g:each var='section' in="${entry.value}">
-                        <li class="${section.isCurrentItem() ? 'active' : ''}">
-                            <g:remoteLink action="navigate"
-                                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                                          params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">
-                                ${section.identifier} &nbsp;&nbsp; <span
-                                    class="${section.status.statusClass}">${AssessmentItemStatus.format(section.status)}</span>
-                            </g:remoteLink>
-                        </li>
-                    </g:each>
-
-                </g:each>
+            <ul class="nav nav-list" ng-repeat="(section,items) in testStatusModel">
+                <li>{{hello}} </li>
             </ul>
         </div>
     </div>

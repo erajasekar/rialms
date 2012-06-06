@@ -31,7 +31,7 @@
 
 <div class="row-fluid">
 
-    <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
+    <g:render template="/renderer/renderTestPartStatus1" model="[assessmentParams: assessmentParams]"/>
 
     <div class="span9" id="content">
         <g:if test="${flash.message}">

@@ -8,7 +8,7 @@
 --%>
 
 
-<div id="${Consts.testStatusContent}">
+<div id="${Consts.testStatusContent}" >
     <div class="span3" id="sidebar">
         <div class="sidebar-nav">
             <div class="block-header">
