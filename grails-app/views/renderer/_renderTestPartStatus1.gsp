@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.assessment.test.SectionPartStatus; com.rialms.consts.Constants as Consts; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
+<%@ page import="grails.converters.JSON; com.rialms.assessment.test.SectionPartStatus; com.rialms.consts.Constants as Consts; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -20,10 +20,10 @@
                     <g:message code="test.status.message"/>
                 </h4>
             </div>
-
-            <ul class="nav nav-list" ng-repeat="(section,items) in testStatusModel">
-                <li>{{hello}} </li>
-            </ul>
+            <div ng-init="statusEntries = getStatusEntries() "></div>
+           <!-- <ul class="nav nav-list" ng-repeat="statusEntry in statusEntries">
+                <li>{{statusEntry}} </li>
+            </ul> -->
         </div>
     </div>
 </div>

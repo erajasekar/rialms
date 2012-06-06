@@ -1,10 +1,15 @@
 window.TestStatusController = ($scope)->
 
-  $scope.hello = "Raja"
 
-  ###$scope.hintButton = { title: "title" ,  itemId: "item",  id: "id"}###
 
-  ###addHintButton = (title,itemId,id)->
-    $scope.hintButton { 'title': title ,  'itemId': itemId,  'id': id}
-    console.log("in controler " + $scope.hintButton)
-  ###
+  $scope.getStatusEntries = () ->
+    statusEntries = []
+    angular.forEach($scope.testStatusModel, (value,key)->
+      statusEntries.push
+        identifier: key
+      return
+    )
+    console.log('statusEntries ' + statusEntries)
+    statusEntries;
+
+  return

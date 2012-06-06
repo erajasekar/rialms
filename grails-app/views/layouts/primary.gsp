@@ -19,7 +19,7 @@
 <body>
 <qti:less2Css/>
 <nav class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
+   <!-- <div class="navbar-inner">
 
         <div class="container">
             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -37,10 +37,10 @@
                     <li <%='test' == params.controller ? ' class="active"' : ''%>><a
                             href="${createLink(controller: 'test')}"><g:message code="tests.label"/></a></li>
                 </ul>
-            </div><!--/.nav-collapse -->
+            </div>
 
         </div>
-    </div>
+    </div> -->
 </nav>
 
 <div class="container-fluid">

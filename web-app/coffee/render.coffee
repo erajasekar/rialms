@@ -1,6 +1,6 @@
 $ = jQuery
 window.updateRenderedItem = (data) ->
-  console.log(data)
+  console.log(data.testStatusModel)
 
   headerScope = angular.element('#assessmentHeader').scope()
   headerScope.$apply ->
