@@ -65,7 +65,7 @@ class TestRenderInfo {
             output.disableElementIds = ['#submit'];
         }
         output[Constants.assessmentHeader] = assessmentItemInfo.header;
-        output[Constants.testStatusModel] = assessmentParams[Constants.testPartStatus];
+        output[Constants.testStatusModel] = assessmentParams[Constants.testStatusModel];
         return output;
     }
 }

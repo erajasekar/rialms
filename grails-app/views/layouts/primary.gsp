@@ -8,7 +8,7 @@
 
 <%@ page import="com.rialms.util.Less2Css" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
-<html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en" ng-app>
+<html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en" ng-app="RialmsAngularApp">
 <head>
     <title><g:layoutTitle/></title>
     <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript" ></script>

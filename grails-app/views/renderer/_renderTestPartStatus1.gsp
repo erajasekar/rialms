@@ -6,7 +6,12 @@
   Time: 12:37 AM
   To change this template use File | Settings | File Templates.
 --%>
+<r:script>
+$(document).ready(function(){
+    initTestStatusModel(${assessmentParams[Consts.testStatusModel] as JSON});
+  });
 
+</r:script>
 
 <div id="${Consts.testStatusContent}" ng-controller="TestStatusController">
     <div class="span3" id="sidebar">
@@ -20,10 +25,9 @@
                     <g:message code="test.status.message"/>
                 </h4>
             </div>
-            <div ng-init="statusEntries = getStatusEntries() "></div>
-           <!-- <ul class="nav nav-list" ng-repeat="statusEntry in statusEntries">
-                <li>{{statusEntry}} </li>
-            </ul> -->
+           <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries(testStatusModel)">
+                <li>{{statusEntry|searchByStatus:true}} </li>
+            </ul>
         </div>
     </div>
 </div>

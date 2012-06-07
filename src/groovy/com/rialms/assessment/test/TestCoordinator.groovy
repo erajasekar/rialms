@@ -296,13 +296,17 @@ public class TestCoordinator implements Serializable {
         params.put(numberRemaining, test.getNumberRemaining());
         params.put(timeSelected, test.getTimeSelected());
         params.put(timeRemaining, test.getTimeRemaining());
-        params.put(testPartStatus, test.currentTestPartStatus)
+
         params.put(testStatus, test.testStatus)
         params.put(filterByStatus, this.filterItemByStatus);
 
         //TODO remove commented code
        /* Map<String, List<SectionPartStatus>> testPartStatus = test.getCurrentTestPartStatus();
-        params.put(testPartStatus, testPartStatus)*/
+        params.put(testPartStatus, testPartStatus)
+        params.put(testPartStatus, test.currentTestPartStatus)
+         */
+
+        params.put(Consts.testStatusModel, test.testStatusModel);
 
         log.debug("testPartStatus ${testPartStatus}");
         log.info("timeRemaining ==> ${params[timeRemaining]}")

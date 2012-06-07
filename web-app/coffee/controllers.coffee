@@ -1,15 +1,13 @@
+angular.module("RialmsAngularApp", []).filter "searchByStatus", ->
+  (input,filterStatus) ->
+    console.log(input + ' == ' + filterStatus)
+    if (input.isHeader == filterStatus)
+      out = input
+    return out
 window.TestStatusController = ($scope)->
 
-
-
-  $scope.getStatusEntries = () ->
-    statusEntries = []
-    angular.forEach($scope.testStatusModel, (value,key)->
-      statusEntries.push
-        identifier: key
-      return
-    )
-    console.log('statusEntries ' + statusEntries)
-    statusEntries;
+  $scope.getStatusEntries = (testStatusModel) ->
+    console.log('testStatusModel ' + testStatusModel)
+    return testStatusModel
 
   return

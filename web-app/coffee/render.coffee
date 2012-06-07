@@ -1,14 +1,7 @@
 $ = jQuery
 window.updateRenderedItem = (data) ->
-  console.log(data.testStatusModel)
 
-  headerScope = angular.element('#assessmentHeader').scope()
-  headerScope.$apply ->
-    headerScope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
-
-  testStatusScope = angular.element('#testStatusContent').scope()
-  testStatusScope.$apply ->
-    testStatusScope.testStatusModel = data.testStatusModel if data.testStatusModel
+  initAngularScopeObjects(data)
 
   if data.redirectUrl
     $.post(data.redirectUrl, (resp) ->
@@ -98,5 +91,19 @@ window.initTestRendering = ->
     $("#content").toggleClass "span12 span9"
     $("#content").toggleClass "no-sidebar"
     $("#sidebar").toggleClass "span3"
+
+
+window.initTestStatusModel = (testStatusModel)->
+  testStatusScope = angular.element('#testStatusContent').scope()
+  if (testStatusScope)
+    testStatusScope.$apply ->
+      testStatusScope.testStatusModel = testStatusModel if testStatusModel
+
+window.initAngularScopeObjects = (data)->
+  headerScope = angular.element('#assessmentHeader').scope()
+  headerScope.$apply ->
+    headerScope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
+  console.log(angular.toJson(data.testStatusModel))
+  initTestStatusModel(data.testStatusModel)
 
 

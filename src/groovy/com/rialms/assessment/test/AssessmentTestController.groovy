@@ -465,6 +465,13 @@ public class AssessmentTestController implements Serializable {
         };
         return testPartStatus;
     }
+    
+    public List<Map<String,Object>> getTestStatusModel(){
+        List<Map<String,Object>> testStatusModel = [['identifier':getCurrentItemIdentifier(),'isHeader':true],['identifier':1,'isHeader':false],['identifier':'2','isHeader':false]];
+       // Map<String, List<SectionPartStatus>> testPartStatus = getCurrentTestPartStatus();
+        return testStatusModel;
+
+    }
 
     private List<SectionPartStatus> getSectionPartsStatus(SectionPart section, String parentSection, SectionPartStatus.Position position) {
         List<SectionPartStatus> sectionPartStatusList = [];
