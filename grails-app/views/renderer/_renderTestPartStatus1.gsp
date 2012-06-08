@@ -26,7 +26,6 @@ $(document).ready(function(){
                 </h4>
             </div>
             <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries(testStatusModel)">
-                <div ng-init="cls=getStyleClass(statusEntry)">{{cls}}</div>
                 <li ng-class="getStyleClass(statusEntry)">${JsObjectUtil.getTemplateVar('statusEntry', Consts.identifier)}</li>
             </ul>
         </div>

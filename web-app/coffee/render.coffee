@@ -1,6 +1,5 @@
 $ = jQuery
 window.updateRenderedItem = (data) ->
-  console.log('new3')
   initAngularScopeObjects(data)
 
   if data.redirectUrl

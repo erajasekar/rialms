@@ -5,11 +5,10 @@ angular.module("RialmsAngularApp", []).filter "searchByStatus", ->
       out = input
     return out
 window.TestStatusController = ($scope)->
-  self = this
   $scope.getStatusEntries = (testStatusModel) ->
     return testStatusModel
 
-  self.getStyleClass = (statusEntry) ->
+  $scope.getStyleClass = (statusEntry) ->
     if statusEntry.isSectionTitle
       "nav-header"
     else "active" if statusEntry.isCurrent
