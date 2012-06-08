@@ -70,5 +70,12 @@ class Constants {
     public static final String buttons = 'buttons';
     public static final String assessmentHeader = 'assessmentHeader';
     public static final String testStatusModel = 'testStatusModel';
+    public static final String isSectionTitle = 'isSectionTitle';
+    public static final String isCurrent = 'isCurrent';
+    public static final String isPositionedAfterCurrent = 'isPositionedAfterCurrent';
+    public static final String styleClass = 'styleClass';
+    public static final String status = 'status';
+    public static final String identifier = 'identifier';
+
 
 }

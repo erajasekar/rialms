@@ -54,6 +54,7 @@ import org.qtitools.qti.value.Value
 import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.consts.AssessmentItemStatus
 import org.qtitools.qti.node.test.SectionPart;
+import com.rialms.consts.Constants as Consts;
 
 /**
  * This class wraps JQTI to provide a nice interface for building
@@ -451,13 +452,15 @@ public class AssessmentTestController implements Serializable {
             }
         }
         sectionPartStatusList = sectionPartStatusList.flatten();
-        if (filterByStatus != AssessmentItemStatus.ALL){
-            sectionPartStatusList = sectionPartStatusList.findAll {SectionPartStatus it-> it.status == filterByStatus};
+        if (filterByStatus != AssessmentItemStatus.ALL) {
+            sectionPartStatusList = sectionPartStatusList.findAll {SectionPartStatus it -> it.status == filterByStatus};
         }
         return sectionPartStatusList;
     }
 
-    public Map<String, List<SectionPartStatus>> getCurrentTestPartStatus(AssessmentItemStatus filterByStatus=AssessmentItemStatus.ALL) {
+    /*TODO remove this method if no longer required **/
+
+    public Map<String, List<SectionPartStatus>> getCurrentTestPartStatus(AssessmentItemStatus filterByStatus = AssessmentItemStatus.ALL) {
         Map<String, List<SectionPartStatus>> testPartStatus = getSectionPartsStatusInCurrentTestPart(filterByStatus)
                 .groupBy {it.parentSection}
                 .collectEntries {k, v ->
@@ -465,12 +468,15 @@ public class AssessmentTestController implements Serializable {
         };
         return testPartStatus;
     }
-    
-    public List<Map<String,Object>> getTestStatusModel(){
-        List<Map<String,Object>> testStatusModel = [['identifier':getCurrentItemIdentifier(),'isHeader':true],['identifier':1,'isHeader':false],['identifier':'2','isHeader':false]];
-       // Map<String, List<SectionPartStatus>> testPartStatus = getCurrentTestPartStatus();
-        return testStatusModel;
 
+    public List<Map<String, Object>> getTestStatusModel() {
+        List<Map<String, Object>> testStatusModel = [];//[['identifier':getCurrentItemIdentifier(),'isHeader':true],['identifier':1,'isHeader':false],['identifier':'2','isHeader':false]];
+        getSectionPartsStatusInCurrentTestPart(AssessmentItemStatus.ALL).
+                groupBy {it.parentSection}.each {k, v ->
+            testStatusModel << [(Consts.identifier): k, (Consts.isSectionTitle): true];
+            testStatusModel << v.flatten().collect {it.toPropertiesMap() + [(Consts.isSectionTitle): false]};
+        }
+        return testStatusModel.flatten();
     }
 
     private List<SectionPartStatus> getSectionPartsStatus(SectionPart section, String parentSection, SectionPartStatus.Position position) {

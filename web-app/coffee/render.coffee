@@ -1,6 +1,6 @@
 $ = jQuery
 window.updateRenderedItem = (data) ->
-
+  console.log('new3')
   initAngularScopeObjects(data)
 
   if data.redirectUrl
@@ -27,7 +27,7 @@ window.updateRenderedItem = (data) ->
       $('#testFeedback').html(data.testFeedback)
     if data.testStatusContent
       sidebarClass = $('#sidebar').attr("class")
-     ## $('#testStatusContent').html(data.testStatusContent)
+      ## $('#testStatusContent').html(data.testStatusContent)
       if (!sidebarClass)
         $('#sidebar').attr("class", sidebarClass)
         $('#sidebar').animate({width: 'toggle'}, 0)
@@ -86,8 +86,7 @@ window.initTestRendering = ->
     else
       $("a.toggleNav").attr("title", "Hide Sidebar").tooltip("fixTitle").tooltip "show"
     $("#sidebar").animate
-      width: "toggle"
-      , 0
+      width: "toggle", 0
     $("#content").toggleClass "span12 span9"
     $("#content").toggleClass "no-sidebar"
     $("#sidebar").toggleClass "span3"

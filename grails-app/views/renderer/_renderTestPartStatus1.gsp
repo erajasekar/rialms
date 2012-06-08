@@ -1,4 +1,4 @@
-<%@ page import="grails.converters.JSON; com.rialms.assessment.test.SectionPartStatus; com.rialms.consts.Constants as Consts; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
+<%@ page import="com.rialms.angular.JsObjectUtil; grails.converters.JSON; com.rialms.assessment.test.SectionPartStatus; com.rialms.consts.Constants as Consts; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -25,8 +25,9 @@ $(document).ready(function(){
                     <g:message code="test.status.message"/>
                 </h4>
             </div>
-           <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries(testStatusModel)">
-                <li>{{statusEntry|searchByStatus:true}} </li>
+            <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries(testStatusModel)">
+                <div ng-init="cls=getStyleClass(statusEntry)">{{cls}}</div>
+                <li ng-class="getStyleClass(statusEntry)">${JsObjectUtil.getTemplateVar('statusEntry', Consts.identifier)}</li>
             </ul>
         </div>
     </div>

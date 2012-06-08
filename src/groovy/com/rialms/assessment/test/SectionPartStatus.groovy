@@ -3,6 +3,7 @@ package com.rialms.assessment.test
 import groovy.transform.ToString
 import com.rialms.consts.AssessmentItemStatus
 import groovy.transform.EqualsAndHashCode
+import com.rialms.consts.Constants
 
 /**
  * Created by IntelliJ IDEA.
@@ -72,6 +73,15 @@ class SectionPartStatus {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Map<String, Object> toPropertiesMap() {
+        return [(Constants.identifier): identifier,
+                (Constants.isCurrent): isCurrentItem(),
+                (Constants.isPositionedAfterCurrent): isPositionedAfterCurrent(),
+                (Constants.status): AssessmentItemStatus.format(status),
+                (Constants.styleClass): status.statusClass
+        ]
     }
 
     public boolean equals(o) {
