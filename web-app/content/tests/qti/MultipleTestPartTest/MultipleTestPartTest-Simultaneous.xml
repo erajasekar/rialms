@@ -6,7 +6,7 @@
         identifier="mathmltest"
         title="Multiple Test Part Test - Simultaneous Submission">
     <testPart identifier="part1" navigationMode="nonlinear" submissionMode="simultaneous">
-        <assessmentSection identifier="sectionA" title="Section 1" visible="true">
+        <assessmentSection identifier="sectionA" title="Section A" visible="true">
             <assessmentItemRef identifier="math1" href="math1.xml"></assessmentItemRef>
             <assessmentItemRef identifier="math2" href="math2.xml"></assessmentItemRef>
                 <assessmentItemRef identifier="math3" href="math3.xml"></assessmentItemRef>
@@ -19,7 +19,7 @@
        </testFeedback> -->
     </testPart>
     <testPart identifier="part2" navigationMode="nonlinear" submissionMode="simultaneous">
-        <assessmentSection identifier="sectionB" title="Section 1" visible="true">
+        <assessmentSection identifier="sectionB" title="Section B" visible="true">
             <assessmentItemRef identifier="math7" href="math1.xml"></assessmentItemRef>
             <assessmentItemRef identifier="math8" href="math2.xml"></assessmentItemRef>
               <assessmentItemRef identifier="math9" href="math3.xml"></assessmentItemRef>

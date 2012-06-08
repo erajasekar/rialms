@@ -8,8 +8,10 @@ window.TestStatusController = ($scope)->
   $scope.getStatusEntries = (testStatusModel) ->
     return testStatusModel
 
+
   $scope.getStyleClass = (statusEntry) ->
     if statusEntry.isSectionTitle
       "nav-header"
-    else "active" if statusEntry.isCurrent
+    else if statusEntry.isCurrent
+      "active"
   return

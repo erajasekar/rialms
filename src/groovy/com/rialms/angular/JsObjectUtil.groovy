@@ -18,6 +18,9 @@ class JsObjectUtil {
         return "${headerButton}.${identifier}";
     }
 
+    public static getProperty(String object,String property){
+        return "${object}.${property}";
+    }
     public static String getTemplateVar(String variable) {
         return "{{${variable}}}";
     }
@@ -30,5 +33,20 @@ class JsObjectUtil {
         }
         templateVar.append(variables[length - 1]).append('}}');
         return templateVar;
+    }
+
+
+    public static class PropertyConstructor{
+        String object;
+        public PropertyConstructor(String object){
+            this.object = object;
+        }
+        public String getProperty(String property){
+            return getProperty(this.object,property);
+        }
+
+        public String getPropertyValue(String property){
+            return getTemplateVar(getProperty(property));
+        }
     }
 }
