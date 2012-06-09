@@ -8,13 +8,12 @@ package com.rialms.consts
  * To change this template use File | Settings | File Templates.
  */
 public enum AssessmentItemStatus {
+    ALL, // Used for filtering
     NOT_PRESENTED,
     PRESENTED,
     SKIPPED,
     TIMED_OUT,
-    RESPONDED,
-    ALL, // Used for filtering
-    SUBMITTED;//NOT USED
+    RESPONDED;
 
     private static final String BADGE = "badge";
 
@@ -38,5 +37,9 @@ public enum AssessmentItemStatus {
 
     public String getStatusClass() {
         return "${BADGE} ${statusClass[this]}";
+    }
+
+    public static List<String> allStatuses(){
+        return values().collect {format(it)};
     }
 }

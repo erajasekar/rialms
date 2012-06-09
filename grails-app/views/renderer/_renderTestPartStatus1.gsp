@@ -26,43 +26,38 @@ $(document).ready(function(){
                 </h4>
             </div>
             <% JsObjectUtil.PropertyConstructor statusEntry = new JsObjectUtil.PropertyConstructor(Consts.statusEntry) %>
-            <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries(testStatusModel)">
+            <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries()">
                 <li ng-class="getStyleClass(statusEntry)">
                     <span ng-show="${statusEntry.getProperty(Consts.isSectionTitle)}">
                         ${statusEntry.getPropertyValue(Consts.identifier)}
                     </span>
-                        <g:remoteLink action="navigate" ng-hide="${statusEntry.getProperty(Consts.isSectionTitle)}"
-                                      onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                                      params="${params + [(Consts.renderItem): statusEntry.getPropertyValue(Consts.identifier), isPositionedAfterCurrent:statusEntry.getPropertyValue(Consts.isPositionedAfterCurrent)]}"
-                        >
-                            ${statusEntry.getPropertyValue(Consts.identifier)} &nbsp;&nbsp;
-                            <span class="${statusEntry.getPropertyValue(Consts.styleClass)}">${statusEntry.getPropertyValue(Consts.status)}</span>
-                        </g:remoteLink>
+                    <g:remoteLink action="navigate" ng-hide="${statusEntry.getProperty(Consts.isSectionTitle)}"
+                                  onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
+                                  params="${params + [(Consts.renderItem): statusEntry.getPropertyValue(Consts.identifier), isPositionedAfterCurrent: statusEntry.getPropertyValue(Consts.isPositionedAfterCurrent)]}">
+                        ${statusEntry.getPropertyValue(Consts.identifier)} &nbsp;&nbsp;
+                        <span class="${statusEntry.getPropertyValue(Consts.styleClass)}">${statusEntry.getPropertyValue(Consts.status)}</span>
+                    </g:remoteLink>
                 </li>
+
             </ul>
-        </div>
-        <div class="block-controls">
-            <div class="btn-group">
-                <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
-                    <g:message code="show.label" />
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                   <li><a href="#">Presented</a></li>
-                  <li><a href="#">Not Presented</a></li>
-                </ul>
+
+            <div class="form-actions">
+                <div class="btn-group">
+                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+                        <g:message code="show.label"/>
+                        <span class="caret"></span>
+                    </a>
+                    &nbsp;&nbsp;<span ng-bind="filterStatus"></span>
+                    <ul class="dropdown-menu">
+                        <g:each var="status" in="${AssessmentItemStatus.allStatuses()}">
+                            <li><a href="#" ng-click="filterStatus='${status}'">${status}</a></li>
+                        </g:each>
+                    </ul>
+                </div>
             </div>
-            <div class="btn-group">
-                <button class="btn dropdown-toggle" data-toggle="dropdown">Action <span class="caret"></span></button>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
-                </ul>
-            </div><!-- /btn-group -->
+
         </div>
+
     </div>
 </div>
 

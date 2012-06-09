@@ -74,6 +74,7 @@ $.fn.field = (inputName, value) ->
 
 window.initTestRendering = ->
   $("a").tooltip()
+  $('.dropdown-toggle').dropdown();
   $("a.toggleNav").click ->
     if $("a.toggleNav span").text() is $("<div>").html("&laquo;").text()
       $("a.toggleNav span").html "&raquo;"
