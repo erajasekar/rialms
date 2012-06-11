@@ -43,14 +43,13 @@ $(document).ready(function(){
 
             <div class="form-actions">
                 <div class="btn-group">
-                    <a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
-                        <g:message code="show.label"/>
+                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+                        <g:message code="show.label"/>&nbsp;&nbsp;{{filterStatus}}
                         <span class="caret"></span>
-                    </a>
-                    &nbsp;&nbsp;<span ng-bind="filterStatus"></span>
+                    </button>
                     <ul class="dropdown-menu">
                         <g:each var="status" in="${AssessmentItemStatus.allStatuses()}">
-                            <li><a href="#" ng-click="filterStatus='${status}'">${status}</a></li>
+                            <li ng-show="filterStatus != '${status}'"><a href="#" ng-click="filterStatus='${status}'" >${status}</a></li>
                         </g:each>
                     </ul>
                 </div>
