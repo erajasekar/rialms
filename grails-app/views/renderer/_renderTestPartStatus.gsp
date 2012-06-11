@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.assessment.test.SectionPartStatus; com.rialms.consts.Constants as Consts; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
+<%@ page import="com.rialms.angular.JsObjectUtil; grails.converters.JSON; com.rialms.assessment.test.SectionPartStatus; com.rialms.consts.Constants as Consts; com.rialms.consts.AssessmentItemStatus; com.rialms.assessment.item.AssessmentItemInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -7,8 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-
-<div id="${Consts.testStatusContent}" >
+<div id="${Consts.testStatusContent}" ng-controller="TestStatusController">
     <div class="span3" id="sidebar">
         <div class="sidebar-nav">
             <div class="block-header">
@@ -20,29 +19,38 @@
                     <g:message code="test.status.message"/>
                 </h4>
             </div>
-            <ul class="nav nav-list">
-                <g:each var='entry' in="${assessmentParams[Consts.testPartStatus]}">
+            <% JsObjectUtil.PropertyConstructor statusEntry = new JsObjectUtil.PropertyConstructor(Consts.statusEntry) %>
+            <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries()">
+                <li ng-class="getStyleClass(statusEntry)">
+                    <span ng-show="${statusEntry.getProperty(Consts.isSectionTitle)}">
+                        ${statusEntry.getPropertyValue(Consts.identifier)}
+                    </span>
+                    <g:remoteLink action="navigate" ng-hide="${statusEntry.getProperty(Consts.isSectionTitle)}"
+                                  onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
+                                  params="${params + [(Consts.renderItem): statusEntry.getPropertyValue(Consts.identifier), isPositionedAfterCurrent: statusEntry.getPropertyValue(Consts.isPositionedAfterCurrent)]}">
+                        ${statusEntry.getPropertyValue(Consts.identifier)} &nbsp;&nbsp;
+                        <span class="${statusEntry.getPropertyValue(Consts.styleClass)}">${statusEntry.getPropertyValue(Consts.status)}</span>
+                    </g:remoteLink>
+                </li>
 
-                    <li class="nav-header">
-                        <g:each var="parent" in="${entry.key.split(SectionPartStatus.PARENT_SECTION_DELIMITER)}">
-                            ${parent}&nbsp;&rsaquo;
-                        </g:each>
-                    </li>
-
-                    <g:each var='section' in="${entry.value}">
-                        <li class="${section.isCurrentItem() ? 'active' : ''}">
-                            <g:remoteLink action="navigate"
-                                          onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                                          params="${params + [(Consts.renderItem): section.identifier, isPositionedAfterCurrent: section.isPositionedAfterCurrent()]}">
-                                ${section.identifier} &nbsp;&nbsp; <span
-                                    class="${section.status.statusClass}">${AssessmentItemStatus.format(section.status)}</span>
-                            </g:remoteLink>
-                        </li>
-                    </g:each>
-
-                </g:each>
             </ul>
+
+            <div class="form-actions">
+                <div class="btn-group">
+                    <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
+                        <g:message code="show.label"/>&nbsp;&nbsp;{{filterStatus}}
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <g:each var="status" in="${AssessmentItemStatus.allStatuses()}">
+                            <li ng-show="filterStatus != '${status}'"><a href="#" ng-click="filterStatus='${status}'" >${status}</a></li>
+                        </g:each>
+                    </ul>
+                </div>
+            </div>
+
         </div>
+
     </div>
 </div>
 

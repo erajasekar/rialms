@@ -45,6 +45,11 @@ class NavigationControls {
     public Map<String,List<String>> getVisibleAndHiddenElementIds(){
         return [visibleElementIds: visibleButtonIds, hiddenElementIds: hiddenButtonIds]
     }
+    
+    //TODO Remove unsed methods
+    public Map<String,Boolean> getNavButtonStates(){
+        return buttonStates.collectEntries{button,state -> [button.name,state]};
+    }
 
     @Override
     public String toString() {

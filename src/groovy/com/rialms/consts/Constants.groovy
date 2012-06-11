@@ -23,6 +23,7 @@ class Constants {
     public static final String testStatus = 'testStatus';
     public static final String testPart = 'testPart';
     public static final String navigationControls = 'navigationControls';
+    public static final String navigationButtonStates = 'navigationButtonStates';
     public static final String assessmentFeedback = 'assessmentFeedback';
     public static final String testPartFeedback = 'testPartFeedback';
     public static final String sectionTitles = 'sectionTitles';

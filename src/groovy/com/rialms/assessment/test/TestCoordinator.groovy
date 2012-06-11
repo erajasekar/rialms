@@ -292,6 +292,8 @@ public class TestCoordinator implements Serializable {
         controls.addButtonState(NavButton.skip, test.skipEnabled());
         params.put(navigationControls, controls);
 
+        params.put(navigationButtonStates, controls.navButtonStates);
+
         params.put(numberSelected, test.getNumberSelected());
         params.put(numberRemaining, test.getNumberRemaining());
         params.put(timeSelected, test.getTimeSelected());

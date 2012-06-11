@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!doctype html>
-<%@ page import="com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
+<%@ page import="grails.converters.JSON; com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
@@ -18,6 +18,8 @@
 <r:script>
     $(document).ready(function () {
         initTestRendering();
+        initTestStatusModel(${assessmentParams[Consts.testStatusModel] as JSON});
+        initNavigationButtonStates(${assessmentParams[Consts.navigationButtonStates] as JSON});
     });
 </r:script>
 
@@ -31,7 +33,7 @@
 
 <div class="row-fluid">
 
-    <g:render template="/renderer/renderTestPartStatus1" model="[assessmentParams: assessmentParams]"/>
+    <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
     <div class="span9" id="content">
         <g:if test="${flash.message}">
@@ -66,7 +68,7 @@
                     <g:render template="/renderer/renderAssessmentHeader" model="[assessmentTitle: assessmentItemInfo.title]"/>
                     <g:render template="/renderer/renderAssessmentItem"/>
                     <g:render template="/renderer/renderTestFeedback"/>
-                    <div class="form-actions">
+                    <div class="form-actions" id="${Consts.navigationControls}"> {{navigationButtonStates}}
                         <% NavigationControls controls = assessmentParams[Consts.navigationControls] %>
 
                         <g:each in="${controls.getButtonStates()}" var="button">
