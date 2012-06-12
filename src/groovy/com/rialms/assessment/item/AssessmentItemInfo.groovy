@@ -49,6 +49,8 @@ class AssessmentItemInfo {
     //Used to hold header title and hint/solution buttons
     private Map header = [:];
 
+    private Map endAttemptButtons = [:];
+
     public AssessmentItemInfo() {
     }
 
@@ -117,6 +119,7 @@ class AssessmentItemInfo {
         return e;
     }
 
+    //TODO remove next two methods
     public void addHeaderButton(String buttonId, String buttonTitle){
         header[Consts.buttons] = header[Consts.buttons] + [(buttonId): buttonTitle];
     }
@@ -125,12 +128,19 @@ class AssessmentItemInfo {
         return header[Consts.buttons];
     }
 
+    public void addEndAttemptButton(String buttonId, String buttonTitle){
+        endAttemptButtons = endAttemptButtons + [(buttonId): buttonTitle];
+    }
+
+    public Map<String,String> getEndAttemptButtons(){
+        return endAttemptButtons
+    }
     public void createHeader(){
         header = createHeader(title);
     }
 
     public static Map createHeader(String title){
-        return [(Consts.title):title,  (Consts.buttons):[:]];
+        return [(Consts.title):title];
     }
 
     public void addDisableOnCompletionId(String id) {
@@ -203,6 +213,7 @@ class AssessmentItemInfo {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
         output[Consts.assessmentHeader] = header;
+        output[Consts.endAttemptButtons] = endAttemptButtons;
         return output;
     }
 

@@ -106,9 +106,11 @@ window.initNavigationButtonStates = (navigationButtonStates)->
   #console.log('Navs Json ' + navigationControlsScope.navigationButtonStates)
 
 window.initAngularScopeObjects = (data)->
+  #TODO change scope to itemlevel
   headerScope = angular.element('#assessmentHeader').scope()
   headerScope.$apply ->
     headerScope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
+    headerScope.endAttemptButtons = data.endAttemptButtons if data.endAttemptButtons
   #console.log(angular.toJson(data.testStatusModel))
   initTestStatusModel(data.testStatusModel)
   initNavigationButtonStates(data.navigationButtonStates)

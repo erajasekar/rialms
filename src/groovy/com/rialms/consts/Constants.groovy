@@ -78,6 +78,7 @@ class Constants {
     public static final String status = 'status';
     public static final String identifier = 'identifier';
     public static final String statusEntry = 'statusEntry';
+    public static final String endAttemptButtons = 'endAttemptButtons'
 
 
 }
