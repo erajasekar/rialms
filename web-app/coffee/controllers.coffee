@@ -1,6 +1,5 @@
-angular.module("RialmsAngularApp", []).filter "searchByStatus", ->
+angular.module("RialmsAngularApp", []).filter "filterByStatus", ->
   (input, filterStatus) ->
-    #console.log(input + ' == ' + filterStatus)
     true if (filterStatus == 'All' || input.status == filterStatus)
 
 window.TestStatusController = ($scope,$filter)->
@@ -11,7 +10,7 @@ window.TestStatusController = ($scope,$filter)->
 
     filteredStatusEntries = []
     angular.forEach($scope.testStatusModel, (value,key)->
-      filteredStatusEntries.push(value) if ($filter('searchByStatus')(value,$scope.filterStatus))
+      filteredStatusEntries.push(value) if ($filter('filterByStatus')(value,$scope.filterStatus))
       )
     #console.log('testStatusModel' + $scope.testStatusModel);
     filteredStatusEntries

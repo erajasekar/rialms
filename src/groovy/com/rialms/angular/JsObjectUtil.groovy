@@ -21,20 +21,19 @@ class JsObjectUtil {
     public static getProperty(String object,String property){
         return "${object}.${property}";
     }
+
+    public static getProperty(String object,String... properties){
+        StringBuilder result = new StringBuilder(object);
+        int length = properties.size();
+        for (int i = 0; i < length - 1; i++) {
+            result.append(properties[i]).append('.');
+        }
+        result.append(properties[length - 1])
+    }
+
     public static String getTemplateVar(String variable) {
         return "{{${variable}}}";
     }
-
-    public static String getTemplateVar(String... variables) {
-        StringBuilder templateVar = new StringBuilder('{{');
-        int length = variables.size();
-        for (int i = 0; i < length - 1; i++) {
-            templateVar.append(variables[i]).append('.');
-        }
-        templateVar.append(variables[length - 1]).append('}}');
-        return templateVar;
-    }
-
 
     public static class PropertyConstructor{
         String object;
@@ -47,6 +46,13 @@ class JsObjectUtil {
 
         public String getPropertyValue(String property){
             return getTemplateVar(getProperty(property));
+        }
+        public String getProperties(String... properties){
+            return getProperty(this.object,properties);
+        }
+
+        public String getPropertiesValue(String... properties){
+            return getTemplateVar(getProperty(properties));
         }
     }
 }

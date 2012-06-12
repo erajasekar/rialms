@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<assessmentTest identifier="TEST" title="INFO2006 Module Pretest Individual Submission"
+    xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd">
+    <outcomeDeclaration baseType="float" cardinality="single" identifier="SCORE"/>
+    <outcomeDeclaration baseType="identifier" cardinality="single" identifier="outcomeIdentifier"/>
+
+    <testPart identifier="part1" navigationMode="linear" submissionMode="individual">
+        <itemSessionControl allowReview="false"/>
+        <assessmentSection identifier="sectionquestion1" title="Questions" visible="true">
+            <assessmentItemRef href="Question1.xml" identifier="Question1"/>
+            <assessmentItemRef href="Question2.xml" identifier="Question2"/>
+            <assessmentItemRef href="Question3.xml" identifier="Question3"/>
+            <assessmentItemRef href="Question4.xml" identifier="Question4"/>
+            <assessmentItemRef href="Question5.xml" identifier="Question5"/>
+            <assessmentItemRef href="Question6.xml" identifier="Question6"/>
+            <assessmentItemRef href="Question7.xml" identifier="Question7"/>
+            <assessmentItemRef href="Question8.xml" identifier="Question8"/>
+            <assessmentItemRef href="Question9.xml" identifier="Question9"/>
+            <assessmentItemRef href="Question10.xml" identifier="Question10"/>
+            <assessmentItemRef href="Question11.xml" identifier="Question11"/>
+            <assessmentItemRef href="Question12.xml" identifier="Question12"/>
+            <assessmentItemRef href="Question13.xml" identifier="Question13"/>
+            <assessmentItemRef href="Question14.xml" identifier="Question14"/>
+            <assessmentItemRef href="Question15.xml" identifier="Question15"/>
+            <assessmentItemRef href="Question16.xml" identifier="Question16"/>
+            <assessmentItemRef href="Question17.xml" identifier="Question17"/>
+            <assessmentItemRef href="Question18.xml" identifier="Question18"/>
+            <assessmentItemRef href="Question19.xml" identifier="Question19"/>
+            <assessmentItemRef href="Question20.xml" identifier="Question20"/>
+            <assessmentItemRef href="Question21.xml" identifier="Question21"/>
+            <assessmentItemRef href="Question22.xml" identifier="Question22"/>
+            <assessmentItemRef href="Question23.xml" identifier="Question23"/>
+            <assessmentItemRef href="Question24.xml" identifier="Question24"/>
+            <assessmentItemRef href="Question25.xml" identifier="Question25"/>
+            <assessmentItemRef href="Question26.xml" identifier="Question26"/>
+            <assessmentItemRef href="Question27.xml" identifier="Question27"/>
+            <assessmentItemRef href="Question28.xml" identifier="Question28"/>
+            <assessmentItemRef href="Question29.xml" identifier="Question29"/>
+            <assessmentItemRef href="Question30.xml" identifier="Question30"/>
+            <assessmentItemRef href="Question31.xml" identifier="Question31"/>
+            <assessmentItemRef href="Question32.xml" identifier="Question32"/>
+            <assessmentItemRef href="Question33.xml" identifier="Question33"/>
+            <assessmentItemRef href="Question34.xml" identifier="Question34"/>
+            <assessmentItemRef href="Question35.xml" identifier="Question35"/>
+            <assessmentItemRef href="Question36.xml" identifier="Question36"/>
+            <assessmentItemRef href="Question37.xml" identifier="Question37"/>
+            <assessmentItemRef href="Question38.xml" identifier="Question38"/>
+            <assessmentItemRef href="Question39.xml" identifier="Question39"/>
+            <assessmentItemRef href="Question40.xml" identifier="Question40"/>
+            <assessmentItemRef href="Question41.xml" identifier="Question41"/>
+            <assessmentItemRef href="Question42.xml" identifier="Question42"/>
+            <assessmentItemRef href="Question43.xml" identifier="Question43"/>
+            <assessmentItemRef href="Question44.xml" identifier="Question44"/>
+            <assessmentItemRef href="Question45.xml" identifier="Question45"/>
+            <assessmentItemRef href="Question46.xml" identifier="Question46"/>
+            <assessmentItemRef href="Question47.xml" identifier="Question47"/>
+            <assessmentItemRef href="Question48.xml" identifier="Question48"/>
+            <assessmentItemRef href="Question49.xml" identifier="Question49"/>
+            <assessmentItemRef href="Question50.xml" identifier="Question50"/>
+        </assessmentSection>
+    </testPart>
+
+    <testFeedback access="atEnd" identifier="outcomeValue" outcomeIdentifier="outcomeIdentifier"
+        showHide="hide" title="Test Feedback">
+        <p>Well Done! You have now completed the test. <br /><br />Your score is: <printedVariable
+                identifier="SCORE"/>. It is important you remember this score for tomorrow.<br /><br />
+                Thank you very much for taking time to complete this test.</p>
+    </testFeedback>
+
+    <outcomeProcessing>
+        <setOutcomeValue identifier="SCORE">
+            <sum>
+                <variable identifier="Question1.SCORE"/>
+                <variable identifier="Question2.SCORE"/>
+                <variable identifier="Question3.SCORE"/>
+                <variable identifier="Question4.SCORE"/>
+                <variable identifier="Question5.SCORE"/>
+                <variable identifier="Question6.SCORE"/>
+                <variable identifier="Question7.SCORE"/>
+                <variable identifier="Question8.SCORE"/>
+                <variable identifier="Question9.SCORE"/>
+                <variable identifier="Question10.SCORE"/>
+                <variable identifier="Question11.SCORE"/>
+                <variable identifier="Question12.SCORE"/>
+                <variable identifier="Question13.SCORE"/>
+                <variable identifier="Question14.SCORE"/>
+                <variable identifier="Question15.SCORE"/>
+                <variable identifier="Question16.SCORE"/>
+                <variable identifier="Question17.SCORE"/>
+                <variable identifier="Question18.SCORE"/>
+                <variable identifier="Question19.SCORE"/>
+                <variable identifier="Question20.SCORE"/>
+                <variable identifier="Question21.SCORE"/>
+                <variable identifier="Question22.SCORE"/>
+                <variable identifier="Question23.SCORE"/>
+                <variable identifier="Question24.SCORE"/>
+                <variable identifier="Question25.SCORE"/>
+                <variable identifier="Question26.SCORE"/>
+                <variable identifier="Question27.SCORE"/>
+                <variable identifier="Question28.SCORE"/>
+                <variable identifier="Question29.SCORE"/>
+                <variable identifier="Question30.SCORE"/>
+                <variable identifier="Question31.SCORE"/>
+                <variable identifier="Question32.SCORE"/>
+                <variable identifier="Question33.SCORE"/>
+                <variable identifier="Question34.SCORE"/>
+                <variable identifier="Question35.SCORE"/>
+                <variable identifier="Question36.SCORE"/>
+                <variable identifier="Question37.SCORE"/>
+                <variable identifier="Question38.SCORE"/>
+                <variable identifier="Question39.SCORE"/>
+                <variable identifier="Question40.SCORE"/>
+                <variable identifier="Question41.SCORE"/>
+                <variable identifier="Question42.SCORE"/>
+                <variable identifier="Question33.SCORE"/>
+                <variable identifier="Question44.SCORE"/>
+                <variable identifier="Question45.SCORE"/>
+                <variable identifier="Question46.SCORE"/>
+                <variable identifier="Question47.SCORE"/>
+                <variable identifier="Question48.SCORE"/>
+                <variable identifier="Question49.SCORE"/>
+                <variable identifier="Question50.SCORE"/>
+            </sum>
+        </setOutcomeValue>
+    </outcomeProcessing>
+</assessmentTest>

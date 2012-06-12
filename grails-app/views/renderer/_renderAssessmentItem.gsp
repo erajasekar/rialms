@@ -30,24 +30,29 @@
         <g:hiddenField name="questionId" value="${assessmentParams[Consts.questionId]}"/>
         <g:hiddenField name="submitClicked"
                        value="true"/> <!-- Used to indicate if submit button was clicked. This param will be set only if submit was clicked -->
-        <g:if test="${assessmentParams.submitEnabled}">
-            <button type='submit'
-                    value='Submit'
-                    id='submit'
-                    class="btn btn-success">
-                <i class="icon-ok icon-white"></i>Submit
 
-            </button>
+        <hr/>
+        <div>
+            <g:if test="${assessmentParams.submitEnabled}">
+                <button type='submit'
+                        value='Submit'
+                        id='submit'
+                        class="btn btn-success">
+                    <i class="icon-ok icon-white"></i>Submit
 
-        </g:if>
-        <g:else>
-            <button type='submit'
-                    value='Submit'
-                    id='submit'
-                    class="btn btn-success"
-                    disabled="disabled">
-                <i class="icon-ok icon-white"></i>Submit
-            </button>
-        </g:else>
+                </button>
+
+            </g:if>
+            <g:else>
+                <button type='submit'
+                        value='Submit'
+                        id='submit'
+                        class="btn btn-success"
+                        disabled="disabled">
+                    <i class="icon-ok icon-white"></i>Submit
+                </button>
+            </g:else>
+            <g:render template="/renderer/renderEndAttemptButtons" />
+        </div>
     </div>
 </div>

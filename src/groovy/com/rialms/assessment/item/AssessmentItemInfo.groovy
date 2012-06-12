@@ -121,6 +121,10 @@ class AssessmentItemInfo {
         header[Consts.buttons] = header[Consts.buttons] + [(buttonId): buttonTitle];
     }
 
+    public Map<String,String> getHeaderButtons(){
+        return header[Consts.buttons];
+    }
+
     public void createHeader(){
         header = createHeader(title);
     }
@@ -176,7 +180,7 @@ class AssessmentItemInfo {
     }
 
     public boolean isComplete() {
-        boolean complete = false;
+        boolean complete;
         if (assessmentItem.adaptive) {
             complete = isAdaptiveItemComplete();
         } else {

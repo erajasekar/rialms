@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!doctype html>
-<%@ page import="grails.converters.JSON; com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.angular.JsObjectUtil; grails.converters.JSON; com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
@@ -23,7 +23,7 @@
     });
 </r:script>
 
-<g:render template="/renderer/renderTestTitle" model="[testTitle:assessmentParams[Consts.title]]" />
+<g:render template="/renderer/renderTestTitle" model="[testTitle: assessmentParams[Consts.title]]"/>
 
 <div class="row-fluid">
     <div class="span3">
@@ -65,40 +65,29 @@
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
 
                 <div id="AssessmentForm">
-                    <g:render template="/renderer/renderAssessmentHeader" model="[assessmentTitle: assessmentItemInfo.title]"/>
+                    <g:render template="/renderer/renderAssessmentHeader"
+                              model="[assessmentTitle: assessmentItemInfo.title]"/>
                     <g:render template="/renderer/renderAssessmentItem"/>
                     <g:render template="/renderer/renderTestFeedback"/>
-                    <div class="form-actions" id="${Consts.navigationControls}"> {{navigationButtonStates}}
-                        <% NavigationControls controls = assessmentParams[Consts.navigationControls] %>
+                    <div class="form-actions" id="${Consts.navigationControls}">
+                        <%
+                            NavigationControls controls = assessmentParams[Consts.navigationControls]
+                            JsObjectUtil.PropertyConstructor buttonStates = new JsObjectUtil.PropertyConstructor(Consts.navigationButtonStates)
+                        %>
 
                         <g:each in="${controls.getButtonStates()}" var="button">
-                            <g:if test="${button.value}">
 
-                                <button id="${button.key.id}" type="button" class="btn btn-info"
-                                        onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
-                                    <g:if test="${button.key.appendIcon}">
-                                        ${button.key.value}&nbsp;<i class="${button.key.iconClass}"></i>
-                                    </g:if>
-                                    <g:else>
-                                        <i class="${button.key.iconClass}"></i>&nbsp;${button.key.value}
-                                    </g:else>
+                            <button ng-show="${buttonStates.getProperty(button.key.name)}" id="${button.key.id}" type="button" class="btn btn-info"
+                                    onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
+                                <g:if test="${button.key.appendIcon}">
+                                    ${button.key.value}&nbsp;<i class="${button.key.iconClass}"></i>
+                                </g:if>
+                                <g:else>
+                                    <i class="${button.key.iconClass}"></i>&nbsp;${button.key.value}
+                                </g:else>
 
-                                </button>
+                            </button>
 
-                            </g:if>
-                            <g:else>
-
-                                <button id="${button.key.id}" style="display:none" type="button" class="btn btn-info"
-                                        onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
-                                    <g:if test="${button.key.appendIcon}">
-                                        ${button.key.value}&nbsp;<i class="${button.key.iconClass}"></i>
-                                    </g:if>
-                                    <g:else>
-                                        <i class="${button.key.iconClass}"></i>&nbsp;${button.key.value}
-                                    </g:else>
-                                </button>
-
-                            </g:else>
                         </g:each>
 
                     <!-- TODO: Internalize all button labels -->

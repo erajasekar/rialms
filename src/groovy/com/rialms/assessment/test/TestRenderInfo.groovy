@@ -54,18 +54,16 @@ class TestRenderInfo {
     }
 
     public Map getRenderOutput() {
-        Map<String, List<String>> visibleAndHiddenElementIds = assessmentParams.navigationControls?.visibleAndHiddenElementIds;
+
         Map output = ['testOutcomeValues': assessmentParams.outcomeValues];
-        
-        if(visibleAndHiddenElementIds){
-            output.visibleElementIds = visibleAndHiddenElementIds.visibleElementIds;
-            output.hiddenElementIds = visibleAndHiddenElementIds.hiddenElementIds;
-        }
+
+        //TODO see if we can use angular for this as well
         if (!assessmentParams.submitEnabled) {
             output.disableElementIds = ['#submit'];
         }
         output[Constants.assessmentHeader] = assessmentItemInfo.header;
         output[Constants.testStatusModel] = assessmentParams[Constants.testStatusModel];
+        output[Constants.navigationButtonStates] = assessmentParams[Constants.navigationButtonStates];
         return output;
     }
 }

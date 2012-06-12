@@ -103,13 +103,13 @@ window.initNavigationButtonStates = (navigationButtonStates)->
   if (navigationControlsScope)
     navigationControlsScope.$apply ->
       navigationControlsScope.navigationButtonStates = navigationButtonStates if navigationButtonStates
-  console.log('Navs Json ' + navigationControlsScope.navigationButtonStates)
+  #console.log('Navs Json ' + navigationControlsScope.navigationButtonStates)
 
 window.initAngularScopeObjects = (data)->
   headerScope = angular.element('#assessmentHeader').scope()
   headerScope.$apply ->
     headerScope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
-  console.log(angular.toJson(data.testStatusModel))
+  #console.log(angular.toJson(data.testStatusModel))
   initTestStatusModel(data.testStatusModel)
   initNavigationButtonStates(data.navigationButtonStates)
 

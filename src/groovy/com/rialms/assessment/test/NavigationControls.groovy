@@ -26,28 +26,12 @@ class NavigationControls {
         return this;
     }
 
-    public boolean getButtonState(NavButton navButton) {
-        return buttonStates[navButton];
-    }
 
     public EnumMap<NavButton, Boolean> getButtonStates() {
         return buttonStates;
     }
 
-    public List<String> getVisibleButtonIds() {
-        buttonStates.findAll {it.value}.collect{ "#${it.key.id}"}
-    }
-
-    public List<String> getHiddenButtonIds() {
-        buttonStates.findAll {!it.value}.collect{ "#${it.key.id}"}
-    }
-
-    public Map<String,List<String>> getVisibleAndHiddenElementIds(){
-        return [visibleElementIds: visibleButtonIds, hiddenElementIds: hiddenButtonIds]
-    }
-    
-    //TODO Remove unsed methods
-    public Map<String,Boolean> getNavButtonStates(){
+    public Map getNavButtonStates(){
         return buttonStates.collectEntries{button,state -> [button.name,state]};
     }
 

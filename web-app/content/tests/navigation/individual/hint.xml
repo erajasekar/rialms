@@ -8,7 +8,7 @@
             <value>MGH001C</value>
         </correctResponse>
     </responseDeclaration>
-    <responseDeclaration identifier="HINT" cardinality="single" baseType="boolean"/>
+    <responseDeclaration identifier="HINTREQUEST" cardinality="single" baseType="boolean"/>
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
     <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
     <outcomeDeclaration identifier="END_FEEDBACK" cardinality="single" baseType="identifier"/>
@@ -41,7 +41,7 @@
             </simpleChoice>
         </choiceInteraction>
         <p>
-            <endAttemptInteraction responseIdentifier="HINT" title="Show Hint"/>
+            <endAttemptInteraction responseIdentifier="HINTREQUEST" title="Show Hint"/>
         </p>
     </itemBody>
     <responseProcessing>
@@ -50,7 +50,7 @@
         </setOutcomeValue>
         <responseCondition>
             <responseIf>
-                <variable identifier="HINT"/>
+                <variable identifier="HINTREQUEST"/>
                 <setOutcomeValue identifier="FEEDBACK">
                     <baseValue baseType="identifier">HINT</baseValue>
                 </setOutcomeValue>

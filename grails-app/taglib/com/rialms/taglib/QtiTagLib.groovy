@@ -114,18 +114,13 @@ class QtiTagLib {
         Map actionParams = [id: params.id, (id): title];
         log.info("${tag} button action params => ${actionParams}");
 
-        String hintIdentifier = getHintIdentifier();
-        String solutionIdentifier = getSolutionIdentifier();
+        out << """<div ng-init="${JsObjectUtil.getHeaderButton(id)}='${title}'"></div>"""
+        assessmentItemInfo.addHeaderButton(id, title);
 
-        if (id == hintIdentifier || id == solutionIdentifier) {
-            out << """<div ng-init="${JsObjectUtil.getHeaderButton(id)}='${title}'"></div>"""
-            assessmentItemInfo.addHeaderButton(id, title);
-        } else {
-            out << """ <button id='${id}' name='${id}' class='btn btn-primary' onclick="${remoteFunction(action: AssessmentItemInfo.controllerActionForProcessItem, params: actionParams, onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem)}" >${title}</button>  """
-        }
    }
 
-    def headerButton = {attrs ->
+   //TODO refactor to use similar logic as endAttemptButton
+   def headerButton = {attrs ->
         String tag = "headerButton";
         EndAttemptButton type = getRequiredAttribute(attrs, 'type', tag);
         String buttonIdentifier, buttonObject, title, iconClass;
@@ -144,10 +139,33 @@ class QtiTagLib {
 
         def tagBody = {
             g.remoteLink(fieldAttributes) {
+                "<i class='${iconClass}'></i>&nbsp;&nbsp;"
+            }
+        }
+        renderTag(attrs, tagBody);
+    }
+
+    def endAttemptButton = { attrs ->
+        String tag = "endAttemptButton";
+        String buttonIdentifier = getRequiredAttribute(attrs, 'buttonIdentifier', tag);
+        String title = getRequiredAttribute(attrs, 'buttonTitle', tag);
+        String iconClass;
+        EndAttemptButton endAttemptButton = getEndAttemptButton(buttonIdentifier);
+        iconClass = endAttemptButton.iconClass;
+
+        Map fieldAttributes = [action: AssessmentItemInfo.controllerActionForProcessItem,
+                onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
+                'class' :'btn btn-info'];
+
+        fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];
+
+        def tagBody = {
+            g.remoteLink(fieldAttributes) {
                 "<i class='${iconClass}'></i>&nbsp;&nbsp;${title}"
             }
         }
         renderTag(attrs, tagBody);
+
     }
 
     def choiceInteraction = {  attrs ->
@@ -413,6 +431,10 @@ class QtiTagLib {
 
     protected getOptionalAttribute(attrs, String name) {
         return getAttribute(attrs, name, null, false);
+    }
+
+    private EndAttemptButton getEndAttemptButton(String buttonIdentifier){
+        (buttonIdentifier == hintIdentifier) ? EndAttemptButton.hint : (buttonIdentifier == solutionIdentifier ? EndAttemptButton.solution : EndAttemptButton.other)
     }
 
     private String getHintIdentifier(){

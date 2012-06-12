@@ -6,7 +6,7 @@
   Time: 12:37 AM
   To change this template use File | Settings | File Templates.
 --%>
-
+<!-- ADD scrollbar sample test 23 -->
 <div id="${Consts.testStatusContent}" ng-controller="TestStatusController">
     <div class="span3" id="sidebar">
         <div class="sidebar-nav">
@@ -35,7 +35,7 @@
 
             </ul>
 
-            <div class="form-actions">
+            <div class="block-controls">
                 <div class="btn-group">
                     <button class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="#">
                         <g:message code="show.label"/>&nbsp;&nbsp;{{filterStatus}}

@@ -82,16 +82,20 @@ class BootStrap {
 
         //21-25
         new Test(dataPath: "tests/qti/NavigationMixed", dataFile: "test-ns-simple.xml").save();
-        new Test(dataPath: 'tests/qti/ModulePretest', dataFile: 'Test_Template.xml').save();
+        new Test(dataPath: 'tests/qti/ModulePretest', dataFile: 'Test_Template-Individual-Submission.xml').save();
+        new Test(dataPath: 'tests/qti/ModulePretest', dataFile: 'Test_Template-Simultaneous-Submission.xml').save();
         new Test(dataPath: 'tests/navigation/individual', dataFile: 'individual_navigation.xml').save();
         new Test(dataPath: 'tests/navigation/simultaneous', dataFile: 'simultaneous_navigation.xml').save();
-        new Test(dataPath: 'tests/qti/MultipleTestPartTest', dataFile: 'MultipleTestPartTest-Simultaneous.xml').save();
+
 
         //26-30
+        new Test(dataPath: 'tests/qti/MultipleTestPartTest', dataFile: 'MultipleTestPartTest-Simultaneous.xml').save();
         new Test(dataPath: 'tests/qti/MultipleTestPartTest', dataFile: 'MultipleTestPartTest-Individual.xml').save();
         new Test(dataPath: 'tests/qti/MultipleTestPartTest', dataFile: 'MultipleTestPartTest-Simultaneous-Timeout.xml').save();
         new Test(dataPath: "tests/qti/NavigationMixed", dataFile: "test-ns-deep-nested.xml").save();
         new Test(dataPath: "tests/qti/NavigationMixed", dataFile: "test-ns-deep-nested-disabled-review.xml").save();
+
+        //31-35
         new Test(dataPath: 'tests/qti/NavigationMixed', dataFile: 'test-ns-disabled_allowReview.xml').save();
 
     }

@@ -42,8 +42,10 @@
                 <div class="block-content">
                     <g:render template="/renderer/renderItemSubTree"
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
+                    <hr/>
                     <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
                                 name="${Consts.submit}"/>
+                    <g:render template="/renderer/renderEndAttemptButtons" />
                 </div>
             </g:formRemote>
         </g:if>
