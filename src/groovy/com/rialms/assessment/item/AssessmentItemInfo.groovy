@@ -119,15 +119,6 @@ class AssessmentItemInfo {
         return e;
     }
 
-    //TODO remove next two methods
-    public void addHeaderButton(String buttonId, String buttonTitle){
-        header[Consts.buttons] = header[Consts.buttons] + [(buttonId): buttonTitle];
-    }
-
-    public Map<String,String> getHeaderButtons(){
-        return header[Consts.buttons];
-    }
-
     public void addEndAttemptButton(String buttonId, String buttonTitle){
         endAttemptButtons = endAttemptButtons + [(buttonId): buttonTitle];
     }
@@ -253,11 +244,11 @@ class AssessmentItemInfo {
         this.assessmentItemRef = assessmentItemRef;
     }
 
-    @Override
+   /* @Override
     public String toString() {
         return "AssessmentItemInfo{" +
                 "dataPath='" + dataPath + '\'' +
                 ", assessmentItem=" + assessmentItem.title +
                 '}';
-    }
+    }*/
 }

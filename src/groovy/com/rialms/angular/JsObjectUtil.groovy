@@ -11,13 +11,6 @@ import com.rialms.consts.Constants as Consts;
  */
 class JsObjectUtil {
 
-    public static final String headerTitle = "${Consts.assessmentHeader}.${Consts.title}";
-    public static final String headerButton = "${Consts.assessmentHeader}.${Consts.buttons}";
-
-    public static String getHeaderButton(String identifier) {
-        return "${headerButton}.${identifier}";
-    }
-
     public static getProperty(String object,String property){
         return "${object}.${property}";
     }

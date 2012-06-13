@@ -64,6 +64,7 @@ class TestRenderInfo {
         output[Constants.assessmentHeader] = assessmentItemInfo.header;
         output[Constants.testStatusModel] = assessmentParams[Constants.testStatusModel];
         output[Constants.navigationButtonStates] = assessmentParams[Constants.navigationButtonStates];
+        output[Constants.endAttemptButtons] = assessmentItemInfo.endAttemptButtons
         return output;
     }
 }

@@ -52,7 +52,7 @@
                     <i class="icon-ok icon-white"></i>Submit
                 </button>
             </g:else>
-            <g:render template="/renderer/renderEndAttemptButtons" />
+            <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}" />
         </div>
     </div>
 </div>

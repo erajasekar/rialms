@@ -114,22 +114,21 @@ class QtiTagLib {
         Map actionParams = [id: params.id, (id): title];
         log.info("${tag} button action params => ${actionParams}");
 
-        out << """<div ng-init="${JsObjectUtil.getHeaderButton(id)}='${title}'"></div>"""
-        assessmentItemInfo.addHeaderButton(id, title);
+        out << """<div ng-init="${new JsObjectUtil.PropertyConstructor(Constants.endAttemptButtons).getProperty(id)}='${title}'"></div>"""
 
-   }
+        assessmentItemInfo.addEndAttemptButton(id, title);
 
-   //TODO refactor to use similar logic as endAttemptButton
-   def headerButton = {attrs ->
+    }
+
+    def headerButton = {attrs ->
         String tag = "headerButton";
         EndAttemptButton type = getRequiredAttribute(attrs, 'type', tag);
         String buttonIdentifier, buttonObject, title, iconClass;
         buttonIdentifier = grailsApplication.config.rialms[type.configIdentifier()];
         iconClass = type.iconClass;
-
-        buttonObject = JsObjectUtil.getHeaderButton(buttonIdentifier);
-        title =  JsObjectUtil.getTemplateVar(buttonObject);
-        
+        JsObjectUtil.PropertyConstructor props = new JsObjectUtil.PropertyConstructor(Constants.endAttemptButtons)
+        buttonObject = props.getProperty(buttonIdentifier);
+        title = JsObjectUtil.getTemplateVar(buttonObject);
         Map fieldAttributes = [action: AssessmentItemInfo.controllerActionForProcessItem,
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
                 title: title];
@@ -149,13 +148,14 @@ class QtiTagLib {
         String tag = "endAttemptButton";
         String buttonIdentifier = getRequiredAttribute(attrs, 'buttonIdentifier', tag);
         String title = getRequiredAttribute(attrs, 'buttonTitle', tag);
-        String iconClass;
         EndAttemptButton endAttemptButton = getEndAttemptButton(buttonIdentifier);
+
+        String iconClass;
         iconClass = endAttemptButton.iconClass;
 
         Map fieldAttributes = [action: AssessmentItemInfo.controllerActionForProcessItem,
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
-                'class' :'btn btn-info'];
+                'class':'btn btn-info'];
 
         fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];
 
@@ -165,7 +165,16 @@ class QtiTagLib {
             }
         }
         renderTag(attrs, tagBody);
+    }
 
+    def endAttemptButtons = { attrs ->
+        String tag = "endAttemptButtons"
+
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+
+        assessmentItemInfo.endAttemptButtons.each { key, value ->
+            out << endAttemptButton(buttonIdentifier: key, buttonTitle: value);
+        }
     }
 
     def choiceInteraction = {  attrs ->
@@ -433,14 +442,15 @@ class QtiTagLib {
         return getAttribute(attrs, name, null, false);
     }
 
-    private EndAttemptButton getEndAttemptButton(String buttonIdentifier){
+    private EndAttemptButton getEndAttemptButton(String buttonIdentifier) {
         (buttonIdentifier == hintIdentifier) ? EndAttemptButton.hint : (buttonIdentifier == solutionIdentifier ? EndAttemptButton.solution : EndAttemptButton.other)
     }
 
-    private String getHintIdentifier(){
+    private String getHintIdentifier() {
         return grailsApplication.config.rialms.hintIdentifier;
     }
-    private String getSolutionIdentifier(){
-       return grailsApplication.config.rialms.solutionIdentifier;
+
+    private String getSolutionIdentifier() {
+        return grailsApplication.config.rialms.solutionIdentifier;
     }
 }

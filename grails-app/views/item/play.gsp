@@ -23,7 +23,7 @@
 </r:script>
 
 <div class="row-fluid">
-    <div class="span12">
+    <div class="span12" id="${Consts.content}">
 
         <g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
@@ -45,7 +45,7 @@
                     <hr/>
                     <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
                                 name="${Consts.submit}"/>
-                    <g:render template="/renderer/renderEndAttemptButtons" />
+                    <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}" />
                 </div>
             </g:formRemote>
         </g:if>

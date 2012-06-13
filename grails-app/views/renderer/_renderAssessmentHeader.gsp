@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.consts.EndAttemptButton; com.rialms.angular.JsObjectUtil; sun.reflect.generics.scope.ConstructorScope; com.rialms.consts.Constants; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
+<%@ page import="com.rialms.consts.Constants; com.rialms.consts.EndAttemptButton; com.rialms.angular.JsObjectUtil;  com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Constants as Consts" %>
 <%--
   Created by IntelliJ IDEA.
   User: Rajasekar Elango
@@ -7,9 +7,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <div id="${Consts.assessmentHeader}" class="block-header">
-    <% boolean isTest = params.controller == 'test' %>
-    <div ng-init="${JsObjectUtil.headerTitle}='${assessmentTitle}'" ></div>
-    <h4>{{${JsObjectUtil.headerTitle}}}
+    <% boolean isTest = params.controller == 'test'
+       JsObjectUtil.PropertyConstructor props = new JsObjectUtil.PropertyConstructor(Constants.assessmentHeader)
+    %>
+    <div ng-init="${props.getProperty(Constants.title)}='${assessmentTitle}'" ></div>
+    <h4>${props.getPropertyValue(Constants.title)}
         <span class="pull-right">
            <qti:headerButton type='${EndAttemptButton.hint}'/>
            <qti:headerButton type='${EndAttemptButton.solution}'/>

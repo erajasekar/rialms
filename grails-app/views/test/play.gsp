@@ -13,7 +13,7 @@
     <title>${assessmentParams[Consts.title]}</title>
 </head>
 
-<body>
+<body data-spy="scroll">
 
 <r:script>
     $(document).ready(function () {
