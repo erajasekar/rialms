@@ -111,7 +111,7 @@ window.initAngularScopeObjects = (data)->
   contentScope.$apply ->
     contentScope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
     contentScope.endAttemptButtons = data.endAttemptButtons if data.endAttemptButtons
-  #console.log(contentScope.assessmentHeader)
+
   initTestStatusModel(data.testStatusModel)
   initNavigationButtonStates(data.navigationButtonStates)
 

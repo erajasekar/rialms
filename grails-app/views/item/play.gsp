@@ -43,7 +43,7 @@
                     <g:render template="/renderer/renderItemSubTree"
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
                     <hr/>
-                    <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='Submit'
+                    <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='${g.message(code:"button.submit.label")}'
                                 name="${Consts.submit}"/>
                     <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}" />
                 </div>

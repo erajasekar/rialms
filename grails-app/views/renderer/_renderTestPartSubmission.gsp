@@ -17,12 +17,11 @@
         </g:else>
     </h4>
 
-
     <g:hiddenField name="id" value="${params.id}"/>
     <br/>
     <button id="submit" type="button" class="btn btn-primary"
             onclick="${remoteFunction(action: 'submitTestPart', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: [id: params.id])}">
-        <i class="icon-ok icon-white"></i>Submit
+        <i class="icon-ok icon-white"></i><g:message code="button.submit.label"/>
     </button>
 
 </div>

@@ -80,5 +80,4 @@ class Constants {
     public static final String endAttemptButtons = 'endAttemptButtons'
     public static final String content = "content"
 
-
 }

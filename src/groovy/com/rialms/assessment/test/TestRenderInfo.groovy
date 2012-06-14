@@ -56,11 +56,6 @@ class TestRenderInfo {
     public Map getRenderOutput() {
 
         Map output = ['testOutcomeValues': assessmentParams.outcomeValues];
-
-        //TODO see if we can use angular for this as well
-        if (!assessmentParams.submitEnabled) {
-            output.disableElementIds = ['#submit'];
-        }
         output[Constants.assessmentHeader] = assessmentItemInfo.header;
         output[Constants.testStatusModel] = assessmentParams[Constants.testStatusModel];
         output[Constants.navigationButtonStates] = assessmentParams[Constants.navigationButtonStates];

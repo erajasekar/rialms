@@ -289,7 +289,7 @@ public class AssessmentTestController implements Serializable {
         log.debug("checking submitEnabled");
         if (getCurrentItemRef() != null) {
             boolean se = !getCurrentItemRef().isFinished() && getCurrentItemRef().passMaximumTimeLimit();
-            log.debug("submitEnabled is " + se + " (" + getCurrentItemRef().getIdentifier() + ")");
+            log.info("submitEnabled is " + se + " (" + getCurrentItemRef().getIdentifier() + ")");
             return se;
         }
         log.debug("no item in submitEnabled");

@@ -7,10 +7,10 @@
 --%>
 <div class="form-actions">
     <g:link action="report" params="[id: params.id]" class="btn btn-primary"><i
-            class="icon-signal icon-white"></i> Report</g:link>
+            class="icon-signal icon-white"></i> <g:message code="button.report.label"/></g:link>
 
     <g:link name='exit' action="reset" params="[id: params.id, redirectto: 'list']"
             class="btn btn-danger"
             onclick="return confirm(\'${g.message(code: 'test.exit.confirm.message')}\')"><i
-            class="icon-remove icon-white"></i> Exit Test</g:link>
+            class="icon-remove icon-white"></i> <g:message code="button.exitTest.label"/></g:link>
 </div>

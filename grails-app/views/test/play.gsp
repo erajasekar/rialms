@@ -55,12 +55,14 @@
                 </r:script>
                 <div class="row-fluid">
                     <div class="span4"></div>
+
                     <div id="timer" class="span4 well-small center">
                         <h3>
                             <g:message code="test.time.to.complete.message"/>
                             <b id="${Consts.timeRemaining}">...</b>
                         </h3>
                     </div>
+
                     <div class="span4"></div>
                 </div>
             </g:if>
@@ -82,7 +84,8 @@
 
                         <g:each in="${controls.getButtonStates()}" var="button">
 
-                            <button ng-show="${buttonStates.getProperty(button.key.name)}" id="${button.key.id}" type="button" class="btn btn-info"
+                            <button ng-show="${buttonStates.getProperty(button.key.name)}" id="${button.key.id}"
+                                    type="button" class="btn btn-info"
                                     onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
                                 <g:if test="${button.key.appendIcon}">
                                     ${button.key.value}&nbsp;<i class="${button.key.iconClass}"></i>
@@ -94,8 +97,6 @@
                             </button>
 
                         </g:each>
-
-                    <!-- TODO: Internalize all button labels -->
                     </div>
                 </div>
             </g:formRemote>

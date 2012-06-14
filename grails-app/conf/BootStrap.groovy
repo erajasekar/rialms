@@ -13,10 +13,10 @@ class BootStrap {
 
     def initData(){
 
-        boolean isInitialized = Item.list().size() > 0;   //TODO find better way to do this check
-        log.info("BootStrap: ${Environment.current} ==> ${isInitialized}")
-        if (Environment.current == Environment.DEVELOPMENT || !isInitialized){
+        if (Item.list().isEmpty()){
             createItems();
+        }
+        if (Test.list().isEmpty()){
             createTests();
         }
     }
