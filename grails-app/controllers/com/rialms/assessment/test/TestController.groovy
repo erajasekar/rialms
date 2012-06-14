@@ -18,7 +18,7 @@ class TestController {
         if (!params.max) params.max = 50
         [testList: Test.list(params)]
     }
-    //TODO remove after testing
+    //TODO Later remove after testing
     def angular = {
         render (view:'angular');
     }
@@ -190,6 +190,8 @@ class TestController {
 
     private JSON createRedirectLinkJSON(Map attributes) {
         Map<String, String> renderOutput = [(Consts.redirectUrl): createLink(attributes)];
+        //renderOutput[Consts.assessmentHeader] = [(Consts.title): g.message(code: 'test.feedback.message')];
+       // println "RAJA ${renderOutput}"
         render renderOutput as JSON;
     }
 }

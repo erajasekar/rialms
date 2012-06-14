@@ -202,7 +202,6 @@ public class TestCoordinator implements Serializable {
         params.put(outcomeValues, QtiUtils.convertQTITypesToParams(test.getTest().getOutcomeValues()));
         params.put(outcomeDeclarations, test.getTest().getOutcomeDeclarations());
         params.put(submitTestPartContent, true);
-        params.put(testPartStatus, test.currentTestPartStatus);
         if (test.test?.testParts?.size() > 1) {
             params.put(testPart, test.currentTestPart.identifier);
         }
@@ -301,12 +300,6 @@ public class TestCoordinator implements Serializable {
 
         params.put(testStatus, test.testStatus)
         params.put(filterByStatus, this.filterItemByStatus);
-
-        //TODO remove commented code
-       /* Map<String, List<SectionPartStatus>> testPartStatus = test.getCurrentTestPartStatus();
-        params.put(testPartStatus, testPartStatus)
-        params.put(testPartStatus, test.currentTestPartStatus)
-         */
 
         params.put(Consts.testStatusModel, test.testStatusModel);
 

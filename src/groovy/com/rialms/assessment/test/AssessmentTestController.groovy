@@ -458,8 +458,7 @@ public class AssessmentTestController implements Serializable {
         return sectionPartStatusList;
     }
 
-    /*TODO remove this method if no longer required **/
-
+    /* This method is used by test cases only to test currentTestPartStatus, the actual application uses getTestStatusModel() */
     public Map<String, List<SectionPartStatus>> getCurrentTestPartStatus(AssessmentItemStatus filterByStatus = AssessmentItemStatus.ALL) {
         Map<String, List<SectionPartStatus>> testPartStatus = getSectionPartsStatusInCurrentTestPart(filterByStatus)
                 .groupBy {it.parentSection}

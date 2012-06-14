@@ -75,7 +75,6 @@ $.fn.field = (inputName, value) ->
 window.initTestRendering = ->
   $("a").tooltip()
   $('.dropdown-toggle').dropdown();
-  $('#sidebar').scrollspy()
   $("a.toggleNav").click ->
     if $("a.toggleNav span").text() is $("<div>").html("&laquo;").text()
       $("a.toggleNav span").html "&raquo;"
@@ -112,8 +111,9 @@ window.initAngularScopeObjects = (data)->
   contentScope.$apply ->
     contentScope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
     contentScope.endAttemptButtons = data.endAttemptButtons if data.endAttemptButtons
-  #console.log(angular.toJson(data.testStatusModel))
+  #console.log(contentScope.assessmentHeader)
   initTestStatusModel(data.testStatusModel)
   initNavigationButtonStates(data.navigationButtonStates)
+
 
 

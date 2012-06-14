@@ -13,7 +13,7 @@
     <title>${assessmentParams[Consts.title]}</title>
 </head>
 
-<body data-spy="scroll">
+<body>
 
 <r:script>
     $(document).ready(function () {
@@ -53,10 +53,15 @@
                    initTimer("${assessmentParams[Consts.timeRemaining]}");
                 });
                 </r:script>
-
-                <div id="timer">
-                    <g:message code="test.time.to.complete.message"/>
-                    <b id="${Consts.timeRemaining}">...</b>
+                <div class="row-fluid">
+                    <div class="span4"></div>
+                    <div id="timer" class="span4 well-small center">
+                        <h3>
+                            <g:message code="test.time.to.complete.message"/>
+                            <b id="${Consts.timeRemaining}">...</b>
+                        </h3>
+                    </div>
+                    <div class="span4"></div>
                 </div>
             </g:if>
 

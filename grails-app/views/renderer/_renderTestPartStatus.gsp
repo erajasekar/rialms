@@ -19,21 +19,24 @@
                     <g:message code="test.status.message"/>
                 </h4>
             </div>
-            <% JsObjectUtil.PropertyConstructor statusEntry = new JsObjectUtil.PropertyConstructor(Consts.statusEntry) %>
-            <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries()">
-                <li ng-class="getStyleClass(statusEntry)">
-                    <span ng-show="${statusEntry.getProperty(Consts.isSectionTitle)}">
-                        ${statusEntry.getPropertyValue(Consts.identifier)}
-                    </span>
-                    <g:remoteLink action="navigate" ng-hide="${statusEntry.getProperty(Consts.isSectionTitle)}"
-                                  onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
-                                  params="${params + [(Consts.renderItem): statusEntry.getPropertyValue(Consts.identifier), isPositionedAfterCurrent: statusEntry.getPropertyValue(Consts.isPositionedAfterCurrent)]}">
-                        ${statusEntry.getPropertyValue(Consts.identifier)} &nbsp;&nbsp;
-                        <span class="${statusEntry.getPropertyValue(Consts.styleClass)}">${statusEntry.getPropertyValue(Consts.status)}</span>
-                    </g:remoteLink>
-                </li>
 
-            </ul>
+            <div id='sidebar-status-list'>
+                <% JsObjectUtil.PropertyConstructor statusEntry = new JsObjectUtil.PropertyConstructor(Consts.statusEntry) %>
+                <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries()">
+                    <li ng-class="getStyleClass(statusEntry)">
+                        <span ng-show="${statusEntry.getProperty(Consts.isSectionTitle)}">
+                            ${statusEntry.getPropertyValue(Consts.identifier)}
+                        </span>
+                        <g:remoteLink action="navigate" ng-hide="${statusEntry.getProperty(Consts.isSectionTitle)}"
+                                      onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
+                                      params="${params + [(Consts.renderItem): statusEntry.getPropertyValue(Consts.identifier), isPositionedAfterCurrent: statusEntry.getPropertyValue(Consts.isPositionedAfterCurrent)]}">
+                            ${statusEntry.getPropertyValue(Consts.identifier)} &nbsp;&nbsp;
+                            <span class="${statusEntry.getPropertyValue(Consts.styleClass)}">${statusEntry.getPropertyValue(Consts.status)}</span>
+                        </g:remoteLink>
+                    </li>
+
+                </ul>
+            </div>
 
             <div class="block-controls">
                 <div class="btn-group">
@@ -43,7 +46,9 @@
                     </button>
                     <ul class="dropdown-menu">
                         <g:each var="status" in="${AssessmentItemStatus.allStatuses()}">
-                            <li ng-show="filterStatus != '${status}'"><a href="#" ng-click="filterStatus='${status}'" >${status}</a></li>
+                            <li ng-show="filterStatus != '${status}'"><a href="#"
+                                                                         ng-click="filterStatus='${status}'">${status}</a>
+                            </li>
                         </g:each>
                     </ul>
                 </div>

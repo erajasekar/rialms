@@ -23,7 +23,6 @@ public enum EndAttemptButton {
     public String getIconClass(){
         return icons[this];
     }
-    //TODO remove unsed methods
     public boolean isHint(){
         return this == hint;
     }
