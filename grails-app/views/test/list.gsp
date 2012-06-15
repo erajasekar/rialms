@@ -32,7 +32,7 @@
 
                     <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"/>
 
-                    <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"/>     <!-- TODO: fix sort by title -->
+                    <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"/>
 
                     <th>Action</th>
 

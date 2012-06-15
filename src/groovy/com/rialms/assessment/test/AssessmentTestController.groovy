@@ -391,7 +391,6 @@ public class AssessmentTestController implements Serializable {
     }
 
     public String getReport() {
-        //log.info("RAJA ${getTest().getAssessmentResult().toXmlString()}")
         return getTest().getAssessmentResult().toXmlString();
     }
 
@@ -472,6 +471,7 @@ public class AssessmentTestController implements Serializable {
         List<Map<String, Object>> testStatusModel = [];//[['identifier':getCurrentItemIdentifier(),'isHeader':true],['identifier':1,'isHeader':false],['identifier':'2','isHeader':false]];
         getSectionPartsStatusInCurrentTestPart(AssessmentItemStatus.ALL).
                 groupBy {it.parentSection}.each {k, v ->
+
             testStatusModel << [(Consts.identifier): k, (Consts.isSectionTitle): true];
             testStatusModel << v.flatten().collect {it.toPropertiesMap() + [(Consts.isSectionTitle): false]};
         }

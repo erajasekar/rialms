@@ -28,11 +28,15 @@ public enum AssessmentItemStatus {
     }
 
     public static String format(EnumSet<AssessmentItemStatus> statuses) {
-        return statuses.collect {it.name().replaceAll("_", " ").toLowerCase().capitalize()}.join(" , ");
+        return statuses.collect {it.format()}.join(" , ");
     }
 
     public static String format(AssessmentItemStatus status) {
         return format(EnumSet.of(status));
+    }
+
+    public String format(){
+        return name().replaceAll("_", " ").toLowerCase().capitalize()
     }
 
     public String getStatusClass() {

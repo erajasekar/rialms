@@ -2,6 +2,7 @@ package com.rialms.assessment.test
 
 import groovy.util.logging.Log4j
 import com.rialms.consts.AssessmentItemStatus
+import com.rialms.consts.Constants as Consts
 
 /**
  * Created by IntelliJ IDEA.
@@ -13,14 +14,14 @@ import com.rialms.consts.AssessmentItemStatus
 @Log4j
 class TestReportBuilder {
 
-    //TODO: Report should not include not-presented items for individual-non-linear and should have badges for status.
+    //TODO: Report should not include not-presented items for individual-non-linear
     private static final List<String> DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE = ['SCORE'];
 
     private List<String> outcomeVariablesToInclude = DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE;
 
     public TestReport buildTestReport(String testTitle, String xmlString, Map<String, AssessmentItemStatus> testStatus) {
 
-        log.debug("Report xmlString ${xmlString}");
+        log.info("Report xmlString ${xmlString}");
         def assessmentResult = new XmlSlurper().parseText(xmlString);
         def testResultDuration = assessmentResult.testResult.outcomeVariable.findAll { outcomeVariable -> outcomeVariable.@identifier =~ 'duration'}
         Map<String, String> summary = [:];
@@ -34,13 +35,13 @@ class TestReportBuilder {
         assessmentResult.itemResult.each { itemResult ->
             String itemResultId = itemResult.@identifier;
             Map<String, String> detailResult = [:];
-            detailResult['item'] = itemResultId;
+            detailResult[Consts.item] = itemResultId;
             def outcomeVariables = itemResult.outcomeVariable.findAll {outcomeVariable -> outcomeVariablesToInclude.contains(outcomeVariable.@identifier)}
             outcomeVariables.each { it ->
                 detailResult[(it.@identifier.toString())] = it.text();
             }
             AssessmentItemStatus status = testStatus?.get(itemResultId);
-            detailResult.STATUS = (status) ? AssessmentItemStatus.format(status) : AssessmentItemStatus.format(AssessmentItemStatus.NOT_PRESENTED)
+            detailResult[Consts.STATUS] = (status) ? status :AssessmentItemStatus.NOT_PRESENTED
 
             detail << detailResult;
         }

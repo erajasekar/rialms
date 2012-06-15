@@ -3,6 +3,7 @@ package com.rialms.assessment.item
 import org.qtitools.qti.node.item.AssessmentItem
 
 import org.springframework.beans.factory.InitializingBean
+import com.rialms.util.QtiUtils
 
 class ItemService implements InitializingBean {
 
@@ -12,23 +13,27 @@ class ItemService implements InitializingBean {
     public AssessmentItem getAssessmentItem(Item e) {
 
         AssessmentItem assessmentItem = new AssessmentItem();
-        assessmentItem.load(getItemDataFile(e));
+        assessmentItem.load(getItemDataFile(e.dataPath,e.dataFile));
         assessmentItem.initialize(null);
         return assessmentItem;
     }
 
-    public File getItemDataFile(Item e) {
-        return grailsApplication.parentContext.getResource("${getDataPath(e)}" + e.dataFile).getFile();
+    public void createItem(String dataPath, String dataFile){
+        String itemTitle = QtiUtils.getTitleFromXml(getItemDataFile(dataPath,dataFile));
+        new Item(dataPath: dataPath,dataFile: dataFile, title: itemTitle).save();
+    }
+    private File getItemDataFile(String dataPath, String dataFile) {
+        return grailsApplication.parentContext.getResource("${getAbsoluteDataPath(dataPath)}" + dataFile).getFile();
     }
 
-    private String getDataPath(Item e) {
-        return "${contentPath}/${e.dataPath}/"
+    private String getAbsoluteDataPath(String dataPath) {
+        return "${contentPath}/${dataPath}/"
     }
 
     public AssessmentItemInfo getAssessmentItemInfo(String itemId) {
         Item e = Item.get(itemId);
 
-        return new AssessmentItemInfo(getAssessmentItem(e), getDataPath(e));
+        return new AssessmentItemInfo(getAssessmentItem(e), e.dataPath);
     }
 
     void afterPropertiesSet() {

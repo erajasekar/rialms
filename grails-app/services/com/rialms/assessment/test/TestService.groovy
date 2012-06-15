@@ -4,23 +4,29 @@ import com.rialms.consts.Constants as Consts
 
 import com.rialms.consts.NavButton
 import org.springframework.beans.factory.InitializingBean
+import com.rialms.util.QtiUtils
 
 class TestService implements InitializingBean {
 
     def grailsApplication;
     String contentPath;
 
-    public File getTestDataFile(Test t) {
-        return grailsApplication.parentContext.getResource("${getDataPath(t)}" + t.dataFile).getFile();
+    public void createTest(String dataPath, String dataFile){
+        String testTitle = QtiUtils.getTitleFromXml(getTestDataFile(dataPath,dataFile));
+        new Test(dataPath: dataPath, dataFile: dataFile, title:testTitle).save();
+
+    }
+    private File getTestDataFile(String dataPath,String dataFile) {
+        return grailsApplication.parentContext.getResource("${getAbsoluteDataPath(dataPath)}" + dataFile).getFile();
     }
 
-    private String getDataPath(Test t) {
-        return "${contentPath}/${t.dataPath}/"
+    private String getAbsoluteDataPath(String dataPath) {
+        return "${contentPath}/${dataPath}/"
     }
 
     public TestCoordinator createTestCoordinator(String testId) {
         Test test = Test.get(testId);
-        TestCoordinator coordinator = new TestCoordinator(getTestDataFile(test), getDataPath(test), null);
+        TestCoordinator coordinator = new TestCoordinator(getTestDataFile(test.dataPath,test.dataFile), getAbsoluteDataPath(test.dataPath), null);
 
         //render the first instance only with error report
         coordinator.setValidate(true);
