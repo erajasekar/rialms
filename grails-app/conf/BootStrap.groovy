@@ -98,10 +98,11 @@ class BootStrap {
         testService.createTest('tests/qti/MultipleTestPartTest', 'MultipleTestPartTest-Simultaneous.xml');
         testService.createTest('tests/qti/MultipleTestPartTest', 'MultipleTestPartTest-Individual.xml');
         testService.createTest('tests/qti/MultipleTestPartTest', 'MultipleTestPartTest-Simultaneous-Timeout.xml');
+        testService.createTest('tests/qti/MultipleTestPartTest', 'MultipleTestPartTest-Simultaneous-Individual.xml');
         testService.createTest("tests/qti/NavigationMixed", "test-ns-deep-nested.xml");
-        testService.createTest("tests/qti/NavigationMixed", "test-ns-deep-nested-disabled-review.xml");
 
         //31-35
+        testService.createTest("tests/qti/NavigationMixed", "test-ns-deep-nested-disabled-review.xml");
         testService.createTest('tests/qti/NavigationMixed', 'test-ns-disabled_allowReview.xml');
 
     }

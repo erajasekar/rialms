@@ -54,7 +54,8 @@ import org.qtitools.qti.value.Value
 import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.consts.AssessmentItemStatus
 import org.qtitools.qti.node.test.SectionPart;
-import com.rialms.consts.Constants as Consts;
+import com.rialms.consts.Constants as Consts
+import org.qtitools.qti.node.result.AssessmentResult;
 
 /**
  * This class wraps JQTI to provide a nice interface for building
@@ -391,7 +392,49 @@ public class AssessmentTestController implements Serializable {
     }
 
     public String getReport() {
-        return getTest().getAssessmentResult().toXmlString();
+        return getAssessmentResult().toXmlString();
+    }
+
+    /**
+     * Returns current result of whole assessment (test and all its items).
+     * This is modified version based on  org.qtitools.qti.node.test.AssessmentTest.getAssessmentResult().
+     *
+     * @return current result of whole assessment (test and all its items)
+     */
+    public AssessmentResult getAssessmentResult()
+    {
+
+        AssessmentTest test = getTest();
+        AssessmentResult result = new AssessmentResult();
+
+        result.setTestResult(test.getTestResult(result));
+
+        List<AssessmentItemRef> itemRefs = test.lookupItemRefs(null);
+        int sequenceIndex = 1;
+
+        List<String> processedItemIds = processedItems.values().collect {it.collect {k, v -> [k]}}.flatten();
+
+        log.info("DEBUG processedItemIds => ${processedItemIds}");
+        for (AssessmentItemRef itemRef : itemRefs){
+            //This check is avoid showing NOT_PRESENTED items for Linear Individual items which can use branching rules.
+            //So for Linear Individual test part don't show any non processed items.
+            if (processedItemIds.contains(itemRef.identifier) || !itemRef.getParentTestPart().areJumpsEnabled()){
+                result.getItemResults().addAll(itemRef.getItemResult(result, sequenceIndex++, null));
+            }
+
+        }
+
+        return result;
+      /* AssessmentResult result = new AssessmentResult();
+
+        result.setTestResult(test.getTestResult(result));
+
+        List<AssessmentItemRef> itemRefs = test.lookupItemRefs(null);
+        int sequenceIndex = 1;
+        for (AssessmentItemRef itemRef : itemRefs)
+            result.getItemResults().addAll(itemRef.getItemResult(result, sequenceIndex++, null));
+
+        return result;*/
     }
 
     /*

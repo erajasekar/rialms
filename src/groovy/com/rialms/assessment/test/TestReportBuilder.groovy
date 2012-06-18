@@ -14,7 +14,6 @@ import com.rialms.consts.Constants as Consts
 @Log4j
 class TestReportBuilder {
 
-    //TODO: Report should not include not-presented items for individual-non-linear
     private static final List<String> DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE = ['SCORE'];
 
     private List<String> outcomeVariablesToInclude = DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE;
