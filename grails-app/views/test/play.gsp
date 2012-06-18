@@ -18,8 +18,7 @@
 <r:script>
     $(document).ready(function () {
         initTestRendering();
-        initTestStatusModel(${assessmentParams[Consts.testStatusModel] as JSON});
-        initNavigationButtonStates(${assessmentParams[Consts.navigationButtonStates] as JSON});
+        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, assessmentParams, Consts.testStatusModel,Consts.navigationButtonStates)});
     });
 </r:script>
 

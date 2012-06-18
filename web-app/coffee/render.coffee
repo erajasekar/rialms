@@ -92,28 +92,15 @@ window.initTestRendering = ->
     $("#sidebar").toggleClass "span3"
 
 
-window.initTestStatusModel = (testStatusModel)->
-  testStatusScope = angular.element('#testStatusContent').scope()
-  if (testStatusScope)
-    testStatusScope.$apply ->
-      testStatusScope.testStatusModel = testStatusModel if testStatusModel
-
-window.initNavigationButtonStates = (navigationButtonStates)->
-  navigationControlsScope = angular.element('#navigationControls').scope()
-  if (navigationControlsScope)
-    navigationControlsScope.$apply ->
-      navigationControlsScope.navigationButtonStates = navigationButtonStates if navigationButtonStates
-  #console.log('Navs Json ' + navigationControlsScope.navigationButtonStates)
-
 window.initAngularScopeObjects = (data)->
   #TODO refactor to automatically assign all props
-  contentScope = angular.element('#content').scope()
-  contentScope.$apply ->
-    contentScope.assessmentHeader = data.assessmentHeader if data.assessmentHeader
-    contentScope.endAttemptButtons = data.endAttemptButtons if data.endAttemptButtons
-
-  initTestStatusModel(data.testStatusModel)
-  initNavigationButtonStates(data.navigationButtonStates)
+  console.log(data)
+  if data.angularData
+    contentScope = angular.element('#content').scope()
+    contentScope.$apply ->
+      for key,value of data.angularData
+        contentScope[key] = value;
+  return
 
 
 

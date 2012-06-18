@@ -3,7 +3,7 @@ package com.rialms.assessment.test
 import org.qtitools.qti.node.item.AssessmentItem
 import org.qtitools.qti.value.Value
 import com.rialms.assessment.item.AssessmentItemInfo
-import com.rialms.consts.Constants
+import com.rialms.consts.Constants as Consts;
 
 /**
  * Created by IntelliJ IDEA.
@@ -56,10 +56,16 @@ class TestRenderInfo {
     public Map getRenderOutput() {
 
         Map output = ['testOutcomeValues': assessmentParams.outcomeValues];
-        output[Constants.assessmentHeader] = assessmentItemInfo.header;
-        output[Constants.testStatusModel] = assessmentParams[Constants.testStatusModel];
-        output[Constants.navigationButtonStates] = assessmentParams[Constants.navigationButtonStates];
-        output[Constants.endAttemptButtons] = assessmentItemInfo.endAttemptButtons
+        Map angularData = [ (Consts.assessmentHeader) : assessmentItemInfo.header,
+                (Consts.testStatusModel) :assessmentParams[Consts.testStatusModel],
+                (Consts.navigationButtonStates) : assessmentParams[Consts.navigationButtonStates] ,
+                (Consts.endAttemptButtons) :assessmentItemInfo.endAttemptButtons
+        ]
+        output[Consts.angularData] = angularData;
         return output;
+    }
+
+    public static Map createAngularData(Map data){
+        return [(Consts.angularData):data];
     }
 }

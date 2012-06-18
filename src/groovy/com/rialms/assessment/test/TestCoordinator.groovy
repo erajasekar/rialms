@@ -207,7 +207,11 @@ public class TestCoordinator implements Serializable {
         }
 
         NavigationControls controls = new NavigationControls(false);
+        //TODO remove if not required
         params.put(navigationControls, controls);
+
+        params.put(navigationButtonStates, controls.navButtonStates);
+        params.put(Consts.testStatusModel, test.testStatusModel);
 
         log.info("renderSubmitTestPartContent params ==> ${params}");
         renderContent(AssessmentItemInfo.BLANK_ITEM, params);
@@ -297,7 +301,7 @@ public class TestCoordinator implements Serializable {
         params.put(numberRemaining, test.getNumberRemaining());
         params.put(timeSelected, test.getTimeSelected());
         params.put(timeRemaining, test.getTimeRemaining());
-
+        //TODO remove if not required
         params.put(testStatus, test.testStatus)
         params.put(filterByStatus, this.filterItemByStatus);
 

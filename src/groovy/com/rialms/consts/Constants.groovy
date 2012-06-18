@@ -82,5 +82,6 @@ class Constants {
     public static final String label = "label"
     public static final String item = "item"
     public static final String STATUS = "STATUS"
+    public static final String angularData = "angularData"
 
 }

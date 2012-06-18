@@ -203,8 +203,8 @@ class AssessmentItemInfo {
         if (isComplete()) {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
-        output[Consts.assessmentHeader] = header;
-        output[Consts.endAttemptButtons] = endAttemptButtons;
+        Map angularData = [(Consts.assessmentHeader):header, (Consts.endAttemptButtons):endAttemptButtons];
+        output[Consts.angularData] = angularData;
         return output;
     }
 

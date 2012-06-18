@@ -1,6 +1,8 @@
 package com.rialms.angular
 
-import com.rialms.consts.Constants as Consts;
+import com.rialms.consts.Constants as Consts
+import grails.converters.JSON
+import groovy.util.logging.Log4j;
 
 /**
  * Created by IntelliJ IDEA.
@@ -9,6 +11,7 @@ import com.rialms.consts.Constants as Consts;
  * Time: 11:24 PM
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 class JsObjectUtil {
 
     public static getProperty(String object,String property){
@@ -47,5 +50,11 @@ class JsObjectUtil {
         public String getPropertiesValue(String... properties){
             return getTemplateVar(getProperty(properties));
         }
+    }
+
+    public static JSON createJSONObject(String parentDataKey, Map data, String... dataKeysToInclude){
+        Map result = [(parentDataKey):dataKeysToInclude.collectEntries { key -> [(key) : data[key]]}]
+        log.info("DEBUG createJSONObject result => ${result}")
+        return result as JSON;
     }
 }
