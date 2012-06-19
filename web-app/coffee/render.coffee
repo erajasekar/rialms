@@ -45,33 +45,6 @@ window.updateRenderedItem = (data) ->
   #$('head').append(mathJaxScript);
   return
 
-$.fn.field = (inputName, value) ->
-  return false  if typeof inputName isnt "string"
-  $inputElement = $(this).find("[name=" + inputName + "]")
-  switch $inputElement.attr("type")
-    when "checkbox"
-      $inputElement.each (i) ->
-        checked = $.inArray($(this).val(), value.split(",")) >= 0
-        $(this).attr('checked', checked)
-    when "radio"
-      $inputElement.each (i) ->
-        $(this).attr('checked', true)  if $(this).val() is value
-    when "button"
-      break;
-    when "submit"
-      break
-    when `undefined`
-      switch $inputElement.attr("id")
-        when "select"
-          $inputElement.children('option').each (i) ->
-            $(this).attr('selected', 'selected') if $(this).val() is value
-        else
-          $(this).append "<input type=\"hidden\" name=\"" + inputName + "\" value=\"" + value + "\" />"
-    else
-    #console.log("warning unhandled element " + $inputElement)
-      $inputElement.val value
-  $inputElement
-
 window.initTestRendering = ->
   $("a").tooltip()
   $('.dropdown-toggle').dropdown();

@@ -2,7 +2,10 @@ package com.rialms.angular
 
 import com.rialms.consts.Constants as Consts
 import grails.converters.JSON
-import groovy.util.logging.Log4j;
+import groovy.util.logging.Log4j
+import java.lang.reflect.Field
+import org.codehaus.groovy.grails.commons.GrailsClassUtils
+import com.rialms.consts.Constants;
 
 /**
  * Created by IntelliJ IDEA.
@@ -29,6 +32,17 @@ class JsObjectUtil {
 
     public static String getTemplateVar(String variable) {
         return "{{${variable}}}";
+    }
+
+    public static JSON getConstantsAsJSON(){
+        Map constants = [:]
+        Consts.declaredFields.each{ Field f->
+            if (GrailsClassUtils.isPublicStatic(f)){
+                constants[f.name] = GrailsClassUtils.getStaticFieldValue(Constants.class,f.name);
+            }
+        }
+        log.debug("All Constants ${constants}")
+        return constants as JSON;
     }
 
     public static class PropertyConstructor{
