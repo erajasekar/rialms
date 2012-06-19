@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!doctype html>
-<%@ page import="com.rialms.angular.JsObjectUtil; grails.converters.JSON; com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.consts.NavButton; com.rialms.angular.JsObjectUtil; grails.converters.JSON; com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
@@ -77,20 +77,19 @@
                     <g:render template="/renderer/renderTestFeedback"/>
                     <div class="form-actions" id="${Consts.navigationControls}">
                         <%
-                            NavigationControls controls = assessmentParams[Consts.navigationControls]
                             JsObjectUtil.PropertyConstructor buttonStates = new JsObjectUtil.PropertyConstructor(Consts.navigationButtonStates)
                         %>
 
-                        <g:each in="${controls.getButtonStates()}" var="button">
+                        <g:each in="${NavButton.buttons}" var="button">
 
-                            <button ng-show="${buttonStates.getProperty(button.key.name)}" id="${button.key.id}"
+                            <button ng-show="${buttonStates.getProperty(button.name)}" id="${button.id}"
                                     type="button" class="btn btn-info"
-                                    onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.key.id])}">
-                                <g:if test="${button.key.appendIcon}">
-                                    ${button.key.value}&nbsp;<i class="${button.key.iconClass}"></i>
+                                    onclick="${remoteFunction(action: 'navigate', onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem, params: params + [(Consts.navButton): button.id])}">
+                                <g:if test="${button.appendIcon}">
+                                    ${button.value}&nbsp;<i class="${button.iconClass}"></i>
                                 </g:if>
                                 <g:else>
-                                    <i class="${button.key.iconClass}"></i>&nbsp;${button.key.value}
+                                    <i class="${button.iconClass}"></i>&nbsp;${button.value}
                                 </g:else>
 
                             </button>
@@ -106,8 +105,6 @@
                       model="[outcomeValues: assessmentItemInfo[Consts.outcomeValues], divId: Consts.itemOutcomeValues]"/>
             <g:render template="/renderer/renderInternalState"
                       model="[outcomeValues: assessmentParams[Consts.outcomeValues], divId: Consts.testOutcomeValues]"/>
-            <br/>
-            ${assessmentParams[Consts.testStatus]}
         </g:if>
     </div>
 </div>

@@ -18,7 +18,7 @@ class TestController {
         if (!params.max) params.max = 50
         [testList: Test.list(params)]
     }
-    //TODO Later remove after testing
+    //TODO P2 remove after testing
     def angular = {
         render (view:'angular');
     }

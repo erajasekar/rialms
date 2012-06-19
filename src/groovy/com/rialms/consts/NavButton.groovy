@@ -40,4 +40,9 @@ public enum NavButton {
     public boolean getAppendIcon(){
         return (this == next || this == forward);
     }
+
+    //TODO P3 remove unused buttons
+    public static Set<NavButton> getButtons(){
+        EnumSet.of(previous,next,skip);
+    }
 }

@@ -207,8 +207,6 @@ public class TestCoordinator implements Serializable {
         }
 
         NavigationControls controls = new NavigationControls(false);
-        //TODO remove if not required
-        params.put(navigationControls, controls);
 
         params.put(navigationButtonStates, controls.navButtonStates);
         params.put(Consts.testStatusModel, test.testStatusModel);
@@ -293,16 +291,12 @@ public class TestCoordinator implements Serializable {
         controls.addButtonState(NavButton.next, test.nextEnabled());
         controls.addButtonState(NavButton.forward, test.forwardEnabled());
         controls.addButtonState(NavButton.skip, test.skipEnabled());
-        params.put(navigationControls, controls);
-
         params.put(navigationButtonStates, controls.navButtonStates);
 
         params.put(numberSelected, test.getNumberSelected());
         params.put(numberRemaining, test.getNumberRemaining());
         params.put(timeSelected, test.getTimeSelected());
         params.put(timeRemaining, test.getTimeRemaining());
-        //TODO remove if not required
-        params.put(testStatus, test.testStatus)
         params.put(filterByStatus, this.filterItemByStatus);
 
         params.put(Consts.testStatusModel, test.testStatusModel);
@@ -342,7 +336,7 @@ public class TestCoordinator implements Serializable {
 
         test.setCurrentItemResponses(params);
 
-        //TODO LATER RENDER Input for canditate comments
+        //TODO P2 RENDER Input for canditate comments
         if (params.containsKey(candidateComment))
             test.getCurrentItemRef().setCandidateComment(params.get(candidateComment).get(0));
 

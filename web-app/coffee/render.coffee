@@ -93,7 +93,6 @@ window.initTestRendering = ->
 
 
 window.initAngularScopeObjects = (data)->
-  #TODO refactor to automatically assign all props
   console.log(data)
   if data.angularData
     contentScope = angular.element('#content').scope()

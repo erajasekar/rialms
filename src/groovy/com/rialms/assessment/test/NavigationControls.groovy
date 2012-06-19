@@ -26,11 +26,6 @@ class NavigationControls {
         return this;
     }
 
-
-    public EnumMap<NavButton, Boolean> getButtonStates() {
-        return buttonStates;
-    }
-
     public Map getNavButtonStates(){
         return buttonStates.collectEntries{button,state -> [button.name,state]};
     }

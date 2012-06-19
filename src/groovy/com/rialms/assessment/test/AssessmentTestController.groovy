@@ -569,7 +569,7 @@ public class AssessmentTestController implements Serializable {
         if (itemStatus == AssessmentItemStatus.TIMED_OUT) {
             enabled = false;
         }
-        //TODO LATER IF REVIEW IS DISABLED, USER CAN'T CLICK ON UN RESPONDED ITEMS, ALTHOUGTH HE CAN NAVIGATE VIA BACK.
+        //TODO P1 IF REVIEW IS DISABLED, USER CAN'T CLICK ON UN RESPONDED ITEMS, ALTHOUGTH HE CAN NAVIGATE VIA BACK.
         if (position == SectionPartStatus.Position.BEFORE) {
             enabled = enabled && backwardEnabled() && currentItemRef.itemSessionControl.allowReview;
         }
