@@ -114,7 +114,6 @@ class TestController {
                 //To render next item, reset testContent
                 if (testRenderInfo[Consts.assessmentParams][Consts.submitTestPartContent]) {
                     renderOutput[Consts.testContent] = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
-                    log.info("RAJA DEBUG RENDEROUTPUT B4 ${renderOutput}")
                     //Override header with appropriate title
                     renderOutput[Consts.angularData][Consts.assessmentHeader] = AssessmentItemInfo.createHeader(g.message(code: 'test.submission.title'));
 

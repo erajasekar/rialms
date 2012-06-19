@@ -414,7 +414,7 @@ public class AssessmentTestController implements Serializable {
 
         List<String> processedItemIds = processedItems.values().collect {it.collect {k, v -> [k]}}.flatten();
 
-        log.info("DEBUG processedItemIds => ${processedItemIds}");
+        log.debug("processedItemIds => ${processedItemIds}");
         for (AssessmentItemRef itemRef : itemRefs){
             //This check is avoid showing NOT_PRESENTED items for Linear Individual items which can use branching rules.
             //So for Linear Individual test part don't show any non processed items.

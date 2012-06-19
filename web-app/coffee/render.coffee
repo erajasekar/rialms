@@ -66,7 +66,7 @@ window.initTestRendering = ->
 
 
 window.initAngularScopeObjects = (data)->
-  console.log(data)
+  #console.log(data)
   if data.angularData
     contentScope = angular.element('#content').scope()
     contentScope.$apply ->

@@ -68,7 +68,7 @@ class JsObjectUtil {
 
     public static JSON createJSONObject(String parentDataKey, Map data, String... dataKeysToInclude){
         Map result = [(parentDataKey):dataKeysToInclude.collectEntries { key -> [(key) : data[key]]}]
-        log.info("DEBUG createJSONObject result => ${result}")
+        log.debug("createJSONObject result => ${result}")
         return result as JSON;
     }
 }
