@@ -56,6 +56,7 @@ public enum Tag {
     textEntryInteraction,
     choiceInteraction,
     inlineChoiceInteraction,
+    orderInteraction,
     feedbackBlock,
     feedbackInline,
     modalFeedback,

@@ -186,7 +186,6 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', uitag);
 
         Map responseValues = assessmentItemInfo.responseValues
-        Map outcome = assessmentItemInfo.outcomeValues;
 
         String id = getRequiredAttribute(attrs, 'responseIdentifier', uitag);
         String maxChoices = getRequiredAttribute(attrs, 'maxChoices', uitag)
@@ -271,6 +270,63 @@ class QtiTagLib {
             }
         }
 
+    }
+
+    def orderInteraction = {  attrs ->
+
+        String uitag = 'orderInteraction';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', uitag);
+        attrs += xmlNode.attributes();
+
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', uitag);
+
+        String id = getRequiredAttribute(attrs, 'responseIdentifier', uitag);
+
+        boolean shuffle = getOptionalAttribute(attrs, 'shuffle')?.toBoolean();
+
+        Node prompt;
+
+        //TODO refactor with choiceInteraction
+        Map fixedChoices = [:];    //<position, choice >
+        List shuffledChoices = [];
+        List allChoices = [];
+        int position = 0;
+        xmlNode.children().each {child ->
+            Tag tag = Tag.valueOf(child.name());
+            switch (tag) {
+                case Tag.prompt: prompt = child;
+                    break;
+
+                case Tag.simpleChoice:
+                    if (child.attribute("fixed")?.toBoolean()) {
+                        fixedChoices[position] = child;
+                    } else {
+                        if (shuffle) {
+                            shuffledChoices << child;
+                        } else {
+                            fixedChoices[position] = child;
+                        }
+                    }
+                    position++;
+                    break;
+            }
+        }
+        allChoices = (shuffle) ? CollectionUtils.shuffleWithFixedPositions(shuffledChoices, fixedChoices) : CollectionUtils.orderValuesByPosition(fixedChoices);
+
+        log.info("DEBUG ${allChoices}");
+
+        if (prompt) {
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
+        }
+        out << """<ol class="sortable-interaction">""";
+        allChoices.each { choice ->
+            out << "<li>"
+            out << """<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>"""
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: choice, assessmentItemInfo: assessmentItemInfo]);
+            out << """<input id="${id}" name="${id}" type="hidden" value="${choice.attribute('identifier')}" />"""
+            out << "</li>"
+        }
+        out << "</ol>"
     }
 
     def inlineChoiceInteraction = {  attrs ->
@@ -420,7 +476,7 @@ class QtiTagLib {
     }
 
     def less2Css = { attrs ->
-        // com.rialms.util.Less2Css.run();
+         com.rialms.util.Less2Css.run();
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {

@@ -39,8 +39,11 @@
         </g:elseif>
 
         <g:elseif test="${tag == Tag.choiceInteraction}">
-            <qti:choiceInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"
-                                   dataPath="${dataPath}"/>
+            <qti:choiceInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}" />
+        </g:elseif>
+
+        <g:elseif test="${tag == Tag.orderInteraction}">
+            <qti:orderInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
         <g:elseif test="${tag == Tag.inlineChoiceInteraction}">

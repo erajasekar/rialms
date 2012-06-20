@@ -53,6 +53,7 @@ class BootStrap {
         itemService.createItem('qti','likert.xml');
         itemService.createItem('qti','mathml-templated.xml');
         itemService.createItem('qti','content-with-html-tags.xml');
+        itemService.createItem('qti','order.xml');
     }
 
     def createTests() {
