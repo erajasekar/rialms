@@ -32,8 +32,7 @@ class ItemService implements InitializingBean {
 
     public AssessmentItemInfo getAssessmentItemInfo(String itemId) {
         Item e = Item.get(itemId);
-
-        return new AssessmentItemInfo(getAssessmentItem(e), e.dataPath);
+        return new AssessmentItemInfo(getAssessmentItem(e),getAbsoluteDataPath(e.dataPath));
     }
 
     void afterPropertiesSet() {
