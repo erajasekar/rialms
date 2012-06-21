@@ -286,7 +286,6 @@ class QtiTagLib {
 
         Node prompt;
 
-        //TODO refactor with choiceInteraction
         Map fixedChoices = [:];    //<position, choice >
         List shuffledChoices = [];
         List allChoices = [];
@@ -318,13 +317,12 @@ class QtiTagLib {
         if (prompt) {
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
         }
-        out << """<ol class="sortable-interaction">""";
+        out << """<ol class="order-interaction">""";
         allChoices.each { choice ->
-            out << "<li>"
-            out << """<span class="ui-icon ui-icon-arrowthick-2-n-s"></span>"""
+            out << "<li><span>"
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: choice, assessmentItemInfo: assessmentItemInfo]);
             out << """<input id="${id}" name="${id}" type="hidden" value="${choice.attribute('identifier')}" />"""
-            out << "</li>"
+            out << "</span></li>"
         }
         out << "</ol>"
     }

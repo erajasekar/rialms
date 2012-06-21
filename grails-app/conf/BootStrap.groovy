@@ -48,12 +48,19 @@ class BootStrap {
         itemService.createItem('qti','MA-UT-01a-NoTP-Choice.xml');
         itemService.createItem('qti','MA-UT-01c-NoTP-Num.xml');
 
-        //16-17
+        //16-20
         itemService.createItem('exercise/Std10','Sequences_Ex_2_1.xml');
         itemService.createItem('qti','likert.xml');
         itemService.createItem('qti','mathml-templated.xml');
         itemService.createItem('qti','content-with-html-tags.xml');
         itemService.createItem('qti','order.xml');
+
+        //21-25
+        itemService.createItem('qti','match.xml');
+        itemService.createItem('qti','associate.xml');
+        itemService.createItem('qti','hotspot.xml');
+        itemService.createItem('qti','hottext.xml');
+        itemService.createItem('qti','gap_match.xml');
     }
 
     def createTests() {
@@ -105,6 +112,7 @@ class BootStrap {
         //31-35
         testService.createTest("tests/qti/NavigationMixed", "test-ns-deep-nested-disabled-review.xml");
         testService.createTest('tests/qti/NavigationMixed', 'test-ns-disabled_allowReview.xml');
+        testService.createTest('tests/qti/Interactions', 'interactions.xml');
 
     }
 }

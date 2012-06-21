@@ -48,8 +48,8 @@ window.updateRenderedItem = (data) ->
 window.initTestRendering = ->
   $("a").tooltip()
   $('.dropdown-toggle').dropdown();
-  $('.sortable-interaction').sortable(axis: 'y', containment: 'parent', cursor: 'move' );
-  $('.sortable-interaction').disableSelection();
+  $('.order-interaction').sortable(axis: 'y', containment: 'parent', cursor: 'move' );
+  $('.order-interaction').disableSelection();
   $("a.toggleNav").click ->
     if $("a.toggleNav span").text() is $("<div>").html("&laquo;").text()
       $("a.toggleNav span").html "&raquo;"
