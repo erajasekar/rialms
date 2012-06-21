@@ -11,6 +11,7 @@ import com.rialms.assessment.test.SectionPartStatus
 import com.rialms.consts.Constants
 import com.rialms.angular.JsObjectUtil
 import com.rialms.consts.EndAttemptButton
+import grails.util.Environment;
 
 class QtiTagLib {
     static namespace = "qti";
@@ -474,7 +475,9 @@ class QtiTagLib {
     }
 
     def less2Css = { attrs ->
-         com.rialms.util.Less2Css.run();
+         if (Environment.currentEnvironment == Environment.DEVELOPMENT){
+             com.rialms.util.Less2Css.run();
+         }
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {
