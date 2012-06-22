@@ -1,6 +1,9 @@
 .center {
   text-align: center;
 }
+.pad {
+  padding: 5px 15px 5px 15px;
+}
 .clearfix {
   *zoom: 1;
 }
@@ -133,4 +136,15 @@ a.toggleNav:hover {
   padding: 5px 15px 5px 15px;
   border: 1px solid #c3c3c3;
   border-left-width: 3px;
+}
+.draggable {
+  display: inline-block;
+  margin: 0px 10px 20px 10px;
+  padding: 5px 15px 5px 15px;
+  border: 1px solid #b6b6b6;
+}
+.droppable {
+  display: inline-block;
+  padding: 5px 30px 5px 30px;
+  border: 1px solid #b6b6b6;
 }

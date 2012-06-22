@@ -46,6 +46,20 @@
             <qti:orderInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
+        <g:elseif test="${tag == Tag.gapMatchInteraction}">
+            <qti:gapMatchInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
+        </g:elseif>
+
+        <g:elseif test="${tag == Tag.gap}">
+            <qti:gap xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
+        </g:elseif>
+
+        <g:elseif test="${tag == Tag.gapText}">
+            <qti:gapText xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
+        </g:elseif>
+
+
+
         <g:elseif test="${tag == Tag.inlineChoiceInteraction}">
             <qti:inlineChoiceInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>

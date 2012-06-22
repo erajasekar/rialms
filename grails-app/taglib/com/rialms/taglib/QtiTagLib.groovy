@@ -387,6 +387,30 @@ class QtiTagLib {
 
     }
 
+    def gapMatchInteraction = {attrs ->
+        String tag = 'gapMatchInteraction';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+    }
+
+    def gapText = {attrs ->
+        String tag = 'gapText';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        attrs += xmlNode.attributes();
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        String id = getRequiredAttribute(attrs, 'identifier', tag);
+        out << """ <span id="${id}" class='draggable'> """
+        out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+        out << "</span>"
+    }
+
+    def gap = {attrs ->
+        String tag = 'gap';
+        out << "<span class='droppable'>&nbsp;</span>" ;
+    }
+
+
     def hiddenElement = {  attrs ->
 
         String tag = 'hiddenElement';

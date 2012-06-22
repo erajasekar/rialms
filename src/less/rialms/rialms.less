@@ -114,11 +114,27 @@ a.toggleNav {
         margin: 0px 5px 5px -5px;
         padding: 5px;
         span{
-            padding: 5px 15px 5px 15px;
+            .pad;
             border:1px solid @blockContentBorder;
             border-left-width:3px;
         }
     }
 }
+
+.draggable{
+    display:inline-block;
+    margin: 0px 10px 20px 10px;
+    .pad;
+    .create-border(@blockContentBorder);
+}
+
+.droppable{
+    display:inline-block;
+    padding: 5px 30px 5px 30px;
+    .create-border(@blockContentBorder);
+}
+
+
+
 
 

@@ -35,6 +35,7 @@
     <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
     <div class="span9" id="content">
+        <!--TODO format validation errors -->
         <g:if test="${flash.message}">
             <g:message code="${flash.message}"/>
         </g:if>
