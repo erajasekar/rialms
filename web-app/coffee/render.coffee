@@ -53,18 +53,21 @@ window.initTestRendering = ->
   $('.draggable').draggable(cursor:'move', revert:'invalid', containment:'parent');
   $(".droppable").droppable
     accept: ".draggable"
-    activeClass: "ui-state-hover"
-    hoverClass: "ui-state-active"
     drop: (event, ui) ->
       droppedElement = $('#'+ ui.draggable.attr('id'))
-      $(this).css('width',droppedElement.width())
-      $(this).css('height',droppedElement.height())
-      $(this).css('border','none')
+      droppedOn = $(this)
+      console.log('html ' + droppedElement.html())
+      droppedOn.html('<span>'+ droppedElement.html()+'</span>' )
+      droppedElement.remove()
+
+      #$(this).css('width',droppedElement.width())
+      #$(this).css('height',droppedElement.height())
+      #$(this).css('border','none')
 
      # $(this).html(ui.draggable.text)
       #$(this).removeClass('.droppable')
-      console.log(droppedElement)
-      console.log(droppedElement.width() + ' - ' + droppedElement.height())
+      #console.log(droppedElement)
+      #console.log(droppedElement.width() + ' - ' + droppedElement.height())
 
   $("a.toggleNav").click ->
     if $("a.toggleNav span").text() is $("<div>").html("&laquo;").text()
