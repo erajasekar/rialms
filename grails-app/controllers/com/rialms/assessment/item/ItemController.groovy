@@ -22,6 +22,7 @@ class ItemController {
 
     }
 
+    //TODO support reset for item
     def reset = {
         if (params[Consts.redirectto]) {
             return redirect(action: params[Consts.redirectto])

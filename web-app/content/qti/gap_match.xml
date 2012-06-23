@@ -19,7 +19,7 @@
 			<prompt>Identify the missing words in this famous quote from Shakespeare's Richard III.</prompt>
 			<gapText identifier="W" matchMax="1">winter</gapText>
 			<gapText identifier="Sp" matchMax="1">spring</gapText>
-			<gapText identifier="Su" matchMax="1">summerrrrrrrrrrrrrrrrrrrrrrrr</gapText>
+			<gapText identifier="Su" matchMax="1">summer</gapText>
 			<gapText identifier="A" matchMax="1">autumn</gapText>
 			<blockquote>
 				<p>Now is the <gap identifier="G1"/> of our discontent<br/> Made glorious <gap

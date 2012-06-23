@@ -50,17 +50,28 @@ window.initTestRendering = ->
   $('.dropdown-toggle').dropdown();
   $('.order-interaction').sortable(axis: 'y', containment: 'parent', cursor: 'move' );
   $('.order-interaction').disableSelection();
-  $('.draggable').draggable(cursor:'move', revert:'invalid', containment:'parent');
+  $('.draggable').draggable(cursor:'move', revert:'invalid', containment:'parent', helper:'clone');
   $(".droppable").droppable
     accept: ".draggable"
     drop: (event, ui) ->
-      droppedElement = $('#'+ ui.draggable.attr('id'))
+      #droppedElement = $('#'+ ui.draggable.attr('id'))
+      #droppedOn = $(this)
+      #console.log('html ' + droppedElement.html())
+      #droppedOn.html('<span>'+ droppedElement.html()+'</span>' )
+      #droppedElement.remove()
+#      dropped = ui.draggable
+#      droppedOn = $(this)
+#      $(dropped).detach().css(
+#        top: 0
+#        left: 0
+#      ).appendTo droppedOn
+      droppedElement = ui.draggable
       droppedOn = $(this)
-      console.log('html ' + droppedElement.html())
-      droppedOn.html('<span>'+ droppedElement.html()+'</span>' )
+      droppedOn.find('span').html(droppedElement.html())
+      droppedOn.find('input').val(droppedElement.attr('id') + ' ' + droppedOn.attr('id'))
       droppedElement.remove()
 
-      #$(this).css('width',droppedElement.width())
+  #$(this).css('width',droppedElement.width())
       #$(this).css('height',droppedElement.height())
       #$(this).css('border','none')
 

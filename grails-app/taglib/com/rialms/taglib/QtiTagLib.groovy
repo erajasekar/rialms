@@ -11,7 +11,8 @@ import com.rialms.assessment.test.SectionPartStatus
 import com.rialms.consts.Constants
 import com.rialms.angular.JsObjectUtil
 import com.rialms.consts.EndAttemptButton
-import grails.util.Environment;
+import grails.util.Environment
+import sun.reflect.generics.scope.ConstructorScope;
 
 class QtiTagLib {
     static namespace = "qti";
@@ -391,6 +392,7 @@ class QtiTagLib {
         String tag = 'gapMatchInteraction';
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${Constants.responseIdentifier}",xmlNode.attribute(Constants.responseIdentifier));
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
     }
 
@@ -407,7 +409,14 @@ class QtiTagLib {
 
     def gap = {attrs ->
         String tag = 'gap';
-        out << "<span class='droppable'>&nbsp;</span>" ;
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        attrs += xmlNode.attributes();
+        String id = getRequiredAttribute(attrs, 'identifier', tag);
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        String responseIdentifier = assessmentItemInfo.getParam("${Tag.gapMatchInteraction.name()}.${Constants.responseIdentifier}");
+        out << """<span id="${id}" class='droppable'>"""
+        out << """<input type='hidden' name="${responseIdentifier}" /> """
+        out << "<span>&nbsp;</span></span>" ;
     }
 
 

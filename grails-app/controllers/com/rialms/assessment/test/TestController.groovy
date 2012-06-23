@@ -38,6 +38,7 @@ class TestController {
 
     }
 
+    //TODO support reset for item
     def reset = {
         if (!params.id) {
             if (session[Consts.coordinator]) {

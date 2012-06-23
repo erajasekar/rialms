@@ -49,6 +49,9 @@ class AssessmentItemInfo {
     //Used to hold header title and hint/solution buttons
     private Map header = [:];
 
+    //Used to share any dynamic parameters between interactions.
+    private Map<String,String> params = [:];
+
     private Map endAttemptButtons = [:];
 
     public AssessmentItemInfo() {
@@ -195,6 +198,21 @@ class AssessmentItemInfo {
         return (completionStatus && completionStatus.toString().equals(AssessmentItem.VALUE_ITEM_IS_COMPLETED))
     }
 
+
+    public void addParam(String key, String value){
+        if (params.containsKey(key)){
+            throw IllegalArgumentException('key ${key} already found in params.');
+        }
+        params.put(key,value);
+    }
+
+    public String getParam(String key){
+        if (params.containsKey(key)) {
+            return params[key];
+        }else{
+            throw IllegalArgumentException('No param found for key ${key');
+        }
+    }
     public Map getRenderOutput() {
         Map<String, List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
         Map output = [(Consts.itemOutcomeValues): outcomeValues,

@@ -26,17 +26,16 @@ class QtiUtils {
             List<String> values = [];
             def respValue = params[i];
             if (respValue) {
-                if (respValue instanceof String) {
+                if (respValue instanceof String && !respValue.isEmpty()) {
                     values << respValue;
                 } else {
-                    respValue.each {values.add(it)}
+                    respValue.each { if (!it.isEmpty()) {values.add(it)}}
                 }
 
                 map.put(i, values)
             }
         }
-
-        return map
+       return map
     }
 
     public static Map<String, String> convertQTITypesToParams(Map<String, Value> values) {
