@@ -64,7 +64,7 @@ class QtiTagLib {
         fieldAttributes += attrs;
 
         log.debug("AssessmentItemInfo ==> ${assessmentItemInfo}");
-        log.debug("textEntryInteraction Field Attributes ${fieldAttributes}");
+        log.info("DEBUG textEntryInteraction Field Attributes ${fieldAttributes}");
 
         def tagBody = {
             g.textField(fieldAttributes);

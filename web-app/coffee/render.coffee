@@ -50,7 +50,7 @@ window.initTestRendering = ->
   $('.dropdown-toggle').dropdown();
   $('.order-interaction').sortable(axis: 'y', containment: 'parent', cursor: 'move' );
   $('.order-interaction').disableSelection();
-  $('.draggable').draggable(cursor:'move', revert:'invalid', containment:'parent', helper:'clone');
+  $('.draggable').draggable(cursor:'move', containment:'parent', helper:'clone');
   $(".droppable").droppable
     accept: ".draggable"
     drop: (event, ui) ->

@@ -38,20 +38,28 @@ class TestController {
 
     }
 
-    //TODO support reset for item
     def reset = {
+        log.debug("Executing reset with params ${params}")
         if (!params.id) {
             if (session[Consts.coordinator]) {
                 session[Consts.coordinator].clear()
             }
             return redirect(action: 'list')
         } else {
-            if (session[Consts.coordinator]) {
-                session[Consts.coordinator].remove(params.id)
-            }
+                if (session[Consts.coordinator]) {
+                    if (params[Consts.resetItem]){
+                        TestCoordinator testCoordinator = session[Consts.coordinator][params.id]
+                        testCoordinator.testController.resetCurrentItem();
+                    }
+                    else{
+                        session[Consts.coordinator].remove(params.id)
+                    }
+
+                }
             if (params[Consts.redirectto]) {
-                return redirect(action: params[Consts.redirectto])
+                return redirect(action: params[Consts.redirectto], id: params.id)
             }
+
             return redirect(action: 'play', id: params.id)
         }
     }

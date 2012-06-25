@@ -168,6 +168,25 @@ public class AssessmentTestController implements Serializable {
         return currentItemInfo;
     }
 
+
+    public void resetCurrentItem(){
+        //TODO : Reset Item doesn't clear inputs
+       /* log.info("DEBUG reseting current Item B4 ${currentItemInfo}")
+        AssessmentItemRef currentItemRef = flow.getCurrentItemRef();
+        AssessmentItem currentItem = currentItemRef?.getItem();
+        if (currentItem){
+            println " RAJA 1 ${currentItemInfo.responseValues} ==> ${currentItem.responseValues}"
+            currentItem.
+            currentItem.initialize(null);
+            println " RAJA 2 ${currentItemInfo.responseValues} == ${currentItem.responseValues}}"
+           // currentItemInfo = new AssessmentItemInfo(currentItem, dataPath);
+           // currentItemInfo.setAssessmentItemRef(currentItemRef);
+           // processedItems[currentTestPart.identifier] << [(currentItemRef.identifier): currentItemInfo];
+        }
+        log.info("DEBUG reseting current Item AF ${currentItemInfo}")
+        */
+    }
+
     public AssessmentItemRef getPreviousItem(boolean includeFinished) {
         return flow.getPrevItemRef(includeFinished);
     }
