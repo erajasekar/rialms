@@ -72,8 +72,9 @@
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
 
                 <div id="AssessmentForm">
+                    <% System.out.println "RAJA ${!assessmentParams[Consts.submitEnabled]} " %>
                     <g:render template="/renderer/renderAssessmentHeader"
-                              model="[assessmentTitle: assessmentItemInfo.title]"/>
+                              model="[(Consts.assessmentTitle): assessmentItemInfo.title, (Consts.submitDisabled):!assessmentParams[Consts.submitEnabled]]"/>
                     <g:render template="/renderer/renderAssessmentItem"/>
                     <g:render template="/renderer/renderTestFeedback"/>
                     <div class="form-actions" id="${Consts.navigationControls}">

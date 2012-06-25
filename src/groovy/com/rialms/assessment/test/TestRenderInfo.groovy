@@ -59,7 +59,8 @@ class TestRenderInfo {
         Map angularData = [ (Consts.assessmentHeader) : assessmentItemInfo.header,
                 (Consts.testStatusModel) :assessmentParams[Consts.testStatusModel],
                 (Consts.navigationButtonStates) : assessmentParams[Consts.navigationButtonStates] ,
-                (Consts.endAttemptButtons) :assessmentItemInfo.endAttemptButtons
+                (Consts.endAttemptButtons) :assessmentItemInfo.endAttemptButtons,
+                (Consts.submitDisabled) : !assessmentParams[Consts.submitEnabled]
         ]
         output[Consts.angularData] = angularData;
         return output;

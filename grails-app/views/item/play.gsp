@@ -38,7 +38,7 @@
                           url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
                 <g:render template="/renderer/renderAssessmentHeader"
-                          model="[assessmentTitle: assessmentItemInfo[Consts.title]]"/>
+                          model="[(Consts.assessmentTitle): assessmentItemInfo[Consts.title]]"/>
                 <div class="block-content">
                     <g:render template="/renderer/renderItemSubTree"
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
