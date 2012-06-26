@@ -449,11 +449,10 @@ class QtiTagLib {
         if (isModelFeedback) {
             sectionTagAttributes['class'] = 'alert alert-success';
         }
-        /* if (!assessmentItemInfo.isVisible(hiddenElement)) {
+         if (!assessmentItemInfo.isVisible(hiddenElement)) {
             sectionTagAttributes['style'] = 'display: none';
-        }*/
-        sectionTagAttributes['ng-hide'] = "hiddenElementIds | ${hiddenElement.elementId}";
-        out << "hiddenElementIds {{hiddenElementIds}}<${sectionTag} ";
+        }
+        out << "<${sectionTag} ";
         sectionTagAttributes.each { k, v ->
             out << "${k}='${v}' ";
         }

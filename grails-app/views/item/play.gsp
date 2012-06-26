@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="grails.converters.JSON; com.rialms.consts.Constants as Consts; com.rialms.assessment.item.AssessmentItemInfo" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.consts.Constants as Consts; com.rialms.assessment.item.AssessmentItemInfo" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
 
@@ -19,7 +19,6 @@
 <r:script>
     $(document).ready(function () {
         initTestRendering();
-        initAngularScopeObjects(${assessmentItemInfo.renderOutput as JSON})
     });
 </r:script>
 

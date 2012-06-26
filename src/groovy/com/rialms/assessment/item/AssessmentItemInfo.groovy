@@ -159,9 +159,9 @@ class AssessmentItemInfo {
         List<String> hiddenIds = [];
         hiddenElements.each { element ->
             if (isVisible(element)) {
-                visibleIds << "${element.elementId}";
+                visibleIds << "#${element.elementId}";
             } else {
-                hiddenIds << "${element.elementId}";
+                hiddenIds << "#${element.elementId}";
             }
         }
         return [(Consts.visibleElementIds): visibleIds, (Consts.hiddenElementIds): hiddenIds]
@@ -215,19 +215,14 @@ class AssessmentItemInfo {
     }
     public Map getRenderOutput() {
         Map<String, List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
-        Map output = [(Consts.itemOutcomeValues): outcomeValues];
-                //(Consts.visibleElementIds): visibleAndHiddenElementIds[Consts.visibleElementIds],
-                //(Consts.hiddenElementIds): visibleAndHiddenElementIds[Consts.hiddenElementIds]];
+        Map output = [(Consts.itemOutcomeValues): outcomeValues,
+                (Consts.visibleElementIds): visibleAndHiddenElementIds[Consts.visibleElementIds],
+                (Consts.hiddenElementIds): visibleAndHiddenElementIds[Consts.hiddenElementIds]];
         if (isComplete()) {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
-        Map angularData = [(Consts.assessmentHeader):header,
-                           (Consts.endAttemptButtons):endAttemptButtons,
-                           (Consts.visibleElementIds): visibleAndHiddenElementIds[Consts.visibleElementIds],
-                           (Consts.hiddenElementIds): visibleAndHiddenElementIds[Consts.hiddenElementIds]
-                          ];
+        Map angularData = [(Consts.assessmentHeader):header, (Consts.endAttemptButtons):endAttemptButtons];
         output[Consts.angularData] = angularData;
-        log.info("DEBUG RenderOutput ${output}")
         return output;
     }
 
