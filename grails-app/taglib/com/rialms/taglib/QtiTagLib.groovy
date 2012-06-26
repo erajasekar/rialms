@@ -64,7 +64,7 @@ class QtiTagLib {
         fieldAttributes += attrs;
 
         log.debug("AssessmentItemInfo ==> ${assessmentItemInfo}");
-        log.info("DEBUG textEntryInteraction Field Attributes ${fieldAttributes}");
+        log.debug("textEntryInteraction Field Attributes ${fieldAttributes}");
 
         def tagBody = {
             g.textField(fieldAttributes);
@@ -402,7 +402,11 @@ class QtiTagLib {
         attrs += xmlNode.attributes();
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         String id = getRequiredAttribute(attrs, 'identifier', tag);
-        out << """ <span id="${id}" class='draggable'> """
+        String matchMax = getRequiredAttribute(attrs, 'matchMax', tag);
+
+        String templateIdentifier = getOptionalAttribute(attrs,'templateIdentifier')
+
+        out << """ <span id="${id}" matchMax="${matchMax}" class='draggable'> """
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
         out << "</span>"
     }
@@ -437,6 +441,7 @@ class QtiTagLib {
         }
         String visibilityMode = xmlNode.'@showHide';
         HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(new HiddenElement(identifier, valueLookupKey, xmlTag, visibilityMode));
+        log.info("DEBUG Added hiddenElement ${hiddenElement}")
 
         String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' : 'div';
         Map sectionTagAttributes = [id: hiddenElement.elementId];
@@ -444,10 +449,11 @@ class QtiTagLib {
         if (isModelFeedback) {
             sectionTagAttributes['class'] = 'alert alert-success';
         }
-        if (!assessmentItemInfo.isVisible(hiddenElement)) {
+        /* if (!assessmentItemInfo.isVisible(hiddenElement)) {
             sectionTagAttributes['style'] = 'display: none';
-        }
-        out << "<${sectionTag} ";
+        }*/
+        sectionTagAttributes['ng-hide'] = "hiddenElementIds | ${hiddenElement.elementId}";
+        out << "hiddenElementIds {{hiddenElementIds}}<${sectionTag} ";
         sectionTagAttributes.each { k, v ->
             out << "${k}='${v}' ";
         }
@@ -509,7 +515,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
          if (Environment.currentEnvironment == Environment.DEVELOPMENT){
-             com.rialms.util.Less2Css.run();
+            // com.rialms.util.Less2Css.run();
          }
     }
 

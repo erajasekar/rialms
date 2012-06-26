@@ -50,36 +50,7 @@ window.initTestRendering = ->
   $('.dropdown-toggle').dropdown();
   $('.order-interaction').sortable(axis: 'y', containment: 'parent', cursor: 'move' );
   $('.order-interaction').disableSelection();
-  $('.draggable').draggable(cursor:'move', containment:'parent', helper:'clone');
-  $(".droppable").droppable
-    accept: ".draggable"
-    drop: (event, ui) ->
-      #droppedElement = $('#'+ ui.draggable.attr('id'))
-      #droppedOn = $(this)
-      #console.log('html ' + droppedElement.html())
-      #droppedOn.html('<span>'+ droppedElement.html()+'</span>' )
-      #droppedElement.remove()
-#      dropped = ui.draggable
-#      droppedOn = $(this)
-#      $(dropped).detach().css(
-#        top: 0
-#        left: 0
-#      ).appendTo droppedOn
-      droppedElement = ui.draggable
-      droppedOn = $(this)
-      droppedOn.find('span').html(droppedElement.html())
-      droppedOn.find('input').val(droppedElement.attr('id') + ' ' + droppedOn.attr('id'))
-      droppedElement.remove()
-
-  #$(this).css('width',droppedElement.width())
-      #$(this).css('height',droppedElement.height())
-      #$(this).css('border','none')
-
-     # $(this).html(ui.draggable.text)
-      #$(this).removeClass('.droppable')
-      #console.log(droppedElement)
-      #console.log(droppedElement.width() + ' - ' + droppedElement.height())
-
+  window.initDragAndDrop()
   $("a.toggleNav").click ->
     if $("a.toggleNav span").text() is $("<div>").html("&laquo;").text()
       $("a.toggleNav span").html "&raquo;"
@@ -97,8 +68,26 @@ window.initTestRendering = ->
     $("#sidebar").toggleClass "span3"
 
 
+window.initDragAndDrop =->
+  $('.draggable').draggable(cursor:'move', containment:'parent', helper:'clone');
+  $(".droppable").droppable
+    accept: ".draggable"
+    drop: (event, ui) ->
+      droppedElement = ui.draggable
+      matchMax = (Number) droppedElement.attr('matchMax')
+      console.log("matchMax #{matchMax}")
+      if matchMax > 1
+        droppedElement.attr "matchMax", --matchMax
+        droppedElement = ui.draggable.clone()
+      else droppedElement = ui.draggable.clone()  if matchMax is 0
+      droppedOn = $(this)
+      droppedOn.find('span').html(droppedElement.html())
+      droppedOn.find('input').val(droppedElement.attr('id') + ' ' + droppedOn.attr('id'))
+      droppedElement.remove()
+  return
+
 window.initAngularScopeObjects = (data)->
-  #console.log(data)
+  console.log(data)
   if data.angularData
     contentScope = angular.element('#content').scope()
     contentScope.$apply ->

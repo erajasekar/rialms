@@ -2,6 +2,7 @@ package com.rialms.assessment.render
 
 import com.rialms.consts.VisibilityMode
 import com.rialms.consts.Tag
+import groovy.util.logging.Log4j
 
 /**
  * Created by IntelliJ IDEA.
@@ -10,6 +11,7 @@ import com.rialms.consts.Tag
  * Time: 12:09 AM
  * To change this template use File | Settings | File Templates.
  */
+@Log4j
 class HiddenElement {
     private Tag tag;
     private String identifier;
@@ -38,7 +40,7 @@ class HiddenElement {
     }
 
     public boolean isVisible(Map<String, String> identifierValues) {
-        println "identifierValues ${identifierValues}"
+        log.info("DEBUG identifierValues ${identifierValues}" );
         boolean match = false;
         String identifierValue = identifierValues[valueLookUpKey];
 
@@ -51,7 +53,7 @@ class HiddenElement {
                 case VisibilityMode.HIDE_IF_MATCH: return !match;
             }
         }
-        println "match ${elementId} ==> ${match}"
+        log.info(" DEBUG match ${elementId} ==> ${match}");
         return match;
     }
 
