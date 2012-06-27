@@ -86,5 +86,8 @@ class Constants {
     public static final String resetItem = "resetItem"
     public static final String assessmentTitle = "assessmentTitle"
     public static final String submitDisabled = "submitDisabled"
+    public static final String data = "data"
+    public static final String outcomeIdentifier = "outcomeIdentifier"
+    public static final String templateIdentifier = "templateIdentifier"
 
 }

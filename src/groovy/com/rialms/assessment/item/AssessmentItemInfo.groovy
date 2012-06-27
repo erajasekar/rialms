@@ -168,19 +168,7 @@ class AssessmentItemInfo {
     }
 
     public boolean isVisible(HiddenElement element) {
-        Tag tag = element.tag;
-        if (Tag.isFeedBackTag(tag)) {
-            if (element.isVisible(outcomeValues)) {
-                return true;
-            }
-        } else if (Tag.isTemplateTag(tag)) {
-            if (element.isVisible(templateValues)) {
-                return true;
-            }
-        } else {
-            log.error("${element} can't belog to Tag ${tag}");
-        }
-        return false;
+        return element.isVisible(outcomeValues,templateValues);
     }
 
     public boolean isComplete() {

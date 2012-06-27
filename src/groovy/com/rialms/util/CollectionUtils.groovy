@@ -48,4 +48,12 @@ class CollectionUtils {
         }
         return result;
     }
+
+    public static String convertMapToAttributes(Map input){
+        StringBuilder sb = new StringBuilder();
+        input.each{k,v->
+            sb.append("${k}='${v}' ")
+        }
+        return sb.toString();
+    }
 }

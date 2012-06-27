@@ -74,20 +74,20 @@ window.initDragAndDrop =->
     accept: ".draggable"
     drop: (event, ui) ->
       droppedElement = ui.draggable
-      matchMax = (Number) droppedElement.attr('matchMax')
+      matchMax =  (Number) droppedElement.data('matchmax')
       console.log("matchMax #{matchMax}")
       if matchMax > 1
-        droppedElement.attr "matchMax", --matchMax
+        droppedElement.data("matchmax", --matchMax)
         droppedElement = ui.draggable.clone()
       else droppedElement = ui.draggable.clone()  if matchMax is 0
       droppedOn = $(this)
       droppedOn.find('span').html(droppedElement.html())
-      droppedOn.find('input').val(droppedElement.attr('id') + ' ' + droppedOn.attr('id'))
+      droppedOn.find('input').val(droppedElement.data('identifier') + ' ' + droppedOn.data('identifier'))
       droppedElement.remove()
   return
 
 window.initAngularScopeObjects = (data)->
-  console.log(data)
+  #console.log(data)
   if data.angularData
     contentScope = angular.element('#content').scope()
     contentScope.$apply ->

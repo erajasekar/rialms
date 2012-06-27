@@ -1,18 +1,17 @@
 package com.rialms.taglib
 
-import com.rialms.consts.Tag
+import com.rialms.consts.Constants as Consts
 
-import com.rialms.util.CollectionUtils
+import com.rialms.angular.JsObjectUtil
 import com.rialms.assessment.item.AssessmentItemInfo
-
-import com.rialms.util.QtiUtils
 import com.rialms.assessment.render.HiddenElement
 import com.rialms.assessment.test.SectionPartStatus
-import com.rialms.consts.Constants
-import com.rialms.angular.JsObjectUtil
 import com.rialms.consts.EndAttemptButton
+import com.rialms.consts.Tag
+import com.rialms.util.QtiUtils
 import grails.util.Environment
-import sun.reflect.generics.scope.ConstructorScope;
+import com.rialms.util.CollectionUtils
+
 
 class QtiTagLib {
     static namespace = "qti";
@@ -116,7 +115,7 @@ class QtiTagLib {
         Map actionParams = [id: params.id, (id): title];
         log.info("${tag} button action params => ${actionParams}");
 
-        out << """<div ng-init="${new JsObjectUtil.PropertyConstructor(Constants.endAttemptButtons).getProperty(id)}='${title}'"></div>"""
+        out << """<div ng-init="${new JsObjectUtil.PropertyConstructor(Consts.endAttemptButtons).getProperty(id)}='${title}'"></div>"""
 
         assessmentItemInfo.addEndAttemptButton(id, title);
 
@@ -128,7 +127,7 @@ class QtiTagLib {
         String buttonIdentifier, buttonObject, title, iconClass;
         buttonIdentifier = grailsApplication.config.rialms[type.configIdentifier()];
         iconClass = type.iconClass;
-        JsObjectUtil.PropertyConstructor props = new JsObjectUtil.PropertyConstructor(Constants.endAttemptButtons)
+        JsObjectUtil.PropertyConstructor props = new JsObjectUtil.PropertyConstructor(Consts.endAttemptButtons)
         buttonObject = props.getProperty(buttonIdentifier);
         title = JsObjectUtil.getTemplateVar(buttonObject);
         Map fieldAttributes = [action: AssessmentItemInfo.controllerActionForProcessItem,
@@ -157,7 +156,7 @@ class QtiTagLib {
 
         Map fieldAttributes = [action: AssessmentItemInfo.controllerActionForProcessItem,
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
-                'class':'btn btn-info'];
+                'class': 'btn btn-info'];
 
         fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];
 
@@ -392,7 +391,7 @@ class QtiTagLib {
         String tag = 'gapMatchInteraction';
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${Constants.responseIdentifier}",xmlNode.attribute(Constants.responseIdentifier));
+        assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${Consts.responseIdentifier}", xmlNode.attribute(Consts.responseIdentifier));
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
     }
 
@@ -401,12 +400,23 @@ class QtiTagLib {
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         attrs += xmlNode.attributes();
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        String id = getRequiredAttribute(attrs, 'identifier', tag);
-        String matchMax = getRequiredAttribute(attrs, 'matchMax', tag);
+        Tag xmlTag = Tag.gapText;
 
-        String templateIdentifier = getOptionalAttribute(attrs,'templateIdentifier')
+        String visibilityMode = getOptionalAttribute(attrs, 'showHide')
+        String templateIdentifier = getOptionalAttribute(attrs, 'templateIdentifier')
 
-        out << """ <span id="${id}" matchMax="${matchMax}" class='draggable'> """
+        Map tagAttributes = [class:'draggable'];
+
+        if (visibilityMode && templateIdentifier){
+            HiddenElement hiddenElement= assessmentItemInfo.addHiddenElement(new HiddenElement(attrs.identifier, templateIdentifier, xmlTag, visibilityMode, HiddenElement.ValueLookUpType.Template));
+            tagAttributes[Consts.id] = hiddenElement.elementId;
+            if (!assessmentItemInfo.isVisible(hiddenElement)) {
+                tagAttributes['style'] = 'display: none';
+            }
+        }
+
+        String dataAttributes = getAttributesAsData(attrs, tag, ['identifier', 'matchMax'])
+        out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
         out << "</span>"
     }
@@ -415,12 +425,12 @@ class QtiTagLib {
         String tag = 'gap';
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         attrs += xmlNode.attributes();
-        String id = getRequiredAttribute(attrs, 'identifier', tag);
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        String responseIdentifier = assessmentItemInfo.getParam("${Tag.gapMatchInteraction.name()}.${Constants.responseIdentifier}");
-        out << """<span id="${id}" class='droppable'>"""
+        String dataAttributes = getAttributesAsData(attrs, tag, ['identifier']);
+        String responseIdentifier = assessmentItemInfo.getParam("${Tag.gapMatchInteraction.name()}.${Consts.responseIdentifier}");
+        out << """<span ${dataAttributes} class='droppable'>"""
         out << """<input type='hidden' name="${responseIdentifier}" /> """
-        out << "<span>&nbsp;</span></span>" ;
+        out << "<span>&nbsp;</span></span>";
     }
 
 
@@ -434,13 +444,16 @@ class QtiTagLib {
         String title = xmlNode.'@title';
         String identifier = xmlNode.'@identifier';
         String valueLookupKey;
+        HiddenElement.ValueLookUpType valueLookUpType;
         if (Tag.isFeedBackTag(xmlTag)) {
             valueLookupKey = xmlNode.'@outcomeIdentifier';
+            valueLookUpType = HiddenElement.ValueLookUpType.Outcome;
         } else {
             valueLookupKey = xmlNode.'@templateIdentifier';
+            valueLookUpType = HiddenElement.ValueLookUpType.Template;
         }
         String visibilityMode = xmlNode.'@showHide';
-        HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(new HiddenElement(identifier, valueLookupKey, xmlTag, visibilityMode));
+        HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(new HiddenElement(identifier, valueLookupKey, xmlTag, visibilityMode, valueLookUpType));
         log.info("DEBUG Added hiddenElement ${hiddenElement}")
 
         String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' : 'div';
@@ -449,14 +462,11 @@ class QtiTagLib {
         if (isModelFeedback) {
             sectionTagAttributes['class'] = 'alert alert-success';
         }
-         if (!assessmentItemInfo.isVisible(hiddenElement)) {
+        if (!assessmentItemInfo.isVisible(hiddenElement)) {
             sectionTagAttributes['style'] = 'display: none';
         }
-        out << "<${sectionTag} ";
-        sectionTagAttributes.each { k, v ->
-            out << "${k}='${v}' ";
-        }
-        out << ">";
+        out << "<${sectionTag} ${CollectionUtils.convertMapToAttributes(sectionTagAttributes)} >";
+
         if (isModelFeedback) {
             out << "<a class='close' data-dismiss='alert' href='#'>&times;</a>"
             if (title) {
@@ -505,7 +515,7 @@ class QtiTagLib {
             parentTitle = sectionTitle
         }
 
-        out << """ <div id="${Constants.testSectionTitleContent}" class="row-fluid">
+        out << """ <div id="${Consts.testSectionTitleContent}" class="row-fluid">
                        <div class="breadcrumb">
                             <h4> ${sectionTitle} </h4>
                        </div>
@@ -513,28 +523,42 @@ class QtiTagLib {
     }
 
     def less2Css = { attrs ->
-         if (Environment.currentEnvironment == Environment.DEVELOPMENT){
+        if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
             // com.rialms.util.Less2Css.run();
-         }
+        }
     }
 
     private void renderTag(Map fieldAttributes, Closure tagBody) {
         out << """  ${tagBody()} """;
     }
 
-    protected getAttribute(attrs, String name, String tagName, boolean isRequired = false) {
+    protected getAttribute(Map attrs, String name, String tagName, boolean isRequired = false) {
         if (isRequired && !attrs.containsKey(name)) {
             throwTagError("Tag [$tagName] is missing required attribute [$name]")
         }
         attrs.remove name
     }
 
-    protected getRequiredAttribute(attrs, String name, String tagName) {
+    protected getRequiredAttribute(Map attrs, String name, String tagName) {
         return getAttribute(attrs, name, tagName, true);
     }
 
-    protected getOptionalAttribute(attrs, String name) {
+    protected getOptionalAttribute(Map attrs, String name) {
         return getAttribute(attrs, name, null, false);
+    }
+
+    protected String getAttributesAsData(Map attrs, String tagName, List requiredAttributes, List optionalAttributes = []) {
+        StringBuilder sb = new StringBuilder();
+        if (requiredAttributes) {
+            requiredAttributes.each { attrName ->
+                sb.append("${Consts.data}-${attrName.toString().toLowerCase()}=${getRequiredAttribute(attrs, attrName, tagName)} ");
+            }
+        }
+        optionalAttributes.each {  attrName ->
+            sb.append("${Consts.data}-${attrName.toString().toLowerCase()}=${getOptionalAttribute(attrs, attrName)}");
+        }
+        log.debug("getAttributesAsData result ${sb}");
+        return sb.toString();
     }
 
     private EndAttemptButton getEndAttemptButton(String buttonIdentifier) {

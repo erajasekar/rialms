@@ -2,6 +2,7 @@ package com.rialms.assessment.render
 
 import com.rialms.consts.VisibilityMode
 import com.rialms.consts.Tag
+import com.rialms.consts.Constants as Consts
 import groovy.util.logging.Log4j
 
 /**
@@ -13,17 +14,34 @@ import groovy.util.logging.Log4j
  */
 @Log4j
 class HiddenElement {
+
+    public enum ValueLookUpType{
+        Template,
+        Outcome
+        //TODO remove if not used
+        public ValueLookUpType forIdentifierName(String identifierName){
+            if (identifierName == Consts.templateIdentifier) {
+                return Template;
+            }else if (identifierName == Consts.outcomeIdentifier){
+                return Outcome;
+            }else{
+                throw new IllegalArgumentException("Invalid identifierName ${identifierName}, should be ${Consts.templateIdentifier} or ${Consts.outcomeIdentifier}")
+            }
+        }
+    };
     private Tag tag;
     private String identifier;
     private String valueLookUpKey;
     private VisibilityMode visibilityMode;
     private String elementId;
+    private ValueLookUpType valueLookUpType;
 
-    public HiddenElement(String identifier, String valueLookUpKey, Tag tag, String visibilityMode) {
+    public HiddenElement(String identifier, String valueLookUpKey, Tag tag, String visibilityMode,ValueLookUpType valueLookUpType) {
         this.identifier = identifier;
         this.valueLookUpKey = valueLookUpKey
         this.tag = tag;
         this.visibilityMode = com.rialms.consts.VisibilityMode.valueOfString(visibilityMode)
+        this.valueLookUpType=valueLookUpType;
         this.elementId = "${tag}-${identifier}-${valueLookUpKey}-${visibilityMode}"
     }
 
@@ -55,6 +73,10 @@ class HiddenElement {
         }
         log.info(" DEBUG match ${elementId} ==> ${match}");
         return match;
+    }
+
+    public boolean isVisible(Map<String, String> outcomeValues, Map<String, String> templateValues){
+        return valueLookUpType == valueLookUpType.Template ? isVisible(templateValues) : isVisible(outcomeValues)
     }
 
     public Tag getTag() {
