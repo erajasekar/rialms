@@ -18,16 +18,6 @@ class HiddenElement {
     public enum ValueLookUpType{
         Template,
         Outcome
-        //TODO remove if not used
-        public ValueLookUpType forIdentifierName(String identifierName){
-            if (identifierName == Consts.templateIdentifier) {
-                return Template;
-            }else if (identifierName == Consts.outcomeIdentifier){
-                return Outcome;
-            }else{
-                throw new IllegalArgumentException("Invalid identifierName ${identifierName}, should be ${Consts.templateIdentifier} or ${Consts.outcomeIdentifier}")
-            }
-        }
     };
     private Tag tag;
     private String identifier;
@@ -58,7 +48,7 @@ class HiddenElement {
     }
 
     public boolean isVisible(Map<String, String> identifierValues) {
-        log.info("DEBUG identifierValues ${identifierValues}" );
+        log.info("DEBUG Looking for ${identifier} in identifierValues ${identifierValues}" );
         boolean match = false;
         String identifierValue = identifierValues[valueLookUpKey];
 
@@ -71,7 +61,6 @@ class HiddenElement {
                 case VisibilityMode.HIDE_IF_MATCH: return !match;
             }
         }
-        log.info(" DEBUG match ${elementId} ==> ${match}");
         return match;
     }
 

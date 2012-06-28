@@ -17,7 +17,7 @@
             <assessmentItemRef identifier="math4" href="math4.xml"/>
         </assessmentSection>
         <assessmentSection identifier="C" title="Section C" visible="true">
-            <assessmentSection identifier="D" title="Section 1" visible="true">
+            <assessmentSection identifier="D" title="Section D" visible="true">
                 <assessmentItemRef identifier="math5" href="math5.xml"/>
                 <assessmentItemRef identifier="math6" href="math6.xml"/>
             </assessmentSection>

@@ -117,11 +117,6 @@ class AssessmentItemInfo {
 
     }
 
-    public HiddenElement addHiddenElement(HiddenElement e) {
-        hiddenElements << e;
-        return e;
-    }
-
     public void addEndAttemptButton(String buttonId, String buttonTitle){
         endAttemptButtons = endAttemptButtons + [(buttonId): buttonTitle];
     }
@@ -169,6 +164,33 @@ class AssessmentItemInfo {
 
     public boolean isVisible(HiddenElement element) {
         return element.isVisible(outcomeValues,templateValues);
+    }
+    //TODO P4 This will work only for template & initial rendering
+    public boolean checkForHiddenElement(Node node, Tag xmlTag){
+        HiddenElement hiddenElement = createHiddenElement(node,xmlTag,HiddenElement.ValueLookUpType.Template);
+        hiddenElement ? !isVisible(hiddenElement):false;
+    }
+
+    public HiddenElement addHiddenElement(Node node, Tag xmlTag){
+
+        HiddenElement.ValueLookUpType valueLookUpType = Tag.isFeedBackTag(xmlTag)? HiddenElement.ValueLookUpType.Outcome:HiddenElement.ValueLookUpType.Template;
+        HiddenElement hiddenElement = createHiddenElement(node,xmlTag,valueLookUpType);
+        if (hiddenElement){
+            hiddenElements << hiddenElement;
+        }
+        return hiddenElement;
+    }
+
+    private HiddenElement createHiddenElement(Node node, Tag xmlTag, HiddenElement.ValueLookUpType valueLookUpType){
+        String identifier = node.'@identifier';
+        String valueLookUpKey = (valueLookUpType == HiddenElement.ValueLookUpType.Template) ? node.'@templateIdentifier' : node.'@outcomeIdentifier';
+        String visibilityMode = node.'@showHide';
+        if (valueLookUpType && visibilityMode){
+            return new HiddenElement(identifier,valueLookUpKey,xmlTag,visibilityMode,valueLookUpType);
+        }
+        else{
+            return null;
+        }
     }
 
     public boolean isComplete() {

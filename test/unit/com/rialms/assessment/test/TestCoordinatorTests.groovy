@@ -45,7 +45,6 @@ class TestCoordinatorTests {
         coordinator.getNextQuestion(true);
         TestRenderInfo testRenderInfo = coordinator.testRenderInfo;
         assertEquals("${msg} on submitTestPartContent param check", true, testRenderInfo.assessmentParams[Consts.submitTestPartContent])
-        assertEquals("${msg} on testPartStatus count check", 6, testRenderInfo.assessmentParams[Consts.testPartStatus].values().flatten().size())
     }
 
     void testRenderFeedbackContent() {

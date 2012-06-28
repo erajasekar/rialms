@@ -15,6 +15,21 @@
 			<value>0</value>
 		</defaultValue>
 	</outcomeDeclaration>
+    <!--TODO remove template -->
+    <templateDeclaration identifier="SEASON" cardinality="single" baseType="identifier"
+                         mathVariable="false" paramVariable="false"/>
+    <templateProcessing>
+        <setTemplateValue identifier="SEASON">
+            <random>
+                <multiple>
+                    <baseValue baseType="identifier">W</baseValue>
+                    <baseValue baseType="identifier">Sp</baseValue>
+                    <baseValue baseType="identifier">Su</baseValue>
+                    <baseValue baseType="identifier">A</baseValue>
+                </multiple>
+            </random>
+        </setTemplateValue>
+    </templateProcessing>
 	<itemBody>
 		<p>Look at the text in the picture.</p>
 		<p>
@@ -25,6 +40,7 @@
 			<simpleChoice identifier="ChoiceA">You must stay with your luggage at all times.</simpleChoice>
 			<simpleChoice identifier="ChoiceB">Do not let someone else look after your luggage.</simpleChoice>
 			<simpleChoice identifier="ChoiceC">Remember your luggage when you leave.</simpleChoice>
+            <simpleChoice templateIdentifier="SEASON" showHide="hide" identifier="A"  >TEMPLATE TODO REMOVE </simpleChoice>
 			<simpleChoice identifier="ChoiceD" fixed="true">None of the above.</simpleChoice>
 		</choiceInteraction>
 	</itemBody>

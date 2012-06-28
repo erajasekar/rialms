@@ -89,7 +89,7 @@ class AssessmentTestControllerTests {
             test.getNextItem(true);
         }
 
-        String sectionA = 'sectionA';
+        String sectionA = 'Section 1';
         Map expected = [(sectionA): [new SectionPartStatus('math1', sectionA, SKIPPED, BEFORE, true), new SectionPartStatus('math2', sectionA, SKIPPED, BEFORE, true)]]
 
         log.info("--------- Expected CurrentTestPartStatus ------------------")
@@ -134,11 +134,11 @@ class AssessmentTestControllerTests {
 
         }
 
-        String A = "A";
-        String B = "B";
-        String C_D = "C${SectionPartStatus.PARENT_SECTION_DELIMITER}D";
-        String E = "E";
-        String F_G_H = "F${SectionPartStatus.PARENT_SECTION_DELIMITER}G${SectionPartStatus.PARENT_SECTION_DELIMITER}H";
+        String A = "Section A";
+        String B = "Section B";
+        String C_D = "Section C${SectionPartStatus.PARENT_SECTION_DELIMITER}Section D";
+        String E = "Section E";
+        String F_G_H = "Section F${SectionPartStatus.PARENT_SECTION_DELIMITER}Section G${SectionPartStatus.PARENT_SECTION_DELIMITER}Section H";
 
         Map expected = [(A): [new SectionPartStatus('math1', A, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math2', A, PRESENTED, BEFORE, allowReview)],
                 (B): [new SectionPartStatus('math3', B, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math4', B, PRESENTED, BEFORE, allowReview)],

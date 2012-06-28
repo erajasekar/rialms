@@ -207,17 +207,20 @@ class QtiTagLib {
                     break;
 
                 case Tag.simpleChoice:
-                    values << child.attribute('identifier');
-                    if (child.attribute("fixed")?.toBoolean()) {
-                        fixedChoices[position] = child;
-                    } else {
-                        if (shuffle) {
-                            shuffledChoices << child;
-                        } else {
+                    if (!assessmentItemInfo.checkForHiddenElement(child, Tag.simpleChoice)) {
+                        values << child.attribute('identifier');
+                        if (child.attribute("fixed")?.toBoolean()) {
                             fixedChoices[position] = child;
+                        } else {
+                            if (shuffle) {
+                                shuffledChoices << child;
+                            } else {
+                                fixedChoices[position] = child;
+                            }
                         }
+                        position++;
                     }
-                    position++;
+
                     break;
             }
         }
@@ -298,16 +301,18 @@ class QtiTagLib {
                     break;
 
                 case Tag.simpleChoice:
-                    if (child.attribute("fixed")?.toBoolean()) {
-                        fixedChoices[position] = child;
-                    } else {
-                        if (shuffle) {
-                            shuffledChoices << child;
-                        } else {
+                    if (!assessmentItemInfo.checkForHiddenElement(child, Tag.simpleChoice)) {
+                        if (child.attribute("fixed")?.toBoolean()) {
                             fixedChoices[position] = child;
+                        } else {
+                            if (shuffle) {
+                                shuffledChoices << child;
+                            } else {
+                                fixedChoices[position] = child;
+                            }
                         }
+                        position++;
                     }
-                    position++;
                     break;
             }
         }
@@ -350,19 +355,21 @@ class QtiTagLib {
         List keys = [];
         int position = 0;
         xmlNode.children().each {child ->
-            if (child.attribute("fixed")?.toBoolean()) {
-                fixedChoices[position] = child;
-            }
-            else {
-                if (shuffle) {
-                    shuffledChoices << child;
-                } else {
+            if (!assessmentItemInfo.checkForHiddenElement(child, Tag.inlineChoice)) {
+                if (child.attribute("fixed")?.toBoolean()) {
                     fixedChoices[position] = child;
                 }
+                else {
+                    if (shuffle) {
+                        shuffledChoices << child;
+                    } else {
+                        fixedChoices[position] = child;
+                    }
+                }
+                position++;
+                keys << child.'@identifier';
+                from << child.text();
             }
-            position++;
-            keys << child.'@identifier';
-            from << child.text();
         }
 
         if (shuffle) {
@@ -402,23 +409,14 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         Tag xmlTag = Tag.gapText;
 
-        String visibilityMode = getOptionalAttribute(attrs, 'showHide')
-        String templateIdentifier = getOptionalAttribute(attrs, 'templateIdentifier')
+        Map tagAttributes = [class: 'draggable'];
 
-        Map tagAttributes = [class:'draggable'];
-
-        if (visibilityMode && templateIdentifier){
-            HiddenElement hiddenElement= assessmentItemInfo.addHiddenElement(new HiddenElement(attrs.identifier, templateIdentifier, xmlTag, visibilityMode, HiddenElement.ValueLookUpType.Template));
-            tagAttributes[Consts.id] = hiddenElement.elementId;
-            if (!assessmentItemInfo.isVisible(hiddenElement)) {
-                tagAttributes['style'] = 'display: none';
-            }
+        if (!assessmentItemInfo.checkForHiddenElement(xmlNode, xmlTag)) {
+            String dataAttributes = getAttributesAsData(attrs, tag, ['identifier', 'matchMax'])
+            out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+            out << "</span>"
         }
-
-        String dataAttributes = getAttributesAsData(attrs, tag, ['identifier', 'matchMax'])
-        out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
-        out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
-        out << "</span>"
     }
 
     def gap = {attrs ->
@@ -442,7 +440,7 @@ class QtiTagLib {
         Tag xmlTag = getRequiredAttribute(attrs, 'xmlTag', tag);
 
         String title = xmlNode.'@title';
-        String identifier = xmlNode.'@identifier';
+        /* String identifier = xmlNode.'@identifier';
         String valueLookupKey;
         HiddenElement.ValueLookUpType valueLookUpType;
         if (Tag.isFeedBackTag(xmlTag)) {
@@ -454,6 +452,8 @@ class QtiTagLib {
         }
         String visibilityMode = xmlNode.'@showHide';
         HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(new HiddenElement(identifier, valueLookupKey, xmlTag, visibilityMode, valueLookUpType));
+        */
+        HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(xmlNode, xmlTag);
         log.info("DEBUG Added hiddenElement ${hiddenElement}")
 
         String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' : 'div';
