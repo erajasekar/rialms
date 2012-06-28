@@ -25,14 +25,12 @@
 				<simpleAssociableChoice identifier="C" matchMax="1">Capulet</simpleAssociableChoice>
 				<simpleAssociableChoice identifier="D" matchMax="1">Demetrius</simpleAssociableChoice>
 				<simpleAssociableChoice identifier="L" matchMax="1">Lysander</simpleAssociableChoice>
-				<simpleAssociableChoice identifier="P" matchMax="1"
-				>Prospero</simpleAssociableChoice>
+				<simpleAssociableChoice identifier="P" matchMax="1">Prospero</simpleAssociableChoice>
 			</simpleMatchSet>
 			<simpleMatchSet>
 				<simpleAssociableChoice identifier="M" matchMax="4">A Midsummer-Night's Dream</simpleAssociableChoice>
 				<simpleAssociableChoice identifier="R" matchMax="4">Romeo and Juliet</simpleAssociableChoice>
-				<simpleAssociableChoice identifier="T" matchMax="4">The
-				Tempest</simpleAssociableChoice>
+				<simpleAssociableChoice identifier="T" matchMax="4">The	Tempest</simpleAssociableChoice>
 			</simpleMatchSet>
 		</matchInteraction>
 	</itemBody>
