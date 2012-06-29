@@ -242,6 +242,7 @@ class QtiTagLib {
 
         def value = responseValues[id];
 
+        log.debug("DEBUG response = ${value}")
         log.debug("choiceInteraction Field Attributes ${fieldAttributes}");
 
         if (maxChoices.toInteger() == 1) {
@@ -284,13 +285,17 @@ class QtiTagLib {
 
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', uitag);
 
+
         String id = getRequiredAttribute(attrs, 'responseIdentifier', uitag);
+        List<String> responseValues = assessmentItemInfo.responseValues[id].collect {it.toString()};
+        log.debug("responseValues == ${responseValues}")
 
         boolean shuffle = getOptionalAttribute(attrs, 'shuffle')?.toBoolean();
 
         Node prompt;
 
         Map fixedChoices = [:];    //<position, choice >
+        Map responsePositions = [:] //<position , choice >  //Used to order items if it was already submitted
         List shuffledChoices = [];
         List allChoices = [];
         int position = 0;
@@ -302,6 +307,9 @@ class QtiTagLib {
 
                 case Tag.simpleChoice:
                     if (!assessmentItemInfo.checkForHiddenElement(child, Tag.simpleChoice)) {
+                        if (!responseValues.isEmpty()){
+                            responsePositions[responseValues.indexOf(child.attribute('identifier'))] = child;
+                        }
                         if (child.attribute("fixed")?.toBoolean()) {
                             fixedChoices[position] = child;
                         } else {
@@ -317,6 +325,11 @@ class QtiTagLib {
             }
         }
         allChoices = (shuffle) ? CollectionUtils.shuffleWithFixedPositions(shuffledChoices, fixedChoices) : CollectionUtils.orderValuesByPosition(fixedChoices);
+        log.debug("responsePositions ${responsePositions}");
+        if (!responsePositions.isEmpty()){
+            allChoices = CollectionUtils.orderValuesByPosition(responsePositions);
+        }
+
 
         log.info("DEBUG ${allChoices}");
 
@@ -398,6 +411,7 @@ class QtiTagLib {
         String tag = 'gapMatchInteraction';
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+
         assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${Consts.responseIdentifier}", xmlNode.attribute(Consts.responseIdentifier));
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
     }

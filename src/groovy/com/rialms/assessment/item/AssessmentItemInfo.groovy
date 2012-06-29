@@ -211,16 +211,19 @@ class AssessmentItemInfo {
 
     public void addParam(String key, String value){
         if (params.containsKey(key)){
-            throw IllegalArgumentException('key ${key} already found in params.');
+           // throw new IllegalArgumentException('key ${key} already found in params.');
+            log.warn("key ${key} already found in params.")
+        }else{
+            params.put(key,value);
         }
-        params.put(key,value);
+
     }
 
     public String getParam(String key){
         if (params.containsKey(key)) {
             return params[key];
         }else{
-            throw IllegalArgumentException('No param found for key ${key');
+            throw new IllegalArgumentException('No param found for key ${key');
         }
     }
     public Map getRenderOutput() {

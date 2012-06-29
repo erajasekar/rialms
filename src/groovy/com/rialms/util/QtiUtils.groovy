@@ -7,6 +7,8 @@ import org.qtitools.qti.node.test.TestFeedback
 import org.qtitools.qti.value.BaseType
 import org.qtitools.qti.value.MultipleValue
 import org.qtitools.qti.value.Value
+import org.qtitools.qti.value.ListValue
+
 
 /**
  * Created by IntelliJ IDEA.
@@ -45,7 +47,7 @@ class QtiUtils {
         values?.each { k, v ->
             String value;
             if (!(v instanceof org.qtitools.qti.value.NullValue)) {
-                if (v instanceof MultipleValue) {
+                if (v instanceof ListValue) {
                     value = v.getAll().join(',');
                 }
                 else {
@@ -64,7 +66,7 @@ class QtiUtils {
         respValues?.each { k, v ->
             List<String> values = [];
             if (!(v instanceof org.qtitools.qti.value.NullValue)) {
-                if (v instanceof MultipleValue) {
+                if (v instanceof ListValue) {
                     values = v.collect {it.toString()};
                 }
                 else {

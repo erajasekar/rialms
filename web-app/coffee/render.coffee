@@ -2,6 +2,7 @@ $ = jQuery
 window.updateRenderedItem = (data) ->
   initAngularScopeObjects(data)
 
+
   if data.redirectUrl
     $.post(data.redirectUrl, (resp) ->
         document.open()
@@ -43,14 +44,13 @@ window.updateRenderedItem = (data) ->
   #mathJaxScript.type = "text/javascript";
   #mathJaxScript.src = $("script[src*='MathJax.js']").attr('src');
   #$('head').append(mathJaxScript);
+  window.initInteractions();
   return
 
 window.initTestRendering = ->
   $("a").tooltip()
   $('.dropdown-toggle').dropdown();
-  $('.order-interaction').sortable(axis: 'y', containment: 'parent', cursor: 'move' );
-  $('.order-interaction').disableSelection();
-  window.initDragAndDrop()
+  window.initInteractions();
   $("a.toggleNav").click ->
     if $("a.toggleNav span").text() is $("<div>").html("&laquo;").text()
       $("a.toggleNav span").html "&raquo;"
@@ -67,23 +67,37 @@ window.initTestRendering = ->
     $("#content").toggleClass "no-sidebar"
     $("#sidebar").toggleClass "span3"
 
+window.initInteractions =->
+  window.initOrderInteraction();
+  window.initGapInteraction();
+  return;
 
-window.initDragAndDrop =->
+window.initOrderInteraction =->
+  $('.order-interaction').sortable(axis: 'y', containment: 'parent', cursor: 'move' );
+  $('.order-interaction').disableSelection();
+  return;
+
+window.initGapInteraction =->
+
   $('.draggable').draggable(cursor:'move', containment:'parent', helper:'clone');
   $(".droppable").droppable
     accept: ".draggable"
     drop: (event, ui) ->
       droppedElement = ui.draggable
-      matchMax =  (Number) droppedElement.data('matchmax')
-      console.log("matchMax #{matchMax}")
-      if matchMax > 1
-        droppedElement.data("matchmax", --matchMax)
-        droppedElement = ui.draggable.clone()
-      else droppedElement = ui.draggable.clone()  if matchMax is 0
       droppedOn = $(this)
-      droppedOn.find('span').html(droppedElement.html())
-      droppedOn.find('input').val(droppedElement.data('identifier') + ' ' + droppedOn.data('identifier'))
-      droppedElement.remove()
+      droppedOnSpan = droppedOn.find('span');
+      #Accept only if droppedOn is empty
+      if (droppedOnSpan.html() is "&nbsp;")
+        matchMax =  (Number) droppedElement.data('matchmax')
+        console.log("matchMax #{matchMax}")
+        if matchMax > 1
+          droppedElement.data("matchmax", --matchMax)
+          droppedElement = ui.draggable.clone()
+        else droppedElement = ui.draggable.clone()  if matchMax is 0
+
+        droppedOnSpan.html(droppedElement.html())
+        droppedOn.find('input').val(droppedElement.data('identifier') + ' ' + droppedOn.data('identifier'))
+        droppedElement.remove()
   return
 
 window.initAngularScopeObjects = (data)->
