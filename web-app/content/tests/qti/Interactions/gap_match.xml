@@ -17,6 +17,8 @@
     <!--TODO remove template -->
     <templateDeclaration identifier="SEASON" cardinality="single" baseType="identifier"
                          mathVariable="false" paramVariable="false"/>
+    <templateDeclaration identifier="VAR" cardinality="single" baseType="integer" mathVariable="false"
+                         paramVariable="false"/>
     <templateProcessing>
         <setTemplateValue identifier="SEASON">
             <random>
@@ -28,6 +30,9 @@
                 </multiple>
             </random>
         </setTemplateValue>
+        <setTemplateValue identifier="VAR">
+            <randomInteger min="2" max="4"/>
+        </setTemplateValue>
     </templateProcessing>
 	<itemBody>
 		<gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
@@ -36,7 +41,7 @@
 			<gapText identifier="Sp" matchMax="2">spring</gapText>
 			<gapText identifier="Su" matchMax="1">summer</gapText>
 			<gapText identifier="A" matchMax="1">autumn</gapText>
-            <gapText templateIdentifier="SEASON" showHide="show" identifier="AT" matchMax="1">autumnT</gapText>
+            <gapText templateIdentifier="SEASON" showHide="show" identifier="AT" matchMax="1">autumn <printedVariable identifier="VAR"/></gapText>
 			<blockquote>
 				<p>Now is the <gap identifier="G1"/> of our discontent<br/> Made glorious <gap
 						identifier="G2"/> by this sun of York;<br/> And all the clouds that lour'd
