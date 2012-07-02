@@ -411,25 +411,42 @@ class QtiTagLib {
         String tag = 'gapMatchInteraction';
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-
-        assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${Consts.responseIdentifier}", xmlNode.attribute(Consts.responseIdentifier));
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
     }
 
     def gapText = {attrs ->
         String tag = 'gapText';
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+
+
         attrs += xmlNode.attributes();
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        Tag xmlTag = Tag.gapText;
 
-        Map tagAttributes = [class: 'draggable'];
+        String responseIdentifier = QtiUtils.findParentByTag(xmlNode,Tag.gapMatchInteraction).attribute(Consts.responseIdentifier);
+        List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
+        int responseCount = 0;
 
-        if (!assessmentItemInfo.checkForHiddenElement(xmlNode, xmlTag)) {
-            String dataAttributes = getAttributesAsData(attrs, tag, ['identifier', 'matchMax'])
-            out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
-            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
-            out << "</span>"
+        String identifier = getRequiredAttribute(attrs, 'identifier', tag)
+
+        if (responseValues && !responseValues.isEmpty()){
+            responseCount = QtiUtils.convertMultipleResponseValuesToMap(responseValues).values().count{responseValue -> responseValue == identifier}
+        }
+
+        int matchMax = getRequiredAttribute(attrs, 'matchMax', tag) as int;
+        log.info("DEBUG responseValues = ${responseValues} ; responseCount = ${responseCount}; matchMax = ${matchMax}")
+        int remainingCount = (matchMax == 0)? 0 : (matchMax - responseCount)
+        if (matchMax == 0 || remainingCount > 0){
+            Tag xmlTag = Tag.gapText;
+            Map tagAttributes = [class: 'draggable'];
+
+            if (!assessmentItemInfo.checkForHiddenElement(xmlNode, xmlTag)) {
+                String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier:identifier, matchMax:(remainingCount)])
+                out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
+                String gapTextValue = g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]).toString();
+                out << gapTextValue;
+                assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${identifier}.${Consts.value}", gapTextValue)
+                out << "</span>"
+            }
         }
     }
 
@@ -438,11 +455,24 @@ class QtiTagLib {
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         attrs += xmlNode.attributes();
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        String dataAttributes = getAttributesAsData(attrs, tag, ['identifier']);
-        String responseIdentifier = assessmentItemInfo.getParam("${Tag.gapMatchInteraction.name()}.${Consts.responseIdentifier}");
+        String identifier = getRequiredAttribute(attrs, 'identifier', tag);
+        String responseIdentifier = QtiUtils.findParentByTag(xmlNode,Tag.gapMatchInteraction).attribute(Consts.responseIdentifier);
+        List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
+        String responseValue = ''
+        if (responseValues && !responseValues.isEmpty()){
+            responseValue = QtiUtils.convertMultipleResponseValuesToMap(responseValues)[identifier];
+        }
+        String displayValue = '&nbsp'
+        String inputValue = '';
+        if (responseValue){
+            displayValue = assessmentItemInfo.getParam("${Tag.gapMatchInteraction.name()}.${responseValue}.${Consts.value}");
+            inputValue = "${responseValue} ${identifier}";
+        }
+        log.info("DEBUG ${tag} => responseValue = ${responseValue}")
+        String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier:identifier]);
         out << """<span ${dataAttributes} class='droppable'>"""
-        out << """<input type='hidden' name="${responseIdentifier}" /> """
-        out << "<span>&nbsp;</span></span>";
+        out << """<input type='hidden' name="${responseIdentifier}" value="${inputValue}" /> """
+        out << "<span>${displayValue}</span></span>";
     }
 
 
@@ -454,19 +484,7 @@ class QtiTagLib {
         Tag xmlTag = getRequiredAttribute(attrs, 'xmlTag', tag);
 
         String title = xmlNode.'@title';
-        /* String identifier = xmlNode.'@identifier';
-        String valueLookupKey;
-        HiddenElement.ValueLookUpType valueLookUpType;
-        if (Tag.isFeedBackTag(xmlTag)) {
-            valueLookupKey = xmlNode.'@outcomeIdentifier';
-            valueLookUpType = HiddenElement.ValueLookUpType.Outcome;
-        } else {
-            valueLookupKey = xmlNode.'@templateIdentifier';
-            valueLookUpType = HiddenElement.ValueLookUpType.Template;
-        }
-        String visibilityMode = xmlNode.'@showHide';
-        HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(new HiddenElement(identifier, valueLookupKey, xmlTag, visibilityMode, valueLookUpType));
-        */
+
         HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(xmlNode, xmlTag);
         log.info("DEBUG Added hiddenElement ${hiddenElement}")
 
@@ -561,6 +579,7 @@ class QtiTagLib {
         return getAttribute(attrs, name, null, false);
     }
 
+    //TODO P2 remove if this method is not used
     protected String getAttributesAsData(Map attrs, String tagName, List requiredAttributes, List optionalAttributes = []) {
         StringBuilder sb = new StringBuilder();
         if (requiredAttributes) {

@@ -24,7 +24,7 @@
                     <baseValue baseType="identifier">W</baseValue>
                     <baseValue baseType="identifier">Sp</baseValue>
                     <baseValue baseType="identifier">Su</baseValue>
-                    <baseValue baseType="identifier">A</baseValue>
+                    <baseValue baseType="identifier">AT</baseValue>
                 </multiple>
             </random>
         </setTemplateValue>
@@ -36,7 +36,7 @@
 			<gapText identifier="Sp" matchMax="2">spring</gapText>
 			<gapText identifier="Su" matchMax="1">summer</gapText>
 			<gapText identifier="A" matchMax="1">autumn</gapText>
-            <gapText templateIdentifier="SEASON" showHide="show" identifier="A" matchMax="1">autumn</gapText>
+            <gapText templateIdentifier="SEASON" showHide="show" identifier="AT" matchMax="1">autumnT</gapText>
 			<blockquote>
 				<p>Now is the <gap identifier="G1"/> of our discontent<br/> Made glorious <gap
 						identifier="G2"/> by this sun of York;<br/> And all the clouds that lour'd

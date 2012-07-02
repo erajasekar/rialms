@@ -89,5 +89,6 @@ class Constants {
     public static final String data = "data"
     public static final String outcomeIdentifier = "outcomeIdentifier"
     public static final String templateIdentifier = "templateIdentifier"
+    public static final String value = "value"
 
 }

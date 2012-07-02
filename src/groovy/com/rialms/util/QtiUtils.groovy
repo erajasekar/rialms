@@ -8,7 +8,7 @@ import org.qtitools.qti.value.BaseType
 import org.qtitools.qti.value.MultipleValue
 import org.qtitools.qti.value.Value
 import org.qtitools.qti.value.ListValue
-
+import com.rialms.consts.Tag
 
 /**
  * Created by IntelliJ IDEA.
@@ -27,6 +27,7 @@ class QtiUtils {
         identifiers.each {i ->
             List<String> values = [];
             def respValue = params[i];
+
             if (respValue) {
                 if (respValue instanceof String && !respValue.isEmpty()) {
                     values << respValue;
@@ -37,7 +38,7 @@ class QtiUtils {
                 map.put(i, values)
             }
         }
-       return map
+        return map
     }
 
     public static Map<String, String> convertQTITypesToParams(Map<String, Value> values) {
@@ -47,6 +48,7 @@ class QtiUtils {
         values?.each { k, v ->
             String value;
             if (!(v instanceof org.qtitools.qti.value.NullValue)) {
+
                 if (v instanceof ListValue) {
                     value = v.getAll().join(',');
                 }
@@ -76,6 +78,14 @@ class QtiUtils {
             }
         }
         return params;
+    }
+
+    public static Map<String, String> convertMultipleResponseValuesToMap(List<String> responseValues) {
+        Map<String, String> result = responseValues.collectEntries {responseValue ->
+            List values = responseValue.split(' ');
+            return [(values[1]): values[0]];
+        }
+        result;
     }
 
     public static String formatVariable(VariableDeclaration variableDeclaration, String format, Object value) {
@@ -181,5 +191,12 @@ class QtiUtils {
 
     public static String getTitleFromXml(File input) {
         return new XmlSlurper().parse(input).'@title';
+    }
+
+    public static Node findParentByTag(Node start, Tag tag){
+        if (Tag.valueOf(start.name()) == tag){
+            return start;
+        }
+        return findParentByTag(start.parent(),tag);
     }
 }

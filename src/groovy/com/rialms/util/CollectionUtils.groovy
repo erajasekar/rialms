@@ -1,5 +1,7 @@
 package com.rialms.util
 
+import com.rialms.consts.Constants
+
 /**
  * Created by IntelliJ IDEA.
  * User: relango
@@ -53,6 +55,14 @@ class CollectionUtils {
         StringBuilder sb = new StringBuilder();
         input.each{k,v->
             sb.append("${k}='${v}' ")
+        }
+        return sb.toString();
+    }
+
+    public static String convertMapToDataAttributes(Map input){
+        StringBuilder sb = new StringBuilder();
+        input.each{k,v->
+            sb.append("${Constants.data}-${k.toString().toLowerCase()}='${v.toString()}' ")
         }
         return sb.toString();
     }

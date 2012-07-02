@@ -35,11 +35,11 @@
     <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
     <div class="span9" id="content">
-        <!--TODO format validation errors -->
+
         <g:if test="${flash.message}">
             <g:message code="${flash.message}"/>
         </g:if>
-
+        <!--TODO format validation errors, if there are validation errors, status nav should not show up -->
         <g:if test="${!assessmentParams.validationResult.allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
                       model="[validationErrors: assessmentParams[Consts.validationResult].allItems]"/>
