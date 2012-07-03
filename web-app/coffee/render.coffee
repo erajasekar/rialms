@@ -79,7 +79,7 @@ window.initOrderInteraction =->
 
 window.initGapInteraction =->
 
-  $(".draggable-gap-text").draggable(cursor:'move', containment:'parent', helper:'clone');
+  $(".draggable-gap-text").draggable(cursor:'move', containment:'#content', helper:'clone');
   $(".droppable-gap").droppable
     accept: ".draggable-gap-text"
     drop: (event, ui) ->

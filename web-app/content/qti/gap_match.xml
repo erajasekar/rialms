@@ -30,9 +30,9 @@
         </setTemplateValue>
     </templateProcessing>
 	<itemBody>
-		<gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
+		<gapMatchInteraction responseIdentifier="RESPONSE" shuffle="true">
 			<prompt>Identify the missing words in this famous quote from Shakespeare's Richard III.</prompt>
-			<gapText identifier="W" matchMax="0">winter</gapText>
+			<gapText identifier="W" matchMax="0" fixed="true">winter</gapText>
 			<gapText identifier="Sp" matchMax="2">spring</gapText>
 			<gapText identifier="Su" matchMax="1">summer</gapText>
 			<gapText identifier="A" matchMax="1">autumn</gapText>

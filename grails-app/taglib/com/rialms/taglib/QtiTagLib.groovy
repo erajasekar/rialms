@@ -307,7 +307,7 @@ class QtiTagLib {
 
                 case Tag.simpleChoice:
                     if (!assessmentItemInfo.checkForHiddenElement(child, Tag.simpleChoice)) {
-                        if (!responseValues.isEmpty()){
+                        if (!responseValues.isEmpty()) {
                             responsePositions[responseValues.indexOf(child.attribute('identifier'))] = child;
                         }
                         if (child.attribute("fixed")?.toBoolean()) {
@@ -326,7 +326,7 @@ class QtiTagLib {
         }
         allChoices = (shuffle) ? CollectionUtils.shuffleWithFixedPositions(shuffledChoices, fixedChoices) : CollectionUtils.orderValuesByPosition(fixedChoices);
         log.debug("responsePositions ${responsePositions}");
-        if (!responsePositions.isEmpty()){
+        if (!responsePositions.isEmpty()) {
             allChoices = CollectionUtils.orderValuesByPosition(responsePositions);
         }
 
@@ -408,45 +408,99 @@ class QtiTagLib {
     }
 
     def gapMatchInteraction = {attrs ->
-        String tag = 'gapMatchInteraction';
-        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
-        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+        String uitag = 'gapMatchInteraction';
+
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', uitag);
+        attrs += xmlNode.attributes();
+
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', uitag);
+        boolean shuffle = getRequiredAttribute(attrs, 'shuffle', uitag)?.toBoolean();
+
+        Node prompt;
+
+        Map fixedChoices = [:];    //<position, choice >
+        List shuffledChoices = [];
+        List allChoices = [];
+        List contents = [];
+        int position = 0;
+        xmlNode.children().each {child ->
+            Tag tag = Tag.valueOf(child.name());
+            switch (tag) {
+                case Tag.prompt: prompt = child;
+                    break;
+
+                case Tag.gapText:
+                    if (!assessmentItemInfo.checkForHiddenElement(child, Tag.inlineChoice)) {
+                        if (child.attribute("fixed")?.toBoolean()) {
+                            fixedChoices[position] = child;
+                        } else {
+                            if (shuffle) {
+                                shuffledChoices << child;
+                            } else {
+                                fixedChoices[position] = child;
+                            }
+                        }
+                        position++;
+                    }
+                    break;
+                default: contents << child;
+                    break;
+
+            }
+        }
+
+        if (shuffle) {
+            allChoices = CollectionUtils.shuffleWithFixedPositions(shuffledChoices, fixedChoices);
+        } else {
+            allChoices = CollectionUtils.orderValuesByPosition(fixedChoices);
+        }
+
+        if (prompt) {
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
+        }
+
+        out << "<div>";
+        allChoices.each { choice ->
+            out << gapText('xmlNode': choice, 'assessmentItemInfo': assessmentItemInfo);
+        }
+        out << "</div>";
+        contents.each { content ->
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: content, assessmentItemInfo: assessmentItemInfo]);
+        }
+
     }
 
     def gapText = {attrs ->
         String tag = 'gapText';
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
 
-
         attrs += xmlNode.attributes();
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
-        String responseIdentifier = QtiUtils.findParentByTag(xmlNode,Tag.gapMatchInteraction).attribute(Consts.responseIdentifier);
+        String responseIdentifier = QtiUtils.findParentByTag(xmlNode, Tag.gapMatchInteraction).attribute(Consts.responseIdentifier);
         List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
         int responseCount = 0;
 
         String identifier = getRequiredAttribute(attrs, 'identifier', tag)
 
-        if (responseValues && !responseValues.isEmpty()){
-            responseCount = QtiUtils.convertMultipleResponseValuesToMap(responseValues).values().count{responseValue -> responseValue == identifier}
+        if (responseValues && !responseValues.isEmpty()) {
+            responseCount = QtiUtils.convertMultipleResponseValuesToMap(responseValues).values().count {responseValue -> responseValue == identifier}
         }
 
         int matchMax = getRequiredAttribute(attrs, 'matchMax', tag) as int;
         log.info("DEBUG responseValues = ${responseValues} ; responseCount = ${responseCount}; matchMax = ${matchMax}")
-        int remainingCount = (matchMax == 0)? 0 : (matchMax - responseCount)
-        if (matchMax == 0 || remainingCount > 0){
+        int remainingCount = (matchMax == 0) ? 0 : (matchMax - responseCount)
+        if (matchMax == 0 || remainingCount > 0) {
             Tag xmlTag = Tag.gapText;
             Map tagAttributes = [class: 'draggable-gap-text'];
 
-            if (!assessmentItemInfo.checkForHiddenElement(xmlNode, xmlTag)) {
-                String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier:identifier, matchMax:(remainingCount)])
+                String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier, matchMax: (remainingCount)])
                 out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
                 String gapTextValue = g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]).toString();
                 out << gapTextValue;
                 assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${identifier}.${Consts.value}", gapTextValue)
                 out << "</span>"
-            }
+
         }
     }
 
@@ -456,20 +510,20 @@ class QtiTagLib {
         attrs += xmlNode.attributes();
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         String identifier = getRequiredAttribute(attrs, 'identifier', tag);
-        String responseIdentifier = QtiUtils.findParentByTag(xmlNode,Tag.gapMatchInteraction).attribute(Consts.responseIdentifier);
+        String responseIdentifier = QtiUtils.findParentByTag(xmlNode, Tag.gapMatchInteraction).attribute(Consts.responseIdentifier);
         List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
         String responseValue = ''
-        if (responseValues && !responseValues.isEmpty()){
+        if (responseValues && !responseValues.isEmpty()) {
             responseValue = QtiUtils.convertMultipleResponseValuesToMap(responseValues)[identifier];
         }
         String displayValue = '&nbsp'
         String inputValue = '';
-        if (responseValue){
+        if (responseValue) {
             displayValue = assessmentItemInfo.getParam("${Tag.gapMatchInteraction.name()}.${responseValue}.${Consts.value}");
             inputValue = "${responseValue} ${identifier}";
         }
         log.info("DEBUG ${tag} => responseValue = ${responseValue}")
-        String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier:identifier]);
+        String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier]);
         out << """<span ${dataAttributes} class='droppable-gap'>"""
         out << """<input type='hidden' name="${responseIdentifier}" value="${inputValue}" /> """
         out << "<span>${displayValue}</span></span>";
@@ -556,7 +610,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-             com.rialms.util.Less2Css.run();
+            //com.rialms.util.Less2Css.run();
         }
     }
 

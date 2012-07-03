@@ -54,12 +54,6 @@
             <qti:gap xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
-        <g:elseif test="${tag == Tag.gapText}">
-            <qti:gapText xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
-        </g:elseif>
-
-
-
         <g:elseif test="${tag == Tag.inlineChoiceInteraction}">
             <qti:inlineChoiceInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
