@@ -16,18 +16,18 @@
 
 </div>
 <div>
-<span id="source1"> source 1</span>
+<span id="source1"> source 1</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <span id="target1"> target 1</span>
-    <span id="target2"> target 2</span>
+   <!-- <span id="target2"> target 2</span>
     <span id="target3"> target 3</span>
     <span id="target4"> target 4</span>
-    <span id="target5"> target 5</span>
+    <span id="target5"> target 5</span>-->
 
 </div>
 
 <r:script>
     $(document).ready(function () {
-
+       /*
         // retrieve the elements however you want (class name, tag name, ..)
         var elems = document.getElementsByTagName('span');
         var increase = Math.PI * 2 / elems.length;
@@ -42,14 +42,34 @@
             elem.style.left = x + 'px';
             elem.style.top = y + 'px';
             angle += increase;
-        }
+        }   */
+
+        jsPlumb.importDefaults({
+            Endpoint : ["Dot", {radius:2}],
+           // HoverPaintStyle : {strokeStyle:"#42a62c", lineWidth:2 },
+            ConnectionOverlays : [
+                [ "Arrow", {
+                    location:1,
+                    id:"arrow",
+                    length:10,
+                    foldback:0.8
+                } ]
+            ]
+        });
+
+        jsPlumb.bind("click", function(c) {
+            jsPlumb.detach(c);
+        });
 
         var exampleGreyEndpointOptions = {
             endpoint:"Rectangle",
             paintStyle:{ width:5, height:5, fillStyle:'#666' },
             isSource:true,
-            connector : "Straight",
-            connectorStyle: { lineWidth:2, strokeStyle:'blue' },
+           // connector : "Straight",
+           // connectorStyle: { lineWidth:1, strokeStyle:'green' },
+            anchor:"Continuous",
+            connector:[ "StateMachine", { curviness:20 } ],
+            connectorStyle:{ strokeStyle:'green', lineWidth:2 },
             isTarget:true
         };
 

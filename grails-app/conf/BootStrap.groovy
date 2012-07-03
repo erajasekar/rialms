@@ -89,6 +89,7 @@ class BootStrap {
 
         //16-20
         testService.createTest('tests/qti/NavigationMixed', 'test-ns-timeLimits_test.xml');
+        //TODO P1 This doesn't show expression values.. fix it.
         testService.createTest("tests/qti/NavigationMixed", "test-li-outcome_expressions.xml");
         testService.createTest("tests/qti/NavigationMixed", "test-li-simple.xml");
         testService.createTest("tests/qti/NavigationMixed", "test-ls-simple.xml");
