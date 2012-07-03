@@ -437,7 +437,7 @@ class QtiTagLib {
         int remainingCount = (matchMax == 0)? 0 : (matchMax - responseCount)
         if (matchMax == 0 || remainingCount > 0){
             Tag xmlTag = Tag.gapText;
-            Map tagAttributes = [class: 'draggable'];
+            Map tagAttributes = [class: 'draggable-gap-text'];
 
             if (!assessmentItemInfo.checkForHiddenElement(xmlNode, xmlTag)) {
                 String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier:identifier, matchMax:(remainingCount)])
@@ -470,7 +470,7 @@ class QtiTagLib {
         }
         log.info("DEBUG ${tag} => responseValue = ${responseValue}")
         String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier:identifier]);
-        out << """<span ${dataAttributes} class='droppable'>"""
+        out << """<span ${dataAttributes} class='droppable-gap'>"""
         out << """<input type='hidden' name="${responseIdentifier}" value="${inputValue}" /> """
         out << "<span>${displayValue}</span></span>";
     }
@@ -556,7 +556,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-            // com.rialms.util.Less2Css.run();
+             com.rialms.util.Less2Css.run();
         }
     }
 
