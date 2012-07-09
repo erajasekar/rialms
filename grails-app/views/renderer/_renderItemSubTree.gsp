@@ -50,6 +50,10 @@
             <qti:gapMatchInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
+        <g:elseif test="${tag == Tag.matchInteraction}">
+            <qti:matchInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
+        </g:elseif>
+
         <g:elseif test="${tag == Tag.gap}">
             <qti:gap xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>

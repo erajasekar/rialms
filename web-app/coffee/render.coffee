@@ -70,6 +70,7 @@ window.initTestRendering = ->
 window.initInteractions =->
   window.initOrderInteraction();
   window.initGapInteraction();
+  window.initMatchInteraction();
   return;
 
 window.initOrderInteraction =->
@@ -109,5 +110,45 @@ window.initAngularScopeObjects = (data)->
         contentScope[key] = value;
   return
 
+window.initMatchInteraction = ->
+  jsPlumb.importDefaults(
+    Endpoint: [ "Dot",
+      radius: 2
+    ]
+    ConnectionOverlays: [ [ "Arrow",
+      location: 1
+      id: "arrow"
+      length: 10
+      foldback: 0.8
+    ] ]
+  );
+  jsPlumb.bind "click", (c) ->
+    jsPlumb.detach(c);
+
+  endPointOptions = {
+    endpoint: "Rectangle"
+    paintStyle:
+      width: 7
+      height: 7
+      fillStyle: "green"
+
+    anchor: "Continuous"
+    connector: [ "StateMachine",
+      curviness: 20
+    ]
+    connectorStyle:
+      strokeStyle: "green"
+      lineWidth: 2
+  }
+  endPointLhs = jsPlumb.addEndpoint($('.associable-choice.lhs-choice'),
+    anchor: "RightMiddle"
+    isSource: true
+    , endPointOptions);
+  endPointRhs = jsPlumb.addEndpoint($('.associable-choice.rhs-choice'),
+    anchor: "LeftMiddle"
+    isTarget: true
+    , endPointOptions);
+
+  return
 
 

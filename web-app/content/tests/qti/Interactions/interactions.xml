@@ -8,6 +8,7 @@
     <testPart identifier="part1" navigationMode="nonlinear" submissionMode="simultaneous">
         <assessmentSection identifier="sectionA" title="Section 1" visible="true">
             <assessmentItemRef identifier="order" href="order.xml"></assessmentItemRef>
+            <assessmentItemRef identifier="match" href="match.xml"></assessmentItemRef>
             <assessmentItemRef identifier="gapMatch" href="gap_match.xml"></assessmentItemRef>
             <assessmentItemRef identifier="choiceFixed" href="choice_fixed.xml"></assessmentItemRef>
             <assessmentItemRef identifier="choiceMultiple" href="choice_multiple.xml"></assessmentItemRef>

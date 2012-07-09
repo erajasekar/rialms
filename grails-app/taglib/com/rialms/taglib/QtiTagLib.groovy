@@ -529,6 +529,100 @@ class QtiTagLib {
         out << "<span>${displayValue}</span></span>";
     }
 
+    def matchInteraction = {attrs ->
+        String uitag = 'matchInteraction';
+
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', uitag);
+        attrs += xmlNode.attributes();
+
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', uitag);
+        boolean shuffle = getRequiredAttribute(attrs, 'shuffle', uitag)?.toBoolean();
+
+        Node prompt;
+        List<Map> fixedChoices = [];    //list of <position, choice>, one of lhs and one for rhs
+        List<List> shuffledChoices = [];
+        List<List> allChoices = [];
+        int position = 0;
+        int matchSetIndex = 0;
+        xmlNode.children().each {child ->
+            Tag tag = Tag.valueOf(child.name());
+            switch (tag) {
+                case Tag.prompt: prompt = child;
+                    break;
+
+                case Tag.simpleMatchSet:
+                    position = 0;
+                    fixedChoices[matchSetIndex] = [:];
+                    shuffledChoices[matchSetIndex] = [];
+                    allChoices[matchSetIndex] = [];
+                    child.children().each { associableChoice->
+                        if (!assessmentItemInfo.checkForHiddenElement(associableChoice, Tag.simpleAssociableChoice)) {
+                            if (associableChoice.attribute("fixed")?.toBoolean()) {
+                                fixedChoices[matchSetIndex][position] = associableChoice;
+                            } else {
+                                if (shuffle) {
+                                    shuffledChoices[matchSetIndex] << associableChoice;
+                                } else {
+                                    fixedChoices[matchSetIndex][position] = associableChoice;
+                                }
+                            }
+                            position++;
+                        }
+
+                    }
+                    matchSetIndex++;
+                    break;
+            }
+        }
+
+        log.info("RAJA fixed choices ${fixedChoices}")
+        log.info("RAJA shuffledChoices choices ${shuffledChoices}")
+        if (shuffle) {
+            fixedChoices.eachWithIndex {fixedChoice, index ->
+                allChoices[index] = CollectionUtils.shuffleWithFixedPositions(shuffledChoices[index], fixedChoices[index]);
+            }
+
+        } else {
+            fixedChoices.eachWithIndex { fixedChoice, index ->
+                allChoices[index] = CollectionUtils.orderValuesByPosition(fixedChoice);
+            }
+
+        }
+
+        final int LHS = 0;
+        final int RHS = 1;
+
+        log.info("RAJA all choices ${allChoices[0]}")
+        log.info("RAJA all choices ${allChoices[1]}")
+        if (prompt) {
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
+        }
+        int lhsSize = allChoices[LHS].size()
+        int rhsSize = allChoices[RHS].size();
+        int rowCount = Math.max(lhsSize,rhsSize);
+        //log.info("RAJA rowCount ${rowCount}")
+        out << "<br/><div>"
+        for (int i = 0; i < rowCount; i++){
+            out << """<div class="row-fluid">"""
+            out << """<div class="span6 ">"""
+          //  log.info("RAJA ${i} == ${lhsSize} ==> ${allChoices[LHS][i]}");
+            if (i < lhsSize){
+                out << """<span class="associable-choice lhs-choice" >""";
+                out << g.render(template: '/renderer/renderItemSubTree', model: [node: allChoices[LHS][i], assessmentItemInfo: assessmentItemInfo]);
+                out << "</span>";
+            }
+            out << "</div>"
+            out << """<div class="span6 ">"""
+         //   log.info("RAJA ${i} == ${rhsSize} ==> ${allChoices[RHS][i]}");
+            if (i < rhsSize){
+                out << """<span class="associable-choice rhs-choice"  >""";
+                out << g.render(template: '/renderer/renderItemSubTree', model: [node: allChoices[RHS][i], assessmentItemInfo: assessmentItemInfo]);
+                out << "</span>"
+            }
+            out << "</span></div>"
+        }
+        out << "</div>"
+    }
 
     def hiddenElement = {  attrs ->
 
@@ -610,7 +704,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-            //com.rialms.util.Less2Css.run();
+            com.rialms.util.Less2Css.run();
         }
     }
 

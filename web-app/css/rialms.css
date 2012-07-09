@@ -148,3 +148,10 @@ a.toggleNav:hover {
   padding: 5px 30px 5px 30px;
   border: 1px solid #b6b6b6;
 }
+.associable-choice {
+  padding: 5px 15px 5px 15px;
+  margin: 10px;
+  border: 1px solid #62c729;
+  box-shadow: 2px 2px 19px #eeeeee;
+  border-radius: 5px;
+}
