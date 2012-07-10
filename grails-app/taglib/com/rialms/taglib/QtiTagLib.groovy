@@ -538,6 +538,11 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', uitag);
 
         String responseIdentifier = getRequiredAttribute(attrs, Consts.responseIdentifier, uitag);
+        List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
+
+        responseValues.each{ responseValue ->
+            out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
+        }
         boolean shuffle = getRequiredAttribute(attrs, 'shuffle', uitag)?.toBoolean();
 
         Node prompt;

@@ -140,17 +140,10 @@ window.initMatchInteraction = ->
       strokeStyle: "green"
       lineWidth: 2
   }
-  ###endPointLhs = jsPlumb.addEndpoint($('.associable-choice.lhs-choice'),
-    anchor: "RightMiddle"
-    isSource: true
-    , endPointOptions);
-  endPointRhs = jsPlumb.addEndpoint($('.associable-choice.rhs-choice'),
-    anchor: "LeftMiddle"
-    isTarget: true
-    , endPointOptions);###
-
+  responseIdentifier = '';
   $(".associable-choice").each (index, element) ->
     jqueryElement = $(element)
+    responseIdentifier =  jqueryElement.data('responseidentifier')
     isSource = jqueryElement.data("role") is "lhs"
     jsPlumb.addEndpoint element,
       anchor: (if isSource then "RightMiddle" else "LeftMiddle")
@@ -160,15 +153,27 @@ window.initMatchInteraction = ->
       endPointOptions
     return
 
+  form = $(".associable-choice").closest('form');
+
+  console.log(responseIdentifier);
+  hiddenElements = form.find('input:hidden[name="' + responseIdentifier + '"]')
+  console.log(hiddenElements);
+
   jsPlumb.bind "jsPlumbConnection", (connection) ->
     form = $(connection.source).closest('form');
     inputValue = connection.source.data('identifier') + ' ' + connection.target.data('identifier');
+    hiddenElements = form.find('input:hidden[value="' + inputValue + '"]')
+    responseIdentifier =  connection.source.data('responseidentifier')
+    form.append('<input type="hidden" name="' + responseIdentifier + '" value="' + inputValue + '" />') if hiddenElements.length is 0
+    return;
 
-    hiddenElement = form.find('input:hidden[value="' + inputValue + '"]')
-
-    console.log connection.target;
-    form.append('<input type="hidden" name="RESPONSE" value="' + inputValue + '" />') if hiddenElement.length is 0
-
+  jsPlumb.bind "jsPlumbConnectionDetached", (connection) ->
+    form = $(connection.source).closest('form');
+    inputValue = connection.source.data('identifier') + ' ' + connection.target.data('identifier');
+    hiddenElements = form.find('input:hidden[value="' + inputValue + '"]')
+    hiddenElements.each (index,element)->
+      $(element).remove();
+    return;
 
   return
 
