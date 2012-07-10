@@ -140,14 +140,35 @@ window.initMatchInteraction = ->
       strokeStyle: "green"
       lineWidth: 2
   }
-  endPointLhs = jsPlumb.addEndpoint($('.associable-choice.lhs-choice'),
+  ###endPointLhs = jsPlumb.addEndpoint($('.associable-choice.lhs-choice'),
     anchor: "RightMiddle"
     isSource: true
     , endPointOptions);
   endPointRhs = jsPlumb.addEndpoint($('.associable-choice.rhs-choice'),
     anchor: "LeftMiddle"
     isTarget: true
-    , endPointOptions);
+    , endPointOptions);###
+
+  $(".associable-choice").each (index, element) ->
+    jqueryElement = $(element)
+    isSource = jqueryElement.data("role") is "lhs"
+    jsPlumb.addEndpoint element,
+      anchor: (if isSource then "RightMiddle" else "LeftMiddle")
+      isSource: isSource
+      isTarget: not isSource
+      maxConnections: jqueryElement.data('matchmax'),
+      endPointOptions
+    return
+
+  jsPlumb.bind "jsPlumbConnection", (connection) ->
+    form = $(connection.source).closest('form');
+    inputValue = connection.source.data('identifier') + ' ' + connection.target.data('identifier');
+
+    hiddenElement = form.find('input:hidden[value="' + inputValue + '"]')
+
+    console.log connection.target;
+    form.append('<input type="hidden" name="RESPONSE" value="' + inputValue + '" />') if hiddenElement.length is 0
+
 
   return
 

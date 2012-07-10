@@ -90,5 +90,10 @@ class Constants {
     public static final String outcomeIdentifier = "outcomeIdentifier"
     public static final String templateIdentifier = "templateIdentifier"
     public static final String value = "value"
+    public static final String role = 'role';
+    public static final String lhs = 'lhs';
+    public static final String rhs = 'rhs';
+
+
 
 }

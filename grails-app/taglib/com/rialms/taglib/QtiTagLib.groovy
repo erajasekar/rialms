@@ -494,12 +494,12 @@ class QtiTagLib {
             Tag xmlTag = Tag.gapText;
             Map tagAttributes = [class: 'draggable-gap-text'];
 
-                String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier, matchMax: (remainingCount)])
-                out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
-                String gapTextValue = g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]).toString();
-                out << gapTextValue;
-                assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${identifier}.${Consts.value}", gapTextValue)
-                out << "</span>"
+            String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier, matchMax: (remainingCount)])
+            out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
+            String gapTextValue = g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]).toString();
+            out << gapTextValue;
+            assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${identifier}.${Consts.value}", gapTextValue)
+            out << "</span>"
 
         }
     }
@@ -536,6 +536,8 @@ class QtiTagLib {
         attrs += xmlNode.attributes();
 
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', uitag);
+
+        String responseIdentifier = getRequiredAttribute(attrs, Consts.responseIdentifier, uitag);
         boolean shuffle = getRequiredAttribute(attrs, 'shuffle', uitag)?.toBoolean();
 
         Node prompt;
@@ -555,7 +557,7 @@ class QtiTagLib {
                     fixedChoices[matchSetIndex] = [:];
                     shuffledChoices[matchSetIndex] = [];
                     allChoices[matchSetIndex] = [];
-                    child.children().each { associableChoice->
+                    child.children().each { associableChoice ->
                         if (!assessmentItemInfo.checkForHiddenElement(associableChoice, Tag.simpleAssociableChoice)) {
                             if (associableChoice.attribute("fixed")?.toBoolean()) {
                                 fixedChoices[matchSetIndex][position] = associableChoice;
@@ -599,24 +601,44 @@ class QtiTagLib {
         }
         int lhsSize = allChoices[LHS].size()
         int rhsSize = allChoices[RHS].size();
-        int rowCount = Math.max(lhsSize,rhsSize);
+        int rowCount = Math.max(lhsSize, rhsSize);
         //log.info("RAJA rowCount ${rowCount}")
         out << "<br/><div>"
-        for (int i = 0; i < rowCount; i++){
+        Node choice;
+        String dataAttributes;
+        for (int i = 0; i < rowCount; i++) {
             out << """<div class="row-fluid">"""
             out << """<div class="span6 ">"""
-          //  log.info("RAJA ${i} == ${lhsSize} ==> ${allChoices[LHS][i]}");
-            if (i < lhsSize){
-                out << """<span class="associable-choice lhs-choice" >""";
-                out << g.render(template: '/renderer/renderItemSubTree', model: [node: allChoices[LHS][i], assessmentItemInfo: assessmentItemInfo]);
+            //  log.info("RAJA ${i} == ${lhsSize} ==> ${allChoices[LHS][i]}");
+            if (i < lhsSize) {
+                choice = allChoices[LHS][i];
+                dataAttributes = CollectionUtils.convertMapToDataAttributes(
+                        [
+                                identifier: choice.attribute('identifier'),
+                                matchMax: choice.attribute('matchMax'),
+                                (Consts.responseIdentifier): responseIdentifier,
+                                (Consts.role): Consts.lhs
+                        ]
+                );
+                out << """<span class="associable-choice" ${dataAttributes} >""";
+                out << g.render(template: '/renderer/renderItemSubTree', model: [node: choice, assessmentItemInfo: assessmentItemInfo]);
                 out << "</span>";
             }
             out << "</div>"
             out << """<div class="span6 ">"""
-         //   log.info("RAJA ${i} == ${rhsSize} ==> ${allChoices[RHS][i]}");
-            if (i < rhsSize){
-                out << """<span class="associable-choice rhs-choice"  >""";
-                out << g.render(template: '/renderer/renderItemSubTree', model: [node: allChoices[RHS][i], assessmentItemInfo: assessmentItemInfo]);
+            //   log.info("RAJA ${i} == ${rhsSize} ==> ${allChoices[RHS][i]}");
+            if (i < rhsSize) {
+                choice = allChoices[RHS][i];
+                dataAttributes = CollectionUtils.convertMapToDataAttributes(
+                        [
+                                identifier: choice.attribute('identifier'),
+                                matchMax: choice.attribute('matchMax'),
+                                (Consts.responseIdentifier): responseIdentifier,
+                                (Consts.role): Consts.rhs
+                        ]
+                );
+                out << """<span class="associable-choice" ${dataAttributes} >""";
+                out << g.render(template: '/renderer/renderItemSubTree', model: [node: choice, assessmentItemInfo: assessmentItemInfo]);
                 out << "</span>"
             }
             out << "</span></div>"
@@ -704,7 +726,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-            com.rialms.util.Less2Css.run();
+            //   com.rialms.util.Less2Css.run();
         }
     }
 
