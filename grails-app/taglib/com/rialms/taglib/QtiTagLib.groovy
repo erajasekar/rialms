@@ -540,10 +540,7 @@ class QtiTagLib {
         String responseIdentifier = getRequiredAttribute(attrs, Consts.responseIdentifier, uitag);
         List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
 
-        log.info("RAJA responseValues => ${responseValues}")
-        responseValues.each{ responseValue ->
-            //out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
-        }
+
 
         boolean shuffle = getRequiredAttribute(attrs, 'shuffle', uitag)?.toBoolean();
 
@@ -601,18 +598,28 @@ class QtiTagLib {
         final int LHS = 0;
         final int RHS = 1;
 
+
         log.info("RAJA all choices ${allChoices[0]}")
         log.info("RAJA all choices ${allChoices[1]}")
+
+        out << """<div class='match-interaction'>""";
+
+        log.info("RAJA responseValues ${responseValues}")
+        responseValues.each{ responseValue ->
+            out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
+        }
+
         if (prompt) {
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
         }
+        out << "<br/><br/>"
         int lhsSize = allChoices[LHS].size()
         int rhsSize = allChoices[RHS].size();
         int rowCount = Math.max(lhsSize, rhsSize);
         //log.info("RAJA rowCount ${rowCount}")
-        out << "<br/><div>"
         Node choice;
         String dataAttributes;
+
         for (int i = 0; i < rowCount; i++) {
             out << """<div class="row-fluid">"""
             out << """<div class="span6 ">"""

@@ -93,6 +93,7 @@ class Constants {
     public static final String role = 'role';
     public static final String source = 'source';
     public static final String target = 'target';
+    public static final String interaction = 'interaction';
 
 
 

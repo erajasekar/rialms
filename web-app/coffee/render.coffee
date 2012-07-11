@@ -154,16 +154,16 @@ window.initMatchInteraction = ->
       endPointOptions
     return
 
-  form = $(".associable-choice").closest('form');
+  parent = $('.associable-choice').closest('.match-interaction , .association-interaction');
 
   console.log(responseIdentifier);
-  hiddenElements = form.find('input:hidden[name="' + responseIdentifier + '"]');
+  hiddenElements = parent.find('input:hidden[name="' + responseIdentifier + '"]');
   console.log(hiddenElements);
   hiddenElements.each (index,element)->
     responseValues = $(element).attr('value').split(' ');
     console.log(responseValues[0] + ' - ' + responseValues[1]);
-    source = form.find(':data(role=source):data(identifier='+ responseValues[0] + ')');
-    target = form.find(':data(role=target):data(identifier='+ responseValues[1] + ')');
+    source = parent.find(':data(role=source):data(identifier='+ responseValues[0] + ')');
+    target = parent.find(':data(role=target):data(identifier='+ responseValues[1] + ')');
     jsPlumb.connect
       source: source
       target: target
@@ -182,17 +182,17 @@ window.initMatchInteraction = ->
     return;
 
   jsPlumb.bind "jsPlumbConnection", (connection) ->
-    form = $(connection.source).closest('form');
+    parent = $(connection.source).closest('.match-interaction , .association-interaction');
     inputValue = connection.source.data('identifier') + ' ' + connection.target.data('identifier');
-    hiddenElements = form.find('input:hidden[value="' + inputValue + '"]')
+    hiddenElements = parent.find('input:hidden[value="' + inputValue + '"]')
     responseIdentifier =  connection.source.data('responseidentifier')
-    form.append('<input type="hidden" name="' + responseIdentifier + '" value="' + inputValue + '" />') if hiddenElements.length is 0
+    parent.append('<input type="hidden" name="' + responseIdentifier + '" value="' + inputValue + '" />') if hiddenElements.length is 0
     return;
 
   jsPlumb.bind "jsPlumbConnectionDetached", (connection) ->
-    form = $(connection.source).closest('form');
+    parent = $(connection.source).closest('.match-interaction , .association-interaction');
     inputValue = connection.source.data('identifier') + ' ' + connection.target.data('identifier');
-    hiddenElements = form.find('input:hidden[value="' + inputValue + '"]')
+    hiddenElements = parent.find('input:hidden[value="' + inputValue + '"]')
     hiddenElements.each (index,element)->
       $(element).remove();
       return;
