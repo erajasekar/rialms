@@ -112,9 +112,10 @@ window.initAngularScopeObjects = (data)->
 
 window.initMatchInteraction = ->
   jsPlumb.importDefaults(
-    Endpoint: [ "Dot",
-      radius: 2
-    ]
+
+   # Endpoint: [ "Dot",
+   #   radius: 2
+   # ]
     ConnectionOverlays: [ [ "Arrow",
       location: 1
       id: "arrow"
@@ -144,7 +145,7 @@ window.initMatchInteraction = ->
   $(".associable-choice").each (index, element) ->
     jqueryElement = $(element)
     responseIdentifier =  jqueryElement.data('responseidentifier')
-    isSource = jqueryElement.data("role") is "lhs"
+    isSource = jqueryElement.data("role") is "source"
     jsPlumb.addEndpoint element,
       anchor: (if isSource then "RightMiddle" else "LeftMiddle")
       isSource: isSource
@@ -156,8 +157,29 @@ window.initMatchInteraction = ->
   form = $(".associable-choice").closest('form');
 
   console.log(responseIdentifier);
-  hiddenElements = form.find('input:hidden[name="' + responseIdentifier + '"]')
+  hiddenElements = form.find('input:hidden[name="' + responseIdentifier + '"]');
   console.log(hiddenElements);
+  hiddenElements.each (index,element)->
+    responseValues = $(element).attr('value').split(' ');
+    console.log(responseValues[0] + ' - ' + responseValues[1]);
+    source = form.find(':data(role=source):data(identifier='+ responseValues[0] + ')');
+    target = form.find(':data(role=target):data(identifier='+ responseValues[1] + ')');
+    jsPlumb.connect
+      source: source
+      target: target
+      endpoint: "Rectangle"
+      paintStyle:
+        width: 7
+        height: 7
+        fillStyle: "green"
+      anchor: "Continuous"
+      connector: [ "StateMachine",
+        curviness: 20
+      ]
+      connectorStyle:
+        strokeStyle: "green"
+        lineWidth: 2
+    return;
 
   jsPlumb.bind "jsPlumbConnection", (connection) ->
     form = $(connection.source).closest('form');
@@ -173,6 +195,7 @@ window.initMatchInteraction = ->
     hiddenElements = form.find('input:hidden[value="' + inputValue + '"]')
     hiddenElements.each (index,element)->
       $(element).remove();
+      return;
     return;
 
   return

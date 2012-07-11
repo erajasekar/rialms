@@ -540,9 +540,11 @@ class QtiTagLib {
         String responseIdentifier = getRequiredAttribute(attrs, Consts.responseIdentifier, uitag);
         List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
 
+        log.info("RAJA responseValues => ${responseValues}")
         responseValues.each{ responseValue ->
-            out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
+            //out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
         }
+
         boolean shuffle = getRequiredAttribute(attrs, 'shuffle', uitag)?.toBoolean();
 
         Node prompt;
@@ -622,7 +624,7 @@ class QtiTagLib {
                                 identifier: choice.attribute('identifier'),
                                 matchMax: choice.attribute('matchMax'),
                                 (Consts.responseIdentifier): responseIdentifier,
-                                (Consts.role): Consts.lhs
+                                (Consts.role): Consts.source
                         ]
                 );
                 out << """<span class="associable-choice" ${dataAttributes} >""";
@@ -639,7 +641,7 @@ class QtiTagLib {
                                 identifier: choice.attribute('identifier'),
                                 matchMax: choice.attribute('matchMax'),
                                 (Consts.responseIdentifier): responseIdentifier,
-                                (Consts.role): Consts.rhs
+                                (Consts.role): Consts.target
                         ]
                 );
                 out << """<span class="associable-choice" ${dataAttributes} >""";

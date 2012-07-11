@@ -4,7 +4,7 @@ modules = {
     }
 
     core {
-        dependsOn 'jquery,jquery-ui,mybootstrap,coffee,angular,jsPlumb'
+        dependsOn 'jquery,jquery-ui,mybootstrap,coffee,angular,jsPlumb,jqueryPlugins'
         resource url: 'js/sample.js'
         resource url: 'css/rialms.css'
 
@@ -40,5 +40,9 @@ modules = {
 
     jsPlumb {
         resource url: 'js/jsPlumb/jquery.jsPlumb-1.3.10-all.js'
+    }
+
+    jqueryPlugins {
+        resource url: 'js/jquery/jquery.dataSelector.js'
     }
 }

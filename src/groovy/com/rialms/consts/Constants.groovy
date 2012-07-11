@@ -91,8 +91,8 @@ class Constants {
     public static final String templateIdentifier = "templateIdentifier"
     public static final String value = "value"
     public static final String role = 'role';
-    public static final String lhs = 'lhs';
-    public static final String rhs = 'rhs';
+    public static final String source = 'source';
+    public static final String target = 'target';
 
 
 
