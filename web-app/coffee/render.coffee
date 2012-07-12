@@ -143,13 +143,32 @@ window.initMatchInteraction = ->
   $(".associable-choice").each (index, element) ->
     jqueryElement = $(element)
     responseIdentifier =  jqueryElement.data('responseidentifier')
-    isSource = jqueryElement.data("role") is "source"
-    jsPlumb.addEndpoint element,
-      anchor: (if isSource then "RightMiddle" else "LeftMiddle")
-      isSource: isSource
-      isTarget: not isSource
-      maxConnections: jqueryElement.data('matchmax'),
-      endPointOptions
+
+    if jqueryElement.data("role") is "sourceAndTarget"
+      console.log(element)
+      jsPlumb.draggable(element);
+      jsPlumb.makeSource jqueryElement,
+        #parent:jqueryElement.parent()
+        anchor: "Continuous"
+        connector: connector
+        connectorStyle:connectorStyle
+        maxConnections: jqueryElement.data('matchmax'),
+        endPointOptions
+
+      jsPlumb.makeTarget jqueryElement,
+        anchor : "Continuous"
+        maxConnections: jqueryElement.data('matchmax'),
+        endPointOptions
+
+      return;
+    else
+      isSource = jqueryElement.data("role") is "source"
+      jsPlumb.addEndpoint element,
+        anchor: (if isSource then "RightMiddle" else "LeftMiddle")
+        isSource: isSource
+        isTarget: not isSource
+        maxConnections: jqueryElement.data('matchmax'),
+        endPointOptions
     return
 
   parent = $('.associable-choice').closest('.match-interaction , .association-interaction');

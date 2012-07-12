@@ -60,6 +60,7 @@ public enum Tag {
     inlineChoiceInteraction,
     orderInteraction,
     matchInteraction,
+    associateInteraction,
     gapMatchInteraction,
     gapText,
     gap,

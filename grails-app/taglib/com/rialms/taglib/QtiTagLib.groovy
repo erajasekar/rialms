@@ -652,6 +652,78 @@ class QtiTagLib {
         out << "</div>"
     }
 
+    def associateInteraction = {attrs ->
+        String uitag = 'associateInteraction';
+
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', uitag);
+        attrs += xmlNode.attributes();
+
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', uitag);
+
+        String responseIdentifier = getRequiredAttribute(attrs, Consts.responseIdentifier, uitag);
+        List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
+        //TODO p3: maxAssociations and minAssociations attributes for matchInteraction are not used.
+
+        boolean shuffle = getRequiredAttribute(attrs, 'shuffle', uitag)?.toBoolean();
+
+        Node prompt;
+        Map fixedChoices = [:];    //<position, choice >
+        List shuffledChoices = [];
+        List allChoices = [];
+        int position = 0;
+        xmlNode.children().each {child ->
+            Tag tag = Tag.valueOf(child.name());
+            switch (tag) {
+                case Tag.prompt: prompt = child;
+                    break;
+                case Tag.simpleAssociableChoice:
+                    if (!assessmentItemInfo.checkForHiddenElement(child, Tag.simpleAssociableChoice)) {
+                        if (child.attribute("fixed")?.toBoolean()) {
+                            fixedChoices[position] = child;
+                        } else {
+                            if (shuffle) {
+                                shuffledChoices << child;
+                            } else {
+                                fixedChoices[position] = child;
+                            }
+                        }
+                        position++;
+                    }
+                    break;
+            }
+        }
+        if (shuffle) {
+            allChoices = CollectionUtils.shuffleWithFixedPositions(shuffledChoices, fixedChoices);
+        } else {
+            allChoices = CollectionUtils.orderValuesByPosition(fixedChoices);
+        }
+        out << """<div class='associate-interaction'>""";
+
+        if (prompt) {
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
+        }
+        out << "<br/><br/>"
+
+        String dataAttributes;
+
+        allChoices.each{ choice ->
+            out << """<div class="row-fluid">"""
+            out << """<div class="span12">"""
+            dataAttributes = CollectionUtils.convertMapToDataAttributes(
+                    [
+                            identifier: choice.attribute('identifier'),
+                            matchMax: choice.attribute('matchMax'),
+                            (Consts.responseIdentifier): responseIdentifier,
+                            (Consts.role): Consts.sourceAndTarget
+                    ]
+            );
+            out << """<span class="associable-choice" ${dataAttributes} >""";
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: choice, assessmentItemInfo: assessmentItemInfo]);
+            out << "</span></div></div>";
+        }
+        out << "</div>"
+    }
+
     def hiddenElement = {  attrs ->
 
         String tag = 'hiddenElement';
