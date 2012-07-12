@@ -112,9 +112,8 @@ class AssessmentItemInfo {
 
     public void processResponses(Map params) {
         setResponses(params);
-        log.info("DEBUG Processing responses with params ${params}")
         assessmentItem.processResponses();
-        log.info("DEBUG Response after processing ${responseValues}")
+        log.debug("Response after processing ${responseValues}")
         log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
 
     }

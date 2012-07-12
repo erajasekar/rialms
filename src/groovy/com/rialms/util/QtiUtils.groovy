@@ -34,9 +34,8 @@ class QtiUtils {
                 } else {
                     respValue.each { if (!it.isEmpty()) {values.add(it)}}
                 }
-
-                map.put(i, values)
             }
+            map.put(i, values)
         }
         return map
     }

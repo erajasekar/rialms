@@ -539,8 +539,7 @@ class QtiTagLib {
 
         String responseIdentifier = getRequiredAttribute(attrs, Consts.responseIdentifier, uitag);
         List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
-
-
+        //TODO p3: maxAssociations and minAssociations attributes for matchInteraction are not used.
 
         boolean shuffle = getRequiredAttribute(attrs, 'shuffle', uitag)?.toBoolean();
 
@@ -581,8 +580,6 @@ class QtiTagLib {
             }
         }
 
-        log.info("RAJA fixed choices ${fixedChoices}")
-        log.info("RAJA shuffledChoices choices ${shuffledChoices}")
         if (shuffle) {
             fixedChoices.eachWithIndex {fixedChoice, index ->
                 allChoices[index] = CollectionUtils.shuffleWithFixedPositions(shuffledChoices[index], fixedChoices[index]);
@@ -597,14 +594,12 @@ class QtiTagLib {
 
         final int LHS = 0;
         final int RHS = 1;
-
-
-        log.info("RAJA all choices ${allChoices[0]}")
-        log.info("RAJA all choices ${allChoices[1]}")
+        log.debug("All LHS choices ${allChoices[0]}")
+        log.debug("All RHS choices ${allChoices[1]}")
 
         out << """<div class='match-interaction'>""";
 
-        log.info("RAJA responseValues ${responseValues}")
+        log.debug("responseValues ${responseValues}")
         responseValues.each{ responseValue ->
             out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
         }
@@ -616,14 +611,12 @@ class QtiTagLib {
         int lhsSize = allChoices[LHS].size()
         int rhsSize = allChoices[RHS].size();
         int rowCount = Math.max(lhsSize, rhsSize);
-        //log.info("RAJA rowCount ${rowCount}")
         Node choice;
         String dataAttributes;
 
         for (int i = 0; i < rowCount; i++) {
             out << """<div class="row-fluid">"""
             out << """<div class="span6 ">"""
-            //  log.info("RAJA ${i} == ${lhsSize} ==> ${allChoices[LHS][i]}");
             if (i < lhsSize) {
                 choice = allChoices[LHS][i];
                 dataAttributes = CollectionUtils.convertMapToDataAttributes(
@@ -640,7 +633,6 @@ class QtiTagLib {
             }
             out << "</div>"
             out << """<div class="span6 ">"""
-            //   log.info("RAJA ${i} == ${rhsSize} ==> ${allChoices[RHS][i]}");
             if (i < rhsSize) {
                 choice = allChoices[RHS][i];
                 dataAttributes = CollectionUtils.convertMapToDataAttributes(
