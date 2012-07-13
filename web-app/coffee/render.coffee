@@ -117,8 +117,8 @@ window.initMatchInteraction = ->
     lineWidth: 2
   }
   endpointStyle = {
-    width: 7
-    height: 7
+    width: 10
+    height: 10
     fillStyle: "green"
   }
   connector = [ "StateMachine", curviness: 20 ]
@@ -150,40 +150,19 @@ window.initMatchInteraction = ->
       anchor: "Continuous"
       connector: connector
       connectorStyle:connectorStyle
-      #maxConnections:-1
-      maxConnections: parent.data('matchmax'),
-      #endPointOptions
+      maxConnections: parent.data('matchmax')
     return;
-
-  ###jsPlumb.makeTarget jsPlumb.getSelector(".associable-choice"),
-    anchor : "Continuous"
-    #maxConnections: jqueryElement.data('matchmax'),###
-
-  ###increase = Math.PI * 2 / 6
-  x = 0
-  y = 0
-  angle = 0
-  $(".associable-choice").each (i, elem) ->
-    x = 100 * Math.cos(angle) + 200
-    y = 100 * Math.sin(angle) + 200
-    #elem.style.position = "absolute"
-    elem.style.left = x + "px"
-    elem.style.top = y + "px"
-    angle += increase
-    return###
 
   $(".associable-choice").each (index, element) ->
     jqueryElement = $(element)
     responseIdentifier =  jqueryElement.data('responseidentifier')
 
     if jqueryElement.data("role") is "sourceAndTarget"
-      console.log(element)
       jsPlumb.draggable(element,{containment:".associate-interaction"});
-      element.style.position = "absolute"
+      jqueryElement.css({position:'absolute', cursor:'move'})
       jsPlumb.makeTarget element,
         anchor : "Continuous"
-        maxConnections: jqueryElement.data('matchmax'),
-        endPointOptions
+        maxConnections: jqueryElement.data('matchmax')
     else
       isSource = jqueryElement.data("role") is "source"
       jsPlumb.addEndpoint element,
@@ -193,23 +172,30 @@ window.initMatchInteraction = ->
         maxConnections: jqueryElement.data('matchmax'),
         endPointOptions
     return
+  jsPlumb.repaintEverything();
 
-  parent = $('.associable-choice').closest('.match-interaction , .association-interaction');
+  ### parent = $('.associable-choice').closest('.match-interaction , .associate-interaction');
+#console.log(parent) ;
+hiddenElements = parent.find('input:hidden[name="' + responseIdentifier + '"]');
+hiddenElements.each (index,element)->
+  responseValues = $(element).attr('value').split(' ');
+  connections = jsPlumb.getConnections(source:source,target:target);
+  console.log(connections)
+  source = parent.find(':data(identifier='+ responseValues[0] + ')');
+  target = parent.find(':data(identifier='+ responseValues[1] + ')');
+  #console.log('connecting ' + $(source).data('identifier') + ' ' + $(target).data('identifier'));
 
-  hiddenElements = parent.find('input:hidden[name="' + responseIdentifier + '"]');
-  hiddenElements.each (index,element)->
-    responseValues = $(element).attr('value').split(' ');
-    source = parent.find(':data(role=source):data(identifier='+ responseValues[0] + ')');
-    target = parent.find(':data(role=target):data(identifier='+ responseValues[1] + ')');
+  if (connections.length <= 0)
     jsPlumb.connect
       source: source
       target: target
       endpoint: "Rectangle"
+      newConnection:false
       endpointStyle: endpointStyle
       anchors:["RightMiddle", "LeftMiddle" ]
       connector: connector
       paintStyle:connectorStyle
-    return;
+  return;###
 
   bindJsPlumbEvents();
 
@@ -221,7 +207,8 @@ window.bindJsPlumbEvents = ->
     return;
 
   jsPlumb.bind "jsPlumbConnection", (connection) ->
-    parent = $(connection.source).closest('.match-interaction , .association-interaction');
+    parent = $(connection.source).closest('.match-interaction , .associate-interaction');
+    console.log(parent);
     inputValue = connection.source.data('identifier') + ' ' + connection.target.data('identifier');
     hiddenElements = parent.find('input:hidden[value="' + inputValue + '"]')
     responseIdentifier =  connection.source.data('responseidentifier')
@@ -229,7 +216,7 @@ window.bindJsPlumbEvents = ->
     return;
 
   jsPlumb.bind "jsPlumbConnectionDetached", (connection) ->
-    parent = $(connection.source).closest('.match-interaction , .association-interaction');
+    parent = $(connection.source).closest('.match-interaction , .associate-interaction');
     inputValue = connection.source.data('identifier') + ' ' + connection.target.data('identifier');
     hiddenElements = parent.find('input:hidden[value="' + inputValue + '"]')
     hiddenElements.each (index,element)->

@@ -662,6 +662,10 @@ class QtiTagLib {
 
         String responseIdentifier = getRequiredAttribute(attrs, Consts.responseIdentifier, uitag);
         List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
+
+        log.info("DEBUG responseValues ${responseValues}")
+
+
         //TODO p3: maxAssociations and minAssociations attributes for matchInteraction are not used.
 
         boolean shuffle = getRequiredAttribute(attrs, 'shuffle', uitag)?.toBoolean();
@@ -698,6 +702,10 @@ class QtiTagLib {
             allChoices = CollectionUtils.orderValuesByPosition(fixedChoices);
         }
         out << """<div class='associate-interaction' >""";
+
+        responseValues.each{ responseValue ->
+            out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
+        }
 
         if (prompt) {
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
@@ -804,7 +812,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-               com.rialms.util.Less2Css.run();
+           //    com.rialms.util.Less2Css.run();
         }
     }
 
