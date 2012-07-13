@@ -124,6 +124,7 @@ window.initMatchInteraction = ->
   connector = [ "StateMachine", curviness: 20 ]
 
   jsPlumb.importDefaults(
+    Endpoint : ["Dot", {radius:2}]
     ConnectionOverlays: [ [ "Arrow",
       location: 1
       id: "arrow"
@@ -140,27 +141,49 @@ window.initMatchInteraction = ->
   }
 
   responseIdentifier = '';
+
+  $(".associable-choice-endpoint").each (index, element) ->
+    jqueryElement = $(element)
+    parent = jqueryElement.parent()
+    jsPlumb.makeSource jqueryElement,
+      parent: parent
+      anchor: "Continuous"
+      connector: connector
+      connectorStyle:connectorStyle
+      #maxConnections:-1
+      maxConnections: parent.data('matchmax'),
+      #endPointOptions
+    return;
+
+  ###jsPlumb.makeTarget jsPlumb.getSelector(".associable-choice"),
+    anchor : "Continuous"
+    #maxConnections: jqueryElement.data('matchmax'),###
+
+  ###increase = Math.PI * 2 / 6
+  x = 0
+  y = 0
+  angle = 0
+  $(".associable-choice").each (i, elem) ->
+    x = 100 * Math.cos(angle) + 200
+    y = 100 * Math.sin(angle) + 200
+    #elem.style.position = "absolute"
+    elem.style.left = x + "px"
+    elem.style.top = y + "px"
+    angle += increase
+    return###
+
   $(".associable-choice").each (index, element) ->
     jqueryElement = $(element)
     responseIdentifier =  jqueryElement.data('responseidentifier')
 
     if jqueryElement.data("role") is "sourceAndTarget"
       console.log(element)
-      jsPlumb.draggable(element);
-      jsPlumb.makeSource jqueryElement,
-        #parent:jqueryElement.parent()
-        anchor: "Continuous"
-        connector: connector
-        connectorStyle:connectorStyle
-        maxConnections: jqueryElement.data('matchmax'),
-        endPointOptions
-
-      jsPlumb.makeTarget jqueryElement,
+      jsPlumb.draggable(element,{containment:".associate-interaction"});
+      element.style.position = "absolute"
+      jsPlumb.makeTarget element,
         anchor : "Continuous"
         maxConnections: jqueryElement.data('matchmax'),
         endPointOptions
-
-      return;
     else
       isSource = jqueryElement.data("role") is "source"
       jsPlumb.addEndpoint element,

@@ -155,3 +155,8 @@ a.toggleNav:hover {
   box-shadow: 2px 2px 19px #eeeeee;
   border-radius: 5px;
 }
+.associable-choice-endpoint {
+  padding: 10px;
+  background-color: #62c729;
+  cursor: pointer;
+}

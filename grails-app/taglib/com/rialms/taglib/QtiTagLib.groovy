@@ -697,7 +697,7 @@ class QtiTagLib {
         } else {
             allChoices = CollectionUtils.orderValuesByPosition(fixedChoices);
         }
-        out << """<div class='associate-interaction'>""";
+        out << """<div class='associate-interaction' >""";
 
         if (prompt) {
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
@@ -719,7 +719,7 @@ class QtiTagLib {
             );
             out << """<span class="associable-choice" ${dataAttributes} >""";
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: choice, assessmentItemInfo: assessmentItemInfo]);
-            out << "</span></div></div>";
+            out << "<span class='associable-choice-endpoint'>&nbsp;</span></span></div></div>";
         }
         out << "</div>"
     }
@@ -804,7 +804,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-            //   com.rialms.util.Less2Css.run();
+               com.rialms.util.Less2Css.run();
         }
     }
 
