@@ -701,7 +701,7 @@ class QtiTagLib {
         } else {
             allChoices = CollectionUtils.orderValuesByPosition(fixedChoices);
         }
-        out << """<div class='associate-interaction' >""";
+        out << """<div class='associate-interaction' data-initialized='false' >""";
 
         responseValues.each{ responseValue ->
             out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
@@ -722,7 +722,8 @@ class QtiTagLib {
                             identifier: choice.attribute('identifier'),
                             matchMax: choice.attribute('matchMax'),
                             (Consts.responseIdentifier): responseIdentifier,
-                            (Consts.role): Consts.sourceAndTarget
+                            (Consts.role): Consts.sourceAndTarget ,
+                            'original-title':'test tool tip'
                     ]
             );
             out << """<span class="associable-choice" ${dataAttributes} >""";

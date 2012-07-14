@@ -48,7 +48,7 @@ window.updateRenderedItem = (data) ->
   return
 
 window.initTestRendering = ->
-  $("a").tooltip()
+  $("*").tooltip()
   $('.dropdown-toggle').dropdown();
   window.initInteractions();
   $("a.toggleNav").click ->
@@ -90,7 +90,7 @@ window.initGapInteraction =->
       #Accept only if droppedOn is empty
       if (droppedOnSpan.html() is "&nbsp;")
         matchMax =  (Number) droppedElement.data('matchmax')
-        console.log("matchMax #{matchMax}")
+        #console.log("matchMax #{matchMax}")
         if matchMax > 1
           droppedElement.data("matchmax", --matchMax)
           droppedElement = ui.draggable.clone()
@@ -111,6 +111,9 @@ window.initAngularScopeObjects = (data)->
   return
 
 window.initMatchInteraction = ->
+  #console.log($('.associate-interaction').data('initialized'));
+  if ($('.associate-interaction').data('initialized'))
+    return;
 
   connectorStyle = {
     strokeStyle: "green"
@@ -172,20 +175,14 @@ window.initMatchInteraction = ->
         maxConnections: jqueryElement.data('matchmax'),
         endPointOptions
     return
-  jsPlumb.repaintEverything();
 
-  ### parent = $('.associable-choice').closest('.match-interaction , .associate-interaction');
-#console.log(parent) ;
-hiddenElements = parent.find('input:hidden[name="' + responseIdentifier + '"]');
-hiddenElements.each (index,element)->
-  responseValues = $(element).attr('value').split(' ');
-  connections = jsPlumb.getConnections(source:source,target:target);
-  console.log(connections)
-  source = parent.find(':data(identifier='+ responseValues[0] + ')');
-  target = parent.find(':data(identifier='+ responseValues[1] + ')');
-  #console.log('connecting ' + $(source).data('identifier') + ' ' + $(target).data('identifier'));
-
-  if (connections.length <= 0)
+  parent = $('.associable-choice').closest('.match-interaction , .associate-interaction');
+  hiddenElements = parent.find('input:hidden[name="' + responseIdentifier + '"]');
+  #console.log(hiddenElements) ;
+  hiddenElements.each (index,element)->
+    responseValues = $(element).attr('value').split(' ');
+    source = parent.find(':data(identifier='+ responseValues[0] + ')');
+    target = parent.find(':data(identifier='+ responseValues[1] + ')');
     jsPlumb.connect
       source: source
       target: target
@@ -195,10 +192,9 @@ hiddenElements.each (index,element)->
       anchors:["RightMiddle", "LeftMiddle" ]
       connector: connector
       paintStyle:connectorStyle
-  return;###
 
   bindJsPlumbEvents();
-
+  $('.associate-interaction').data('initialized','true')
   return
 
 window.bindJsPlumbEvents = ->
@@ -208,7 +204,6 @@ window.bindJsPlumbEvents = ->
 
   jsPlumb.bind "jsPlumbConnection", (connection) ->
     parent = $(connection.source).closest('.match-interaction , .associate-interaction');
-    console.log(parent);
     inputValue = connection.source.data('identifier') + ' ' + connection.target.data('identifier');
     hiddenElements = parent.find('input:hidden[value="' + inputValue + '"]')
     responseIdentifier =  connection.source.data('responseidentifier')
