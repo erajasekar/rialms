@@ -10,6 +10,7 @@
             <assessmentItemRef identifier="order" href="order.xml"></assessmentItemRef>
             <assessmentItemRef identifier="match" href="match.xml"></assessmentItemRef>
             <assessmentItemRef identifier="associate" href="associate.xml"></assessmentItemRef>
+            <assessmentItemRef identifier="hottext" href="hottext.xml"></assessmentItemRef>
             <assessmentItemRef identifier="gapMatch" href="gap_match.xml"></assessmentItemRef>
             <assessmentItemRef identifier="choiceFixed" href="choice_fixed.xml"></assessmentItemRef>
             <assessmentItemRef identifier="choiceMultiple" href="choice_multiple.xml"></assessmentItemRef>

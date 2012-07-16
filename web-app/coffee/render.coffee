@@ -48,7 +48,7 @@ window.updateRenderedItem = (data) ->
   return
 
 window.initTestRendering = ->
-  $("*").tooltip()
+  $("a , div, span").tooltip()
   $('.dropdown-toggle').dropdown();
   window.initInteractions();
   $("a.toggleNav").click ->

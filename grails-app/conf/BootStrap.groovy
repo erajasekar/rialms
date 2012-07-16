@@ -58,7 +58,6 @@ class BootStrap {
         //21-25
         itemService.createItem('qti','match.xml');
         itemService.createItem('qti','associate.xml');
-        itemService.createItem('qti','hotspot.xml');
         itemService.createItem('qti','hottext.xml');
         itemService.createItem('qti','gap_match.xml');
     }

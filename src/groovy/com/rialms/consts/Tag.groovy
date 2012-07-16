@@ -64,6 +64,8 @@ public enum Tag {
     gapMatchInteraction,
     gapText,
     gap,
+    hottextInteraction,
+    hottext,
     feedbackBlock,
     feedbackInline,
     modalFeedback,

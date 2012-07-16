@@ -66,6 +66,18 @@
             <qti:inlineChoiceInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>
 
+        <g:elseif test="${tag == Tag.hottextInteraction}">
+            <qti:hottextInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
+        </g:elseif>
+
+        <g:elseif test="${tag == Tag.hottext}">
+            <qti:hottext xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
+        </g:elseif>
+
+        <g:elseif test="${tag == Tag.gap}">
+            <qti:gap xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
+        </g:elseif>
+
         <g:elseif test="${tag == Tag.printedVariable}">
             <g:if test="${assessmentItemInfo && !assessmentItemInfo.is(AssessmentItemInfo.BLANK_ITEM)}">
                 <qti:printedVariable xmlAttributes="${n.attributes()}"

@@ -115,7 +115,8 @@ a.toggleNav {
         padding: 5px;
         span{
             .pad;
-            border:1px solid @blockContentBorder;
+            .create-shadow-border(@grayLighter,@green);
+            cursor: move;
             border-left-width:3px;
         }
     }
@@ -125,28 +126,25 @@ a.toggleNav {
     display:inline-block;
     margin: 0px 10px 20px 10px;
     padding: 5px 30px 5px 30px;
-    .create-border(@blockContentBorder);
+    cursor: move;
+    .create-shadow-border(@grayLighter,@green);
 }
 
 .droppable-gap{
    // display:inline-block;
     margin: 5px;
     padding: 5px 30px 5px 30px;
-    .create-border(@blockContentBorder);
+    .create-shadow-border(@grayLighter,@green);
 }
 
 .associable-choice{
     .pad;
     margin: 10px;
-    border: 1px solid @green;
-    box-shadow: 2px 2px 19px @grayLighter;
+    .create-shadow-border(@grayLighter,@green);
     border-radius: 5px;
 }
-//TODO customize
-.associable-choice-endpoint {
 
-    //width:10px;
-    //height:10px;
+.associable-choice-endpoint {
     padding: 0px 5px 0px 5px;
     background-color:@green;
     cursor:pointer;

@@ -2,6 +2,10 @@
      border:1px solid darken(spin(@background, -10), 5%);
 }
 
+.create-shadow-border(@shadowColor,@borderColor){
+    border: 1px solid @borderColor;
+    box-shadow: 2px 2px 20px @shadowColor;
+}
 .center{
     text-align: center;
 }

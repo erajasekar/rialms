@@ -624,7 +624,8 @@ class QtiTagLib {
                                 identifier: choice.attribute('identifier'),
                                 matchMax: choice.attribute('matchMax'),
                                 (Consts.responseIdentifier): responseIdentifier,
-                                (Consts.role): Consts.source
+                                (Consts.role): Consts.source,
+                                'original-title': g.message(code: 'associableChoice.tooltip')
                         ]
                 );
                 out << """<span class="associable-choice" ${dataAttributes} >""";
@@ -640,7 +641,8 @@ class QtiTagLib {
                                 identifier: choice.attribute('identifier'),
                                 matchMax: choice.attribute('matchMax'),
                                 (Consts.responseIdentifier): responseIdentifier,
-                                (Consts.role): Consts.target
+                                (Consts.role): Consts.target  ,
+                                'original-title': g.message(code: 'associableChoice.tooltip')
                         ]
                 );
                 out << """<span class="associable-choice" ${dataAttributes} >""";
@@ -663,7 +665,7 @@ class QtiTagLib {
         String responseIdentifier = getRequiredAttribute(attrs, Consts.responseIdentifier, uitag);
         List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
 
-        log.info("DEBUG responseValues ${responseValues}")
+        log.debug("responseValues ${responseValues}")
 
 
         //TODO p3: maxAssociations and minAssociations attributes for matchInteraction are not used.
@@ -723,14 +725,53 @@ class QtiTagLib {
                             matchMax: choice.attribute('matchMax'),
                             (Consts.responseIdentifier): responseIdentifier,
                             (Consts.role): Consts.sourceAndTarget ,
-                            'original-title':'test tool tip'
+                            'original-title': g.message(code: 'associableChoice.tooltip')
                     ]
             );
             out << """<span class="associable-choice" ${dataAttributes} >""";
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: choice, assessmentItemInfo: assessmentItemInfo]);
-            out << "<span class='associable-choice-endpoint'>&nbsp;</span></span></div></div>";
+            out << """<span class='associable-choice-endpoint'>&nbsp;</span></span></div></div>""";
         }
         out << "</div>"
+    }
+
+    def hottextInteraction = {  attrs ->
+
+        String tag = 'hottextInteraction';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        out << """<div>""";
+        out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+        out << """</div>""";
+    }
+
+    def hottext = {  attrs ->
+
+        String tag = 'hottext';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        attrs += xmlNode.attributes();
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        String identifier = getRequiredAttribute(attrs, Consts.identifier, tag);;
+        Node hottextInteraction = QtiUtils.findParentByTag(xmlNode, Tag.hottextInteraction)
+        String responseIdentifier = hottextInteraction.attribute(Consts.responseIdentifier);
+        List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
+        log.debug("responseValues ${responseValues}");
+
+        String maxChoices = hottextInteraction.attribute(Consts.maxChoices);
+        String type = maxChoices.toInteger() == 1 ? 'radio': 'checkbox';
+
+        Map fieldAttributes = [type:type, name: responseIdentifier,value: identifier];
+        boolean checked = responseValues && responseValues.contains(identifier);
+
+        //TODO p1, handle template matching
+        if (checked){
+            out << """<input ${CollectionUtils.convertMapToAttributes(fieldAttributes)} checked ><b>"""
+        }else{
+            out << """<input ${CollectionUtils.convertMapToAttributes(fieldAttributes)}><b>"""
+        }
+
+        out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+        out << "</b></input>"
     }
 
     def hiddenElement = {  attrs ->
@@ -813,7 +854,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-           //    com.rialms.util.Less2Css.run();
+               com.rialms.util.Less2Css.run();
         }
     }
 
