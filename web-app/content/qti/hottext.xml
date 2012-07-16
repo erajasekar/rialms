@@ -14,20 +14,6 @@
 			<value>0</value>
 		</defaultValue>
 	</outcomeDeclaration>
-    <!--TODO remove template -->
-    <templateDeclaration identifier="SEASON" cardinality="single" baseType="identifier"
-                         mathVariable="false" paramVariable="false"/>
-    <templateProcessing>
-        <setTemplateValue identifier="SEASON">
-            <random>
-                <multiple>
-                    <baseValue baseType="identifier">X</baseValue>
-                    <baseValue baseType="identifier">Y</baseValue>
-                    <baseValue baseType="identifier">Z</baseValue>
-                </multiple>
-            </random>
-        </setTemplateValue>
-    </templateProcessing>
 	<itemBody>
 		<rubricBlock view="candidate">
 			<p>Select the error in the following passage of text (or <em>No Error</em> if there is
@@ -38,7 +24,7 @@
 				advertising time on United States television <hottext identifier="B">includes</hottext>
 				<hottext identifier="C">at least</hottext> a dozen international firms <hottext
 					identifier="D">whose</hottext> names are familiar to American consumers.
-                    <hottext templateIdentifier="SEASON" showHide="show" identifier="Z">optional template</hottext> <hottext identifier="E">No error.</hottext>
+					<hottext identifier="E">No error.</hottext>
 			</p>
 		</hottextInteraction>
 	</itemBody>
