@@ -751,27 +751,31 @@ class QtiTagLib {
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         attrs += xmlNode.attributes();
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        String identifier = getRequiredAttribute(attrs, Consts.identifier, tag);;
-        Node hottextInteraction = QtiUtils.findParentByTag(xmlNode, Tag.hottextInteraction)
-        String responseIdentifier = hottextInteraction.attribute(Consts.responseIdentifier);
-        List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
-        log.debug("responseValues ${responseValues}");
 
-        String maxChoices = hottextInteraction.attribute(Consts.maxChoices);
-        String type = maxChoices.toInteger() == 1 ? 'radio': 'checkbox';
+        if (!assessmentItemInfo.checkForHiddenElement(xmlNode, Tag.hottext)) {
+            String identifier = getRequiredAttribute(attrs, Consts.identifier, tag);;
+            Node hottextInteraction = QtiUtils.findParentByTag(xmlNode, Tag.hottextInteraction)
+            String responseIdentifier = hottextInteraction.attribute(Consts.responseIdentifier);
+            List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
+            log.debug("responseValues ${responseValues}");
 
-        Map fieldAttributes = [type:type, name: responseIdentifier,value: identifier];
-        boolean checked = responseValues && responseValues.contains(identifier);
+            String maxChoices = hottextInteraction.attribute(Consts.maxChoices);
+            String type = maxChoices.toInteger() == 1 ? 'radio': 'checkbox';
 
-        //TODO p1, handle template matching
-        if (checked){
-            out << """<input ${CollectionUtils.convertMapToAttributes(fieldAttributes)} checked ><b>"""
+            Map fieldAttributes = [type:type, name: responseIdentifier,value: identifier];
+            boolean checked = responseValues && responseValues.contains(identifier);
+
+            if (checked){
+                out << """<input ${CollectionUtils.convertMapToAttributes(fieldAttributes)} checked ><b>"""
+            }else{
+                out << """<input ${CollectionUtils.convertMapToAttributes(fieldAttributes)}><b>"""
+            }
+
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+            out << "</b></input>"
         }else{
-            out << """<input ${CollectionUtils.convertMapToAttributes(fieldAttributes)}><b>"""
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
         }
-
-        out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
-        out << "</b></input>"
     }
 
     def hiddenElement = {  attrs ->
