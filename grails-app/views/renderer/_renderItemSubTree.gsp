@@ -86,15 +86,11 @@
                                      outcomeValues="${assessmentItemInfo.outcomeValues}"
                                      outcomeDeclarations="${assessmentItemInfo.outcomeDeclarations}"/>
             </g:if>
-            <g:elseif test="${assessmentParams}">
+            <g:if test="${assessmentParams}">
                 <qti:printedVariable xmlAttributes="${n.attributes()}"
                                      outcomeValues="${assessmentParams.outcomeValues}"
                                      outcomeDeclarations="${assessmentParams.outcomeDeclarations}"/>
-            </g:elseif>
-            <g:else>
-                Error Both  assessmentItemInfo and assessmentParams is null
-            </g:else>
-
+            </g:if>
         </g:elseif>
 
         <g:elseif test="${tag == Tag.endAttemptInteraction}">

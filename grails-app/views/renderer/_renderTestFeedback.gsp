@@ -8,18 +8,27 @@
 --%>
 <div id='testFeedback'>
     <g:if test="${assessmentParams[Consts.assessmentFeedback] || assessmentParams[Consts.testPartFeedback]}">
-        <g:if test="${assessmentParams[Consts.assessmentFeedback]}">
-            <g:each var="assessmentFeedback" in="${assessmentParams[Consts.assessmentFeedback].children()}">
-                <g:render template="/renderer/renderItemSubTree"
-                          model="[node: assessmentFeedback, assessmentParams: assessmentParams]"/>
-            </g:each>
-        </g:if>
-        <g:if test="${assessmentParams[Consts.testPartFeedback]}">
-            <g:each var="testPartFeedback" in="${assessmentParams[Consts.testPartFeedback].children()}">
-                <g:render template="/renderer/renderItemSubTree"
-                          model="[node: testPartFeedback, assessmentParams: assessmentParams]"/>
-            </g:each>
-        </g:if>
+        <div class="simple-header">
+            <h4>
+                <g:message code="test.feedback.message"/>
+            </h4>
+        </div>
+
+        <div class="block-content">
+            <g:if test="${assessmentParams[Consts.assessmentFeedback]}">
+
+                <g:each var="assessmentFeedback" in="${assessmentParams[Consts.assessmentFeedback].children()}">
+                    <g:render template="/renderer/renderItemSubTree"
+                              model="[node: assessmentFeedback, assessmentParams: assessmentParams]"/>
+                </g:each>
+            </g:if>
+            <g:if test="${assessmentParams[Consts.testPartFeedback]}">
+                <g:each var="testPartFeedback" in="${assessmentParams[Consts.testPartFeedback].children()}">
+                    <g:render template="/renderer/renderItemSubTree"
+                              model="[node: testPartFeedback, assessmentParams: assessmentParams]"/>
+                </g:each>
+            </g:if>
+        </div>
     </g:if>
     <g:else>
         <g:if test="${params.action == 'feedback'}">

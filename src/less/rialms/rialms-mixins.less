@@ -2,9 +2,9 @@
      border:1px solid darken(spin(@background, -10), 5%);
 }
 
-.create-shadow-border(@shadowColor,@borderColor){
+.create-shadow-border(@borderColor){
     border: 1px solid @borderColor;
-    box-shadow: 2px 2px 20px @shadowColor;
+    .shadow;
 }
 .center{
     text-align: center;
@@ -12,4 +12,8 @@
 
 .pad{
     padding: 5px 15px 5px 15px;
+}
+
+.shadow(@shadowColor:#eee){
+    box-shadow: 2px 2px 20px @shadowColor;
 }
