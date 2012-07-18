@@ -18,34 +18,34 @@
 <r:script>
     $(document).ready(function () {
         initTestRendering();
-        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, assessmentParams, Consts.testStatusModel,Consts.navigationButtonStates)});
+        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, assessmentParams, Consts.testStatusModel, Consts.navigationButtonStates)});
     });
 </r:script>
 
 <g:render template="/renderer/renderTestTitle" model="[testTitle: assessmentParams[Consts.title]]"/>
 
 <div class="row-fluid">
-    <div class="span3">
-        <a href="#" rel="tooltip" class="toggleNav pull-right" title="Hide Sidebar"><span>&laquo;</span></a>
-    </div>
-</div>
-
-<div class="row-fluid">
-
-    <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
-
-    <div class="span9" id="content">
-
+    <div class="span12">
         <g:if test="${flash.message}">
             <g:message code="${flash.message}"/>
         </g:if>
-        <!--TODO format validation errors, if there are validation errors, status nav should not show up -->
         <g:if test="${!assessmentParams.validationResult.allItems.isEmpty()}">
-            <g:render template="/renderer/renderValidationErrors"
-                      model="[validationErrors: assessmentParams[Consts.validationResult].allItems]"/>
+            <g:render template="/renderer/renderValidationErrors" model="[(Consts.validationResult): assessmentParams[Consts.validationResult]]"/>
         </g:if>
+    </div>
+</div>
+<g:if test="${assessmentParams[Consts.validationResult].errors.isEmpty()}">
+    <div class="row-fluid">
+        <div class="span3">
+            <a href="#" rel="tooltip" class="toggleNav pull-right" title="Hide Sidebar"><span>&laquo;</span></a>
+        </div>
+    </div>
 
-        <g:if test="${assessmentParams[Consts.validationResult].errors.isEmpty()}">
+    <div class="row-fluid">
+
+        <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
+
+        <div class="span9" id="content">
 
             <g:if test="${assessmentParams[Consts.timeRemaining] > 0}">
                 <r:script disposition='head'>
@@ -72,11 +72,10 @@
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
 
                 <div id="AssessmentForm">
-                    <% System.out.println "RAJA ${!assessmentParams[Consts.submitEnabled]} " %>
                     <g:render template="/renderer/renderAssessmentHeader"
-                              model="[(Consts.assessmentTitle): assessmentItemInfo.title, (Consts.submitDisabled):!assessmentParams[Consts.submitEnabled]]"/>
+                              model="[(Consts.assessmentTitle): assessmentItemInfo.title, (Consts.submitDisabled): !assessmentParams[Consts.submitEnabled]]"/>
                     <g:render template="/renderer/renderAssessmentItem"/>
-                    <g:render template="/renderer/renderTestFeedback"/>
+                    <g:render template="/renderer/renderTestFeedback" model="[(Consts.includeHeader): true]"/>
                     <div class="form-actions" id="${Consts.navigationControls}">
                         <%
                             JsObjectUtil.PropertyConstructor buttonStates = new JsObjectUtil.PropertyConstructor(Consts.navigationButtonStates)
@@ -101,15 +100,15 @@
                 </div>
             </g:formRemote>
 
-        </g:if>
-        <g:if test="${params.showInternalState}">
-            <g:render template="/renderer/renderInternalState"
-                      model="[outcomeValues: assessmentItemInfo[Consts.outcomeValues], divId: Consts.itemOutcomeValues]"/>
-            <g:render template="/renderer/renderInternalState"
-                      model="[outcomeValues: assessmentParams[Consts.outcomeValues], divId: Consts.testOutcomeValues]"/>
-        </g:if>
+        </div>
     </div>
-</div>
+</g:if>
+<g:if test="${params.showInternalState}">
+    <g:render template="/renderer/renderInternalState"
+              model="[outcomeValues: assessmentItemInfo[Consts.outcomeValues], divId: Consts.itemOutcomeValues]"/>
+    <g:render template="/renderer/renderInternalState"
+              model="[outcomeValues: assessmentParams[Consts.outcomeValues], divId: Consts.testOutcomeValues]"/>
+</g:if>
 
 </body>
 </html>

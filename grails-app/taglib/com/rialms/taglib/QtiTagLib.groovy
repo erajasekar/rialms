@@ -881,21 +881,6 @@ class QtiTagLib {
         return getAttribute(attrs, name, null, false);
     }
 
-    //TODO P2 remove if this method is not used
-    protected String getAttributesAsData(Map attrs, String tagName, List requiredAttributes, List optionalAttributes = []) {
-        StringBuilder sb = new StringBuilder();
-        if (requiredAttributes) {
-            requiredAttributes.each { attrName ->
-                sb.append("${Consts.data}-${attrName.toString().toLowerCase()}=${getRequiredAttribute(attrs, attrName, tagName)} ");
-            }
-        }
-        optionalAttributes.each {  attrName ->
-            sb.append("${Consts.data}-${attrName.toString().toLowerCase()}=${getOptionalAttribute(attrs, attrName)}");
-        }
-        log.debug("getAttributesAsData result ${sb}");
-        return sb.toString();
-    }
-
     private EndAttemptButton getEndAttemptButton(String buttonIdentifier) {
         (buttonIdentifier == hintIdentifier) ? EndAttemptButton.hint : (buttonIdentifier == solutionIdentifier ? EndAttemptButton.solution : EndAttemptButton.other)
     }

@@ -18,7 +18,7 @@ class TestController {
         if (!params.max) params.max = 50
         [testList: Test.list(params)]
     }
-    //TODO P2 remove after testing
+    //TODO P3 remove after testing
     def angular = {
         render (view:'angular');
     }
@@ -140,7 +140,7 @@ class TestController {
             }
 
             //Render if any test feedback
-            renderOutput.testFeedback = g.render(template: '/renderer/renderTestFeedback', model: testRenderInfo.toPropertiesMap());
+            renderOutput.testFeedback = g.render(template: '/renderer/renderTestFeedback', model: testRenderInfo.toPropertiesMap() + [(Consts.includeHeader):true]);
             log.info("Render Output ${renderOutput}");
             render renderOutput as JSON;
         }

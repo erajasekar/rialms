@@ -27,11 +27,10 @@
 
         <g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
-                      model="[validationErrors: flash[Consts.validationResult].allItems]"/>
+                      model="[validationResult: flash[Consts.validationResult]]"/>
         </g:if>
 
         <g:if test="${flash[Consts.validationResult].getErrors().isEmpty()}">
-            <div id='message'></div>
 
             <div id='error'></div>
             <g:formRemote name="AssessmentItemForm"

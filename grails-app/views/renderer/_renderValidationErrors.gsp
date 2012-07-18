@@ -5,9 +5,13 @@
   Time: 05:20 PM
   To change this template use File | Settings | File Templates.
 --%>
-<ul>
-    <g:message code="item.validation.error.message" />
-    <g:each var='error' in="${validationErrors}" >
-        <li> ${error} </li>
-    </g:each>
-</ul>
+<% String alertClass = validationResult.errors.isEmpty() ? 'alert alert-warning' :'alert alert-error' %>
+<div class="${alertClass}">
+    <a class="close" data-dismiss="alert" href="#">&times;</a>
+    <dl>
+        <dt> <g:message code="item.validation.error.message"/> </dt>
+        <g:each var='error' in="${validationResult.allItems}">
+            <dd>${error}</dd>
+        </g:each>
+    </dl>
+</div>

@@ -14,35 +14,14 @@
 		</mapping>
 	</responseDeclaration>
 	<outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
-    <!--TODO remove template -->
-    <templateDeclaration identifier="SEASON" cardinality="single" baseType="identifier"
-                         mathVariable="false" paramVariable="false"/>
-    <templateDeclaration identifier="VAR" cardinality="single" baseType="integer" mathVariable="false"
-                         paramVariable="false"/>
-    <templateProcessing>
-        <setTemplateValue identifier="SEASON">
-            <random>
-                <multiple>
-                    <baseValue baseType="identifier">W</baseValue>
-                    <baseValue baseType="identifier">Sp</baseValue>
-                    <baseValue baseType="identifier">Su</baseValue>
-                    <baseValue baseType="identifier">AT</baseValue>
-                </multiple>
-            </random>
-        </setTemplateValue>
-        <setTemplateValue identifier="VAR">
-            <randomInteger min="2" max="4"/>
-        </setTemplateValue>
-    </templateProcessing>
-	<itemBody>
+   <itemBody>
 		<gapMatchInteraction responseIdentifier="RESPONSE" shuffle="false">
 			<prompt>Identify the missing words in this famous quote from Shakespeare's Richard III.</prompt>
 			<gapText identifier="W" matchMax="0">winter</gapText>
 			<gapText identifier="Sp" matchMax="2">spring</gapText>
 			<gapText identifier="Su" matchMax="1">summer</gapText>
 			<gapText identifier="A" matchMax="1">autumn</gapText>
-            <gapText templateIdentifier="SEASON" showHide="show" identifier="AT" matchMax="1">autumn <printedVariable identifier="VAR"/></gapText>
-			<blockquote>
+    		<blockquote>
 				<p>Now is the <gap identifier="G1"/> of our discontent<br/> Made glorious <gap
 						identifier="G2"/> by this sun of York;<br/> And all the clouds that lour'd
 					upon our house<br/> In the deep bosom of the ocean buried.</p>

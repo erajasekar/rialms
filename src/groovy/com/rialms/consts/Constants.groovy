@@ -95,6 +95,7 @@ class Constants {
     public static final String target = 'target';
     public static final String sourceAndTarget = 'sourceAndTarget';
     public static final String interaction = 'interaction';
+    public static final String includeHeader = 'includeHeader';
 
 
 

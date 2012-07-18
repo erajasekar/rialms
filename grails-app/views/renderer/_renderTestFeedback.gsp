@@ -8,13 +8,17 @@
 --%>
 <div id='testFeedback'>
     <g:if test="${assessmentParams[Consts.assessmentFeedback] || assessmentParams[Consts.testPartFeedback]}">
-        <div class="simple-header">
-            <h4>
-                <g:message code="test.feedback.message"/>
-            </h4>
-        </div>
+        <% String feedbackClass = ""%>
+        <g:if test="${includeHeader}" >
+            <div class="block-header">
+                <h4>
+                    <g:message code="test.feedback.message"/>
+                </h4>
+            </div>
+            <% feedbackClass = "block-content" %>
+        </g:if>
 
-        <div class="block-content">
+        <div class="${feedbackClass}">
             <g:if test="${assessmentParams[Consts.assessmentFeedback]}">
 
                 <g:each var="assessmentFeedback" in="${assessmentParams[Consts.assessmentFeedback].children()}">

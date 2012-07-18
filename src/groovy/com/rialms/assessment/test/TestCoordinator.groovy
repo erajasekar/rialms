@@ -336,7 +336,7 @@ public class TestCoordinator implements Serializable {
 
         test.setCurrentItemResponses(params);
 
-        //TODO P2 RENDER Input for canditate comments
+        //TODO P3 RENDER Input for canditate comments
         if (params.containsKey(candidateComment))
             test.getCurrentItemRef().setCandidateComment(params.get(candidateComment).get(0));
 
