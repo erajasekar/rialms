@@ -7,6 +7,7 @@ class BootStrap {
 
     def testService;
     def itemService;
+    def featureService;
 
     def init = { servletContext ->
            initData();
@@ -22,6 +23,8 @@ class BootStrap {
         if (Test.list().isEmpty()){
             createTests();
         }
+
+        featureService.createFeatures();
     }
 
     def createItems() {
