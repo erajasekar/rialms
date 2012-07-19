@@ -68,7 +68,7 @@ class AssessmentItemInfo {
         createHeader();
     }
 
-    public Map<String, String> getResponseValues() {
+    public Map<String, List<String>> getResponseValues() {
         return QtiUtils.convertRespValuesToStringMap(assessmentItem.responseValues);
     }
 
@@ -78,22 +78,6 @@ class AssessmentItemInfo {
 
     public Map<String, String> getTemplateValues() {
         return QtiUtils.convertQTITypesToParams(assessmentItem.templateValues);
-    }
-
-    public List<TemplateDeclaration> getTemplateDeclarations() {
-        return assessmentItem.templateDeclarations;
-    }
-
-    public List<OutcomeDeclaration> getOutcomeDeclarations() {
-        return assessmentItem.outcomeDeclarations;
-    }
-
-    public OutcomeDeclaration getOutcomeDeclarationForIdentifier(String identifier) {
-        return QtiUtils.findVariableDeclarationByIdentifier(assessmentItem.outcomeDeclarations, identifier);
-    }
-
-    public TemplateDeclaration getTemplateDeclarationForIdentifier(String identifier) {
-        return QtiUtils.findVariableDeclarationByIdentifier(assessmentItem.templateDeclarations, identifier);
     }
 
     private void setResponses(Map params) {
@@ -137,14 +121,9 @@ class AssessmentItemInfo {
         disableOnCompletionIds << id;
     }
 
-    private void skip() {
-        status = SKIPPED;
+    public void setStatus(AssessmentItemStatus status){
+        this.status = status;
     }
-
-    private void timeOut() {
-        status = TIMED_OUT;
-    }
-
 
     public Map getHeader(){
         return header;

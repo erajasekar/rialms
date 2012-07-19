@@ -134,14 +134,6 @@ public class TestCoordinator implements Serializable {
         return test.getTest();
     }
 
-    /**
-     * Get the underlying ItemFlow object
-     * @return the itemFlow associated with the AssessmentTestController
-     */
-    public ItemFlow getFlow() {
-        return test.getItemFlow();
-    }
-
     public TestRenderInfo getTestRenderInfo() {
 
         if (cachedTestRenderInfo == null) {
@@ -371,6 +363,10 @@ public class TestCoordinator implements Serializable {
         return navigate();
     }
 
+    public void resetCurrentItem(){
+        test.resetCurrentItem();
+        cachedTestRenderInfo = null;
+    }
     /**
      * Navigate to nextItem or remain on same item based on feedback or adaptive.
      * @return shouldRenderNextItem

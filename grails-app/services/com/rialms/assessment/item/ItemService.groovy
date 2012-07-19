@@ -19,7 +19,7 @@ class ItemService implements InitializingBean {
     }
 
     public void createItem(String dataPath, String dataFile){
-        //TODO P2 should create only if it doesn't exist
+        //TODO P3 should create only if it doesn't exist
         String itemTitle = QtiUtils.getTitleFromXml(getItemDataFile(dataPath,dataFile));
         new Item(dataPath: dataPath,dataFile: dataFile, title: itemTitle).save();
     }

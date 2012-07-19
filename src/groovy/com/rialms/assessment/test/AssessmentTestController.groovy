@@ -170,7 +170,7 @@ public class AssessmentTestController implements Serializable {
 
 
     public void resetCurrentItem(){
-        //TODO P2 Reset Item doesn't evaluated result and itemStatus
+        currentItemInfo.setStatus(AssessmentItemStatus.PRESENTED);
         AssessmentItem currentItem = flow.getCurrentItemRef()?.getItem();
         if (currentItem){
             currentItem.responseDeclarations.each{it.resetValue()}
@@ -242,14 +242,14 @@ public class AssessmentTestController implements Serializable {
     }
 
     public void skipCurrentItem() {
-        currentItemInfo.skip();
+        currentItemInfo.setStatus(AssessmentItemStatus.SKIPPED)
         getCurrentItemRef().skip();
 
         getTest().processOutcome();
     }
 
     public void timeOut() {
-        currentItemInfo.timeOut();
+        currentItemInfo.setStatus(AssessmentItemStatus.TIMED_OUT)
         AssessmentItemRef air = getCurrentItemRef();
         if (air?.isTimedOut()) {
             air.timeOut();
@@ -324,7 +324,7 @@ public class AssessmentTestController implements Serializable {
         log.debug("Getting AssessmentFeedback");
 
         //handle assessment-level feedback:
-        List<TestFeedback> assessmentFeedback = null;
+        List<TestFeedback> assessmentFeedback;
         if (getTest().isFinished()) {
             log.debug("Getting AT_END feedback for the AssessmentTest");
             assessmentFeedback = getTest().getTestFeedbacks(TestFeedbackAccess.AT_END);
@@ -437,16 +437,6 @@ public class AssessmentTestController implements Serializable {
         }
 
         return result;
-      /* AssessmentResult result = new AssessmentResult();
-
-        result.setTestResult(test.getTestResult(result));
-
-        List<AssessmentItemRef> itemRefs = test.lookupItemRefs(null);
-        int sequenceIndex = 1;
-        for (AssessmentItemRef itemRef : itemRefs)
-            result.getItemResults().addAll(itemRef.getItemResult(result, sequenceIndex++, null));
-
-        return result;*/
     }
 
     /*

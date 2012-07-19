@@ -48,7 +48,7 @@ class HiddenElement {
     }
 
     public boolean isVisible(Map<String, String> identifierValues) {
-        log.info("DEBUG Looking for ${identifier} in identifierValues ${identifierValues}" );
+        log.debug("DEBUG Looking for ${identifier} in identifierValues ${identifierValues}" );
         boolean match = false;
         String identifierValue = identifierValues[valueLookUpKey];
 

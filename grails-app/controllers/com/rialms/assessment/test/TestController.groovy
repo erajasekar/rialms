@@ -49,7 +49,7 @@ class TestController {
                 if (session[Consts.coordinator]) {
                     if (params[Consts.resetItem]){
                         TestCoordinator testCoordinator = session[Consts.coordinator][params.id]
-                        testCoordinator.testController.resetCurrentItem();
+                        testCoordinator.resetCurrentItem();
                     }
                     else{
                         session[Consts.coordinator].remove(params.id)
@@ -124,7 +124,7 @@ class TestController {
                 if (testRenderInfo[Consts.assessmentParams][Consts.submitTestPartContent]) {
                     renderOutput[Consts.testContent] = g.render(template: '/renderer/renderTestPartSubmission', model: testRenderInfo.toPropertiesMap());
                     //Override header with appropriate title
-                    renderOutput[Consts.angularData][Consts.assessmentHeader] = AssessmentItemInfo.createHeader(g.message(code: 'test.submission.title'));
+                    renderOutput[Consts.angularData][Consts.assessmentHeader] = AssessmentItemInfo.createHeader(g.message(code: 'test.submission.title').toString());
 
                 } else {
                     renderOutput[Consts.testContent] = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
@@ -199,9 +199,7 @@ class TestController {
     }
 
     private JSON createRedirectLinkJSON(Map attributes) {
-        Map<String, String> renderOutput = [(Consts.redirectUrl): createLink(attributes)];
-        //renderOutput[Consts.assessmentHeader] = [(Consts.title): g.message(code: 'test.feedback.message')];
-       // println "RAJA ${renderOutput}"
+        Map<String, String> renderOutput = [(Consts.redirectUrl): createLink(attributes).toString()];
         render renderOutput as JSON;
     }
 }

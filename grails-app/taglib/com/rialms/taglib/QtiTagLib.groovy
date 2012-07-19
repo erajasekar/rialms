@@ -193,7 +193,7 @@ class QtiTagLib {
 
         boolean shuffle = getOptionalAttribute(attrs, 'shuffle')?.toBoolean();
 
-        Node prompt;
+        Node prompt = null;
         List values = [];
 
         Map fixedChoices = [:];    //<position, choice >
@@ -242,7 +242,7 @@ class QtiTagLib {
 
         def value = responseValues[id];
 
-        log.debug("DEBUG response = ${value}")
+        log.debug("response = ${value}")
         log.debug("choiceInteraction Field Attributes ${fieldAttributes}");
 
         if (maxChoices.toInteger() == 1) {
@@ -292,7 +292,7 @@ class QtiTagLib {
 
         boolean shuffle = getOptionalAttribute(attrs, 'shuffle')?.toBoolean();
 
-        Node prompt;
+        Node prompt = null;
 
         Map fixedChoices = [:];    //<position, choice >
         Map responsePositions = [:] //<position , choice >  //Used to order items if it was already submitted
@@ -331,7 +331,7 @@ class QtiTagLib {
         }
 
 
-        log.info("DEBUG ${allChoices}");
+        log.debug("All Choices ${allChoices}");
 
         if (prompt) {
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
@@ -355,7 +355,6 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
         Map responseValues = assessmentItemInfo.responseValues;
-        Map outcome = assessmentItemInfo.outcomeValues;
 
         String id = getRequiredAttribute(attrs, 'responseIdentifier', tag);
 
@@ -367,7 +366,7 @@ class QtiTagLib {
         List from = [];
         List keys = [];
         int position = 0;
-        xmlNode.children().each {child ->
+        xmlNode.children().each {Node child ->
             if (!assessmentItemInfo.checkForHiddenElement(child, Tag.inlineChoice)) {
                 if (child.attribute("fixed")?.toBoolean()) {
                     fixedChoices[position] = child;
@@ -423,7 +422,7 @@ class QtiTagLib {
         List allChoices = [];
         List contents = [];
         int position = 0;
-        xmlNode.children().each {child ->
+        xmlNode.children().each {Node child ->
             Tag tag = Tag.valueOf(child.name());
             switch (tag) {
                 case Tag.prompt: prompt = child;
@@ -488,7 +487,7 @@ class QtiTagLib {
         }
 
         int matchMax = getRequiredAttribute(attrs, 'matchMax', tag) as int;
-        log.info("DEBUG responseValues = ${responseValues} ; responseCount = ${responseCount}; matchMax = ${matchMax}")
+        log.debug("responseValues = ${responseValues} ; responseCount = ${responseCount}; matchMax = ${matchMax}")
         int remainingCount = (matchMax == 0) ? 0 : (matchMax - responseCount)
         if (matchMax == 0 || remainingCount > 0) {
             Tag xmlTag = Tag.gapText;
@@ -522,7 +521,7 @@ class QtiTagLib {
             displayValue = assessmentItemInfo.getParam("${Tag.gapMatchInteraction.name()}.${responseValue}.${Consts.value}");
             inputValue = "${responseValue} ${identifier}";
         }
-        log.info("DEBUG ${tag} => responseValue = ${responseValue}")
+        log.debug("DEBUG ${tag} => responseValue = ${responseValue}")
         String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier]);
         out << """<span ${dataAttributes} class='droppable-gap'>"""
         out << """<input type='hidden' name="${responseIdentifier}" value="${inputValue}" /> """
@@ -788,7 +787,7 @@ class QtiTagLib {
         String title = xmlNode.'@title';
 
         HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(xmlNode, xmlTag);
-        log.info("DEBUG Added hiddenElement ${hiddenElement}")
+        log.debug("DEBUG Added hiddenElement ${hiddenElement}")
 
         String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' : 'div';
         Map sectionTagAttributes = [id: hiddenElement.elementId];
@@ -858,7 +857,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-               com.rialms.util.Less2Css.run();
+            //   com.rialms.util.Less2Css.run();
         }
     }
 
