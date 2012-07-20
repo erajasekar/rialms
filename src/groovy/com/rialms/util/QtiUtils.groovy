@@ -206,25 +206,86 @@ class QtiUtils {
         if (itemXml.'@adaptive'?.toBoolean()){
             featureNames << 'adaptive'
         }
-        def interactions = itemXml.itemBody.children().findAll {println 'name ' + it.name();it.name().endsWith(Constants.Interaction)}
+
+        if (itemXml.responseDeclaration.children().find{it.name() == 'mapping'}){
+            featureNames << 'partial scoring'
+        }
+
+        if (itemXml.children().find{it.name() == 'templateProcessing'}){
+            featureNames << 'templated'
+        }
+
+        if (itemXml.itemBody.depthFirst().find{it.name() == 'math'}){
+            featureNames << 'math'
+        }
+
+        def interactions = itemXml.itemBody.depthFirst().findAll {it.name().endsWith(Constants.Interaction)}
         def interactionFeatures = interactions.collect{
             String interactionName = it.name();
             String featureName = interactionName - Constants.Interaction
             if (interactionName == Tag.choiceInteraction.name() && it.'@maxChoices'.toInteger() != 1){
                 featureName = featureName + ' multiple'
             }else if (interactionName == Tag.gapMatchInteraction.name() || interactionName == Tag.inlineChoiceInteraction.name() || interactionName == Tag.textEntryInteraction.name()){
-                //featureName = featureName.replaceAll("([A-Z])", " \$1");
                 featureName = StringUtils.convertCamelCaseToWords(featureName);
+            }else if (interactionName == Tag.endAttemptInteraction.name()){
+                String responseIdentifier = it.'@responseIdentifier';
+                String title = it.'@title';
+                if (responseIdentifier.toLowerCase().contains('hint') || title.contains('hint')){
+                    featureName = 'hint'
+                }
+                else if (responseIdentifier.toLowerCase().contains('solution') || title.contains('solution')){
+                    featureName = 'solution'
+                }else{
+                    featureName = ''
+                }
+
             }
             return featureName
         }
 
-        if (!interactionFeatures.isEmpty()){
-            featureNames << interactionFeatures;
+        if (itemXml.itemBody.depthFirst().find{it.name().contains('feedback')}){
+            featureNames << 'feedback'
         }
 
-        return featureNames.flatten();
+        if (!interactionFeatures.isEmpty()){
+            interactionFeatures.each {
+               if(!it.isEmpty()){
+                   featureNames << it;
+               }
+            }
+        }
+        return featureNames.unique();
 
+    }
+
+    public static List<String> getFeaturesFromTestXml(File input){
+        List<String> featureNames = [];
+        def testXml = new XmlSlurper().parse(input);
+
+        def testParts = testXml.children().findAll {it.name() == 'testPart'};
+        featureNames << testParts.collect(){it.'@navigationMode'.toString()}
+        featureNames << testParts.collect(){it.'@submissionMode'.toString()}
+
+        def isc = testXml.depthFirst().findAll {it.name() == 'itemSessionControl'};
+        isc.each{
+            String allowSkipping = it.'@allowSkipping'.toString();
+            if (!allowSkipping.isEmpty() && allowSkipping.toBoolean() == false){
+                featureNames << 'disabled skipping'
+            }
+            String allowReview = it.'@allowReview'.toString();
+            if (!allowReview.isEmpty() && allowReview.toBoolean() == false){
+                featureNames << 'disabled review'
+            }
+            String maxAttempts = it.'@maxAttempts'.toString();
+            if (!maxAttempts.isEmpty() && maxAttempts?.toInteger() > 1){
+                featureNames << 'maxAttempts'
+            }
+        }
+
+        if (testXml.depthFirst().find{it.name() == 'timeLimits'}){
+            featureNames << 'timeout';
+        }
+        return featureNames.flatten().unique();
     }
 }
 

@@ -21,14 +21,15 @@ class ItemService implements InitializingBean {
     }
 
     public void createItem(String dataPath, String dataFile){
-        String itemTitle = QtiUtils.getTitleFromXml(getItemDataFile(dataPath,dataFile));
+        File itemXml = getItemDataFile(dataPath,dataFile)
+        String itemTitle = QtiUtils.getTitleFromXml(itemXml);
         Item item = new Item(dataPath: dataPath,dataFile: dataFile, title: itemTitle);
         item.save();
 
         if (item.hasErrors()){
             log.warn("Errors in creating feature : ${item.errors}")
         }
-        addFeaturesToItem(item, ['adaptive', 'choice'])
+        addFeaturesToItem(item, QtiUtils.getFeaturesFromItemXml(itemXml))
     }
 
 
@@ -45,6 +46,7 @@ class ItemService implements InitializingBean {
 
     private void createItemFeature(Item item, Feature feature){
         ItemFeature itemFeature = new ItemFeature(item: item, feature: feature);
+        log.info("DEBUG creatingItemFeature ${item.title} -> ${feature.name}")
         itemFeature.save();
         if (itemFeature.hasErrors()){
             log.error("Error in creating Item Feature ${itemFeature.errors}");

@@ -32,7 +32,7 @@
                     <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"/>
                     <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"/>
 
-                    <th>Action</th>
+                    <th>Action</th>  <!-- //TODO: p1: should be in message.properites -->
 
                 </tr>
                 </thead>
@@ -40,9 +40,13 @@
                 <g:each in="${itemList}" status="i" var="item">
                     <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
-                        <td>${fieldValue(bean: item, field: 'id')}</td>
+                        <td>${fieldValue(bean: item, field: 'id')}
 
-                        <td>${fieldValue(bean: item, field: 'title')}</td>
+                        <td> ${fieldValue(bean: item, field: 'title')}
+                            <g:each in="${item.featureNames}" var="feature">
+                                <code>${feature}</code>
+                            </g:each>
+                        </td>
 
                         <td>
                             <g:link class="btn btn-info" action="play" id="${item.id}" target="_blank">

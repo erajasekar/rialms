@@ -1,16 +1,10 @@
 package com.rialms.util
 
-import static org.junit.Assert.*
-
 import grails.test.mixin.*
 import grails.test.mixin.support.*
-import org.springframework.core.io.ClassPathResource
-import org.springframework.core.io.Resource
-import com.rialms.assessment.test.AssessmentTestController
-import org.qtitools.qti.node.content.variable.RubricBlock
-import groovy.xml.XmlUtil
+
 import org.custommonkey.xmlunit.XMLUnit
-import org.custommonkey.xmlunit.Diff
+
 import static com.rialms.util.QtiUtils.*
 import groovy.xml.MarkupBuilder
 
@@ -91,37 +85,37 @@ class QtiUtilsTests {
 
         def xmlDiff = new Diff(expectedResult, XmlUtil.serialize(actualResult));
         assertTrue(msg + xmlDiff.toString(), xmlDiff.similar());
-    }   */
+    }  */
 
     void testGetFeaturesFromItemXml() {
         String test = "testGetFeaturesFromItemXml";
         String msg = "${test} Failed ";
 
-        def itemBody = {  builder ->
+        def itemContent = {  builder ->
             createChoiceInteraction(builder,"1")
         }
-        String xml = createItemXml('true', itemBody)
+        String xml = createItemXml('true', itemContent)
         File file = writeToTempFile(test, xml)
-        getFeaturesAndValidate(file, ['adaptive','choice'], msg);
+        getItemFeaturesAndValidate(file, ['adaptive','choice'], msg);
         assertTrue(msg, file.delete());
 
-        itemBody = {  builder ->
+        itemContent = {  builder ->
             createChoiceInteraction(builder,"2")
         }
-        xml = createItemXml('true', itemBody)
+        xml = createItemXml('true', itemContent)
         file = writeToTempFile(test, xml)
-        getFeaturesAndValidate(file, ['adaptive','choice multiple'], msg);
+        getItemFeaturesAndValidate(file, ['adaptive','choice multiple'], msg);
         assertTrue(msg, file.delete());
 
-        itemBody = {  builder ->
+        itemContent = {  builder ->
             createChoiceInteraction(builder,"0")
         }
-        xml = createItemXml('true', itemBody)
+        xml = createItemXml('true', itemContent)
         file = writeToTempFile(test, xml)
-        getFeaturesAndValidate(file, ['adaptive','choice multiple'], msg);
+        getItemFeaturesAndValidate(file, ['adaptive','choice multiple'], msg);
         assertTrue(msg, file.delete());
 
-        itemBody = {  builder ->
+        itemContent = {  builder ->
             builder.itemBody(){
                 builder.gapMatchInteraction(responseIdentifier: 'RESPONSE', shuffle: 'true') {
                     builder.prompt('What does it say?') {}
@@ -129,34 +123,36 @@ class QtiUtilsTests {
                 }
             }
         }
-        xml = createItemXml('true', itemBody)
+        xml = createItemXml('true', itemContent)
         file = writeToTempFile(test, xml)
-        getFeaturesAndValidate(file, ['adaptive','gap match'], msg);
+        getItemFeaturesAndValidate(file, ['adaptive','gap match'], msg);
         assertTrue(msg, file.delete());
 
-        itemBody = {  builder ->
+        itemContent = {  builder ->
             builder.itemBody(){
                 builder.inlineChoiceInteraction(responseIdentifier: 'RESPONSE', shuffle: 'true') {
                     builder.inlineChoice(identifier: 'ChoiceA', 'Winter')
                 }
             }
         }
-        xml = createItemXml('false', itemBody)
+        xml = createItemXml('false', itemContent)
         file = writeToTempFile(test, xml)
-        getFeaturesAndValidate(file, ['inline choice'], msg);
+        getItemFeaturesAndValidate(file, ['inline choice'], msg);
         assertTrue(msg, file.delete());
 
-        itemBody = {  builder ->
+        itemContent = {  builder ->
             builder.itemBody(){
-                builder.textEntryInteraction(responseIdentifier: 'RESPONSE', expectedLength: '15')
+                builder.p('some text'){
+                    builder.textEntryInteraction(responseIdentifier: 'RESPONSE', expectedLength: '15')
+                }
             }
         }
-        xml = createItemXml('false', itemBody)
+        xml = createItemXml('false', itemContent)
         file = writeToTempFile(test, xml)
-        getFeaturesAndValidate(file, ['text entry'], msg);
+        getItemFeaturesAndValidate(file, ['text entry'], msg);
         assertTrue(msg, file.delete());
 
-        itemBody = {  builder ->
+        itemContent = {  builder ->
             builder.itemBody(){
                 builder.orderInteraction(responseIdentifier: 'RESPONSE', shuffle: 'true') {
                     builder.prompt('What does it say?') {}
@@ -164,12 +160,12 @@ class QtiUtilsTests {
                 }
             }
         }
-        xml = createItemXml('false', itemBody)
+        xml = createItemXml('false', itemContent)
         file = writeToTempFile(test, xml)
-        getFeaturesAndValidate(file, ['order'], msg);
+        getItemFeaturesAndValidate(file, ['order'], msg);
         assertTrue(msg, file.delete());
 
-        itemBody = {  builder ->
+        itemContent = {  builder ->
             builder.itemBody(){
                 builder.associateInteraction(responseIdentifier: 'RESPONSE', shuffle: 'true', maxAssociations:"3") {
                     builder.prompt('What does it say?') {}
@@ -177,27 +173,215 @@ class QtiUtilsTests {
                 }
             }
         }
-        xml = createItemXml('false', itemBody)
+        xml = createItemXml('false', itemContent)
         file = writeToTempFile(test, xml)
-        getFeaturesAndValidate(file, ['associate'], msg);
+        getItemFeaturesAndValidate(file, ['associate'], msg);
         assertTrue(msg, file.delete());
 
-        itemBody = {  builder ->
+        itemContent = {  builder ->
             builder.itemBody(){
                 builder.hottextInteraction(responseIdentifier: 'RESPONSE',  maxChoices: '15'){
                     hottext(identifier: 'C','at least')
                 }
             }
         }
-        xml = createItemXml('false', itemBody)
+        xml = createItemXml('false', itemContent)
         file = writeToTempFile(test, xml)
-        getFeaturesAndValidate(file, ['hottext'], msg);
+        getItemFeaturesAndValidate(file, ['hottext'], msg);
+        assertTrue(msg, file.delete());
+
+        itemContent = {  builder ->
+            builder.responseDeclaration(identifier: 'RESPONSE', cardinality:'multiple', baseType:'pair'){
+                builder.mapping(defaultValue:'0'){
+                    mapEntry(mapKey: 'A P',mappedValue: '2')
+                }
+            }
+        }
+        xml = createItemXml('false', itemContent)
+        file = writeToTempFile(test, xml)
+        getItemFeaturesAndValidate(file, ['partial scoring'], msg);
+        assertTrue(msg, file.delete());
+
+        itemContent = {  builder ->
+            builder.templateProcessing(){
+            }
+        }
+        xml = createItemXml('false', itemContent)
+        file = writeToTempFile(test, xml)
+        getItemFeaturesAndValidate(file, ['templated'], msg);
+        assertTrue(msg, file.delete());
+
+        itemContent = {  builder ->
+            builder.itemBody(){
+                builder.endAttemptInteraction(responseIdentifier: 'HINTREQUEST',  title: 'something'){}
+                builder.endAttemptInteraction(responseIdentifier: 'SOLUTIONREQUEST',  title: 'something'){}
+            }
+        }
+        xml = createItemXml('false', itemContent)
+        file = writeToTempFile(test, xml)
+        getItemFeaturesAndValidate(file, ['hint', 'solution'], msg);
+        assertTrue(msg, file.delete());
+
+        itemContent = {  builder ->
+            builder.itemBody(){
+                builder.endAttemptInteraction(responseIdentifier: 'HQUEST',  title: 'hint'){}
+                builder.endAttemptInteraction(responseIdentifier: 'SQUEST',  title: 'solution'){}
+            }
+        }
+        xml = createItemXml('false', itemContent)
+        file = writeToTempFile(test, xml)
+        getItemFeaturesAndValidate(file, ['hint','solution'], msg);
+        assertTrue(msg, file.delete());
+
+        itemContent = {  builder ->
+            builder.itemBody(){
+                builder.endAttemptInteraction(responseIdentifier: 'SOLNREQUEST',  title: 'something'){}
+                builder.endAttemptInteraction(responseIdentifier: 'HREQUEST',  title: 'something'){}
+            }
+        }
+        xml = createItemXml('false', itemContent)
+        file = writeToTempFile(test, xml)
+        getItemFeaturesAndValidate(file, [], msg);
+        assertTrue(msg, file.delete());
+
+        itemContent = {  builder ->
+            builder.itemBody(){
+                builder.choiceInteraction(responseIdentifier: 'RESPONSE', shuffle: 'true', maxChoices: '2') {
+                    builder.prompt('What does it say?') {}
+                    builder.simpleChoice(identifier: 'ChoiceA', 'You must stay with your luggage at all times.'){
+                        feedbackInline(outcomeIdentifier:'FEEDBACK', identifier:'MSGHOO1', showHide:'show', 'Yes. Correct')
+                    }
+                }
+            }
+        }
+        xml = createItemXml('false', itemContent)
+        file = writeToTempFile(test, xml)
+        getItemFeaturesAndValidate(file, ['feedback','choice multiple'], msg);
+        assertTrue(msg, file.delete());
+
+        itemContent = {  builder ->
+            builder.itemBody(){
+                builder.choiceInteraction(responseIdentifier: 'RESPONSE', shuffle: 'true', maxChoices: '2') {
+                    builder.prompt('What does it say?') {}
+                    builder.simpleChoice(identifier: 'ChoiceA', 'You must stay with your luggage at all times.'){
+                        builder.feedbackInline(outcomeIdentifier:'FEEDBACK', identifier:'MSGHOO1', showHide:'show', 'Yes. Correct')
+                    }
+                }
+            }
+        }
+        xml = createItemXml('false', itemContent)
+        file = writeToTempFile(test, xml)
+        getItemFeaturesAndValidate(file, ['feedback','choice multiple'], msg);
+        assertTrue(msg, file.delete());
+
+        itemContent = {  builder ->
+            builder.itemBody(){
+                builder.choiceInteraction(responseIdentifier: 'RESPONSE', shuffle: 'true', maxChoices: '2') {
+                    builder.prompt('What does it say?') {}
+                    builder.simpleChoice(identifier: 'ChoiceA', 'You must stay with your luggage at all times.'){}
+                    builder.feedbackBlock(outcomeIdentifier:'FEEDBACK', identifier:'MSGHOO1', showHide:'show', 'Yes. Correct') {
+                        builder.p('sometext'){}
+                    }
+                }
+            }
+        }
+        xml = createItemXml('false', itemContent)
+        file = writeToTempFile(test, xml)
+        getItemFeaturesAndValidate(file, ['feedback','choice multiple'], msg);
+        assertTrue(msg, file.delete());
+
+        itemContent = {  builder ->
+            builder.itemBody(){
+                builder.choiceInteraction(responseIdentifier: 'RESPONSE', shuffle: 'true', maxChoices: '2') {
+                    builder.prompt('What does it say?') {
+                        builder.math{
+                           builder.mrow(){
+                               builder.mi('E')
+                           }
+                        }
+                    }
+                    builder.simpleChoice(identifier: 'ChoiceA', 'You must stay with your luggage at all times.'){}
+
+                }
+            }
+        }
+        xml = createItemXml('false', itemContent)
+        file = writeToTempFile(test, xml)
+        getItemFeaturesAndValidate(file, ['math','choice multiple'], msg);
+        assertTrue(msg, file.delete());
+    }
+
+    void testGetFeaturesFromTestXml() {
+        String test = "testGetFeaturesFromTestXml";
+        String msg = "${test} Failed ";
+
+        def testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual')
+            builder.testPart(identifier: 'part2', navigationMode:'nonlinear', submissionMode:'simultaneous')
+        }
+        String xml = createTestXml(testContent)
+        File file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'nonlinear','individual', 'simultaneous'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.itemSessionControl('allowReview':true, 'allowSkipping':true, maxAttempts:'5');
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'maxAttempts'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.itemSessionControl(){};
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.itemSessionControl('allowReview':false, 'allowSkipping':false, maxAttempts: '1');
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'disabled skipping', 'disabled review'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.timeLimits(maxTime:'30'){}
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual')
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'timeout'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.timeLimits(maxTime:'30'){}
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'timeout'], msg);
         assertTrue(msg, file.delete());
 
     }
 
-    private void getFeaturesAndValidate(File inputFile, List<String> expectedFeatures, String msg) {
+    private void getItemFeaturesAndValidate(File inputFile, List<String> expectedFeatures, String msg) {
         List<String> features = getFeaturesFromItemXml(inputFile);
+        assertEquals(msg, expectedFeatures, features);
+    }
+
+    private void getTestFeaturesAndValidate(File inputFile, List<String> expectedFeatures, String msg) {
+        List<String> features = getFeaturesFromTestXml(inputFile);
         assertEquals(msg, expectedFeatures, features);
     }
 
@@ -216,7 +400,20 @@ class QtiUtilsTests {
         return inputFile;
     }
 
-    private String createItemXml(String adaptive, Closure itemBody) {
+    private String createTestXml(Closure testContent){
+        def writer = new StringWriter()
+        def builder = new MarkupBuilder(writer)
+        builder.assessmentItem(xmlns: 'http://www.imsglobal.org/xsd/imsqti_v2p1',
+                'xmlns:xsi': 'http://www.w3.org/2001/XMLSchema-instance',
+                'xsi:schemaLocation': 'http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd',
+                identifier: 'identifier',
+                title: 'Test title'){
+            testContent(builder);
+        }
+        return writer.toString();
+    }
+
+    private String createItemXml(String adaptive, Closure itemContent) {
         def writer = new StringWriter()
         def builder = new MarkupBuilder(writer)
         builder.assessmentItem(xmlns: 'http://www.imsglobal.org/xsd/imsqti_v2p1',
@@ -226,7 +423,7 @@ class QtiUtilsTests {
                 title: 'Test title',
                 adaptive: adaptive,
                 timeDependent: 'false') {
-            itemBody(builder);
+            itemContent(builder);
         }
         return writer.toString();
     }
