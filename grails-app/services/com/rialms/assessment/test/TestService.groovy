@@ -5,6 +5,8 @@ import com.rialms.consts.Constants as Consts
 import com.rialms.consts.NavButton
 import org.springframework.beans.factory.InitializingBean
 import com.rialms.util.QtiUtils
+import org.springframework.validation.Errors
+import com.rialms.assessment.Feature
 
 class TestService implements InitializingBean {
 
@@ -13,8 +15,31 @@ class TestService implements InitializingBean {
 
     public void createTest(String dataPath, String dataFile){
         String testTitle = QtiUtils.getTitleFromXml(getTestDataFile(dataPath,dataFile));
-        new Test(dataPath: dataPath, dataFile: dataFile, title:testTitle).save();
+        Test test = new Test(dataPath: dataPath, dataFile: dataFile, title:testTitle);
+        test.save();
+        if (test.hasErrors()){
+            log.warn("Errors in creating feature : ${test.errors}")
+        }
+        addFeaturesToTest(test, ['adaptive', 'choice'])
+    }
 
+    private void addFeaturesToTest(Test test, List<String> featureNames){
+
+        featureNames.each{ featureName ->
+            Feature feature = Feature.findByName(featureName);
+            if (!feature){
+                log.error("Cannot add ${featureName} to test ${test.title}: invalid feature name")
+            }
+            createTestFeature(test,feature);
+        }
+    }
+
+    private void createTestFeature(Test test, Feature feature){
+        TestFeature testFeature = new TestFeature(test: test, feature: feature);
+        testFeature.save();
+        if (testFeature.hasErrors()){
+            log.error("Error in creating Item Feature ${testFeature.errors}");
+        }
     }
     private File getTestDataFile(String dataPath,String dataFile) {
         return grailsApplication.parentContext.getResource("${getAbsoluteDataPath(dataPath)}" + dataFile).getFile();

@@ -9,6 +9,7 @@ import org.qtitools.qti.value.MultipleValue
 import org.qtitools.qti.value.Value
 import org.qtitools.qti.value.ListValue
 import com.rialms.consts.Tag
+import com.rialms.consts.Constants
 
 /**
  * Created by IntelliJ IDEA.
@@ -198,4 +199,32 @@ class QtiUtils {
         }
         return findParentByTag(start.parent(),tag);
     }
+
+    public static List<String> getFeaturesFromItemXml(File input){
+        List<String> featureNames = [];
+        def itemXml = new XmlSlurper().parse(input);
+        if (itemXml.'@adaptive'?.toBoolean()){
+            featureNames << 'adaptive'
+        }
+        def interactions = itemXml.itemBody.children().findAll {println 'name ' + it.name();it.name().endsWith(Constants.Interaction)}
+        def interactionFeatures = interactions.collect{
+            String interactionName = it.name();
+            String featureName = interactionName - Constants.Interaction
+            if (interactionName == Tag.choiceInteraction.name() && it.'@maxChoices'.toInteger() != 1){
+                featureName = featureName + ' multiple'
+            }else if (interactionName == Tag.gapMatchInteraction.name() || interactionName == Tag.inlineChoiceInteraction.name() || interactionName == Tag.textEntryInteraction.name()){
+                //featureName = featureName.replaceAll("([A-Z])", " \$1");
+                featureName = StringUtils.convertCamelCaseToWords(featureName);
+            }
+            return featureName
+        }
+
+        if (!interactionFeatures.isEmpty()){
+            featureNames << interactionFeatures;
+        }
+
+        return featureNames.flatten();
+
+    }
 }
+

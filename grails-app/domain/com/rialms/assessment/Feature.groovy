@@ -14,5 +14,6 @@ class Feature {
     String relatesTo;
 
     static constraints = {
+        name (unique: true)
     }
 }

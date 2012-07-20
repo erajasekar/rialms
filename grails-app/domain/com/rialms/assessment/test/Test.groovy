@@ -7,6 +7,7 @@ class Test {
     String title;
 
     static constraints = {
+        dataPath(unique: ['dataFile'])
     }
 
 }

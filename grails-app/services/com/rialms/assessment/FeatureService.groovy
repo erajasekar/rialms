@@ -25,8 +25,7 @@ class FeatureService {
     private Feature createFeature(String name,String relatesTo, String description){
         Feature f = new Feature(name: name,description: description,relatesTo: relatesTo);
         f.save();
-        Errors errors = f.errors;
-        if (errors && !errors.allErrors.isEmpty()){
+        if (f.hasErrors()){
            log.error("Errors in creating feature : ${f.errors}")
         }
     }

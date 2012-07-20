@@ -16,15 +16,9 @@ class BootStrap {
     }
 
     def initData(){
-
-        if (Item.list().isEmpty()){
-            createItems();
-        }
-        if (Test.list().isEmpty()){
-            createTests();
-        }
-
-        featureService.createFeatures();
+       featureService.createFeatures();
+        createItems();
+        createTests();
     }
 
     def createItems() {
