@@ -22,5 +22,15 @@ class TestFeature implements Serializable{
         id composite: ['test', 'feature']
         version false
     }
+
+    public static List<Feature> getFeatures(){
+        def criteria = TestFeature.createCriteria()
+        def distinctFeatures = criteria.list {
+            projections {
+                distinct "feature"
+            }
+        }
+        return distinctFeatures;
+    }
 }
 

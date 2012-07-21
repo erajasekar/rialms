@@ -321,7 +321,7 @@ class QtiUtilsTests {
         }
         String xml = createTestXml(testContent)
         File file = writeToTempFile(test, xml)
-        getTestFeaturesAndValidate(file, ['linear', 'nonlinear','individual', 'simultaneous'], msg);
+        getTestFeaturesAndValidate(file, ['multiple parts', 'linear', 'nonlinear','individual', 'simultaneous'], msg);
         assertTrue(msg, file.delete());
 
         testContent = {  builder ->
@@ -331,7 +331,7 @@ class QtiUtilsTests {
         }
         xml = createTestXml(testContent)
         file = writeToTempFile(test, xml)
-        getTestFeaturesAndValidate(file, ['linear', 'individual', 'maxAttempts'], msg);
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'max attempts'], msg);
         assertTrue(msg, file.delete());
 
         testContent = {  builder ->
@@ -371,6 +371,57 @@ class QtiUtilsTests {
         xml = createTestXml(testContent)
         file = writeToTempFile(test, xml)
         getTestFeaturesAndValidate(file, ['linear', 'individual', 'timeout'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.assessmentSection(identifier:'math1'){
+                    builder.assessmentSection(identifier:'math2')
+                }
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'nested'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.assessmentSection(identifier:'math1'){}
+                builder.assessmentSection(identifier:'math2'){}
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.assessmentSection(identifier:'math1'){
+                    builder.assessmentItemRef(identifier:'math1'){
+                        builder.preCondition()
+                    }
+                }
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'branch'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.assessmentSection(identifier:'math1'){
+                    builder.assessmentItemRef(identifier:'math1'){
+                        builder.branchRule(target:'item256')
+                    }
+                }
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'branch'], msg);
         assertTrue(msg, file.delete());
 
     }

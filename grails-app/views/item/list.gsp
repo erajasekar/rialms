@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.assessment.Item; com.rialms.assessment.item.Item" %>
+<%@ page import="com.rialms.assessment.item.ItemFeature; com.rialms.assessment.Item; com.rialms.assessment.item.Item" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -15,9 +15,11 @@
 
 <body>
 <div class="row-fluid">
-    <div class="span2">&nbsp;</div>
+    <div class="span3">
+        <g:render template="/renderer/renderFeatures" model="[features:ItemFeature.getFeatures()]"/>
+    </div>
 
-    <div class="span8">
+    <div class="span9">
 
         <div class="title">
             <h1><g:message code="item.list.title"/></h1>

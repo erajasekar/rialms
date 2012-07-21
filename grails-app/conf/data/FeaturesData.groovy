@@ -11,8 +11,7 @@ data {
             [
                     name: 'adaptive',
                     relatesTo: 'item',
-                    description: """Allows an item to be scored adaptively over a sequence of attempts.
-This allows the candidate to alter their answer following feedback or to be posed additional questions based on their current answer"""
+                    description: """Allows an item to be scored adaptively over a sequence of attempts. This allows the candidate to alter their answer following feedback or to be posed additional questions based on their current answer"""
             ]
             ,
             [
@@ -144,7 +143,7 @@ This allows the candidate to alter their answer following feedback or to be pose
             [
                     name: 'branch',
                     relatesTo: 'test',
-                    description: "Number and order of questions presented can be changed depending on answer submitted"
+                    description: "Number and order of questions presented can be changed depending on the candidate's responses to items presented earlier in the test"
             ]
             ,
             [
@@ -162,7 +161,13 @@ This allows the candidate to alter their answer following feedback or to be pose
             [
                     name: 'nested',
                     relatesTo: 'test',
-                    description: "Illustrates sections can be nested within another"
+                    description: "Test has sections nested within another section"
+            ]
+            ,
+            [
+                    name: 'multiple parts',
+                    relatesTo: 'test',
+                    description: "Test has multiple test parts"
             ]
 
     ]

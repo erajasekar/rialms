@@ -23,4 +23,14 @@ class ItemFeature implements Serializable{
         id composite: ['item', 'feature']
         version false
     }
+
+    public static List<Feature> getFeatures(){
+        def criteria = ItemFeature.createCriteria()
+        def distinctFeatures = criteria.list {
+            projections {
+                distinct "feature"
+            }
+        }
+        return distinctFeatures;
+    }
 }

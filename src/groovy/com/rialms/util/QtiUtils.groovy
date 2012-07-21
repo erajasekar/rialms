@@ -263,6 +263,9 @@ class QtiUtils {
         def testXml = new XmlSlurper().parse(input);
 
         def testParts = testXml.children().findAll {it.name() == 'testPart'};
+        if (testParts.size() > 1){
+            featureNames << 'multiple parts'
+        }
         featureNames << testParts.collect(){it.'@navigationMode'.toString()}
         featureNames << testParts.collect(){it.'@submissionMode'.toString()}
 
@@ -278,13 +281,22 @@ class QtiUtils {
             }
             String maxAttempts = it.'@maxAttempts'.toString();
             if (!maxAttempts.isEmpty() && maxAttempts?.toInteger() > 1){
-                featureNames << 'maxAttempts'
+                featureNames << 'max attempts'
             }
         }
 
         if (testXml.depthFirst().find{it.name() == 'timeLimits'}){
             featureNames << 'timeout';
         }
+
+        if (testXml.depthFirst().find{ it.name() == 'assessmentSection' && it.parent().name() == 'assessmentSection'}){
+            featureNames << 'nested';
+        }
+
+        if (testXml.depthFirst().find{it.name() == 'preCondition' || it.name() == 'branchRule'}){
+            featureNames << 'branch';
+        }
+
         return featureNames.flatten().unique();
     }
 }

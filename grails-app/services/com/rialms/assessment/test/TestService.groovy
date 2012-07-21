@@ -14,13 +14,14 @@ class TestService implements InitializingBean {
     String contentPath;
 
     public void createTest(String dataPath, String dataFile){
-        String testTitle = QtiUtils.getTitleFromXml(getTestDataFile(dataPath,dataFile));
+        File testXml = getTestDataFile(dataPath,dataFile);
+        String testTitle = QtiUtils.getTitleFromXml(testXml);
         Test test = new Test(dataPath: dataPath, dataFile: dataFile, title:testTitle);
         test.save();
         if (test.hasErrors()){
             log.warn("Errors in creating feature : ${test.errors}")
         }
-        addFeaturesToTest(test, ['adaptive', 'choice'])
+        addFeaturesToTest(test, QtiUtils.getFeaturesFromTestXml(testXml))
     }
 
     private void addFeaturesToTest(Test test, List<String> featureNames){

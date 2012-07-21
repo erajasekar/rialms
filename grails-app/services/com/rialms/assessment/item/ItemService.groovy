@@ -46,7 +46,7 @@ class ItemService implements InitializingBean {
 
     private void createItemFeature(Item item, Feature feature){
         ItemFeature itemFeature = new ItemFeature(item: item, feature: feature);
-        log.info("DEBUG creatingItemFeature ${item.title} -> ${feature.name}")
+        log.debug("DEBUG creatingItemFeature ${item.title} -> ${feature.name}")
         itemFeature.save();
         if (itemFeature.hasErrors()){
             log.error("Error in creating Item Feature ${itemFeature.errors}");

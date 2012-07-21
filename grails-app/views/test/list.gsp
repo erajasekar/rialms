@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="com.rialms.assessment.test.Test; com.rialms.assessment.test.Test" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.assessment.test.Test; com.rialms.assessment.test.Test; com.rialms.assessment.test.TestFeature" contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -15,10 +15,13 @@
 </head>
 
 <body>
-<div class="row-fluid">
-    <div class="span2">&nbsp;</div>
 
-    <div class="span8">
+<div class="row-fluid">
+    <div class="span3">
+        <g:render template="/renderer/renderFeatures" model="[features:TestFeature.getFeatures()]"/>
+    </div>
+
+    <div class="span9">
         <div class="title">
             <h1><g:message code="test.list.title"/></h1>
         </div>
@@ -44,7 +47,11 @@
 
                         <td>${fieldValue(bean: test, field: 'id')}</td>
 
-                        <td>${fieldValue(bean: test, field: 'title')}</td>
+                        <td>${fieldValue(bean: test, field: 'title')}
+                            <g:each in="${test.features}" var="feature">
+                                <a href=""  title="${feature.description}"><code>${feature.name}</code></a>
+                            </g:each>
+                        </td>
 
                         <td>
                             <g:link class="btn btn-info" action="play" id="${test.id}" target="_blank">
