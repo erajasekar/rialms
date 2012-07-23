@@ -7,6 +7,7 @@ import grails.web.JSONBuilder
 import grails.converters.JSON
 import org.qtitools.qti.validation.ValidationResult
 import com.rialms.consts.Constants as Consts
+import com.rialms.assessment.Feature
 
 class ItemController {
 
@@ -24,7 +25,27 @@ class ItemController {
 
     def demo = {
         if (!params.max) params.max = 10
-        [itemList: Item.list(params)]
+        if (!params.filterByFeature) params.filterByFeature = 'all'
+        def itemList;
+
+        if (params.filterByFeature == 'all') {
+            itemList = Item.list(params);
+        } else {
+           /* def c = ItemFeature.createCriteria();
+            List itemFeatures = c.list {
+                feature{
+                    'in'('name',params.filterByFeature)
+                }
+            }*/
+            //String query = """select item from Item,ItemFeature, Feature where Feature.name=:feature and ItemFe.feature_id = feature.id and item_feature.item_id=item.id """
+            String query = "from ItemFeature, Feature as f where f.name='adaptive'"
+            List itemFeatures = ItemFeature.executeQuery(query);
+            println "RAJA ${itemFeatures}"
+            itemList = [];
+            //println "RAJA ${itemList}"
+        }
+
+        [itemList: itemList]
     }
 
     def reset = {

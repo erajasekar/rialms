@@ -34,7 +34,7 @@
                     <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"/>
                     <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"/>
 
-                    <th>Action</th>  <!-- //TODO: p1: should be in message.properites -->
+                    <th><g:message code="action.label"/></th>
 
                 </tr>
                 </thead>
@@ -45,8 +45,10 @@
                         <td>${fieldValue(bean: item, field: 'id')}
 
                         <td> ${fieldValue(bean: item, field: 'title')}
-                            <g:each in="${item.featureNames}" var="feature">
-                                <code>${feature}</code>
+                          <g:each in="${item.features}" var="feature">
+                                <g:link title="${feature.description}" action="demo" params="${params + ['filterByFeature':feature.name]}">
+                                    <code> ${feature.name}</code>
+                                </g:link>
                             </g:each>
                         </td>
 

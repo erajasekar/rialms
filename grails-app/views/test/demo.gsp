@@ -37,7 +37,7 @@
 
                     <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"/>
 
-                    <th>Action</th>
+                    <th><g:message code="action.label"/></th>
 
                 </tr>
                 </thead>
