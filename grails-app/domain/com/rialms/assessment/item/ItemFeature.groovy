@@ -13,14 +13,17 @@ import com.rialms.assessment.Feature
 
 class ItemFeature implements Serializable{
 
-    Item item;
+    //Item item;
     Feature feature;
 
     static constraints = {
+        item(unique: ['feature'])
     }
 
+    static belongsTo = [item:  Item]
+
     static mapping = {
-        id composite: ['item', 'feature']
+        //id composite: ['item', 'feature']
         version false
     }
 

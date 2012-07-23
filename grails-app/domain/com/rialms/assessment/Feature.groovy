@@ -16,4 +16,8 @@ class Feature {
     static constraints = {
         name (unique: true)
     }
+
+    static mapping = {
+        table "feature"
+    }
 }

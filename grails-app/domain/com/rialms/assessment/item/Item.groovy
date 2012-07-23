@@ -7,6 +7,8 @@ class Item {
     String dataFile;
     String title;
 
+    static hasMany = [itemFeatures:ItemFeature]
+
     static constraints = {
         dataPath(unique: ['dataFile'])
     }

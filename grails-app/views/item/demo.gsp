@@ -31,8 +31,8 @@
             <table class="table table-stripped">
                 <thead>
                 <tr>
-                    <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"/>
-                    <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"/>
+                    <g:sortableColumn property="id" title="${g.message(code: 'id.label')}" params="${params}"/>
+                    <g:sortableColumn property="title" title="${g.message(code: 'title.label')}" params="${params}"/>
 
                     <th><g:message code="action.label"/></th>
 
@@ -63,7 +63,7 @@
                 </tbody>
             </table>
         </div>
-        <b:paginate total="${Item.count()}"/>
+        <b:paginate total="${itemList.getTotalCount()}" params="${params}"/>
     </div>
 </div>
 </body>
