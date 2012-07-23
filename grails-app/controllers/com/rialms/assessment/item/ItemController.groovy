@@ -22,6 +22,11 @@ class ItemController {
 
     }
 
+    def demo = {
+        if (!params.max) params.max = 10
+        [itemList: Item.list(params)]
+    }
+
     def reset = {
         if (params[Consts.redirectto]) {
             return redirect(action: params[Consts.redirectto])

@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.assessment.item.ItemFeature; com.rialms.assessment.Item; com.rialms.assessment.item.Item" %>
+<%@ page import="com.rialms.assessment.Item; com.rialms.assessment.item.Item" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -15,11 +15,9 @@
 
 <body>
 <div class="row-fluid">
-    <div class="span3">
-        <g:render template="/renderer/renderFeatures" model="[features:ItemFeature.getFeatures()]"/>
-    </div>
+    <div class="span2">&nbsp;</div>
 
-    <div class="span9">
+    <div class="span8">
 
         <div class="title">
             <h1><g:message code="item.list.title"/></h1>
@@ -34,21 +32,17 @@
                     <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"/>
                     <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"/>
 
-                    <th>Action</th>  <!-- //TODO: p1: should be in message.properites -->
+                    <th><g:message code="action.label"/></th>
 
                 </tr>
                 </thead>
                 <tbody>
-                <g:each in="${itemList}" status="i" var="item">
-                    <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
+                <g:each in="${itemList}" var="item">
+                    <tr>
 
-                        <td>${fieldValue(bean: item, field: 'id')}
+                        <td>${fieldValue(bean: item, field: 'id')}</td>
 
-                        <td> ${fieldValue(bean: item, field: 'title')}
-                            <g:each in="${item.featureNames}" var="feature">
-                                <code>${feature}</code>
-                            </g:each>
-                        </td>
+                        <td>${fieldValue(bean: item, field: 'title')}</td>
 
                         <td>
                             <g:link class="btn btn-info" action="play" id="${item.id}" target="_blank">

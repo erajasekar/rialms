@@ -1,8 +1,3 @@
-import com.rialms.assessment.item.Item
-import com.rialms.assessment.test.Test
-import com.rialms.assessment.item.Item
-import grails.util.Environment;
-
 class BootStrap {
 
     def testService;

@@ -18,6 +18,12 @@ class TestController {
         if (!params.max) params.max = 50
         [testList: Test.list(params)]
     }
+
+    def demo = {
+        if (!params.max) params.max = 50
+        [testList: Test.list(params)]
+    }
+
     //TODO P3 remove after testing
     def angular = {
         render (view:'angular');
