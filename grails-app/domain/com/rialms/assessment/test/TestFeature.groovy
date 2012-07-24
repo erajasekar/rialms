@@ -12,14 +12,14 @@ import com.rialms.assessment.Feature;
 
 class TestFeature implements Serializable{
 
-    Test test;
     Feature feature;
+    static belongsTo = [test:Test]
 
     static constraints = {
+        test(unique: ['feature'])
     }
 
     static mapping = {
-        id composite: ['test', 'feature']
         version false
     }
 

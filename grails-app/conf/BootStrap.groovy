@@ -1,8 +1,11 @@
+import groovy.io.FileType
+
 class BootStrap {
 
     def testService;
     def itemService;
     def featureService;
+    def grailsApplication;
 
     def init = { servletContext ->
            initData();
@@ -16,9 +19,21 @@ class BootStrap {
         createTests();
     }
 
+    def createDemoItems(){
+        String demoPath = grailsApplication.config.rialms.demoItemsPath;
+        File demoDir = grailsApplication.parentContext.getResource(demoPath).getFile()
+        log.info("Demo ${demoDir}")
+        log.info("Demo ${demoDir.listFiles()}")
+        demoDir.eachFile(FileType.FILES){ file ->
+            itemService.createItem(demoPath,file.name);
+        }
+
+    }
     def createItems() {
 
         log.info("Initializing Item data...");
+        createDemoItems();
+
         //1-5
         itemService.createItem('exercise','perimeter1.xml');
         itemService.createItem('qti','choice_fixed.xml');

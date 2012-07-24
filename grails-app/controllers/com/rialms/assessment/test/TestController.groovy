@@ -20,8 +20,7 @@ class TestController {
     }
 
     def demo = {
-        if (!params.max) params.max = 50
-        [testList: Test.list(params)]
+        [testList: testService.listTestsByFilter(params)]
     }
 
     //TODO P3 remove after testing

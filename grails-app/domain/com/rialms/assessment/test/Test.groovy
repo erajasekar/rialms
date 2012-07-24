@@ -8,15 +8,14 @@ class Test {
     String dataFile;
     String title;
 
+    static hasMany = [testFeatures:TestFeature]
+
     static constraints = {
         dataPath(unique: ['dataFile'])
     }
 
     public Set<Feature> getFeatures() {
-        TestFeature.findAllByTest(this).collect { it.feature } as Set
+        testFeatures.collect { it.feature } as Set
     }
 
-    public Set<String> getFeatureNames() {
-        TestFeature.findAllByTest(this).collect { it.feature.name } as Set
-    }
 }

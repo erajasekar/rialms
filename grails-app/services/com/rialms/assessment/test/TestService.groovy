@@ -7,11 +7,14 @@ import org.springframework.beans.factory.InitializingBean
 import com.rialms.util.QtiUtils
 import org.springframework.validation.Errors
 import com.rialms.assessment.Feature
+import grails.orm.PagedResultList
+import com.rialms.assessment.item.Item
 
 class TestService implements InitializingBean {
 
     def grailsApplication;
     String contentPath;
+    int maxEntriesPerPage;
 
     public void createTest(String dataPath, String dataFile){
         File testXml = getTestDataFile(dataPath,dataFile);
@@ -50,6 +53,24 @@ class TestService implements InitializingBean {
         return "${contentPath}/${dataPath}/"
     }
 
+    public PagedResultList listTestsByFilter(Map params){
+        if (!params.max) params.max = maxEntriesPerPage
+        if (!params.filterByFeature) params.filterByFeature = 'all'
+
+        Closure filterCriteria = {
+            if (params.filterByFeature != 'all'){
+                testFeatures{
+                    feature{
+                        'eq'('name',params.filterByFeature)
+                    }
+                }
+            }
+        }
+        PagedResultList testList = Test.createCriteria().list(params,filterCriteria);
+
+        return testList;
+    }
+
     public TestCoordinator createTestCoordinator(String testId) {
         Test test = Test.get(testId);
         TestCoordinator coordinator = new TestCoordinator(getTestDataFile(test.dataPath,test.dataFile), getAbsoluteDataPath(test.dataPath), null);
@@ -85,6 +106,7 @@ class TestService implements InitializingBean {
 
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
+        maxEntriesPerPage = grailsApplication.config.rialms.maxEntriesPerPage
     }
 
 }

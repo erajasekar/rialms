@@ -15,18 +15,17 @@
     </div>
 
     <div class="block-content">
-        <div class="feature-list active">
+        <div class="feature-list">
+            <% String preStyle = params.filterByFeature == 'all' ? "class='active'" : '' %>
             <g:link action="demo" params="${params + ['filterByFeature': 'all']}">
-                <pre>
-                        <g:message code="showall.label"/> sample
-                </pre>
-
+                <pre ${preStyle}><g:message code="showall.label"/></pre>
             </g:link>
         </div>
         <g:each in="${features}" var="feature">
+            <% preStyle = params.filterByFeature == feature.name ? "class='active'" : '' %>
             <div class="feature-list">
                 <g:link action="demo" params="${params + ['filterByFeature': feature.name]}">
-                    <pre><span class="label label-info">${feature.name}</span> ${feature.description}</pre>
+                    <pre ${preStyle}><span class="label label-info">${feature.name}</span> ${feature.description}</pre>
                 </g:link>
             </div>
         </g:each>

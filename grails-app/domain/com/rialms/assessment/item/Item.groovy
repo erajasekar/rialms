@@ -16,8 +16,4 @@ class Item {
     public Set<Feature> getFeatures() {
         itemFeatures.collect { it.feature } as Set
     }
-
-    public Set<String> getFeatureNames() {
-        itemFeatures.collect { it.feature.name } as Set
-    }
 }

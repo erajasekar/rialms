@@ -33,9 +33,9 @@
                 <thead>
                 <tr>
 
-                    <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"/>
+                    <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"  params="${params}"/>
 
-                    <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"/>
+                    <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"  params="${params}"/>
 
                     <th><g:message code="action.label"/></th>
 
@@ -49,7 +49,14 @@
 
                         <td>${fieldValue(bean: test, field: 'title')}
                             <g:each in="${test.features}" var="feature">
-                                <a href=""  title="${feature.description}"><code>${feature.name}</code></a>
+                                <span class='feature-list'>
+                                    <code>
+                                        <g:link title="${feature.description}" action="demo"
+                                                params="${params + ['filterByFeature': feature.name]}">
+                                            ${feature.name}
+                                        </g:link>
+                                    </code>
+                                </span>
                             </g:each>
                         </td>
 
@@ -65,9 +72,7 @@
             </table>
         </div>
 
-        <div class="paginateButtons">
-            <g:paginate total="${com.rialms.assessment.test.Test.count()}"/>
-        </div>
+        <b:paginate total="${testList.getTotalCount()}" params="${params}"/>
     </div>
 </div>
 </body>

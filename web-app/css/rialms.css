@@ -174,7 +174,7 @@ a.toggleNav:hover {
 .feature-list code a:hover {
   text-decoration: underline;
 }
-.feature-list .active a pre {
+.feature-list .active {
   color: #dd1144;
 }
 .feature-list a {
@@ -184,14 +184,5 @@ a.toggleNav:hover {
   text-decoration: none;
 }
 .feature-list a:hover pre {
-  color: #dd1144;
-}
-.feature-list .active a {
-  color: #dd1144;
-}
-.feature-list .active a pre {
-  color: #dd1144;
-}
-.feature-list .active a pre {
   color: #dd1144;
 }
