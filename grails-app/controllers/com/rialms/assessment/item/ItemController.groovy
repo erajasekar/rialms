@@ -24,42 +24,7 @@ class ItemController {
     }
 
     def demo = {
-        if (!params.max) params.max = 10
-        if (!params.filterByFeature) params.filterByFeature = 'all'
-        def itemList;
-
-      //  if (params.filterByFeature == 'all') {
-           // itemList = Item.list(params);
-      //  } else {
-            /*  Item item = Item.get(1);
-          println "RAJA2 ${item.itemFeatures.collect{it.feature}}"
-          def c = ItemFeature.createCriteria();
-          Feature f = Feature.findByName(params.filterByFeature)
-          List ifeatures = c.list {
-              'eq'('feature',f)
-          }
-         //String query = """select item from Item,ItemFeature, Feature where Feature.name=:feature and ItemFe.feature_id = feature.id and item_feature.item_id=item.id """
-          String query = "Select if from item_feature if, feature f where f.name='adaptive' and if.feature_id=f.id"
-          List itemFeatures = ItemFeature.executeQuery(query);
-          println "RAJA ${itemFeatures}"
-          itemList = [];*/
-            //println "RAJA ${itemList}"
-            //itemList = itemFeatures.collect{it.item} as Set;
-            def itemCriteria = Item.createCriteria();
-            Closure filterCriteria = {
-                if (params.filterByFeature != 'all'){
-                    itemFeatures{
-                        feature{
-                            'eq'('name',params.filterByFeature)
-                        }
-                    }
-                }
-            }
-            itemList = itemCriteria.list(params,filterCriteria);
-
-       // }
-
-        [itemList: itemList]
+        [itemList: itemService.listItemsByFilter(params)]
     }
 
     def reset = {

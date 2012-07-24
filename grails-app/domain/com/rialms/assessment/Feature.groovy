@@ -11,13 +11,10 @@ class Feature {
 
     String name;
     String description;
-    String relatesTo;
+    String relatesTo;//TODO p1 REMOVE IF NOT REQUIRED
 
     static constraints = {
         name (unique: true)
     }
 
-    static mapping = {
-        table "feature"
-    }
 }

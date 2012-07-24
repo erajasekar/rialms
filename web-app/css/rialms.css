@@ -165,3 +165,33 @@ a.toggleNav:hover {
   background-color: #62c729;
   cursor: pointer;
 }
+.feature-list {
+  margin: 2px;
+}
+.feature-list code a {
+  color: #dd1144;
+}
+.feature-list code a:hover {
+  text-decoration: underline;
+}
+.feature-list .active a pre {
+  color: #dd1144;
+}
+.feature-list a {
+  color: #dd1144;
+}
+.feature-list a:hover {
+  text-decoration: none;
+}
+.feature-list a:hover pre {
+  color: #dd1144;
+}
+.feature-list .active a {
+  color: #dd1144;
+}
+.feature-list .active a pre {
+  color: #dd1144;
+}
+.feature-list .active a pre {
+  color: #dd1144;
+}

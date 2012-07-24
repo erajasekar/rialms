@@ -16,7 +16,7 @@
 <body>
 <div class="row-fluid">
     <div class="span3">
-        <g:render template="/renderer/renderFeatures" model="[features:ItemFeature.getFeatures()]"/>
+        <g:render template="/renderer/renderFeatures" model="[features: ItemFeature.getFeatures()]"/>
     </div>
 
     <div class="span9">
@@ -44,11 +44,16 @@
 
                         <td>${fieldValue(bean: item, field: 'id')}
 
-                        <td> ${fieldValue(bean: item, field: 'title')}
-                          <g:each in="${item.features}" var="feature">
-                                <g:link title="${feature.description}" action="demo" params="${params + ['filterByFeature':feature.name]}">
-                                    <code> ${feature.name}</code>
-                                </g:link>
+                        <td>${fieldValue(bean: item, field: 'title')}
+                            <g:each in="${item.features}" var="feature">
+                                <span class='feature-list'>
+                                    <code>
+                                        <g:link title="${feature.description}" action="demo"
+                                                params="${params + ['filterByFeature': feature.name]}">
+                                            ${feature.name}
+                                        </g:link>
+                                    </code>
+                                </span>
                             </g:each>
                         </td>
 

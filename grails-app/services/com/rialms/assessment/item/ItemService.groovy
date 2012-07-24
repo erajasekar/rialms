@@ -6,11 +6,13 @@ import org.springframework.beans.factory.InitializingBean
 import com.rialms.util.QtiUtils
 
 import com.rialms.assessment.Feature
+import grails.orm.PagedResultList
 
 class ItemService implements InitializingBean {
 
     def grailsApplication;
     String contentPath;
+    int maxEntriesPerPage;
 
     public AssessmentItem getAssessmentItem(Item e) {
 
@@ -53,6 +55,24 @@ class ItemService implements InitializingBean {
         }
     }
 
+    public PagedResultList listItemsByFilter(Map params){
+        if (!params.max) params.max = maxEntriesPerPage
+        if (!params.filterByFeature) params.filterByFeature = 'all'
+
+        Closure filterCriteria = {
+            if (params.filterByFeature != 'all'){
+                itemFeatures{
+                    feature{
+                        'eq'('name',params.filterByFeature)
+                    }
+                }
+            }
+        }
+        PagedResultList itemList = Item.createCriteria().list(params,filterCriteria);
+
+        return itemList;
+    }
+
     private File getItemDataFile(String dataPath, String dataFile) {
         return grailsApplication.parentContext.getResource("${getAbsoluteDataPath(dataPath)}" + dataFile).getFile();
     }
@@ -68,5 +88,6 @@ class ItemService implements InitializingBean {
 
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
+        maxEntriesPerPage = grailsApplication.config.rialms.maxEntriesPerPage
     }
 }

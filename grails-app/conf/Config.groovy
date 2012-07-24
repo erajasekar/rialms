@@ -41,6 +41,7 @@ rialms {
     showInternalState = true;
     hintIdentifier = 'HINT';
     solutionIdentifier = 'SOLUTION';
+    maxEntriesPerPage = 10;
 }
 
 // The default codec used to encode data with ${}

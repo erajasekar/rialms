@@ -14,10 +14,10 @@ class Item {
     }
 
     public Set<Feature> getFeatures() {
-        ItemFeature.findAllByItem(this).collect { it.feature } as Set
+        itemFeatures.collect { it.feature } as Set
     }
 
     public Set<String> getFeatureNames() {
-        ItemFeature.findAllByItem(this).collect { it.feature.name } as Set
+        itemFeatures.collect { it.feature.name } as Set
     }
 }

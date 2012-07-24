@@ -2,50 +2,51 @@
 @import "../Kickstrap/extras/themes/sandra/less/variables.less";
 @import "rialms-mixins.less";
 @import "../bootstrap/mixins.less";
+
 body {
-  padding-top: 65px;
-}  
+    padding-top: 65px;
+}
 
 .block-header {
-	.create-border(@blockHeaderBackgroud);
+    .create-border(@blockHeaderBackgroud);
     font-size: 11px;
     font-weight: bold;
     line-height: @baseLineHeight;
     padding: 10px 0px 10px 20px;
-	border-top-left-radius: 5px;
-	border-top-right-radius: 5px;
-	color:@blockHeaderTextColor;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: @blockHeaderTextColor;
     .shadow;
-    a{
-       padding:5px;
-       border : none;
-       margin: 1px;
-       &:hover{
-             background-color: darken(@blockHeaderBackgroud, 10%);
-             outline: 1px solid darken(@blockHeaderBackgroud, 20%);
-       }
+    a {
+        padding: 5px;
+        border: none;
+        margin: 1px;
+        &:hover {
+            background-color: darken(@blockHeaderBackgroud, 10%);
+            outline: 1px solid darken(@blockHeaderBackgroud, 20%);
+        }
     }
 }
 
 .block-content {
-	background-color: @blockContentBackground;
+    background-color: @blockContentBackground;
     margin-bottom: 20px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border: 1px solid @blockContentBorder;
     border-top: 0px;
-	padding: 20px 20px 20px 20px;
+    padding: 20px 20px 20px 20px;
     .shadow;
 }
 
 .block-controls {
-  padding: 15px 20px 05px 20px;
-  margin-top: 20px;
-  background-color: @blockControlsBackground;
-  border-top: 2px solid @grayLighter;
+    padding: 15px 20px 05px 20px;
+    margin-top: 20px;
+    background-color: @blockControlsBackground;
+    border-top: 2px solid @grayLighter;
 }
 
-#sidebar-status-list{
+#sidebar-status-list {
     max-height: 500px;
     overflow: auto;
 }
@@ -54,57 +55,57 @@ body {
     padding: 0px 0px 10px;
     margin-bottom: 20px;
     background-color: @sidebarNavBackground;
-   .create-border(@sidebarNavBackground);
-   .border-radius(5px);
+    .create-border(@sidebarNavBackground);
+    .border-radius(5px);
     box-shadow: 2px 2px 10px @grayLighter;
-   a{
-    &:hover{
-        color: @sidebarNavLinkHoverColor;
+    a {
+        &:hover {
+            color: @sidebarNavLinkHoverColor;
+        }
     }
-   }
-   .block-header{
+    .block-header {
         border-bottom: none;
         background-color: @blockHeaderBackgroud;
-   }
+    }
 
 }
 
-.nav .nav-header{
-  padding: 10px;
-  border-top: 2px solid @grayLighter;
-  color:@sidebarNavHeaderColor;
+.nav .nav-header {
+    padding: 10px;
+    border-top: 2px solid @grayLighter;
+    color: @sidebarNavHeaderColor;
 }
 
 a.toggleNav {
-    padding:0px 0px 0px 15px;
+    padding: 0px 0px 0px 15px;
     font-size: large;
     color: @linkColor;
-    &:hover{
+    &:hover {
         color: darken(@linkColor, 20%);
         text-decoration: none;
     }
 }
 
 .no-sidebar {
-    margin-left:0 !important;
+    margin-left: 0 !important;
 }
 
 .submission {
     padding: 20px
 }
 
-.page-title  {
+.page-title {
     .center;
     padding: 10px;
     border-bottom: 2px solid @grayLighter;
 }
 
-.title{
+.title {
     .center;
     padding: 10px;
 }
 
-.form-actions{
+.form-actions {
     background-color: @formActionsBackground;
 }
 
@@ -115,30 +116,30 @@ a.toggleNav {
     li {
         margin: 0px 5px 5px -5px;
         padding: 5px;
-        span{
+        span {
             .pad;
             .create-shadow-border(@green);
             cursor: move;
-            border-left-width:3px;
+            border-left-width: 3px;
         }
     }
 }
 
-.draggable-gap-text{
-    display:inline-block;
+.draggable-gap-text {
+    display: inline-block;
     margin: 0px 10px 20px 10px;
     padding: 5px 30px 5px 30px;
     cursor: move;
     .create-shadow-border(@green);
 }
 
-.droppable-gap{
+.droppable-gap {
     margin: 5px;
     padding: 5px 30px 5px 30px;
     .create-shadow-border(@green);
 }
 
-.associable-choice{
+.associable-choice {
     .pad;
     margin: 10px;
     .create-shadow-border(@green);
@@ -147,10 +148,61 @@ a.toggleNav {
 
 .associable-choice-endpoint {
     padding: 0px 5px 0px 5px;
-    background-color:@green;
-    cursor:pointer;
+    background-color: @green;
+    cursor: pointer;
 }
 
+.feature-list {
+    margin:2px;
+    code {
+        a {
+            color: @featureLinkColor;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .active{
+        a{
+            pre{
+                color: @featureLinkColor;
+            }
+
+        }
+    }
+    a {
+        color: @featureLinkColor;
+        &:hover {
+            text-decoration: none;
+            pre {
+                color: @featureLinkColor;
+            }
+
+        }
+    }
+}
+
+.feature-list .active {
+    a {
+        pre {
+            color: @featureLinkColor;
+        }
+        color: @featureLinkColor;
+    }
+
+}
+
+.feature-list {
+    .active{
+        a{
+            pre{
+                color: @featureLinkColor;
+            }
+        }
+
+    }
+
+}
 
 
 

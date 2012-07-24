@@ -15,12 +15,19 @@
     </div>
 
     <div class="block-content">
-        <div><pre><g:message code="showall.label"/></pre></div>
+        <div class="feature-list active">
+            <g:link action="demo" params="${params + ['filterByFeature': 'all']}">
+                <pre>
+                        <g:message code="showall.label"/> sample
+                </pre>
+
+            </g:link>
+        </div>
         <g:each in="${features}" var="feature">
-            <div>
-                <a href="#">
+            <div class="feature-list">
+                <g:link action="demo" params="${params + ['filterByFeature': feature.name]}">
                     <pre><span class="label label-info">${feature.name}</span> ${feature.description}</pre>
-                </a>
+                </g:link>
             </div>
         </g:each>
     </div>
