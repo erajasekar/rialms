@@ -38,8 +38,8 @@ grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 rialms {
     contentPath = 'content';
-    demoItemsPath = "${contentPath}/demo/items"
-    demoTestsPath = "${contentPath}/demo/tests"
+    demoItemsPath = "/demo/items"
+    demoTestsPath = "/demo/tests"
     showInternalState = true;
     hintIdentifier = 'HINT';
     solutionIdentifier = 'SOLUTION';

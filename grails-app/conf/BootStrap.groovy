@@ -1,4 +1,6 @@
 import groovy.io.FileType
+import org.codehaus.groovy.grails.commons.GrailsResourceUtils
+import java.util.regex.Pattern
 
 class BootStrap {
 
@@ -21,15 +23,29 @@ class BootStrap {
 
     def createDemoItems(){
         String demoPath = grailsApplication.config.rialms.demoItemsPath;
-        File demoDir = grailsApplication.parentContext.getResource(demoPath).getFile()
-        log.info("Demo ${demoDir}")
-        log.info("Demo ${demoDir.listFiles()}")
+        File demoDir = grailsApplication.parentContext.getResource("${grailsApplication.config.rialms.contentPath}/${demoPath}").getFile()
         demoDir.eachFile(FileType.FILES){ file ->
             itemService.createItem(demoPath,file.name);
         }
+   }
 
-    }
-    def createItems() {
+   def createDemoTests(){
+       String demoPath = grailsApplication.config.rialms.demoTestsPath;
+       File contentDir =  grailsApplication.parentContext.getResource("${grailsApplication.config.rialms.contentPath}").getFile()
+       File demoDir = new File(contentDir,demoPath);
+
+       demoDir.eachFileRecurse(FileType.FILES){ file ->
+           if (file.name.endsWith(".xml")){
+               def xml = new XmlSlurper().parse(file);
+               if (xml.name() == 'assessmentTest'){
+                   def relativePath = file.parent.substring(contentDir.absolutePath.length()).replace('\\', '/')
+                   testService.createTest(relativePath,file.name);
+               }
+           }
+       }
+   }
+
+   def createItems() {
 
         log.info("Initializing Item data...");
         createDemoItems();
@@ -72,6 +88,8 @@ class BootStrap {
     def createTests() {
 
         log.info("Initializing Test data...");
+        createDemoTests();
+
         //1-5
         testService.createTest('tests/qti/NonLinearSimpleTest', 'assessment.xml');
         testService.createTest('tests/qti/Mathematics', 'mathematics.xml');

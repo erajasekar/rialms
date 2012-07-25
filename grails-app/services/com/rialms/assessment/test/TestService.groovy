@@ -14,6 +14,7 @@ class TestService implements InitializingBean {
 
     def grailsApplication;
     String contentPath;
+    String demoTestsPath;
     int maxEntriesPerPage;
 
     public void createTest(String dataPath, String dataFile){
@@ -24,7 +25,11 @@ class TestService implements InitializingBean {
         if (test.hasErrors()){
             log.warn("Errors in creating feature : ${test.errors}")
         }
-        addFeaturesToTest(test, QtiUtils.getFeaturesFromTestXml(testXml))
+
+        if (dataPath.startsWith(demoTestsPath)){
+            addFeaturesToTest(test, QtiUtils.getFeaturesFromTestXml(testXml))
+        }
+
     }
 
     private void addFeaturesToTest(Test test, List<String> featureNames){
@@ -64,6 +69,8 @@ class TestService implements InitializingBean {
                         'eq'('name',params.filterByFeature)
                     }
                 }
+            }else{
+                isNotEmpty('testFeatures')
             }
         }
         PagedResultList testList = Test.createCriteria().list(params,filterCriteria);
@@ -107,6 +114,7 @@ class TestService implements InitializingBean {
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
         maxEntriesPerPage = grailsApplication.config.rialms.maxEntriesPerPage
+        demoTestsPath = grailsApplication.config.rialms.demoTestsPath;
     }
 
 }

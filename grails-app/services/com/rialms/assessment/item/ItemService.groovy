@@ -12,6 +12,7 @@ class ItemService implements InitializingBean {
 
     def grailsApplication;
     String contentPath;
+    String demoItemsPath;
     int maxEntriesPerPage;
 
     public AssessmentItem getAssessmentItem(Item e) {
@@ -31,7 +32,10 @@ class ItemService implements InitializingBean {
         if (item.hasErrors()){
             log.warn("Errors in creating feature : ${item.errors}")
         }
-        addFeaturesToItem(item, QtiUtils.getFeaturesFromItemXml(itemXml))
+        if (dataPath == demoItemsPath){
+            addFeaturesToItem(item, QtiUtils.getFeaturesFromItemXml(itemXml))
+        }
+
     }
 
 
@@ -66,6 +70,8 @@ class ItemService implements InitializingBean {
                         'eq'('name',params.filterByFeature)
                     }
                 }
+            }else{
+                isNotEmpty('itemFeatures')
             }
         }
         PagedResultList itemList = Item.createCriteria().list(params,filterCriteria);
@@ -89,5 +95,6 @@ class ItemService implements InitializingBean {
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
         maxEntriesPerPage = grailsApplication.config.rialms.maxEntriesPerPage
+        demoItemsPath = grailsApplication.config.rialms.demoItemsPath
     }
 }

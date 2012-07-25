@@ -19,6 +19,7 @@ class ItemController {
 
     def list = {
         if (!params.max) params.max = 10
+        //TODO: P2 This should return user uploaded items and not demo items
         [itemList: Item.list(params)]
 
     }
