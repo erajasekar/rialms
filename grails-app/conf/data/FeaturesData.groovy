@@ -11,73 +11,73 @@ data {
             [
                     name: 'adaptive',
                     relatesTo: 'item',
-                    description: """Allows an item to be scored adaptively over a sequence of attempts. This allows the candidate to alter their answer following feedback or to be posed additional questions based on their current answer"""
+                    description: "Question can be scored adaptively over a sequence of attempts. This allows the candidate to alter their answer following feedback or to be posed additional questions based on their current answer"
             ]
             ,
             [
                     name: 'choice',
                     relatesTo: 'item',
-                    description: """Presents candidate with a set of choices accepts single choice as response"""
+                    description: "Presents candidate with a set of choices accepts single choice as response"
             ]
             ,
             [
                     name: 'choice multiple',
                     relatesTo: 'item',
-                    description: """Presents candidate with a set of choices accepts multiple choices as response"""
+                    description: "Presents candidate with a set of choices accepts multiple choices as response"
             ]
             ,
             [
                     name: 'order',
                     relatesTo: 'item',
-                    description: """Presents candidates with a number of choices and allows them to reorder them in correct order"""
+                    description: "Presents candidates with a number of choices and allows them to reorder them in correct order"
             ]
             ,
             [
                     name: 'associate',
                     relatesTo: 'item',
-                    description: """Presents candidates with a number of choices and allows them to create associations between them"""
+                    description: "Presents candidates with a number of choices and allows them to create associations between them"
             ]
             ,
             [
                     name: 'match',
                     relatesTo: 'item',
-                    description: """Presents candidates with two sets of choices and allows them to create associations between pairs of choices in the two sets"""
+                    description: "Presents candidates with two sets of choices and allows them to create associations between pairs of choices in the two sets"
             ]
             ,
             [
                     name: 'gap match',
                     relatesTo: 'item',
-                    description: """Presents number gaps that the candidate can fill from an associated set of choices"""
+                    description: "Presents number gaps that the candidate can fill from an associated set of choices"
             ]
             ,
             [
                     name: 'inline choice',
                     relatesTo: 'item',
-                    description: """Presents set of choice as dropdown and allows candidate to choose one"""
+                    description: "Presents set of choice as dropdown and allows candidate to choose one"
             ]
             ,
             [
                     name: 'text entry',
                     relatesTo: 'item',
-                    description: """Obtains a simple piece of text response from the candidate"""
+                    description: "Obtains a simple piece of text response from the candidate"
             ]
             ,
             [
                     name: 'hottext',
                     relatesTo: 'item',
-                    description: """Presents a passage of text with some hot words/phrases highlighted and selectable by the candidate"""
+                    description: "Presents a passage of text with some hot words/phrases highlighted and selectable by the candidate"
             ]
             ,
             [
                     name: 'partial scoring',
                     relatesTo: 'item',
-                    description: "Even if candidate's response is not fully correct, he will be awarded partial scores based on number of correct answers"
+                    description: "Candidate can be awarded partial scores based on number of correct answers"
             ]
             ,
             [
                     name: 'templated',
                     relatesTo: 'item',
-                    description: 'Allows same question to be repeated with different choices (and the correct answer) based on template'
+                    description: 'Same question can be repeated with different choices (and the correct answer) based on template'
             ]
             ,
             [
@@ -119,13 +119,13 @@ data {
             [
                     name: 'individual',
                     relatesTo: 'test',
-                    description: "In individual mode candidate's responses are submitted item-by-item basis"
+                    description: "Candidate's responses are submitted item-by-item basis"
             ]
             ,
             [
                     name: 'simultaneous',
                     relatesTo: 'test',
-                    description: "In simultaneous mode the candidate's responses are all submitted together at the end of the testPart"
+                    description: "Candidate's responses are all submitted together at the end of the testPart"
             ]
             ,
             [
@@ -137,7 +137,7 @@ data {
             [
                     name: 'disabled review',
                     relatesTo: 'test',
-                    description: "Candidate cannot go back and review previous questions"
+                    description: "Candidate cannot go back and review previous questions in individual submission mode"
             ]
             ,
             [
@@ -155,19 +155,19 @@ data {
             [
                     name: 'max attempts',
                     relatesTo: 'test',
-                    description: "Maximum number of attempts allowed to respond to a question for non-adaptive questions"
+                    description: "Limits maximum number of attempts allowed to respond to a question for non-adaptive questions"
             ]
             ,
             [
                     name: 'nested',
                     relatesTo: 'test',
-                    description: "Test has sections nested within another section"
+                    description: "Test can have sections nested within another section"
             ]
             ,
             [
                     name: 'multiple parts',
                     relatesTo: 'test',
-                    description: "Test has multiple test parts"
+                    description: "Test can have multiple test parts"
             ]
 
     ]

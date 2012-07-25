@@ -35,8 +35,24 @@ class QtiUtils {
                 } else {
                     respValue.each { if (!it.isEmpty()) {values.add(it)}}
                 }
+
             }
-            map.put(i, values)
+            //TODO P1: This doesn't submit for items with endAttempts.
+            /*
+               For EndAttemptInteractions like hint, solution, we don't want to set empty value
+               if identifier is not found in response params. so qti:endAttemptButton will pass 'false' value
+               for Constants.allowEmptyValue param.
+             */
+            String allowEmptyValue = params[Constants.allowEmptyValue];
+            if (allowEmptyValue && allowEmptyValue.toBoolean() == false ){
+               if (!values.isEmpty()){
+                   map.put(i, values)
+               }
+            }else{
+                map.put(i, values)
+            }
+
+
         }
         return map
     }
