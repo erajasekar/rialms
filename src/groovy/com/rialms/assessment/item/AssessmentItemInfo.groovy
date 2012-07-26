@@ -180,6 +180,8 @@ class AssessmentItemInfo {
         } else {
             complete = assessmentItem.isCorrect();
         }
+        //Note: AssessmentItem.isCorrect() is patched to handle adaptive items correctly.
+        return  assessmentItem.isCorrect();
         return complete;
     }
 

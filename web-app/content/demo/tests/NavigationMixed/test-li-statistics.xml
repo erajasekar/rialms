@@ -4,21 +4,26 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
         identifier="Test01"
-        title="Linear Individual - outcome expressions">
+        title="Linear Individual - Statistics">
     <outcomeDeclaration identifier="numberSelected" cardinality="single" baseType="integer"/>
     <outcomeDeclaration identifier="numberPresented" cardinality="single" baseType="integer"/>
     <outcomeDeclaration identifier="numberResponded" cardinality="single" baseType="integer"/>
     <outcomeDeclaration identifier="numberCorrect" cardinality="single" baseType="integer"/>
     <outcomeDeclaration identifier="numberIncorrect" cardinality="single" baseType="integer"/>
     <outcomeDeclaration identifier="totalScore" cardinality="single" baseType="float"/>
+    <outcomeDeclaration identifier="something" cardinality="single" baseType="identifier"/>
     <testPart identifier="P01" navigationMode="linear" submissionMode="individual">
         <assessmentSection identifier="S01" title="Section 1" visible="true">
-            <assessmentItemRef identifier="item01" href="item01.xml"/>
-            <assessmentItemRef identifier="item02" href="item02.xml"/>
-            <assessmentItemRef identifier="item03" href="item03.xml"/>
-            <assessmentItemRef identifier="item04" href="item04.xml"/>
-            <assessmentItemRef identifier="item05" href="item05.xml"/>
-            <assessmentItemRef identifier="item06" href="item06.xml"/>
+            <assessmentItemRef identifier="MultipleChoice" href="choice_multiple.xml"/>
+            <assessmentItemRef identifier="AdaptiveFeedback" href="feedback_adaptive.xml"/>
+            <assessmentItemRef identifier="GapMatch" href="gap_match.xml"/>
+            <assessmentItemRef identifier="Hint" href="hint.xml"/>
+            <assessmentItemRef identifier="EvaluateExpression" href="MA-UT-01a-NoTP-Choice.xml"/>
+            <assessmentItemRef identifier="Order" href="order.xml"/>
+            <assessmentItemRef identifier="Match" href="match.xml"/>
+            <assessmentItemRef identifier="Sequences" href="sequences.xml"/>
+            <assessmentItemRef identifier="Template" href="template.xml"/>
+            <assessmentItemRef identifier="AdaptiveTemplate" href="adaptive_template.xml"/>
         </assessmentSection>
     </testPart>
     <outcomeProcessing>

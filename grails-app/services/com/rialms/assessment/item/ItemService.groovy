@@ -19,6 +19,8 @@ class ItemService implements InitializingBean {
 
         AssessmentItem assessmentItem = new AssessmentItem();
         assessmentItem.load(getItemDataFile(e.dataPath,e.dataFile));
+        //Note: Fixed bug in JQTI AssessmentItem.setCompletionStatus to set value to IndentifierValue instead of StringValue
+        //Recompiled and new jar.
         assessmentItem.initialize(null);
         return assessmentItem;
     }
