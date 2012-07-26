@@ -1,36 +1,265 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <assessmentItem
-        xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
-        identifier="item05"
-        title="Item 5"
-        adaptive="false"
-        timeDependent="false">
-
-    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string">
+ xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1" 
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ xmlns:ma="http://mathassess.qtitools.org/xsd/mathassess"
+ xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 imsqti_v2p1.xsd 
+ http://mathassess.qtitools.org/xsd/mathassess mathassess.xsd"  
+ xmlns:m="http://www.w3.org/1998/Math/MathML" adaptive="false" 
+ identifier="MA-UT-01a-NoTP-Choice" timeDependent="false" title="Algebraic Fractions - Is evaluation possible? (choice)">
+<!-- 
+Simple ScriptRule template processing, textEntryInteraction and numerical judging in response processing
+-->
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
         <correctResponse>
-            <value>6</value>
+            <value>ChoiceA</value>
         </correctResponse>
-        <mapping defaultValue="0">
-            <mapEntry mapKey="6" mappedValue="1"/>
-        </mapping>
     </responseDeclaration>
-
-    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMaximum="1.0">
+    <responseDeclaration baseType="boolean" cardinality="single" identifier="HINTREQUEST" />
+    <responseDeclaration baseType="boolean" cardinality="single" identifier="SOLREQUEST" />
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float">
         <defaultValue>
-            <value>0</value>
+            <value>0.0</value>
         </defaultValue>
     </outcomeDeclaration>
-
-
-    <itemBody>
-        <p>Please calculate the following:</p>
-        <p>5+1=
-            <textEntryInteraction responseIdentifier="RESPONSE" expectedLength="15"/>
-        </p>
+	<outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
+    <itemBody><!-- contains MathML -->
+        <p>Which of these conditions makes it impossible to evaluate &#160;
+				<m:math display="block">
+					<m:semantics>
+						<m:mrow>
+							<m:mfrac>
+						        <m:mrow>
+									<m:mi>x</m:mi>
+									<m:mo>+</m:mo>
+									<m:mi>4</m:mi>
+								</m:mrow>
+						        <m:mrow>
+									<m:mn>6</m:mn>
+									<m:mo>-</m:mo>
+									<m:mi>a</m:mi>
+								</m:mrow>
+							</m:mfrac>
+						</m:mrow>
+						<m:annotation encoding='LaTeX'>\[\frac{x+j}{6-a}\]</m:annotation>
+					</m:semantics>
+				</m:math> 
+		</p>
+        <div>
+            <table>
+				<tbody>
+	                <tr>
+	                    <td>
+	                        <choiceInteraction responseIdentifier="RESPONSE" shuffle="true" maxChoices="1">
+	                            <!--<prompt>Select one of these options:</prompt>-->
+	                            <simpleChoice identifier="ChoiceA">
+									<m:math display="block">
+										<m:semantics>
+											<m:mrow>
+											    <m:mi>a</m:mi>
+												<m:mo>=</m:mo>
+												<m:mn>6</m:mn>
+											</m:mrow>
+											<m:annotation encoding='LaTeX'>\[\a=6\]</m:annotation>
+										</m:semantics>
+									</m:math>					
+									<feedbackInline outcomeIdentifier="FEEDBACK" identifier="ChoiceA" showHide="show">&#160;&#160;Correct answer, 1 mark.</feedbackInline>
+	                            </simpleChoice>
+	                            <simpleChoice identifier="ChoiceB">
+									<m:math display="block">
+										<m:semantics>
+											<m:mrow>
+											    <m:mi>a</m:mi>
+												<m:mo>=</m:mo>
+												<m:mn>-6</m:mn>
+											</m:mrow>
+											<m:annotation encoding='LaTeX'>\[\a=6\]</m:annotation>
+										</m:semantics>
+									</m:math>					
+									<feedbackBlock outcomeIdentifier="FEEDBACK" identifier="ChoiceB" showHide="show"><p>&#160;&#160;The fraction cannot be evaluated when the denominator evaluates to zero.</p> 
+								<p>However, when&#160;&#160;
+									<m:math>
+									    <m:semantics>
+											<m:mrow>
+												<m:mi>a</m:mi>
+												<m:mo>=</m:mo>
+												<m:mn>-6</m:mn>
+											</m:mrow>
+											<m:annotation encoding='LaTeX'>\[\a=-6\]</m:annotation>
+										</m:semantics>
+									</m:math>&#160;&#160;it evaluates to 12.
+								</p>
+								<p>You have the wrong sign, 0.5 marks.</p></feedbackBlock>
+	                            </simpleChoice>
+	                            <simpleChoice identifier="ChoiceC">
+									<m:math display="block">
+										<m:semantics>
+											<m:mrow>
+											    <m:mi>x</m:mi>
+												<m:mo>=</m:mo>
+												<m:mn>-4</m:mn>
+											</m:mrow>
+											<m:annotation encoding='LaTeX'>\[\x=4\]</m:annotation>
+										</m:semantics>
+									</m:math>					
+									<feedbackInline outcomeIdentifier="FEEDBACK" identifier="ChoiceC" showHide="show">&#160;&#160;The fraction cannot be evaluated when the denominator evaluates to zero; the value of the numerator does not affect this.</feedbackInline>
+	                            </simpleChoice>
+	                            <simpleChoice identifier="ChoiceD">
+									<m:math display="block">
+										<m:semantics>
+											<m:mrow>
+											    <m:mi>x</m:mi>
+												<m:mo>=</m:mo>
+												<m:mn>4</m:mn>
+											</m:mrow>
+											<m:annotation encoding='LaTeX'>\[\a=6\]</m:annotation>
+										</m:semantics>
+									</m:math>					
+									<feedbackInline outcomeIdentifier="FEEDBACK" identifier="ChoiceD" showHide="show">&#160;&#160;The fraction cannot be evaluated when the denominator evaluates to zero; the value of the numerator does not affect this.</feedbackInline>
+								</simpleChoice>
+	                        </choiceInteraction>
+	                    </td>
+	                </tr>
+				</tbody>
+            </table>
+        </div>
+        <feedbackBlock identifier="SOLUTION" outcomeIdentifier="FEEDBACK" showHide="show">
+            <div>
+	            <p>
+					<m:math display="block">
+						<m:semantics>
+							<m:mrow>
+								<m:mfrac>
+							        <m:mrow>
+										<m:mi>x</m:mi>
+										<m:mo>+</m:mo>
+										<m:mi>4</m:mi>
+									</m:mrow>
+							        <m:mrow>
+										<m:mn>6</m:mn>
+										<m:mo>-</m:mo>
+										<m:mi>a</m:mi>
+									</m:mrow>
+								</m:mfrac>
+							</m:mrow>
+							<m:annotation encoding='LaTeX'>\[\frac{x+4}{6-a}\]</m:annotation>
+						</m:semantics>
+					</m:math> 
+				</p>
+				<p>cannot be evaluated when the denominator takes the value zero, since it is not possible to divide by zero.</p>
+				<p>
+					<m:math display="block">
+						<m:semantics>
+							<m:mrow>
+							    <m:mrow>
+									<m:mn>6</m:mn>
+									<m:mo>-</m:mo>
+									<m:mi>a</m:mi>
+								</m:mrow>
+								<m:mo>=</m:mo>
+								<m:mn>0</m:mn>
+							</m:mrow>
+							<m:annotation encoding='LaTeX'>\[\6-a=0\]</m:annotation>
+						</m:semantics>
+					</m:math>&#160;&#160;when&#160;&#160;
+					<m:math display="block">
+						<m:semantics>
+							<m:mrow>
+							    <m:mi>a</m:mi>
+								<m:mo>=</m:mo>
+								<m:mn>6</m:mn>
+							</m:mrow>
+							<m:annotation encoding='LaTeX'>\[\a=6\]</m:annotation>
+						</m:semantics>
+					</m:math>					
+	            </p>
+	            <p>
+					<m:math display="block">
+						<m:semantics>
+							<m:mrow>
+								<m:mfrac>
+							        <m:mrow>
+										<m:mi>x</m:mi>
+										<m:mo>+</m:mo>
+										<m:mi>4</m:mi>
+									</m:mrow>
+							        <m:mrow>
+										<m:mn>6</m:mn>
+										<m:mo>-</m:mo>
+										<m:mi>a</m:mi>
+									</m:mrow>
+								</m:mfrac>
+							</m:mrow>
+							<m:annotation encoding='LaTeX'>\[\frac{x+4}{6-a}\]</m:annotation>
+						</m:semantics>
+					</m:math> 
+				</p>
+				<p>cannot be evaluated when&#160;&#160;
+					<m:math display="block">
+						<m:semantics>
+							<m:mrow>
+							    <m:mi>a</m:mi>
+								<m:mo>=</m:mo>
+								<m:mn>6</m:mn>
+							</m:mrow>
+							<m:annotation encoding='LaTeX'>\[\a=6\]</m:annotation>
+						</m:semantics>
+					</m:math>. 
+				</p>
+            </div>
+        </feedbackBlock>
+        <feedbackBlock identifier="HINT" outcomeIdentifier="FEEDBACK" showHide="show" >
+			<p>When is it impossible to evaluate a fraction?</p>
+        </feedbackBlock>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINTREQUEST" title="Show Hint" />
+            <endAttemptInteraction responseIdentifier="SOLREQUEST" title="Show Solution" />
+		</p>
     </itemBody>
-
-    <responseProcessing template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
-
+    <responseProcessing><!-- basic string match, includes feedback on specific errors -->
+	    <responseCondition>
+	        <responseIf>
+	            <variable identifier="HINTREQUEST"/>
+	            <setOutcomeValue identifier="FEEDBACK">
+	                <baseValue baseType="identifier">HINT</baseValue>
+	            </setOutcomeValue>
+	        </responseIf>
+	        <responseElseIf>
+	            <variable identifier="SOLREQUEST"/>
+	            <setOutcomeValue identifier="FEEDBACK">
+	                <baseValue baseType="identifier">SOLUTION</baseValue>
+	            </setOutcomeValue>
+	        </responseElseIf>
+	        <responseElse>
+	            <responseCondition>
+	                <responseIf>
+	                    <match>
+			                <variable identifier="RESPONSE"/>
+			                <correct identifier="RESPONSE"/>
+			            </match>
+	                    <setOutcomeValue identifier="SCORE">
+	                        <baseValue baseType="float">1</baseValue>
+	                    </setOutcomeValue>
+	                </responseIf>
+	                <responseElseIf>
+	                    <match>
+	                        <variable identifier="RESPONSE"/>
+	                        <baseValue baseType="identifier">ChoiceB</baseValue>
+	                    </match>
+	                    <setOutcomeValue identifier="SCORE">
+	                        <baseValue baseType="float">0.5</baseValue>
+	                    </setOutcomeValue>
+	                </responseElseIf>
+	                <responseElse>
+	                    <setOutcomeValue identifier="SCORE">
+	                        <baseValue baseType="float">0</baseValue>
+	                    </setOutcomeValue>
+	                </responseElse>
+	            </responseCondition>
+				<setOutcomeValue identifier="FEEDBACK">
+					<variable identifier="RESPONSE"/>
+				</setOutcomeValue>
+	        </responseElse>
+	    </responseCondition>
+	</responseProcessing>
 </assessmentItem>

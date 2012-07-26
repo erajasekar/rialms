@@ -11,6 +11,7 @@ window.updateRenderedItem = (data) ->
     )
     return
   else
+    console.log(data.disableElementIds)
     if data.visibleElementIds
       $(visibleElementId).show() for visibleElementId in data.visibleElementIds
     if data.hiddenElementIds

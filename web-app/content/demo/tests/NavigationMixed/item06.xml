@@ -1,36 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<assessmentItem
-        xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
-        identifier="item06"
-        title="Item 6"
-        adaptive="false"
-        timeDependent="false">
-
-    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string">
-        <correctResponse>
-            <value>7</value>
-        </correctResponse>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+	identifier="match" title="Characters and Plays" adaptive="false" timeDependent="false">
+	<responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+		<correctResponse>
+			<value>C R</value>
+			<value>D M</value>
+			<value>L M</value>
+			<value>P T</value>
+		</correctResponse>
         <mapping defaultValue="0">
-            <mapEntry mapKey="7" mappedValue="1"/>
+            <mapEntry mapKey="C R" mappedValue="1"/>
+            <mapEntry mapKey="D M" mappedValue="0.5"/>
+            <mapEntry mapKey="L M" mappedValue="0.5"/>
+            <mapEntry mapKey="P T" mappedValue="1"/>
         </mapping>
-    </responseDeclaration>
-
-    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMaximum="1.0">
-        <defaultValue>
-            <value>0</value>
-        </defaultValue>
-    </outcomeDeclaration>
-
-
-    <itemBody>
-        <p>Please calculate the following:</p>
-        <p>6+1=
-            <textEntryInteraction responseIdentifier="RESPONSE" expectedLength="15"/>
-        </p>
-    </itemBody>
-
-    <responseProcessing template="http://www.imsglobal.org/question/qti_v2p0/rptemplates/map_response"/>
-
+        <!--<correctResponse>
+            <value>R C</value>
+            <value>M D</value>
+            <value>M L</value>
+            <value>T P</value>
+        </correctResponse>
+		<mapping defaultValue="0">
+			<mapEntry mapKey="R C" mappedValue="1"/>
+			<mapEntry mapKey="M D" mappedValue="0.5"/>
+			<mapEntry mapKey="M L" mappedValue="0.5"/>
+			<mapEntry mapKey="T P" mappedValue="1"/>
+		</mapping>  -->
+	</responseDeclaration>
+	<outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+	<itemBody>
+		<matchInteraction responseIdentifier="RESPONSE" shuffle="true" maxAssociations="4">
+			<prompt>Match the following characters to the Shakespeare play they appeared in:</prompt>
+            <simpleMatchSet>
+                <simpleAssociableChoice identifier="C" matchMax="1">Capulet</simpleAssociableChoice>
+                <simpleAssociableChoice identifier="D" matchMax="1">Demetrius</simpleAssociableChoice>
+                <simpleAssociableChoice identifier="L" matchMax="1">Lysander</simpleAssociableChoice>
+                <simpleAssociableChoice identifier="P" matchMax="1" fixed="true" >Prospero</simpleAssociableChoice>
+            </simpleMatchSet>
+			<simpleMatchSet>
+				<simpleAssociableChoice identifier="M" matchMax="4">A Midsummer-Night's Dream</simpleAssociableChoice>
+				<simpleAssociableChoice identifier="R" matchMax="4">Romeo and Juliet</simpleAssociableChoice>
+				<simpleAssociableChoice identifier="T" matchMax="4">The	Tempest</simpleAssociableChoice>
+			</simpleMatchSet>
+		</matchInteraction>
+	</itemBody>
+	<responseProcessing
+		template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/map_response"/>
 </assessmentItem>

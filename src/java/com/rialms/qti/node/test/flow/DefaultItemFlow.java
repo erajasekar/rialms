@@ -254,7 +254,7 @@ public class DefaultItemFlow implements ItemFlow {
     }
 
     public AssessmentItemRef getNextItemRef(boolean includeFinished) {
-        logger.debug("Next item ref requested. Include finished: {}", includeFinished);
+        logger.info("Next item ref requested. Include finished: {}", includeFinished);
 
         ItemRefNode node = findNextItemRef(includeFinished);
 
