@@ -11,6 +11,7 @@
     <responseDeclaration identifier="HINTREQUEST" cardinality="single" baseType="boolean"/>
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
     <outcomeDeclaration identifier="PROGRESS" cardinality="single" baseType="identifier"/>
+    <outcomeDeclaration identifier="PROGRESS2" cardinality="single" baseType="identifier"/>
     <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
 
     <itemBody>
@@ -77,20 +78,8 @@
                 <textEntryInteraction responseIdentifier="N2" expectedLength="1"/>
             </p>
         </feedbackBlock>
-        <feedbackBlock outcomeIdentifier="PROGRESS" showHide="hide" identifier="STEP2">
-            <p>For
-                <m:math>
-                    <m:mrow>
-                        <m:mi>n</m:mi>
-                        <m:mo>=</m:mo>
-                        <m:mn>2</m:mn>
-                    </m:mrow>
-                </m:math>
-                ,
-                <textEntryInteraction responseIdentifier="N2" expectedLength="1"/>
-            </p>
-        </feedbackBlock>
-        <feedbackBlock outcomeIdentifier="PROGRESS" showHide="show" identifier="STEP3">
+
+        <feedbackBlock outcomeIdentifier="PROGRESS2" showHide="show" identifier="STEP3">
             <p>For
                 <m:math>
                     <m:mrow>
@@ -133,7 +122,7 @@
                     <variable identifier="N2"/>
                     <baseValue baseType="integer">5</baseValue>
                 </equal>
-                <setOutcomeValue identifier="PROGRESS">
+                <setOutcomeValue identifier="PROGRESS2">
                     <baseValue baseType="identifier">STEP3</baseValue>
                 </setOutcomeValue>
             </responseElseIf>

@@ -255,6 +255,14 @@ class AssessmentItemInfo {
         this.assessmentItemRef = assessmentItemRef;
     }
 
+    public List<TemplateDeclaration> getTemplateDeclarations() {
+        return assessmentItem.templateDeclarations;
+    }
+
+    public List<OutcomeDeclaration> getOutcomeDeclarations() {
+        return assessmentItem.outcomeDeclarations;
+    }
+
    /* @Override
     public String toString() {
         return "AssessmentItemInfo{" +

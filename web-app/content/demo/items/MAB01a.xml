@@ -6,7 +6,7 @@
  http://mathassess.qtitools.org/xsd/mathassess mathassess.xsd"
                 xmlns:m="http://www.w3.org/1998/Math/MathML" adaptive="false"
                 identifier="MAB01a" timeDependent="false"
-                title="Expand brackets in a(x+b)+cx and simplify - B">
+                title="Expand brackets in a(x+b)+cx and simplify">
     <!--
          no template processing, textEntryInteraction and string match in
          response processing

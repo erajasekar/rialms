@@ -158,7 +158,7 @@ class QtiTagLib {
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
                 'class': 'btn btn-info'];
 
-        fieldAttributes.params = ['id': params.id, (buttonIdentifier): title, (Consts.allowEmptyValue):'false'];
+        fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];
 
         def tagBody = {
             g.remoteLink(fieldAttributes) {
