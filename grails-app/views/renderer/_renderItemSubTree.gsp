@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="com.rialms.assessment.render.HiddenElement; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Tag; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.util.CollectionUtils; com.rialms.assessment.render.HiddenElement; com.rialms.assessment.item.AssessmentItemInfo; com.rialms.consts.Tag; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
 <g:each var="n" in="${node.children()}">
 
     <g:if test="${n instanceof String}">
@@ -17,7 +17,7 @@
         <% def tag = Tag.valueOf(n.name()); %>
 
         <g:if test="${Tag.isMixedTag(tag)}">
-            <${n.name().getLocalPart()}>
+            <${n.name().getLocalPart()} ${CollectionUtils.convertMapToAttributes(n.attributes())}>
             <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
             </${n.name().getLocalPart()}>
         </g:if>

@@ -70,18 +70,15 @@ class BootStrap {
         //1-5
         testService.createTest('tests/qti/NonLinearSimpleTest', 'assessment.xml');
         testService.createTest('tests/exercise/adaptive', 'exercises.xml');
-        testService.createTest('tests/qti/WebDeveloperTest1', 'template_test1.xml');
         testService.createTest('tests/qti/ModulePretest', 'Test_Template-Individual-Submission.xml');
         testService.createTest('tests/qti/ModulePretest', 'Test_Template-Simultaneous-Submission.xml');
+        testService.createTest('tests/navigation/individual', 'individual_navigation.xml');
 
         //6-10
-        testService.createTest('tests/navigation/individual', 'individual_navigation.xml');
         testService.createTest('tests/navigation/simultaneous', 'simultaneous_navigation.xml');
         testService.createTest('tests/qti/Interactions', 'interactions.xml');
         testService.createTest("tests/qti/NavigationMixed", "test-ns-deep-nested-disabled-review.xml");
         testService.createTest('tests/qti/NavigationMixed', 'test-ns-disabled_allowReview.xml');
-
-        //11-15
         testService.createTest("tests/qti/NavigationMixed", "test-nested-sections.xml");
 
     }
