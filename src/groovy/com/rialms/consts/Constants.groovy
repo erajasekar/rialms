@@ -97,6 +97,6 @@ class Constants {
     public static final String interaction = 'interaction';
     public static final String includeHeader = 'includeHeader';
     public static final String Interaction = 'Interaction';
-    public static final String enabled = 'enabled';
+    public static final String isEnabled = 'isEnabled';
 
 }

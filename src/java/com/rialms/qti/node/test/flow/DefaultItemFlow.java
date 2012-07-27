@@ -332,6 +332,7 @@ public class DefaultItemFlow implements ItemFlow {
             }
 
         }
+        logger.info("DEBUG looking for Id "+ identifier + " , Matched Id" + itemRef);
         return itemRef;
     }
 

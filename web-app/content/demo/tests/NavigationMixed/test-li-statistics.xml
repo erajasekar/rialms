@@ -22,8 +22,8 @@
             <assessmentItemRef identifier="Order" href="order.xml"/>
             <assessmentItemRef identifier="Match" href="match.xml"/>
             <assessmentItemRef identifier="Sequences" href="sequences.xml"/>
-            <assessmentItemRef identifier="Template" href="template.xml"/>
             <assessmentItemRef identifier="AdaptiveTemplate" href="adaptive_template.xml"/>
+            <assessmentItemRef identifier="Template" href="template.xml"/>
         </assessmentSection>
     </testPart>
     <outcomeProcessing>

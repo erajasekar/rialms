@@ -23,7 +23,7 @@
             <div id='sidebar-status-list'>
                 <% JsObjectUtil.PropertyConstructor statusEntry = new JsObjectUtil.PropertyConstructor(Consts.statusEntry) %>
                 <ul class="nav nav-list" ng-repeat="statusEntry in getStatusEntries()">
-                    <li ng-class="getStyleClass(statusEntry)" class="${!statusEntry.getPropertyValue(Consts.enabled) ? 'active' : ''}">
+                    <li ng-class="getStyleClass(statusEntry)">
                         <span ng-show="${statusEntry.getProperty(Consts.isSectionTitle)}">
                             ${statusEntry.getPropertyValue(Consts.identifier)}
                         </span>

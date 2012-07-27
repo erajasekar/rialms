@@ -80,7 +80,6 @@ class SectionPartStatus {
                 (Constants.isCurrent): isCurrentItem(),
                 (Constants.isPositionedAfterCurrent): isPositionedAfterCurrent(),
                 (Constants.status): AssessmentItemStatus.format(status),
-                (Constants.enabled): isEnabled(),
                 (Constants.styleClass): status.statusClass
         ]
     }

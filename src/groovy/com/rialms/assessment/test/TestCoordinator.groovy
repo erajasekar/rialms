@@ -147,6 +147,7 @@ public class TestCoordinator implements Serializable {
         log.info("hasNextItem in current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
 
         //For simultaneous submission mode, if no more items in current test part, renderSubmitTestPartContent();
+        //TODO P1: if user navigates to last item without attempting items in the middle, it should not go to renderSubmitTestPart..
         if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)) {
             renderSubmitTestPartContent();
         } else {
@@ -164,8 +165,13 @@ public class TestCoordinator implements Serializable {
 
     public void getQuestionByIdentifier(String identifier, boolean forward) {
         log.info("Getting Question by identifier ${identifier} ; isForward ${forward}")
-        test.getItemByIdentifier(identifier, forward);
-        cachedTestRenderInfo = null;
+        AssessmentItemRef itemRef = test.getItemByIdentifier(identifier, forward);
+        // If looking goes all they to first item and it can't find a match, null will be returned.
+        //In this remain is same item by not resetting cachedTestRenderInfo
+        if (itemRef != null ){
+            cachedTestRenderInfo = null;
+        }
+
     }
 
     public void getCurrentQuestion() {
@@ -341,25 +347,28 @@ public class TestCoordinator implements Serializable {
                 se = false;
             }
         }
-
         if (test.isCurrentTestPartSubmissionModeIndividual()) {
             if (se) {
-                test.setCurrentItemOutcomes(itemOutcomes);
+               if (test.isTestTimedOut()){
+                   test.timeOut()
+               }else{
+                   test.setCurrentItemOutcomes(itemOutcomes);
+               }
             } else {
                 test.timeOut();
             }
         } else {
 
             if (se) {
-                testPartItems.put(test.getCurrentItemRef(), itemOutcomes);
+                if (test.isTestTimedOut()){
+                    test.timeOut()
+                }else{
+                    testPartItems.put(test.getCurrentItemRef(), itemOutcomes);
+                }
             } else {
                 test.timeOut();
             }
-            if (test.isTestTimedOut()) {
-                test.timeOut();
-            }
         }
-
         return navigate();
     }
 

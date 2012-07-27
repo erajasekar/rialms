@@ -137,7 +137,7 @@ data {
             [
                     name: 'disabled review',
                     relatesTo: 'test',
-                    description: "Candidate cannot go back and review previous questions in individual submission mode"
+                    description: "Candidate cannot go back and review previous questions in individual submission mode && for non-adaptive questions"
             ]
             ,
             [

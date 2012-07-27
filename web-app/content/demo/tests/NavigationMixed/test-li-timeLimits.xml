@@ -6,7 +6,7 @@
         identifier="Test01"
         title="Linear Individual - timeLimits">
 
-    <timeLimits maxTime="30.0"/>
+    <timeLimits maxTime="10.0"/>
 
     <testPart identifier="P01" navigationMode="linear" submissionMode="individual">
         <assessmentSection identifier="S01" title="Section 1" visible="true">
@@ -18,8 +18,8 @@
             <assessmentItemRef identifier="Order" href="order.xml"/>
             <assessmentItemRef identifier="Match" href="match.xml"/>
             <assessmentItemRef identifier="Sequences" href="sequences.xml"/>
-            <assessmentItemRef identifier="Template" href="template.xml"/>
             <assessmentItemRef identifier="AdaptiveTemplate" href="adaptive_template.xml"/>
+            <assessmentItemRef identifier="Template" href="template.xml"/>
         </assessmentSection>
     </testPart>
 

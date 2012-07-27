@@ -8,27 +8,28 @@
 
     <testPart identifier="P01" navigationMode="nonlinear" submissionMode="simultaneous">
         <assessmentSection identifier="A" title="Section A" visible="true">
-            <assessmentItemRef identifier="item01" href="item01.xml"/>
-            <assessmentItemRef identifier="item02" href="item02.xml"/>
+            <assessmentItemRef identifier="MultipleChoice" href="choice_multiple.xml"/>
+            <assessmentItemRef identifier="AdaptiveFeedback" href="feedback_adaptive.xml"/>
         </assessmentSection>
         <assessmentSection identifier="B" title="Section B" visible="true">
-            <assessmentItemRef identifier="item03" href="item03.xml"/>
-            <assessmentItemRef identifier="item04" href="item04.xml"/>
+            <assessmentItemRef identifier="GapMatch" href="gap_match.xml"/>
+            <assessmentItemRef identifier="Hint" href="hint.xml"/>
         </assessmentSection>
         <assessmentSection identifier="C" title="Section C" visible="true">
             <assessmentSection identifier="D" title="Section D" visible="true">
-                <assessmentItemRef identifier="item05" href="item05.xml"/>
-                <assessmentItemRef identifier="item06" href="item06.xml"/>
+                <assessmentItemRef identifier="EvaluateExpression" href="MA-UT-01a-NoTP-Choice.xml"/>
+                <assessmentItemRef identifier="Order" href="order.xml"/>
             </assessmentSection>
         </assessmentSection>
         <assessmentSection identifier="E" title="Section E" visible="true">
-            <assessmentItemRef identifier="item07" href="item07.xml"/>
+            <assessmentItemRef identifier="Match" href="match.xml"/>
+            <assessmentItemRef identifier="Sequences" href="sequences.xml"/>
         </assessmentSection>
         <assessmentSection identifier="F" title="Section F" visible="true">
             <assessmentSection identifier="G" title="Section G" visible="true">
                 <assessmentSection identifier="H" title="Section H" visible="true">
-                    <assessmentItemRef identifier="item08" href="item08.xml"/>
-                    <assessmentItemRef identifier="item09" href="item09.xml"/>
+                    <assessmentItemRef identifier="AdaptiveTemplate" href="adaptive_template.xml" />
+                    <assessmentItemRef identifier="Template" href="template.xml"/>
                 </assessmentSection>
             </assessmentSection>
         </assessmentSection>
