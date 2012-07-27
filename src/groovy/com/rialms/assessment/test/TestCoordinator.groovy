@@ -147,9 +147,27 @@ public class TestCoordinator implements Serializable {
 
         //For simultaneous submission mode, if no more items in current test part, renderSubmitTestPartContent();
         //TODO P1: if user navigates to last item without attempting items in the middle, it should not go to renderSubmitTestPart..
-        if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)) {
+        /*if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)) {
             renderSubmitTestPartContent();
         } else {
+            test.getNextItem(includeFinished);
+            cachedTestRenderInfo = null;
+        }*/
+
+        if (test.isCurrentTestPartSubmissionModeSimultaneous()){
+            AssessmentItemRef previousItem = test.getPreviousItem(false);
+
+            while(previousItem != null){
+                if (test.getAssessmentItemStatus(previousItem.identifier) == AssessmentItemStatus.NOT_PRESENTED){
+                    break;
+                }
+            }
+
+            if (previousItem == null){
+                renderSubmitTestPartContent();
+            }
+
+        }else{
             test.getNextItem(includeFinished);
             cachedTestRenderInfo = null;
         }
