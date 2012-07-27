@@ -56,6 +56,8 @@ class BootStrap {
         itemService.createItem('qti','feedback.xml');
         itemService.createItem('qti','adaptive.xml');
         itemService.createItem('qti','mathml-templated.xml');
+
+        //6-10
         itemService.createItem('qti','content-with-html-tags.xml');
 
     }
@@ -67,51 +69,20 @@ class BootStrap {
 
         //1-5
         testService.createTest('tests/qti/NonLinearSimpleTest', 'assessment.xml');
-        testService.createTest('tests/qti/Mathematics', 'mathematics.xml');
         testService.createTest('tests/exercise/adaptive', 'exercises.xml');
-        testService.createTest('tests/qti/MathML-templated', 'assessment.xml');
         testService.createTest('tests/qti/WebDeveloperTest1', 'template_test1.xml');
-
-        //6-10
-        testService.createTest('tests/qti/NavigationMixed', 'test-li-disabled_allowReview.xml');
-        testService.createTest('tests/qti/NavigationMixed', 'test-li-disabled_allowSkipping.xml');
-        testService.createTest('tests/qti/NavigationMixed', 'test-li-maxAttempts.xml');
-        testService.createTest('tests/qti/NavigationMixed', 'test-li-timeLimits_test.xml');
-        testService.createTest('tests/qti/NavigationMixed', 'test-ls-timeLimits_test.xml');
-
-        //11-15
-        testService.createTest('tests/qti/NavigationMixed', 'test-nested-sections.xml');
-        testService.createTest('tests/qti/NavigationMixed', 'test-ni-disabled_allowReview.xml');
-        testService.createTest('tests/qti/NavigationMixed', 'test-ni-disabled_allowSkipping.xml');
-        testService.createTest('tests/qti/NavigationMixed', 'test-ni-maxAttempts.xml');
-        testService.createTest('tests/qti/NavigationMixed', 'test-ni-timeLimits_test.xml');
-
-        //16-20
-        testService.createTest('tests/qti/NavigationMixed', 'test-ns-timeLimits_test.xml');
-        testService.createTest("tests/qti/NavigationMixed", "test-li-outcome_expressions.xml");
-        testService.createTest("tests/qti/NavigationMixed", "test-li-simple.xml");
-        testService.createTest("tests/qti/NavigationMixed", "test-ls-simple.xml");
-        testService.createTest("tests/qti/NavigationMixed", "test-ni-simple.xml");
-
-        //21-25
-        testService.createTest("tests/qti/NavigationMixed", "test-ns-simple.xml");
         testService.createTest('tests/qti/ModulePretest', 'Test_Template-Individual-Submission.xml');
         testService.createTest('tests/qti/ModulePretest', 'Test_Template-Simultaneous-Submission.xml');
+
+        //6-10
         testService.createTest('tests/navigation/individual', 'individual_navigation.xml');
         testService.createTest('tests/navigation/simultaneous', 'simultaneous_navigation.xml');
-
-
-        //26-30
-        testService.createTest('tests/qti/MultipleTestPartTest', 'MultipleTestPartTest-Simultaneous.xml');
-        testService.createTest('tests/qti/MultipleTestPartTest', 'MultipleTestPartTest-Individual.xml');
-        testService.createTest('tests/qti/MultipleTestPartTest', 'MultipleTestPartTest-Simultaneous-Timeout.xml');
-        testService.createTest('tests/qti/MultipleTestPartTest', 'MultipleTestPartTest-Simultaneous-Individual.xml');
-        testService.createTest("tests/qti/NavigationMixed", "test-ns-deep-nested.xml");
-
-        //31-35
+        testService.createTest('tests/qti/Interactions', 'interactions.xml');
         testService.createTest("tests/qti/NavigationMixed", "test-ns-deep-nested-disabled-review.xml");
         testService.createTest('tests/qti/NavigationMixed', 'test-ns-disabled_allowReview.xml');
-        testService.createTest('tests/qti/Interactions', 'interactions.xml');
+
+        //11-15
+        testService.createTest("tests/qti/NavigationMixed", "test-nested-sections.xml");
 
     }
 }

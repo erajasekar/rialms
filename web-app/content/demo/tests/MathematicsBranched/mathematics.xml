@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentTest
+        xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+        identifier="MATHTEST-1"
+        title="Example Maths Test">
+    <outcomeDeclaration identifier="PERCENT_CORRECT" cardinality="single" baseType="float"/>
+    <outcomeDeclaration identifier="NPRESENTED" cardinality="single" baseType="integer"/>
+    <outcomeDeclaration identifier="NRESPONDED" cardinality="single" baseType="integer"/>
+    <outcomeDeclaration identifier="SCOREA" cardinality="single" baseType="float"/>
+    <outcomeDeclaration identifier="SCOREB" cardinality="single" baseType="float"/>
+    <outcomeDeclaration identifier="SUMMARY" cardinality="single" baseType="identifier" >
+        <interpolationTable>
+            <interpolationTableEntry sourceValue="75.0" targetValue="EXCELLENT"/>
+            <interpolationTableEntry sourceValue="50.0" targetValue="GOOD"/>
+            <interpolationTableEntry sourceValue="0.0" targetValue="POOR"/>
+        </interpolationTable>
+    </outcomeDeclaration>
+    <outcomeDeclaration identifier="outcomeIdentifier" cardinality="single" baseType="identifier" />
+    <testPart identifier="part1" navigationMode="linear" submissionMode="individual">
+        <itemSessionControl showFeedback="true" allowComment="true"/>
+        <assessmentSection identifier="sectionA" title="Section 1" visible="true">
+            <rubricBlock view="candidate">
+                <p>
+                    This first section tests your ability to do basic addition. This
+                    section consists of three questions, of which you will be asked to
+                    answer two.
+                </p>
+                <p>
+                    <em>
+                        The response to the first question will determine which question
+                        gets presented next; a correct answer to the first question will
+                        mean that the second question presented is question 2, otherwise
+                        question 3 will be presented (this is mutually exclusive, so you
+                        will only see either question 2 or question 3).
+                    </em>
+                </p>
+            </rubricBlock>
+            <assessmentItemRef identifier="BasicAddition1" href="math1.xml"/>
+            <assessmentItemRef identifier="BasicAddition2" href="math2.xml">
+                <preCondition>
+                    <equal toleranceMode="exact">
+                        <variable identifier="BasicAddition1.SCORE"/>
+                        <baseValue baseType="float">1.0</baseValue>
+                    </equal>
+                </preCondition>
+            </assessmentItemRef>
+            <assessmentItemRef identifier="BasicAddition3" href="math3.xml">
+                <preCondition>
+                    <equal toleranceMode="exact">
+                        <variable identifier="BasicAddition1.SCORE"/>
+                        <baseValue baseType="float">0.0</baseValue>
+                    </equal>
+                </preCondition>
+            </assessmentItemRef>
+        </assessmentSection>
+        <assessmentSection identifier="sectionB" title="Section 2" visible="true">
+            <rubricBlock view="candidate">
+                <p>
+                    Welcome to the second section of the test. This section contains some
+                    more advanced maths questions. The number of questions that you will have to
+                    answer in this section will depend upon the answers you give.
+                </p>
+                <p>
+                    <em>
+                        The answer to the first question in this section (question 4) will determine
+                        what gets presented next. If the answer is incorrect, then question 6 will be shown,
+                        otherwise the test will finish.
+                    </em>
+                </p>
+            </rubricBlock>
+            <assessmentItemRef identifier="CalculatingSquare" href="math4.xml">
+                <branchRule target="Multiplication">
+                    <equal toleranceMode="exact">
+                        <variable identifier="CalculatingSquare.SCORE"/>
+                        <baseValue baseType="float">0.0</baseValue>
+                    </equal>
+                </branchRule>
+                <branchRule target="EXIT_SECTION">
+                    <equal toleranceMode="exact">
+                        <variable identifier="CalculatingSquare.SCORE"/>
+                        <baseValue baseType="float">1.0</baseValue>
+                    </equal>
+                </branchRule>
+            </assessmentItemRef>
+            <assessmentItemRef identifier="Division" href="math5.xml"/>
+            <assessmentItemRef identifier="Multiplication" href="math6.xml"/>
+        </assessmentSection>
+    </testPart>
+    <outcomeProcessing>
+        <setOutcomeValue identifier="PERCENT_CORRECT">
+            <product>
+                <baseValue baseType="float">100.0</baseValue>
+                <divide>
+                    <sum>
+                        <testVariables variableIdentifier="SCORE"/>
+                    </sum>
+                    <numberPresented/>
+                </divide>
+            </product>
+        </setOutcomeValue>
+        <setOutcomeValue identifier="NPRESENTED">
+            <numberPresented/>
+        </setOutcomeValue>
+        <setOutcomeValue identifier="NRESPONDED">
+            <numberResponded/>
+        </setOutcomeValue>
+        <setOutcomeValue identifier="SCOREA">
+            <sum>
+                <testVariables sectionIdentifier="sectionA" variableIdentifier="SCORE"/>
+            </sum>
+        </setOutcomeValue>
+        <setOutcomeValue identifier="SCOREB">
+            <sum>
+                <testVariables sectionIdentifier="sectionB" variableIdentifier="SCORE"/>
+            </sum>
+        </setOutcomeValue>
+        <setOutcomeValue identifier="SCOREB">
+            <sum>
+                <testVariables sectionIdentifier="sectionB" variableIdentifier="SCORE"/>
+            </sum>
+        </setOutcomeValue>
+        <lookupOutcomeValue identifier="SUMMARY">
+            <product>
+                <baseValue baseType="float">100.0</baseValue>
+                <divide>
+                    <sum>
+                        <testVariables variableIdentifier="SCORE"/>
+                    </sum>
+                    <numberPresented/>
+                </divide>
+            </product>
+        </lookupOutcomeValue>
+    </outcomeProcessing>
+    <testFeedback
+            access="atEnd"
+            showHide="show"
+            outcomeIdentifier="SUMMARY"
+            identifier="EXCELLENT"
+            title="Summary Feedback">
+        <p>
+            Well done, that is an excellent score!
+        </p>
+    </testFeedback>
+    <testFeedback access="atEnd" showHide="show" outcomeIdentifier="SUMMARY" identifier="GOOD" title="Summary Feedback">
+        <p>
+            That's not a bad score, but I'm sure you could do better.
+        </p>
+    </testFeedback>
+    <testFeedback access="atEnd" showHide="show" outcomeIdentifier="SUMMARY" identifier="POOR" title="Summary Feedback">
+        <p>
+            That score isn't so good. You should try again.
+        </p>
+    </testFeedback>
+    <testFeedback
+            access="atEnd"
+            showHide="hide"
+            outcomeIdentifier="outcomeIdentifier"
+            identifier="outcomeValue"
+            title="Detailed Breakdown">
+        <p>
+            The test is now complete. The following table shows a breakdown of your scores:
+        </p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        Number of presented questions:
+                    </td>
+                    <td>
+                        <printedVariable identifier="NPRESENTED"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Number of responded questions:
+                    </td>
+                    <td>
+                        <printedVariable identifier="NRESPONDED"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Score for Section 1:
+                    </td>
+                    <td>
+                        <printedVariable identifier="SCOREA"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Score for Section 2:
+                    </td>
+                    <td>
+                        <printedVariable identifier="SCOREB"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>
+                            Overall percentage of correct answers:
+                        </b>
+                    </td>
+                    <td>
+                        <printedVariable identifier="PERCENT_CORRECT" format="%3.1f"/>
+                        %
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </testFeedback>
+</assessmentTest>

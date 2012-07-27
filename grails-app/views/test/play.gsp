@@ -18,7 +18,7 @@
 <r:script>
     $(document).ready(function () {
         initTestRendering();
-        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, assessmentParams, Consts.testStatusModel, Consts.navigationButtonStates)});
+        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, assessmentParams, Consts.testStatusModel, Consts.navigationButtonStates, Consts.testPartTitle)});
     });
 </r:script>
 

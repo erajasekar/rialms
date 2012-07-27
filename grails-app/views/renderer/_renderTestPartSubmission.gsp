@@ -9,8 +9,8 @@
 
 <div class='submission block-content'>
     <h4>
-        <g:if test="${assessmentParams[Consts.testPart]}">
-            <g:message code="testpart.submission.confirm.message" args="${[assessmentParams[Consts.testPart]]}"/>
+        <g:if test="${assessmentParams[Consts.testPartTitle]}">
+            <g:message code="testpart.submission.confirm.message" args="${[assessmentParams[Consts.testPartTitle]]}"/>
         </g:if>
         <g:else>
             <g:message code="test.submission.confirm.message"/>

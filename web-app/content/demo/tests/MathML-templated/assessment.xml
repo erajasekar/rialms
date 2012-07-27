@@ -4,7 +4,7 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
         identifier="mathmltest"
-        title="MathML Test">
+        title="MathML Templated Test">
     <outcomeDeclaration identifier="TOTAL_SCORE" cardinality="single" baseType="integer">
         <defaultValue>
             <value>0</value>

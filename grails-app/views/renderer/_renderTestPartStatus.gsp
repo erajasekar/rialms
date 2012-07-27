@@ -13,8 +13,8 @@
             <div class="block-header">
                 <h4>
                     <g:message code="test.label"/>
-                    <g:if test="${assessmentParams[Consts.testPart]}">
-                        ${assessmentParams[Consts.testPart]}
+                    <g:if test="${assessmentParams[Consts.testPartTitle]}">
+                        <span ng-bind="testPartTitle"></span>
                     </g:if>
                     <g:message code="test.status.message"/>
                 </h4>

@@ -41,7 +41,6 @@ import org.qtitools.qti.node.test.AssessmentTest;
 import org.qtitools.qti.node.test.ControlObject;
 
 
-import org.qtitools.qti.node.test.flow.ItemFlow;
 import org.qtitools.qti.value.Value;
 import groovy.util.logging.*
 import com.rialms.assessment.item.AssessmentItemInfo
@@ -201,7 +200,7 @@ public class TestCoordinator implements Serializable {
         params.put(outcomeDeclarations, test.getTest().getOutcomeDeclarations());
         params.put(submitTestPartContent, true);
         if (test.test?.testParts?.size() > 1) {
-            params.put(testPart, test.currentTestPart.identifier);
+            params.put(testPartTitle, test.currentTestPart.identifier);
         }
 
         NavigationControls controls = new NavigationControls(false);
@@ -275,7 +274,7 @@ public class TestCoordinator implements Serializable {
         params.put(outcomeDeclarations, test.getTest().getOutcomeDeclarations());
 
         if (test.test?.testParts?.size() > 1) {
-            params.put(testPart, test.currentTestPart.identifier);
+            params.put(testPartTitle, test.currentTestPart.identifier);
         }
 
         if (view != null) {
