@@ -45,6 +45,9 @@
                     <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='${g.message(code:"button.submit.label")}'
                                 name="${Consts.submit}"/>
                     <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}" />
+                    <span ng-bind-html="${Consts.itemResult}">
+                        <qti:itemResult assessmentItemInfo="${assessmentItemInfo}" />
+                    </span>
                 </div>
             </g:formRemote>
         </g:if>

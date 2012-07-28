@@ -1,4 +1,4 @@
-angular.module("RialmsAngularApp", []).filter "filterByStatus", ->
+angular.module("RialmsAngularApp", ['ngSanitize']).filter "filterByStatus", ->
   (input, filterStatus) ->
     true if (filterStatus == 'All' || input.status == filterStatus)
 

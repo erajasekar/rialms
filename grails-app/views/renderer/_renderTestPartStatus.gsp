@@ -14,7 +14,7 @@
                 <h4>
                     <g:message code="test.label"/>
                     <g:if test="${assessmentParams[Consts.testPartTitle]}">
-                        <span ng-bind="testPartTitle"></span>
+                        <span ng-bind="${Consts.testPartTitle}"></span>
                     </g:if>
                     <g:message code="test.status.message"/>
                 </h4>

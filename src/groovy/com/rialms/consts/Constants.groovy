@@ -8,6 +8,8 @@ package com.rialms.consts
  * To change this template use File | Settings | File Templates.
  */
 class Constants {
+
+    public static final String ITEM_OUTCOME_SCORE = 'SCORE';
     public static final String renderItem = 'renderItem';
     public static final String exit = 'exit';
     public static final String renderNextItem = 'renderNextItem';
@@ -98,5 +100,6 @@ class Constants {
     public static final String includeHeader = 'includeHeader';
     public static final String Interaction = 'Interaction';
     public static final String isEnabled = 'isEnabled';
+    public static final String itemResult = 'itemResult';
 
 }

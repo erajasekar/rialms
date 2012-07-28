@@ -58,6 +58,7 @@ class ItemController {
         AssessmentItemInfo assessmentItemInfo = session[Consts.assessmentItemInfo];
         assessmentItemInfo.processResponses(params);
         Map renderOutput = assessmentItemInfo.renderOutput;
+        renderOutput[Consts.angularData][Consts.itemResult] = qti.itemResult(assessmentItemInfo:assessmentItemInfo);
         log.info("Render Output ${renderOutput}");
         render renderOutput as JSON;
     }

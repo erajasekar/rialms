@@ -15,6 +15,7 @@ import org.qtitools.qti.node.test.AssessmentItemRef
 import org.qtitools.qti.validation.ValidationResult
 import org.qtitools.qti.value.Value
 import static com.rialms.consts.AssessmentItemStatus.*
+import org.qtitools.qti.value.NullValue
 
 /**
  * Created by IntelliJ IDEA.
@@ -173,16 +174,18 @@ class AssessmentItemInfo {
         }
     }
 
-    public boolean isComplete() {
-        boolean complete;
-        if (assessmentItem.adaptive) {
-            complete = isAdaptiveItemComplete();
-        } else {
-            complete = assessmentItem.isCorrect();
-        }
+    public boolean isCorrect() {
         //Note: AssessmentItem.isCorrect() is patched to handle adaptive items correctly.
         return  assessmentItem.isCorrect();
-        return complete;
+    }
+
+    public int getScore(){
+        Value score = assessmentItem.outcomeValues[Consts.ITEM_OUTCOME_SCORE];
+        if (!score instanceof NullValue){
+            return score.toString().toInteger();
+        }else{
+            return 0;
+        }
     }
 
     public boolean isAdaptiveItemComplete() {
@@ -213,7 +216,7 @@ class AssessmentItemInfo {
         Map output = [(Consts.itemOutcomeValues): outcomeValues,
                 (Consts.visibleElementIds): visibleAndHiddenElementIds[Consts.visibleElementIds],
                 (Consts.hiddenElementIds): visibleAndHiddenElementIds[Consts.hiddenElementIds]];
-        if (isComplete()) {
+        if (isCorrect()) {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
         Map angularData = [(Consts.assessmentHeader):header, (Consts.endAttemptButtons):endAttemptButtons];

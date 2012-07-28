@@ -36,6 +36,7 @@ modules = {
 
     angular {
           resource url: 'js/angular/angular-1.0.0rc10.js', disposition: 'head'
+        resource url: 'js/angular/angular-sanitize-1.0.0rc10.js', disposition: 'head'
     }
 
     jsPlumb {

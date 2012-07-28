@@ -118,7 +118,30 @@ class QtiTagLib {
         out << """<div ng-init="${new JsObjectUtil.PropertyConstructor(Consts.endAttemptButtons).getProperty(id)}='${title}'"></div>"""
 
         assessmentItemInfo.addEndAttemptButton(id, title);
+    }
 
+    def itemResult = { attrs ->
+        String tag = 'itemResult';
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        int score = assessmentItemInfo.getScore();
+
+        if (assessmentItemInfo.isCorrect()){
+            out << """<span class='alert alert-success'>"""
+            out << "Correct!";
+            out << "</span>"
+        }
+        else{
+            log.info("DEBUG itemScore ${score}");
+            if (score > 0){
+                out << """<span class='alert alert-warning'>"""
+                out << "Partially Correct!"
+                out << "</span>"
+            }else{
+                out << """<span class='alert alert-error'>"""
+                out << "InCorrect!"
+                out << "</span>"
+            }
+        }
     }
 
     def headerButton = {attrs ->
