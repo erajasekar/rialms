@@ -145,28 +145,24 @@ public class TestCoordinator implements Serializable {
 
         log.info("hasNextItem in current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
 
-        //For simultaneous submission mode, if no more items in current test part, renderSubmitTestPartContent();
-        //TODO P1: if user navigates to last item without attempting items in the middle, it should not go to renderSubmitTestPart..
-        /*if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)) {
-            renderSubmitTestPartContent();
-        } else {
-            test.getNextItem(includeFinished);
-            cachedTestRenderInfo = null;
-        }*/
+        //For simultaneous submission mode, if no more unpresented items in current test part or test timedout, renderSubmitTestPartContent(), else render next unpresented item;
+        if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)){
+            log.info("simultaneous submission mode, checking next unpresented item to navigate");
 
-        if (test.isCurrentTestPartSubmissionModeSimultaneous()){
-            AssessmentItemRef previousItem = test.getPreviousItem(false);
-
-            while(previousItem != null){
-                if (test.getAssessmentItemStatus(previousItem.identifier) == AssessmentItemStatus.NOT_PRESENTED){
-                    break;
+            if (!test.isTestTimedOut()){
+                test.navigateToFirstItem();
+                boolean foundNextUnpresentedItem = test.findAndNavigateToNextUnpresentedItem();
+                if (foundNextUnpresentedItem){
+                    //reset cache to show current item
+                    cachedTestRenderInfo = null;
+                }else{
+                    log.debug("DEBUG Found all items as presented, rendering renderSubmitTestPartContent");
+                    renderSubmitTestPartContent();
                 }
-            }
-
-            if (previousItem == null){
+            }else{
+                log.debug("Test timedout...rendering renderSubmitTestPartContent ")
                 renderSubmitTestPartContent();
             }
-
         }else{
             test.getNextItem(includeFinished);
             cachedTestRenderInfo = null;

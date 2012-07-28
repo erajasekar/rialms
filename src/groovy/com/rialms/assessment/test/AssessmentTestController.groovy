@@ -145,6 +145,10 @@ public class AssessmentTestController implements Serializable {
         return !getItemFlow().hasNextItemRef(true);
     }
 
+    public boolean hasMoreItemsInCurrentTestPart() {
+        return getItemFlow().hasNextItemRef(true);
+    }
+
     public AssessmentItemInfo getCurrentItemInfo() {
         log.debug("Executing getCurrentItemInfo() Processed Items==> ${processedItems}");
         if (currentTestPart && !processedItems[currentTestPart.identifier]) {
@@ -186,6 +190,29 @@ public class AssessmentTestController implements Serializable {
 
     public AssessmentItemRef getNextItem(boolean includeFinished) {
         return flow.getNextItemRef(includeFinished);
+    }
+
+    //Move all the way back to first item
+    public void navigateToFirstItem(){
+        AssessmentItemRef previousItem = getPreviousItem(true);
+        while(previousItem != null){
+            previousItem = getPreviousItem(true);
+        }
+    }
+
+    public boolean findAndNavigateToNextUnpresentedItem(){
+        AssessmentItemRef nextItem = null;
+        boolean foundNextUnpresentedItem = false;
+        while(hasMoreItemsInCurrentTestPart()){
+            nextItem = getNextItem(false);
+            log.debug("DEBUG checking for next item ${nextItem.identifier}");
+            if (getAssessmentItemStatus(nextItem.identifier) == AssessmentItemStatus.NOT_PRESENTED){
+                foundNextUnpresentedItem = true;
+                log.debug("DEBUG Found next not presented item ${nextItem.identifier}");
+                break;
+            }
+        }
+        return foundNextUnpresentedItem;
     }
 
     public AssessmentItemRef getItemByIdentifier(String identifier, boolean forward) {
