@@ -17,13 +17,13 @@ class FeatureService {
         def conf = new ConfigSlurper().parse(classLoader.loadClass('FeaturesData'));
 
         conf.data.features.each{feature ->
-           createFeature(feature.name, feature.relatesTo, feature.description);
+           createFeature(feature.name,feature.description);
         }
 
     }
 
-    private Feature createFeature(String name,String relatesTo, String description){
-        Feature f = new Feature(name: name,description: description,relatesTo: relatesTo);
+    private Feature createFeature(String name, String description){
+        Feature f = new Feature(name: name,description: description);
         f.save();
         if (f.hasErrors()){
            log.error("Errors in creating feature : ${f.errors}")
