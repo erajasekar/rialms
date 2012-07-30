@@ -186,3 +186,20 @@ a.toggleNav:hover {
 .feature-list a:hover pre {
   color: #dd1144;
 }
+.item-result {
+  margin: 0px 0px 0px 10px;
+  font-family: 'Fredoka One', Cursive, sans-serif;
+  font-weight: normal;
+  text-rendering: optimizelegibility;
+  line-height: 18px;
+  font-size: 14px;
+}
+.result-correct {
+  color: #008000;
+}
+.result-incorrect {
+  color: #ff4500;
+}
+.result-partiallyCorrect {
+  color: #ff8c00;
+}

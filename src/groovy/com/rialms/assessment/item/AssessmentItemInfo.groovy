@@ -81,7 +81,7 @@ class AssessmentItemInfo {
         return QtiUtils.convertQTITypesToParams(assessmentItem.templateValues);
     }
 
-    private void setResponses(Map params) {
+    private boolean setResponses(Map params) {
         if (params.containsKey('submitClicked')) {
             status = RESPONDED;
         } else {
@@ -91,16 +91,22 @@ class AssessmentItemInfo {
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
-        log.info("Response Values ${this} ==> ${responseValues}");
-        assessmentItem.setResponses(responseValues);
+        boolean valid = !responseValues.isEmpty();
+        log.info("Response Values ${this} ==> ${responseValues} , valid : ${valid}");
+        if (valid){
+            assessmentItem.setResponses(responseValues);
+        }
+        return valid ;
     }
 
-    public void processResponses(Map params) {
-        setResponses(params);
-        assessmentItem.processResponses();
-        log.debug("Response after processing ${responseValues}")
-        log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
-
+    public boolean processResponses(Map params) {
+        boolean valid = setResponses(params);
+        if (valid){
+            assessmentItem.processResponses();
+            log.info("DEBUG Response after processing ${responseValues}")
+            log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
+        }
+        return valid;
     }
 
     public void addEndAttemptButton(String buttonId, String buttonTitle){
@@ -179,10 +185,10 @@ class AssessmentItemInfo {
         return  assessmentItem.isCorrect();
     }
 
-    public int getScore(){
+    public double getScore(){
         Value score = assessmentItem.outcomeValues[Consts.ITEM_OUTCOME_SCORE];
-        if (!score instanceof NullValue){
-            return score.toString().toInteger();
+        if (!(score instanceof NullValue)){
+            return score.toString().toDouble();
         }else{
             return 0;
         }

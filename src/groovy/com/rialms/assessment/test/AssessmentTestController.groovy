@@ -248,9 +248,9 @@ public class AssessmentTestController implements Serializable {
         return null;
     }
 
-    public void setCurrentItemResponses(Map params) throws QTIException {
+    public boolean setCurrentItemResponses(Map params) throws QTIException {
         //set and process responses at the item level
-        currentItemInfo.processResponses(params);
+        return currentItemInfo.processResponses(params);
     }
 
     public Map<String, Value> getCurrentItemResponses() {

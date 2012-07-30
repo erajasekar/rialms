@@ -11,10 +11,13 @@ import com.rialms.consts.Tag
 import com.rialms.util.QtiUtils
 import grails.util.Environment
 import com.rialms.util.CollectionUtils
+import java.text.DecimalFormat
+import java.text.NumberFormat
 
 
 class QtiTagLib {
     static namespace = "qti";
+    private static final NumberFormat scoreFormat = new DecimalFormat("##.#");
 
     def img = {  attrs ->
 
@@ -123,22 +126,22 @@ class QtiTagLib {
     def itemResult = { attrs ->
         String tag = 'itemResult';
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        int score = assessmentItemInfo.getScore();
+        double score = assessmentItemInfo.getScore();
+        String scoreString = scoreFormat.format(score);
 
-        if (assessmentItemInfo.isCorrect()){
-            out << """<span class='alert alert-success'>"""
-            out << "Correct!";
+        if (assessmentItemInfo.isCorrect() && score > 0){
+            out << """<span class="item-result result-correct">"""
+            out << g.message(code: 'itemResult.correct.message', args:[scoreString]);
             out << "</span>"
         }
-        else{
-            log.info("DEBUG itemScore ${score}");
+        else if (!assessmentItemInfo.adaptive){
             if (score > 0){
-                out << """<span class='alert alert-warning'>"""
-                out << "Partially Correct!"
+                out << """<span class="item-result result-partiallyCorrect">"""
+                out << g.message(code: 'itemResult.partiallyCorrect.message', args:[scoreString]);
                 out << "</span>"
             }else{
-                out << """<span class='alert alert-error'>"""
-                out << "InCorrect!"
+                out << """<span class="item-result result-incorrect">"""
+                out << g.message(code: 'itemResult.incorrect.message');
                 out << "</span>"
             }
         }
@@ -880,7 +883,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-           //    com.rialms.util.Less2Css.run();
+             //  com.rialms.util.Less2Css.run();
         }
     }
 

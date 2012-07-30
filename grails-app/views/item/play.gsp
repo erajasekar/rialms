@@ -32,7 +32,7 @@
 
         <g:if test="${flash[Consts.validationResult].getErrors().isEmpty()}">
 
-            <div id='error'></div>
+            <div ng-bind='${Consts.responseValidation}' class="alert alert-error"></div>
             <g:formRemote name="AssessmentItemForm"
                           url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
