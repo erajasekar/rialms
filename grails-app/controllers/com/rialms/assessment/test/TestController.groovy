@@ -139,7 +139,7 @@ class TestController {
 
                 }
             } else {
-
+                println "RAJA here"
                 //To render same item, just get render output for controls.
                 renderOutput = CollectionUtils.mergeMapsByKeyAsList(coordinator.testController.currentItemInfo.renderOutput, renderOutput);
             }

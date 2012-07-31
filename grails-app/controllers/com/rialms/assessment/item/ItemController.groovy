@@ -56,16 +56,11 @@ class ItemController {
     def process() {
         log.info("Processing Item with param ${params}");
         AssessmentItemInfo assessmentItemInfo = session[Consts.assessmentItemInfo];
-        boolean valid = assessmentItemInfo.processResponses(params);
+        assessmentItemInfo.processResponses(params);
         Map renderOutput = assessmentItemInfo.renderOutput;
-        if (!valid){
-            renderOutput[Consts.angularData][Consts.responseValidation] = "Please choose valid response";
-        }else{
-            renderOutput[Consts.angularData][Consts.responseValidation] = "";
+        if (assessmentItemInfo.isResponseValid){
             renderOutput[Consts.angularData][Consts.itemResult] = qti.itemResult(assessmentItemInfo:assessmentItemInfo);
         }
-
-
         log.info("Render Output ${renderOutput}");
         render renderOutput as JSON;
     }

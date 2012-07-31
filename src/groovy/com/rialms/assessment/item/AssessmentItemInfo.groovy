@@ -55,6 +55,8 @@ class AssessmentItemInfo {
 
     private Map endAttemptButtons = [:];
 
+    private boolean isResponseValid = true;
+
     public AssessmentItemInfo() {
     }
 
@@ -81,32 +83,30 @@ class AssessmentItemInfo {
         return QtiUtils.convertQTITypesToParams(assessmentItem.templateValues);
     }
 
-    private boolean setResponses(Map params) {
-        if (params.containsKey('submitClicked')) {
-            status = RESPONDED;
-        } else {
-            log.debug("DEBUG submit was not clicked, other endAttempt interaction like show hint/solution clicked, not setting status to RESPONDED");
-        }
+    private void setResponses(Map params) {
 
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
-        boolean valid = !responseValues.isEmpty();
-        log.info("Response Values ${this} ==> ${responseValues} , valid : ${valid}");
-        if (valid){
+        isResponseValid = !responseValues.isEmpty();
+        log.info("Response Values ${this} ==> ${responseValues} , valid : ${isResponseValid}");
+        if (isResponseValid){
             assessmentItem.setResponses(responseValues);
         }
-        return valid ;
+
+        if (params.containsKey('submitClicked') && isResponseValid) {
+            status = RESPONDED;
+        } else {
+            log.debug("DEBUG submit was not clicked, other endAttempt interaction like show hint/solution clicked, not setting status to RESPONDED");
+        }
     }
 
     public boolean processResponses(Map params) {
-        boolean valid = setResponses(params);
-        if (valid){
-            assessmentItem.processResponses();
-            log.info("DEBUG Response after processing ${responseValues}")
-            log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
-        }
-        return valid;
+        setResponses(params);
+        assessmentItem.processResponses();
+        log.info("DEBUG Response after processing ${responseValues}")
+        log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
+
     }
 
     public void addEndAttemptButton(String buttonId, String buttonTitle){
@@ -194,12 +194,6 @@ class AssessmentItemInfo {
         }
     }
 
-    public boolean isAdaptiveItemComplete() {
-        Value completionStatus = assessmentItem.getOutcomeValue(AssessmentItem.VARIABLE_COMPLETION_STATUS)
-        return (completionStatus && completionStatus.toString().equals(AssessmentItem.VALUE_ITEM_IS_COMPLETED))
-    }
-
-
     public void addParam(String key, String value){
         if (params.containsKey(key)){
            // throw new IllegalArgumentException('key ${key} already found in params.');
@@ -222,11 +216,13 @@ class AssessmentItemInfo {
         Map output = [(Consts.itemOutcomeValues): outcomeValues,
                 (Consts.visibleElementIds): visibleAndHiddenElementIds[Consts.visibleElementIds],
                 (Consts.hiddenElementIds): visibleAndHiddenElementIds[Consts.hiddenElementIds]];
-        if (isCorrect()) {
+        if (isResponseValid && isCorrect()) {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
-        Map angularData = [(Consts.assessmentHeader):header, (Consts.endAttemptButtons):endAttemptButtons];
+        Map angularData = [(Consts.assessmentHeader):header, (Consts.endAttemptButtons):endAttemptButtons, (Consts.isResponseValid):isResponseValid];
         output[Consts.angularData] = angularData;
+
+        log.info("DEBUG AssessmentItemInfo renderOutput ${output}")
         return output;
     }
 
@@ -244,6 +240,10 @@ class AssessmentItemInfo {
 
     public boolean getAdaptive() {
         assessmentItem.adaptive;
+    }
+
+    public boolean getIsResponseValid(){
+        return isResponseValid
     }
 
     public ItemBody getItemBody() {

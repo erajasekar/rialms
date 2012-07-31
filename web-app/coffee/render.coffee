@@ -102,7 +102,7 @@ window.initGapInteraction =->
   return
 
 window.initAngularScopeObjects = (data)->
-  #console.log( data.angularData.itemResult)
+  console.log( data.angularData.isResponseValid)
   if data.angularData
     contentScope = angular.element('#content').scope()
     contentScope.$apply ->

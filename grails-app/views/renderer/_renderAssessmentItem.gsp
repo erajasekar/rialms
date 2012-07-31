@@ -53,6 +53,11 @@
                 </button>
             </g:else>
             <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}" />
+            <span ng-init='${Consts.isResponseValid}=true' ng-hide='${Consts.isResponseValid}'>
+                <span class="item-result result-incorrect">
+                    <g:message code="response.invalid.message" />
+                </span>
+            </span>
         </div>
     </div>
 </div>

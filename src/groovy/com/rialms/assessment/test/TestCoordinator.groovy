@@ -347,41 +347,44 @@ public class TestCoordinator implements Serializable {
 
         test.setCurrentItemResponses(params);
 
-        //TODO P3 RENDER Input for canditate comments
-        if (params.containsKey(candidateComment))
-            test.getCurrentItemRef().setCandidateComment(params.get(candidateComment).get(0));
+        if (test.currentItemInfo.isResponseValid){
+            if (params.containsKey(candidateComment))
+                test.getCurrentItemRef().setCandidateComment(params.get(candidateComment).get(0));
 
-        Map<String, Value> itemOutcomes = test.getCurrentItemRef().getItem().getOutcomeValues();
+            Map<String, Value> itemOutcomes = test.getCurrentItemRef().getItem().getOutcomeValues();
 
-        boolean se = !test.getCurrentItemRef().isFinished();
-        ControlObject co = TimeReport.getLowestRemainingTimeControlObject(test.getCurrentItemRef());
-        if (co != null) {
-            if (TimeReport.getRemainingTime(co) < (-1 * magic_time)) {
-                se = false;
+            boolean se = !test.getCurrentItemRef().isFinished();
+            ControlObject co = TimeReport.getLowestRemainingTimeControlObject(test.getCurrentItemRef());
+            if (co != null) {
+                if (TimeReport.getRemainingTime(co) < (-1 * magic_time)) {
+                    se = false;
+                }
             }
-        }
-        if (test.isCurrentTestPartSubmissionModeIndividual()) {
-            if (se) {
-               if (test.isTestTimedOut()){
-                   test.timeOut()
-               }else{
-                   test.setCurrentItemOutcomes(itemOutcomes);
-               }
-            } else {
-                test.timeOut();
-            }
-        } else {
-
-            if (se) {
-                if (test.isTestTimedOut()){
-                    test.timeOut()
-                }else{
-                    testPartItems.put(test.getCurrentItemRef(), itemOutcomes);
+            if (test.isCurrentTestPartSubmissionModeIndividual()) {
+                if (se) {
+                    if (test.isTestTimedOut()){
+                        test.timeOut()
+                    }else{
+                        test.setCurrentItemOutcomes(itemOutcomes);
+                    }
+                } else {
+                    test.timeOut();
                 }
             } else {
-                test.timeOut();
+
+                if (se) {
+                    if (test.isTestTimedOut()){
+                        test.timeOut()
+                    }else{
+                        testPartItems.put(test.getCurrentItemRef(), itemOutcomes);
+                    }
+                } else {
+                    test.timeOut();
+                }
             }
         }
+        //TODO P3 RENDER Input for canditate comments
+
         return navigate();
     }
 
@@ -422,8 +425,9 @@ public class TestCoordinator implements Serializable {
                 !test.currentItemInfo.itemBody.willShowFeedback() &&
                 !test.currentItemInfo.adaptive)
         log.info("hasNoFeedbackAndNotAdaptive = ${hasNoFeedbackAndNotAdaptive} <======> nextEnabled ${test.nextEnabled()}");
-        return hasNoFeedbackAndNotAdaptive && test.nextEnabled();
+        return hasNoFeedbackAndNotAdaptive && test.nextEnabled() && test.currentItemInfo.isResponseValid;
     }
+
     /**
      * Get the test report xml string
      * @return report xml string

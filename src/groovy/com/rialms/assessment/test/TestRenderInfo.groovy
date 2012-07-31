@@ -61,7 +61,8 @@ class TestRenderInfo {
                 (Consts.navigationButtonStates) : assessmentParams[Consts.navigationButtonStates] ,
                 (Consts.endAttemptButtons) :assessmentItemInfo.endAttemptButtons,
                 (Consts.testPartTitle): assessmentParams[Consts.testPartTitle],
-                (Consts.submitDisabled) : !assessmentParams[Consts.submitEnabled]
+                (Consts.submitDisabled) : !assessmentParams[Consts.submitEnabled],
+                (Consts.isResponseValid):assessmentItemInfo.isResponseValid
         ]
         output[Consts.angularData] = angularData;
         return output;

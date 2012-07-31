@@ -31,8 +31,6 @@
         </g:if>
 
         <g:if test="${flash[Consts.validationResult].getErrors().isEmpty()}">
-
-            <div ng-bind='${Consts.responseValidation}' class="alert alert-error"></div>
             <g:formRemote name="AssessmentItemForm"
                           url="[action: AssessmentItemInfo.controllerActionForProcessItem]"
                           onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}">
@@ -42,11 +40,17 @@
                     <g:render template="/renderer/renderItemSubTree"
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
                     <hr/>
-                    <qti:submit assessmentItemInfo="${assessmentItemInfo}" value='${g.message(code:"button.submit.label")}'
+                    <qti:submit assessmentItemInfo="${assessmentItemInfo}"
+                                value='${g.message(code: "button.submit.label")}'
                                 name="${Consts.submit}"/>
-                    <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}" />
+                    <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}"/>
                     <span ng-bind-html="${Consts.itemResult}">
-                        <qti:itemResult assessmentItemInfo="${assessmentItemInfo}" />
+                        <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
+                    </span>
+                    <span ng-init='${Consts.isResponseValid}=true' ng-hide='${Consts.isResponseValid}'>
+                        <span class="item-result result-incorrect">
+                            <g:message code="response.invalid.message" />
+                        </span>
                     </span>
                 </div>
             </g:formRemote>
