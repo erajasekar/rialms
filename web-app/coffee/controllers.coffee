@@ -21,3 +21,11 @@ window.TestStatusController = ($scope,$filter)->
     else if statusEntry.isCurrent
       "active"
   return
+
+window.TestContentController = ($scope,$compile)->
+  $scope.recompile = ->
+    console.log($scope.isResponseValid)
+    console.log($('#itemResult').contents())
+    $compile($('#itemResult').contents())($scope);
+    console.log($('#itemResult').contents())
+

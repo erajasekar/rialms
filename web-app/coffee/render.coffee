@@ -34,8 +34,15 @@ window.updateRenderedItem = (data) ->
     if data.testSectionTitleContent
       $('#testSectionTitleContent').html(data.testSectionTitleContent)
     if data.testContent
+      testContentElement = $('#testContent')
       contentClass = $('#content').attr("class")
-      $('#testContent').html(data.testContent)
+      testContentScope = angular.element('#testContent').scope()
+      console.log(testContentScope);
+      testContentElement.html(data.testContent)
+      testContentScope.recompile();
+      #console.log(testContentElement.contents())
+      #$compile(testContentElement.contents())(testContentScope)
+      #console.log(testContentElement.contents())
       $('#content').attr("class", contentClass)
       window.MathJax = null
       $.getScript($("script[src*='MathJax.js']").attr('src'))
