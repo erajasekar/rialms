@@ -8,13 +8,13 @@
 
     <testPart identifier="P01" navigationMode="linear" submissionMode="simultaneous">
         <assessmentSection identifier="S01" title="Section 1" visible="true">
-            <assessmentItemRef identifier="MultipleChoice" href="choice_multiple.xml"/>
+         <!--   <assessmentItemRef identifier="MultipleChoice" href="choice_multiple.xml"/>
             <assessmentItemRef identifier="AdaptiveFeedback" href="feedback_adaptive.xml"/>
             <assessmentItemRef identifier="GapMatch" href="gap_match.xml"/>
             <assessmentItemRef identifier="Hint" href="hint.xml"/>
             <assessmentItemRef identifier="EvaluateExpression" href="MA-UT-01a-NoTP-Choice.xml"/>
             <assessmentItemRef identifier="Order" href="order.xml"/>
-            <assessmentItemRef identifier="Match" href="match.xml"/>
+            <assessmentItemRef identifier="Match" href="match.xml"/>  -->
             <assessmentItemRef identifier="Sequences" href="sequences.xml"/>
             <assessmentItemRef identifier="AdaptiveTemplate" href="adaptive_template.xml"/>
             <assessmentItemRef identifier="Template" href="template.xml"/>

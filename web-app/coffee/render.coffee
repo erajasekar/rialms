@@ -37,9 +37,10 @@ window.updateRenderedItem = (data) ->
       testContentElement = $('#testContent')
       contentClass = $('#content').attr("class")
       testContentScope = angular.element('#testContent').scope()
-      console.log(testContentScope);
+      #console.log(testContentScope);
+      #TODO remove commented code
       testContentElement.html(data.testContent)
-      testContentScope.recompile();
+      #testContentScope.recompile();
       #console.log(testContentElement.contents())
       #$compile(testContentElement.contents())(testContentScope)
       #console.log(testContentElement.contents())
@@ -109,7 +110,6 @@ window.initGapInteraction =->
   return
 
 window.initAngularScopeObjects = (data)->
-  console.log( data.angularData.isResponseValid)
   if data.angularData
     contentScope = angular.element('#content').scope()
     contentScope.$apply ->

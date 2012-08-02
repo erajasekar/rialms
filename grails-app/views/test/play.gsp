@@ -30,7 +30,8 @@
             <g:message code="${flash.message}"/>
         </g:if>
         <g:if test="${!assessmentParams.validationResult.allItems.isEmpty()}">
-            <g:render template="/renderer/renderValidationErrors" model="[(Consts.validationResult): assessmentParams[Consts.validationResult]]"/>
+            <g:render template="/renderer/renderValidationErrors"
+                      model="[(Consts.validationResult): assessmentParams[Consts.validationResult]]"/>
         </g:if>
     </div>
 </div>
@@ -40,6 +41,8 @@
             <a href="#" rel="tooltip" class="toggleNav pull-right" title="Hide Sidebar"><span>&laquo;</span></a>
         </div>
     </div>
+
+    <g:render template="/renderer/renderResponseValidation" />
 
     <div class="row-fluid">
 
@@ -74,8 +77,8 @@
                 <div id="AssessmentForm">
                     <g:render template="/renderer/renderAssessmentHeader"
                               model="[(Consts.assessmentTitle): assessmentItemInfo.title, (Consts.submitDisabled): !assessmentParams[Consts.submitEnabled]]"/>
-                    <div ng-controller="TestContentController">
-                        <g:render template="/renderer/renderAssessmentItem"/>
+                    <div ng-controller='TestContentController'>
+                    <g:render template="/renderer/renderAssessmentItem"/>
                     </div>
                     <g:render template="/renderer/renderTestFeedback" model="[(Consts.includeHeader): true]"/>
                     <div class="form-actions" id="${Consts.navigationControls}">

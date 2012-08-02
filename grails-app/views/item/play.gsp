@@ -21,6 +21,7 @@
         initTestRendering();
     });
 </r:script>
+<g:render template="/renderer/renderResponseValidation" />
 
 <div class="row-fluid">
     <div class="span12" id="${Consts.content}">
@@ -46,11 +47,6 @@
                     <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}"/>
                     <span ng-bind-html="${Consts.itemResult}">
                         <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
-                    </span>
-                    <span ng-init='${Consts.isResponseValid}=true' ng-hide='${Consts.isResponseValid}'>
-                        <span class="item-result result-incorrect">
-                            <g:message code="response.invalid.message" />
-                        </span>
                     </span>
                 </div>
             </g:formRemote>

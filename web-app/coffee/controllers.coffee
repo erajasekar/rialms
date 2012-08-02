@@ -22,10 +22,11 @@ window.TestStatusController = ($scope,$filter)->
       "active"
   return
 
+#TODO remove commented code
 window.TestContentController = ($scope,$compile)->
   $scope.recompile = ->
     console.log($scope.isResponseValid)
-    console.log($('#itemResult').contents())
-    $compile($('#itemResult').contents())($scope);
-    console.log($('#itemResult').contents())
+    console.log($('#testContent').contents())
+    $compile($('#testContent').contents())($scope);
+    console.log($('#testContent').contents())
 

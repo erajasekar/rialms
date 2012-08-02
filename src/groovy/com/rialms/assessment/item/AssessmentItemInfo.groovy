@@ -57,6 +57,8 @@ class AssessmentItemInfo {
 
     private boolean isResponseValid = true;
 
+    private int multiHintClickCount = 0;
+
     public AssessmentItemInfo() {
     }
 
@@ -84,7 +86,11 @@ class AssessmentItemInfo {
     }
 
     private void setResponses(Map params) {
-
+        //TODO p1 : should read from config
+        if (params.containsKey('HINTS')){
+            multiHintClickCount++;
+        }
+        println "RAJA ${multiHintClickCount}"
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
@@ -93,7 +99,7 @@ class AssessmentItemInfo {
         if (isResponseValid){
             assessmentItem.setResponses(responseValues);
         }
-
+        //TODO p1 : should be in Consts.
         if (params.containsKey('submitClicked') && isResponseValid) {
             status = RESPONDED;
         } else {
@@ -130,6 +136,10 @@ class AssessmentItemInfo {
 
     public void setStatus(AssessmentItemStatus status){
         this.status = status;
+    }
+
+    public int getMultiHintClickCount(){
+        return multiHintClickCount;
     }
 
     public Map getHeader(){

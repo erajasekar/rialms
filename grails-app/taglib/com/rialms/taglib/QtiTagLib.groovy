@@ -130,17 +130,17 @@ class QtiTagLib {
         String scoreString = scoreFormat.format(score);
 
         if (assessmentItemInfo.isCorrect() && score > 0){
-            out << """<span class="item-result result-correct">"""
+            out << """<span class="alert item-result result-correct">"""
             out << g.message(code: 'itemResult.correct.message', args:[scoreString]);
             out << "</span>"
         }
         else if (!assessmentItemInfo.adaptive){
             if (score > 0){
-                out << """<span class="item-result result-partiallyCorrect">"""
+                out << """<span class="alert item-result result-partiallyCorrect">"""
                 out << g.message(code: 'itemResult.partiallyCorrect.message', args:[scoreString]);
                 out << "</span>"
             }else{
-                out << """<span class="item-result result-incorrect">"""
+                out << """<span class="alert item-result result-incorrect">"""
                 out << g.message(code: 'itemResult.incorrect.message');
                 out << "</span>"
             }
@@ -176,19 +176,21 @@ class QtiTagLib {
         String buttonIdentifier = getRequiredAttribute(attrs, 'buttonIdentifier', tag);
         String title = getRequiredAttribute(attrs, 'buttonTitle', tag);
         EndAttemptButton endAttemptButton = getEndAttemptButton(buttonIdentifier);
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
         String iconClass;
         iconClass = endAttemptButton.iconClass;
 
         Map fieldAttributes = [action: AssessmentItemInfo.controllerActionForProcessItem,
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
-                'class': 'btn btn-info'];
+                'class': 'btn btn-info','ng-click':'count = count + 1','ng-init':'count=0'];
 
         fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];
+        String multiHintClickCount = assessmentItemInfo.getMultiHintClickCount().toString();
 
         def tagBody = {
             g.remoteLink(fieldAttributes) {
-                "<i class='${iconClass}'></i>&nbsp;&nbsp;${title}"
+                "<i class='${iconClass}'></i>&nbsp;&nbsp;${title} &nbsp;({{count}})"
             }
         }
         renderTag(attrs, tagBody);
@@ -200,7 +202,7 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
         assessmentItemInfo.endAttemptButtons.each { key, value ->
-            out << endAttemptButton(buttonIdentifier: key, buttonTitle: value);
+            out << endAttemptButton(buttonIdentifier: key, buttonTitle: value, assessmentItemInfo:assessmentItemInfo);
         }
     }
 
