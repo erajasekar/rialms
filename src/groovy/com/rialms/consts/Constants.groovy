@@ -10,6 +10,8 @@ package com.rialms.consts
 class Constants {
 
     public static final String ITEM_OUTCOME_SCORE = 'SCORE';
+    public static final String MULTI_HINT_IDENTIFIER = 'HINTS';
+    public static final String MULTI_HINT_PREFIX = 'HINT_';
     public static final String renderItem = 'renderItem';
     public static final String exit = 'exit';
     public static final String renderNextItem = 'renderNextItem';

@@ -180,17 +180,20 @@ class QtiTagLib {
 
         String iconClass;
         iconClass = endAttemptButton.iconClass;
+        String multiHintClickCount = assessmentItemInfo.getMultiHintClickCount().toString();
+        String multiHintStepCount = assessmentItemInfo.getMultiHintStepCount().toString();
+        String remainingHintMessage = g.message(code: 'hint.remaining.message');
 
         Map fieldAttributes = [action: AssessmentItemInfo.controllerActionForProcessItem,
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
-                'class': 'btn btn-info','ng-click':'count = count + 1','ng-init':'count=0'];
+                'ng-class': 'getMultiHintStyle()','ng-click':'multiHintClicked()','ng-init':"multiHintClickCount=${multiHintClickCount};multiHintStepCount=${multiHintStepCount}"];
 
         fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];
-        String multiHintClickCount = assessmentItemInfo.getMultiHintClickCount().toString();
+
 
         def tagBody = {
             g.remoteLink(fieldAttributes) {
-                "<i class='${iconClass}'></i>&nbsp;&nbsp;${title} &nbsp;({{count}})"
+                "<i class='${iconClass}'></i>&nbsp;&nbsp;${title} &nbsp;<span ng-show='multiHintRemainingCount >= 0'>({{multiHintRemainingCount}} ${remainingHintMessage})</span>"
             }
         }
         renderTag(attrs, tagBody);
@@ -821,7 +824,7 @@ class QtiTagLib {
         Map sectionTagAttributes = [id: hiddenElement.elementId];
         boolean isModelFeedback = xmlTag == Tag.modalFeedback;
         if (isModelFeedback) {
-            sectionTagAttributes['class'] = 'alert alert-success';
+            sectionTagAttributes['class'] = 'model-feedback';
         }
         if (!assessmentItemInfo.isVisible(hiddenElement)) {
             sectionTagAttributes['style'] = 'display: none';
@@ -829,13 +832,33 @@ class QtiTagLib {
         out << "<${sectionTag} ${CollectionUtils.convertMapToAttributes(sectionTagAttributes)} >";
 
         if (isModelFeedback) {
-            out << "<a class='close' data-dismiss='alert' href='#'>&times;</a>"
             if (title) {
                 out << "<h4> ${title}! </h4>";
             }
         }
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
         out << "</${sectionTag}>";
+    }
+
+    def div = {  attrs ->
+
+        String tag = 'div';
+        Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
+        attrs += xmlNode.attributes();
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        String divId =  getOptionalAttribute(attrs, 'id');
+        int hintNumber = 0;
+        int multiHintClickCount = assessmentItemInfo.getMultiHintClickCount();
+        if (divId && divId.startsWith(Consts.MULTI_HINT_PREFIX)){
+            hintNumber = (divId - Consts.MULTI_HINT_PREFIX).toInteger();
+            assessmentItemInfo.incrementMultiHintStepCount();
+            out << """<div ng-init="multiHintClickCount=${multiHintClickCount}" ng-show="multiHintClickCount>=${hintNumber}">"""
+        }
+        else{
+            out << "<div>";
+        }
+        out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
+        out << "</div>";
     }
 
     def submit = { attrs ->
@@ -885,7 +908,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-             //  com.rialms.util.Less2Css.run();
+               com.rialms.util.Less2Css.run();
         }
     }
 

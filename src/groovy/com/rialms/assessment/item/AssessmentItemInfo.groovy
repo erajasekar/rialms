@@ -57,7 +57,14 @@ class AssessmentItemInfo {
 
     private boolean isResponseValid = true;
 
+    //Variable to track number of times multi hint  button is clicked.
     private int multiHintClickCount = 0;
+
+    //Variable to track total number of multi hint steps defined in item xml
+    private int multiHintStepCount = 0;
+
+    //Variable to track remaining number of multi hint steps available to show to user.
+    private int multiHintRemainingCount = 0;
 
     public AssessmentItemInfo() {
     }
@@ -86,11 +93,9 @@ class AssessmentItemInfo {
     }
 
     private void setResponses(Map params) {
-        //TODO p1 : should read from config
-        if (params.containsKey('HINTS')){
-            multiHintClickCount++;
+        if (params.containsKey(Consts.MULTI_HINT_IDENTIFIER)){
+            multiHintClicked();
         }
-        println "RAJA ${multiHintClickCount}"
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
 
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
@@ -99,8 +104,7 @@ class AssessmentItemInfo {
         if (isResponseValid){
             assessmentItem.setResponses(responseValues);
         }
-        //TODO p1 : should be in Consts.
-        if (params.containsKey('submitClicked') && isResponseValid) {
+        if (params.containsKey(Consts.submitClicked) && isResponseValid) {
             status = RESPONDED;
         } else {
             log.debug("DEBUG submit was not clicked, other endAttempt interaction like show hint/solution clicked, not setting status to RESPONDED");
@@ -138,8 +142,25 @@ class AssessmentItemInfo {
         this.status = status;
     }
 
+    public void incrementMultiHintStepCount(){
+        multiHintStepCount++;
+    }
+
+    public void multiHintClicked(){
+        multiHintClickCount++;
+        multiHintRemainingCount = multiHintStepCount - multiHintClickCount;
+    }
+
     public int getMultiHintClickCount(){
         return multiHintClickCount;
+    }
+
+    public int getMultiHintStepCount(){
+        return multiHintStepCount;
+    }
+
+    public int getMultiHintRemainingCount(){
+        return multiHintRemainingCount;
     }
 
     public Map getHeader(){

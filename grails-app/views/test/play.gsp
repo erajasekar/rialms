@@ -78,7 +78,7 @@
                     <g:render template="/renderer/renderAssessmentHeader"
                               model="[(Consts.assessmentTitle): assessmentItemInfo.title, (Consts.submitDisabled): !assessmentParams[Consts.submitEnabled]]"/>
                     <div ng-controller='TestContentController'>
-                    <g:render template="/renderer/renderAssessmentItem"/>
+                        <g:render template="/renderer/renderAssessmentItem"/>
                     </div>
                     <g:render template="/renderer/renderTestFeedback" model="[(Consts.includeHeader): true]"/>
                     <div class="form-actions" id="${Consts.navigationControls}">

@@ -34,6 +34,10 @@
             <qti:img assessmentItemInfo="${assessmentItemInfo}" xmlNode="${n}" file="${n.'@src'}" alt="${n.'@alt'}"/>
         </g:elseif>
 
+        <g:elseif test="${tag == Tag.div}">
+            <qti:div xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
+        </g:elseif>
+
         <g:elseif test="${tag == Tag.textEntryInteraction}">
             <qti:textEntryInteraction xmlNode="${n}" assessmentItemInfo="${assessmentItemInfo}"/>
         </g:elseif>

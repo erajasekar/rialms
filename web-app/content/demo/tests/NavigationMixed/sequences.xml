@@ -139,7 +139,8 @@
     </responseProcessing>
 
     <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
-        <div>Substitute value of
+        <div>
+            <p>Substitute value of
             <m:math>
                 <m:mrow>
                     <m:mi>n</m:mi>
@@ -186,8 +187,11 @@
                     <m:mi>1</m:mi>
                 </m:mrow>
             </m:math>
+            </p>
         </div>
-        <div>Substitute value of
+        <div>
+            <p>
+            Substitute value of
             <m:math>
                 <m:mrow>
                     <m:mi>n</m:mi>
@@ -234,6 +238,7 @@
                     <m:mi>5</m:mi>
                 </m:mrow>
             </m:math>
+            </p>
         </div>
     </modalFeedback>
 

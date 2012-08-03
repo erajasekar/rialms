@@ -22,11 +22,28 @@ window.TestStatusController = ($scope,$filter)->
       "active"
   return
 
-#TODO remove commented code
+#TODO rename conroller name
 window.TestContentController = ($scope,$compile)->
   $scope.recompile = ->
-    console.log($scope.isResponseValid)
-    console.log($('#testContent').contents())
     $compile($('#testContent').contents())($scope);
-    console.log($('#testContent').contents())
+
+  $scope.multiHintClicked = ->
+    if $scope.multiHintStepCount > $scope.multiHintClickCount
+      $scope.multiHintClickCount++
+      $scope.multiHintRemainingCount =  $scope.multiHintStepCount - $scope.multiHintClickCount
+    console.log('multiHintClicked...');
+    console.log($scope.multiHintStepCount);
+    console.log($scope.multiHintClickCount);
+    console.log($scope.multiHintRemainingCount);
+
+  $scope.getMultiHintStyle = ->
+    if ($scope.multiHintRemainingCount?)
+      if $scope.multiHintRemainingCount > 0
+        "btn btn-info"
+      else
+        "btn btn-info disabled"
+    else
+      "btn btn-info"
+
+
 

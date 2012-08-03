@@ -24,7 +24,7 @@
 <g:render template="/renderer/renderResponseValidation" />
 
 <div class="row-fluid">
-    <div class="span12" id="${Consts.content}">
+    <div class="span12" id="${Consts.content}" ng-controller='TestContentController'>
 
         <g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"

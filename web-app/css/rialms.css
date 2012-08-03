@@ -203,3 +203,9 @@ a.toggleNav:hover {
 .result-partiallyCorrect {
   color: #ff8c00;
 }
+.model-feedback {
+  margin: 5px;
+  padding: 10px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  color: green;
+}

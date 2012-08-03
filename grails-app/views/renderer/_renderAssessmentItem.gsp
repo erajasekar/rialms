@@ -28,7 +28,7 @@
 
         <g:hiddenField name="id" value="${params.id}"/>
         <g:hiddenField name="questionId" value="${assessmentParams[Consts.questionId]}"/>
-        <g:hiddenField name="submitClicked"
+        <g:hiddenField name="${Consts.submitClicked}"
                        value="true"/> <!-- Used to indicate if submit button was clicked. This param will be set only if submit was clicked -->
 
         <hr/>

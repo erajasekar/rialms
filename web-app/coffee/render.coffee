@@ -40,7 +40,8 @@ window.updateRenderedItem = (data) ->
       #console.log(testContentScope);
       #TODO remove commented code
       testContentElement.html(data.testContent)
-      #testContentScope.recompile();
+      testContentScope.$apply ->
+        testContentScope.recompile();
       #console.log(testContentElement.contents())
       #$compile(testContentElement.contents())(testContentScope)
       #console.log(testContentElement.contents())

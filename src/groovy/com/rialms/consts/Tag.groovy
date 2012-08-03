@@ -75,7 +75,7 @@ public enum Tag {
     endAttemptInteraction;
 
     private static Map<String, Tag> valuesByLowerCase = intValuesByLowerCase();
-    private static final EnumSet<Tag> mixedTags = EnumSet.range(p, div);
+    private static final EnumSet<Tag> mixedTags = EnumSet.range(p, td);
     private static final EnumSet<Tag> feedBackTags = EnumSet.of(feedbackBlock, modalFeedback, feedbackInline);
     private static final EnumSet<Tag> templateTags = EnumSet.of(templateBlock, templateInline);
     private static final EnumSet<Tag> inlineTags = EnumSet.of(feedbackInline, templateInline);
