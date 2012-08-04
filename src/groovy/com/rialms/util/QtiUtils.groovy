@@ -37,9 +37,6 @@ class QtiUtils {
                 }
                 map.put(i, values)
             }
-            //TODO P1: Do validation error for items submitted without resp.
-            //TODO P1: show score result to user
-
         }
         return map
     }
