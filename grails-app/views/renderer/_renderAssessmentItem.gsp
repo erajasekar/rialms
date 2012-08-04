@@ -10,6 +10,7 @@
 
     <div class="block-content">
 
+        <% assessmentItemInfo.resetMultiHintStepCount() %>
         <g:if test="${assessmentParams[Consts.timeRemaining] > 0}">
             <script type="text/javascript">
                 initTimer("${assessmentParams[Consts.timeRemaining]}")

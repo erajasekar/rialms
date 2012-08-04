@@ -175,6 +175,7 @@ public class AssessmentTestController implements Serializable {
 
     public void resetCurrentItem(){
         currentItemInfo.setStatus(AssessmentItemStatus.PRESENTED);
+        currentItemInfo.resetAllMultiHintCounts();
         AssessmentItem currentItem = flow.getCurrentItemRef()?.getItem();
         if (currentItem){
             currentItem.responseDeclarations.each{it.resetValue()}

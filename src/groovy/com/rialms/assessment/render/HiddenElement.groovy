@@ -15,6 +15,8 @@ import groovy.util.logging.Log4j
 @Log4j
 class HiddenElement {
 
+
+
     public enum ValueLookUpType{
         Template,
         Outcome
@@ -78,6 +80,21 @@ class HiddenElement {
                 "elementId='" + elementId + '\'' +
                 ", valueLookUpKey='" + valueLookUpKey + '\'' +
                 '}';
+    }
+
+    public boolean equals(o) {
+        if (this.is(o)) return true
+        if (getClass() != o.class) return false
+
+        HiddenElement that = (HiddenElement) o
+
+        if (elementId != that.elementId) return false
+
+        return true
+    }
+
+    public int hashCode() {
+        return elementId.hashCode()
     }
 
 

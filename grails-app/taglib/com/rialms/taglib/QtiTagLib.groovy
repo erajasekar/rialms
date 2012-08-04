@@ -184,9 +184,15 @@ class QtiTagLib {
         String multiHintStepCount = assessmentItemInfo.getMultiHintStepCount().toString();
         String remainingHintMessage = g.message(code: 'hint.remaining.message');
 
-        Map fieldAttributes = [action: AssessmentItemInfo.controllerActionForProcessItem,
+        Map fieldAttributes = [
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
                 'ng-class': 'getMultiHintStyle()','ng-click':'multiHintClicked()','ng-init':"multiHintClickCount=${multiHintClickCount};multiHintStepCount=${multiHintStepCount}"];
+
+        if (assessmentItemInfo.multiHintRemainingCount >= 0){
+            fieldAttributes['action'] = AssessmentItemInfo.controllerActionForProcessItem;
+        }else{
+            fieldAttributes['href'] = '';
+        }
 
         fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];
 
@@ -908,7 +914,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-               com.rialms.util.Less2Css.run();
+              // com.rialms.util.Less2Css.run();
         }
     }
 

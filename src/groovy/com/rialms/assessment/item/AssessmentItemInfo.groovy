@@ -35,7 +35,7 @@ class AssessmentItemInfo {
 
     public static final BLANK_ITEM = new AssessmentItemInfo();
 
-    public List<HiddenElement> hiddenElements = [];
+    public Set<HiddenElement> hiddenElements = [];
 
     private List<String> disableOnCompletionIds = [];
 
@@ -51,7 +51,7 @@ class AssessmentItemInfo {
     private Map header = [:];
 
     //Used to share any dynamic parameters between interactions.
-    private Map<String,String> params = [:];
+    private Map<String, String> params = [:];
 
     private Map endAttemptButtons = [:];
 
@@ -93,7 +93,7 @@ class AssessmentItemInfo {
     }
 
     private void setResponses(Map params) {
-        if (params.containsKey(Consts.MULTI_HINT_IDENTIFIER)){
+        if (params.containsKey(Consts.MULTI_HINT_IDENTIFIER)) {
             multiHintClicked();
         }
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
@@ -101,7 +101,7 @@ class AssessmentItemInfo {
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
         isResponseValid = !responseValues.isEmpty();
         log.info("Response Values ${this} ==> ${responseValues} , valid : ${isResponseValid}");
-        if (isResponseValid){
+        if (isResponseValid) {
             assessmentItem.setResponses(responseValues);
         }
         if (params.containsKey(Consts.submitClicked) && isResponseValid) {
@@ -119,57 +119,58 @@ class AssessmentItemInfo {
 
     }
 
-    public void addEndAttemptButton(String buttonId, String buttonTitle){
+    public void addEndAttemptButton(String buttonId, String buttonTitle) {
         endAttemptButtons = endAttemptButtons + [(buttonId): buttonTitle];
     }
 
-    public Map<String,String> getEndAttemptButtons(){
+    public Map<String, String> getEndAttemptButtons() {
         return endAttemptButtons
     }
-    public void createHeader(){
+
+    public void createHeader() {
         header = createHeader(title);
     }
 
-    public static Map createHeader(String title){
-        return [(Consts.title):title];
+    public static Map createHeader(String title) {
+        return [(Consts.title): title];
     }
 
     public void addDisableOnCompletionId(String id) {
         disableOnCompletionIds << id;
     }
 
-    public void setStatus(AssessmentItemStatus status){
+    public void setStatus(AssessmentItemStatus status) {
         this.status = status;
     }
 
-    public void incrementMultiHintStepCount(){
+    public void incrementMultiHintStepCount() {
         multiHintStepCount++;
     }
 
-    public void multiHintClicked(){
+    public void multiHintClicked() {
         multiHintClickCount++;
         multiHintRemainingCount = multiHintStepCount - multiHintClickCount;
     }
 
-    public int getMultiHintClickCount(){
+    public int getMultiHintClickCount() {
         return multiHintClickCount;
     }
 
-    public int getMultiHintStepCount(){
+    public int getMultiHintStepCount() {
         return multiHintStepCount;
     }
 
-    public int getMultiHintRemainingCount(){
+    public int getMultiHintRemainingCount() {
         return multiHintRemainingCount;
     }
 
-    public Map getHeader(){
+    public Map getHeader() {
         return header;
     }
 
-    public Map<String, List<String>> getVisibleAndHiddenElementIds() {
-        List<String> visibleIds = [];
-        List<String> hiddenIds = [];
+    public Map<String, Set<String>> getVisibleAndHiddenElementIds() {
+        Set<String> visibleIds = [];
+        Set<String> hiddenIds = [];
         hiddenElements.each { element ->
             if (isVisible(element)) {
                 visibleIds << "#${element.elementId}";
@@ -181,76 +182,93 @@ class AssessmentItemInfo {
     }
 
     public boolean isVisible(HiddenElement element) {
-        return element.isVisible(outcomeValues,templateValues);
+        return element.isVisible(outcomeValues, templateValues);
     }
     //TODO P4 This will work only for template & initial rendering
-    public boolean checkForHiddenElement(Node node, Tag xmlTag){
-        HiddenElement hiddenElement = createHiddenElement(node,xmlTag,HiddenElement.ValueLookUpType.Template);
-        hiddenElement ? !isVisible(hiddenElement):false;
+    public boolean checkForHiddenElement(Node node, Tag xmlTag) {
+        HiddenElement hiddenElement = createHiddenElement(node, xmlTag, HiddenElement.ValueLookUpType.Template);
+        hiddenElement ? !isVisible(hiddenElement) : false;
     }
 
-    public HiddenElement addHiddenElement(Node node, Tag xmlTag){
+    public HiddenElement addHiddenElement(Node node, Tag xmlTag) {
 
-        HiddenElement.ValueLookUpType valueLookUpType = Tag.isFeedBackTag(xmlTag)? HiddenElement.ValueLookUpType.Outcome:HiddenElement.ValueLookUpType.Template;
-        HiddenElement hiddenElement = createHiddenElement(node,xmlTag,valueLookUpType);
-        if (hiddenElement){
+        HiddenElement.ValueLookUpType valueLookUpType = Tag.isFeedBackTag(xmlTag) ? HiddenElement.ValueLookUpType.Outcome : HiddenElement.ValueLookUpType.Template;
+        HiddenElement hiddenElement = createHiddenElement(node, xmlTag, valueLookUpType);
+        if (hiddenElement) {
             hiddenElements << hiddenElement;
         }
         return hiddenElement;
     }
 
-    private HiddenElement createHiddenElement(Node node, Tag xmlTag, HiddenElement.ValueLookUpType valueLookUpType){
+    /**
+     * This method will reset multiHintStepCount value so that re-rendering assessmentItem will not cause any problems.
+     */
+    public void resetMultiHintStepCount() {
+        multiHintStepCount = 0;
+    }
+
+    /**
+     * This method will reset multiHintClickCount value so that re-starting assessmentItem in a test work as expected
+     */
+    public void resetAllMultiHintCounts(){
+        multiHintStepCount = 0;
+        multiHintClickCount = 0;
+        multiHintRemainingCount = 0;
+    }
+
+    private HiddenElement createHiddenElement(Node node, Tag xmlTag, HiddenElement.ValueLookUpType valueLookUpType) {
         String identifier = node.'@identifier';
         String valueLookUpKey = (valueLookUpType == HiddenElement.ValueLookUpType.Template) ? node.'@templateIdentifier' : node.'@outcomeIdentifier';
         String visibilityMode = node.'@showHide';
-        if (valueLookUpType && visibilityMode){
-            return new HiddenElement(identifier,valueLookUpKey,xmlTag,visibilityMode,valueLookUpType);
+        if (valueLookUpType && visibilityMode) {
+            return new HiddenElement(identifier, valueLookUpKey, xmlTag, visibilityMode, valueLookUpType);
         }
-        else{
+        else {
             return null;
         }
     }
 
     public boolean isCorrect() {
         //Note: AssessmentItem.isCorrect() is patched to handle adaptive items correctly.
-        return  assessmentItem.isCorrect();
+        return assessmentItem.isCorrect();
     }
 
-    public double getScore(){
+    public double getScore() {
         Value score = assessmentItem.outcomeValues[Consts.ITEM_OUTCOME_SCORE];
-        if (!(score instanceof NullValue)){
+        if (!(score instanceof NullValue)) {
             return score.toString().toDouble();
-        }else{
+        } else {
             return 0;
         }
     }
 
-    public void addParam(String key, String value){
-        if (params.containsKey(key)){
-           // throw new IllegalArgumentException('key ${key} already found in params.');
+    public void addParam(String key, String value) {
+        if (params.containsKey(key)) {
+            // throw new IllegalArgumentException('key ${key} already found in params.');
             log.warn("key ${key} already found in params.")
-        }else{
-            params.put(key,value);
+        } else {
+            params.put(key, value);
         }
 
     }
 
-    public String getParam(String key){
+    public String getParam(String key) {
         if (params.containsKey(key)) {
             return params[key];
-        }else{
+        } else {
             throw new IllegalArgumentException('No param found for key ${key');
         }
     }
+
     public Map getRenderOutput() {
-        Map<String, List<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
+        Map<String, Set<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
         Map output = [(Consts.itemOutcomeValues): outcomeValues,
                 (Consts.visibleElementIds): visibleAndHiddenElementIds[Consts.visibleElementIds],
                 (Consts.hiddenElementIds): visibleAndHiddenElementIds[Consts.hiddenElementIds]];
         if (isResponseValid && isCorrect()) {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
-        Map angularData = [(Consts.assessmentHeader):header, (Consts.endAttemptButtons):endAttemptButtons, (Consts.isResponseValid):isResponseValid];
+        Map angularData = [(Consts.assessmentHeader): header, (Consts.endAttemptButtons): endAttemptButtons, (Consts.isResponseValid): isResponseValid];
         output[Consts.angularData] = angularData;
 
         log.info("DEBUG AssessmentItemInfo renderOutput ${output}")
@@ -273,7 +291,7 @@ class AssessmentItemInfo {
         assessmentItem.adaptive;
     }
 
-    public boolean getIsResponseValid(){
+    public boolean getIsResponseValid() {
         return isResponseValid
     }
 
@@ -305,7 +323,7 @@ class AssessmentItemInfo {
         return assessmentItem.outcomeDeclarations;
     }
 
-   /* @Override
+    /* @Override
     public String toString() {
         return "AssessmentItemInfo{" +
                 "dataPath='" + dataPath + '\'' +
