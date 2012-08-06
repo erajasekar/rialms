@@ -180,6 +180,7 @@ class QtiTagLib {
 
         String iconClass;
         iconClass = endAttemptButton.iconClass;
+        //TODO P1: Do validation for multi hint
         String multiHintClickCount = assessmentItemInfo.getMultiHintClickCount().toString();
         String multiHintStepCount = assessmentItemInfo.getMultiHintStepCount().toString();
         String remainingHintMessage = g.message(code: 'hint.remaining.message');
