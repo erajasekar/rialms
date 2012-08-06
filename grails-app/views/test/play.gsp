@@ -42,9 +42,7 @@
         </div>
     </div>
 
-    <g:render template="/renderer/renderResponseValidation" />
-
-    <div class="row-fluid">
+     <div class="row-fluid">
 
         <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
@@ -77,7 +75,7 @@
                 <div id="AssessmentForm">
                     <g:render template="/renderer/renderAssessmentHeader"
                               model="[(Consts.assessmentTitle): assessmentItemInfo.title, (Consts.submitDisabled): !assessmentParams[Consts.submitEnabled]]"/>
-                    <div ng-controller='TestContentController'>
+                    <div ng-controller='ItemContentController'>
                         <g:render template="/renderer/renderAssessmentItem"/>
                     </div>
                     <g:render template="/renderer/renderTestFeedback" model="[(Consts.includeHeader): true]"/>

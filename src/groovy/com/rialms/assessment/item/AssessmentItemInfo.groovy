@@ -114,7 +114,7 @@ class AssessmentItemInfo {
     public boolean processResponses(Map params) {
         setResponses(params);
         assessmentItem.processResponses();
-        log.info("DEBUG Response after processing ${responseValues}")
+        log.debug("DEBUG Response after processing ${responseValues}")
         log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
 
     }
@@ -145,6 +145,7 @@ class AssessmentItemInfo {
 
     public void incrementMultiHintStepCount() {
         multiHintStepCount++;
+        multiHintRemainingCount = multiHintStepCount - multiHintClickCount;
     }
 
     public void multiHintClicked() {
@@ -271,7 +272,7 @@ class AssessmentItemInfo {
         Map angularData = [(Consts.assessmentHeader): header, (Consts.endAttemptButtons): endAttemptButtons, (Consts.isResponseValid): isResponseValid];
         output[Consts.angularData] = angularData;
 
-        log.info("DEBUG AssessmentItemInfo renderOutput ${output}")
+        log.debug("DEBUG AssessmentItemInfo renderOutput ${output}")
         return output;
     }
 

@@ -21,10 +21,10 @@
         initTestRendering();
     });
 </r:script>
-<g:render template="/renderer/renderResponseValidation" />
+
 
 <div class="row-fluid">
-    <div class="span12" id="${Consts.content}" ng-controller='TestContentController'>
+    <div class="span12" id="${Consts.content}" ng-controller='ItemContentController'>
 
         <g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
@@ -48,6 +48,7 @@
                     <span ng-bind-html="${Consts.itemResult}">
                         <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
                     </span>
+                    <g:render template="/renderer/renderResponseValidation" />
                 </div>
             </g:formRemote>
         </g:if>

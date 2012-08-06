@@ -22,8 +22,7 @@ window.TestStatusController = ($scope,$filter)->
       "active"
   return
 
-#TODO rename conroller name
-window.TestContentController = ($scope,$compile)->
+window.ItemContentController = ($scope,$compile)->
   $scope.recompile = ->
     $compile($('#testContent').contents())($scope);
 
@@ -31,10 +30,6 @@ window.TestContentController = ($scope,$compile)->
     if $scope.multiHintStepCount > $scope.multiHintClickCount
       $scope.multiHintClickCount++
       $scope.multiHintRemainingCount =  $scope.multiHintStepCount - $scope.multiHintClickCount
-    console.log('multiHintClicked...');
-    console.log($scope.multiHintStepCount);
-    console.log($scope.multiHintClickCount);
-    console.log($scope.multiHintRemainingCount);
 
   $scope.getMultiHintStyle = ->
     if ($scope.multiHintRemainingCount?)

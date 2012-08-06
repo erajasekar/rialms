@@ -37,14 +37,9 @@ window.updateRenderedItem = (data) ->
       testContentElement = $('#testContent')
       contentClass = $('#content').attr("class")
       testContentScope = angular.element('#testContent').scope()
-      #console.log(testContentScope);
-      #TODO remove commented code
       testContentElement.html(data.testContent)
       testContentScope.$apply ->
         testContentScope.recompile();
-      #console.log(testContentElement.contents())
-      #$compile(testContentElement.contents())(testContentScope)
-      #console.log(testContentElement.contents())
       $('#content').attr("class", contentClass)
       window.MathJax = null
       $.getScript($("script[src*='MathJax.js']").attr('src'))

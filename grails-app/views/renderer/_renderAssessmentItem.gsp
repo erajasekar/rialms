@@ -54,6 +54,7 @@
                 </button>
             </g:else>
             <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}" />
+            <g:render template="/renderer/renderResponseValidation" />
 
         </div>
     </div>
