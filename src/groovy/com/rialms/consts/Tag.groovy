@@ -44,6 +44,8 @@ public enum Tag {
     cite,
     table,
     tbody,
+    thead,
+    th,
     tr,
     td,
     div,
