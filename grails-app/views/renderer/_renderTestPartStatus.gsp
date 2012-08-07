@@ -30,7 +30,7 @@
                         <g:remoteLink action="navigate" ng-hide="${statusEntry.getProperty(Consts.isSectionTitle)}"
                                       onSuccess="${AssessmentItemInfo.onSuccessCallbackForProcessItem}"
                                       params="${params + [(Consts.renderItem): statusEntry.getPropertyValue(Consts.identifier), isPositionedAfterCurrent: statusEntry.getPropertyValue(Consts.isPositionedAfterCurrent)]}">
-                            ${statusEntry.getPropertyValue(Consts.identifier)} &nbsp;&nbsp;
+                            ${statusEntry.getPropertyValue(Consts.title)} &nbsp;&nbsp;
                             <span class="${statusEntry.getPropertyValue(Consts.styleClass)}">${statusEntry.getPropertyValue(Consts.status)}</span>
                         </g:remoteLink>
                     </li>

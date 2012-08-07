@@ -324,11 +324,11 @@ class AssessmentItemInfo {
         return assessmentItem.outcomeDeclarations;
     }
 
-    /* @Override
+    @Override
     public String toString() {
         return "AssessmentItemInfo{" +
                 "dataPath='" + dataPath + '\'' +
                 ", assessmentItem=" + assessmentItem.title +
                 '}';
-    }*/
+    }
 }

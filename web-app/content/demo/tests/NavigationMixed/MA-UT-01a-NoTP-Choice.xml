@@ -6,7 +6,7 @@
  xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 imsqti_v2p1.xsd 
  http://mathassess.qtitools.org/xsd/mathassess mathassess.xsd"  
  xmlns:m="http://www.w3.org/1998/Math/MathML" adaptive="true"
- identifier="MA-UT-01a-NoTP-Choice" timeDependent="false" title="Algebraic Fractions - Is evaluation possible? (choice)">
+ identifier="MA-UT-01a-NoTP-Choice" timeDependent="false" title="Algebraic Fractions">
 <!-- 
 Simple ScriptRule template processing, textEntryInteraction and numerical judging in response processing
 -->

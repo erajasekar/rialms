@@ -90,7 +90,7 @@ class AssessmentTestControllerTests {
         }
 
         String sectionA = 'Section 1';
-        Map expected = [(sectionA): [new SectionPartStatus('math1', sectionA, SKIPPED, BEFORE, true), new SectionPartStatus('math2', sectionA, SKIPPED, BEFORE, true)]]
+        Map expected = [(sectionA): [new SectionPartStatus('math1','Basic addition 1' ,sectionA, SKIPPED, BEFORE, true), new SectionPartStatus('math2','Basic addition 2', sectionA, SKIPPED, BEFORE, true)]]
 
         log.info("--------- Expected CurrentTestPartStatus ------------------")
         expected.each { k, v ->
@@ -140,11 +140,11 @@ class AssessmentTestControllerTests {
         String E = "Section E";
         String F_G_H = "Section F${SectionPartStatus.PARENT_SECTION_DELIMITER}Section G${SectionPartStatus.PARENT_SECTION_DELIMITER}Section H";
 
-        Map expected = [(A): [new SectionPartStatus('math1', A, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math2', A, PRESENTED, BEFORE, allowReview)],
-                (B): [new SectionPartStatus('math3', B, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math4', B, PRESENTED, BEFORE, allowReview)],
-                (C_D): [new SectionPartStatus('math5', C_D, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math6', C_D, PRESENTED, BEFORE, allowReview)],
-                (E): [new SectionPartStatus('math7', E, PRESENTED, BEFORE, allowReview)],
-                (F_G_H): [new SectionPartStatus('math8', F_G_H, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math9', F_G_H, NOT_PRESENTED, CURRENT, false)]
+        Map expected = [(A): [new SectionPartStatus('math1','Basic addition 1', A, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math2','Basic addition 2', A, PRESENTED, BEFORE, allowReview)],
+                (B): [new SectionPartStatus('math3','Basic addition 3', B, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math4','Maths 4', B, PRESENTED, BEFORE, allowReview)],
+                (C_D): [new SectionPartStatus('math5','Maths 5', C_D, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math6','Maths 6', C_D, PRESENTED, BEFORE, allowReview)],
+                (E): [new SectionPartStatus('math7','Basic addition 1', E, PRESENTED, BEFORE, allowReview)],
+                (F_G_H): [new SectionPartStatus('math8','Basic addition 2', F_G_H, PRESENTED, BEFORE, allowReview), new SectionPartStatus('math9','Basic addition 3', F_G_H, NOT_PRESENTED, CURRENT, false)]
         ]
 
         Map actual = test.getCurrentTestPartStatus();

@@ -2,7 +2,7 @@
 <assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p0"
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p0 imsqti_v2p0.xsd"
-                identifier="math4" title="Maths 4: Calculating the square" adaptive="false" timeDependent="false">
+                identifier="math4" title="Calculating the square" adaptive="false" timeDependent="false">
     <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string">
         <correctResponse>
             <value>4</value>

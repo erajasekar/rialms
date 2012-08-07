@@ -431,6 +431,20 @@ public class AssessmentTestController implements Serializable {
         return itemStatus;
     }
 
+    private String getAssessmentItemTitle(SectionPart section){
+
+        AssessmentItemRef itemRef = (AssessmentItemRef)section;
+        AssessmentSection parent = (AssessmentSection) section.getParent();
+        //For templated tests, parent section will have selection element to render same item with different template values.
+        //In this case, title will be duplicated, so lets use itemRef.identifier as title to make them look unique.
+        if (parent.getSelection()){
+            return itemRef.identifier
+        }else{
+            return itemRef.item.title;
+        }
+    }
+
+
     public String getReport() {
         return getAssessmentResult().toXmlString();
     }
@@ -575,7 +589,7 @@ public class AssessmentTestController implements Serializable {
                         it.enabled = false;
                     }
                 }
-                sectionPartStatusList << new SectionPartStatus(identifier, parentSection, itemStatus, currentPosition, isSectionPartStatusEnabled);
+                sectionPartStatusList << new SectionPartStatus(identifier, getAssessmentItemTitle(section), parentSection, itemStatus, currentPosition, isSectionPartStatusEnabled);
             }
         }
         return sectionPartStatusList;

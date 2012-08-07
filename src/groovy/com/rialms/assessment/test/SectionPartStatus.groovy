@@ -21,13 +21,15 @@ class SectionPartStatus {
 
     public static final String PARENT_SECTION_DELIMITER = ' > ';
     private String identifier;
+    private String title;
     private String parentSection;
     private AssessmentItemStatus status;
     private Position position;
     private boolean enabled;
 
-    public SectionPartStatus(String identifier, String parentSection, AssessmentItemStatus status = AssessmentItemStatus.NOT_PRESENTED, Position position = Position.BEFORE, boolean enabled = true) {
+    public SectionPartStatus(String identifier, String title, String parentSection, AssessmentItemStatus status = AssessmentItemStatus.NOT_PRESENTED, Position position = Position.BEFORE, boolean enabled = true) {
         this.identifier = identifier;
+        this.title = title;
         this.parentSection = parentSection;
         this.status = (status ?: AssessmentItemStatus.NOT_PRESENTED);
         this.position = position;
@@ -67,6 +69,10 @@ class SectionPartStatus {
         return status
     }
 
+    public String getTitle(){
+        return title;
+    }
+
     public static String formatParentSection(String parentSection, String currentSection) {
         return (parentSection) ? "${parentSection}${PARENT_SECTION_DELIMITER}${currentSection}" : currentSection;
     }
@@ -77,6 +83,7 @@ class SectionPartStatus {
 
     public Map<String, Object> toPropertiesMap() {
         return [(Constants.identifier): identifier,
+                (Constants.title): title,
                 (Constants.isCurrent): isCurrentItem(),
                 (Constants.isPositionedAfterCurrent): isPositionedAfterCurrent(),
                 (Constants.status): AssessmentItemStatus.format(status),
@@ -92,6 +99,7 @@ class SectionPartStatus {
 
         if (enabled != that.enabled) return false
         if (identifier != that.identifier) return false
+        if (title != that.title) return false
         if (parentSection != that.parentSection) return false
         if (position != that.position) return false
         if (status != that.status) return false
@@ -102,6 +110,7 @@ class SectionPartStatus {
     public int hashCode() {
         int result
         result = identifier.hashCode()
+        result = 31 * result + title.hashCode()
         result = 31 * result + parentSection.hashCode()
         result = 31 * result + status.hashCode()
         result = 31 * result + position.hashCode()
