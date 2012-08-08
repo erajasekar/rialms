@@ -144,7 +144,7 @@ public class TestCoordinator implements Serializable {
     public void getNextQuestion(boolean includeFinished) throws QTIException {
 
         log.info("hasNextItem in current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
-
+         //TODO: p1 we need to handle this same use case for non linear individual as well.
         //For simultaneous submission mode, if no more unpresented items in current test part or test timedout, renderSubmitTestPartContent(), else render next unpresented item;
         if (test.isCurrentTestPartSubmissionModeSimultaneous() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)){
             log.info("simultaneous submission mode, checking next unpresented item to navigate");

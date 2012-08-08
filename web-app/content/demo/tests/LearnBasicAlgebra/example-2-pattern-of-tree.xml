@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="Example2" title="Example 2 - Pattern of Tree" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="A" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>9</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="B" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>12</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="C" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>15</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="D" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>11</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="E" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>14</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="F" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>17</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="G" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>3</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="H" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>2</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="I" cardinality="single" baseType="string">
+        <correctResponse>
+            <value>3x+2</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <outcomeDeclaration identifier="STEP1" cardinality="single" baseType="identifier"/>
+    <outcomeDeclaration identifier="STEP2" cardinality="single" baseType="identifier"/>
+    <outcomeDeclaration identifier="STEP3" cardinality="single" baseType="identifier"/>
+    <itemBody>
+        <p>
+            Look at the pattern of the tree below. The base is always formed with two match sticks.
+            The top portion of the tree differs in multiple of 3.
+        </p>
+        <br/>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>1)</th>
+                    <th>2)</th>
+                    <th>3)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <img src="images/matchstick-tree-1.png" height="150px" width="120px"
+                             alt="Match Stick Triangle 1"/>
+                    </td>
+                    <td>
+                        <img src="images/matchstick-tree-2.png" height="300px" width="120px"
+                             alt="Match Stick Triangle 2"/>
+                    </td>
+                    <td>
+                        <img src="images/matchstick-tree-3.png" height="450px" width="120px"
+                             alt="Match Stick Triangle 3"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <br/>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Number of top Portions</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Number of match sticks needed for the top portion</td>
+                    <td>3</td>
+                    <td>6</td>
+                    <td>
+                        <textEntryInteraction class="input-small" responseIdentifier="A" expectedLength="2"/>
+                    </td>
+                    <td>
+                        <textEntryInteraction class="input-small" responseIdentifier="B" expectedLength="2"/>
+                    </td>
+                    <td>
+                        <textEntryInteraction class="input-small" responseIdentifier="C" expectedLength="2"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Number of match sticks needed for the base</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Total number of match sticks used</td>
+                    <td>5</td>
+                    <td>8</td>
+                    <td>
+                        <textEntryInteraction class="input-small" responseIdentifier="D" expectedLength="2"/>
+                    </td>
+                    <td>
+                        <textEntryInteraction class="input-small" responseIdentifier="E" expectedLength="2"/>
+                    </td>
+                    <td>
+                        <textEntryInteraction class="input-small" responseIdentifier="F" expectedLength="2"/>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <feedbackBlock outcomeIdentifier="STEP1" showHide="show" identifier="step1">
+            <p>
+                Let us denote Number of top portion as the variable
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>x</m:mi>
+                    </m:mstyle>
+                </m:math>
+                .
+                We can see that
+                <br/>
+                Number of match sticks used = (
+                <textEntryInteraction class="input-small" responseIdentifier="G" expectedLength="2"/>
+                x
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>x</m:mi>
+                    </m:mstyle>
+                </m:math>
+                ) +
+                <textEntryInteraction placeholderText='Number of matchsticks for the base'
+                                      responseIdentifier="H" expectedLength="2"/>
+            </p>
+        </feedbackBlock>
+        <feedbackBlock outcomeIdentifier="STEP2" showHide="show" identifier="step2">
+            <p>
+                This can be written in algebric expression as
+                Number of match sticks used =
+                <textEntryInteraction class="input-small" responseIdentifier="I"/>
+                (write without spaces Eg:
+                <m:math title="4x+5" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>4</m:mn>
+                        <m:mi>x</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>5</m:mn>
+                    </m:mstyle>
+                </m:math>
+                )
+            </p>
+        </feedbackBlock>
+        <feedbackBlock outcomeIdentifier="STEP3" showHide="show" identifier="step3">
+            <p>
+                Correct!.
+            </p>
+        </feedbackBlock>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="I"/>
+                    <correct identifier="I"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">9</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="STEP3">
+                    <baseValue baseType="identifier">step3</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <and>
+                    <match>
+                        <variable identifier="G"/>
+                        <correct identifier="G"/>
+                    </match>
+                    <match>
+                        <variable identifier="H"/>
+                        <correct identifier="H"/>
+                    </match>
+                </and>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">8</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="STEP2">
+                    <baseValue baseType="identifier">step2</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+            <responseElseIf>
+                <and>
+                    <match>
+                        <variable identifier="A"/>
+                        <correct identifier="A"/>
+                    </match>
+                    <match>
+                        <variable identifier="B"/>
+                        <correct identifier="B"/>
+                    </match>
+                    <match>
+                        <variable identifier="C"/>
+                        <correct identifier="C"/>
+                    </match>
+                    <match>
+                        <variable identifier="D"/>
+                        <correct identifier="D"/>
+                    </match>
+                    <match>
+                        <variable identifier="E"/>
+                        <correct identifier="E"/>
+                    </match>
+                    <match>
+                        <variable identifier="F"/>
+                        <correct identifier="F"/>
+                    </match>
+                </and>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">6</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="STEP1">
+                    <baseValue baseType="identifier">step1</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+</assessmentItem>

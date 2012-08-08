@@ -3,26 +3,26 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:m="http://www.w3.org/1998/Math/MathML"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
-                identifier="KnowConstantsAndVariables" title="Know Constants And Variables" adaptive="true"
+                identifier="Example1" title="Example 1 - Formation of Letter E" adaptive="true"
                 timeDependent="false">
     <responseDeclaration identifier="A" cardinality="single" baseType="integer">
-        <correctResponse>
-            <value>9</value>
-        </correctResponse>
-    </responseDeclaration>
-    <responseDeclaration identifier="B" cardinality="single" baseType="integer">
-        <correctResponse>
-            <value>12</value>
-        </correctResponse>
-    </responseDeclaration>
-    <responseDeclaration identifier="C" cardinality="single" baseType="integer">
         <correctResponse>
             <value>15</value>
         </correctResponse>
     </responseDeclaration>
+    <responseDeclaration identifier="B" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>20</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="C" cardinality="single" baseType="integer">
+        <correctResponse>
+            <value>25</value>
+        </correctResponse>
+    </responseDeclaration>
     <responseDeclaration identifier="D" cardinality="single" baseType="integer">
         <correctResponse>
-            <value>3</value>
+            <value>5</value>
         </correctResponse>
     </responseDeclaration>
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
@@ -30,30 +30,26 @@
     <outcomeDeclaration identifier="STEP2" cardinality="single" baseType="identifier"/>
     <itemBody>
         <p>
-            Joe made the following triangular patterns with the match sticks he had
+            Let us see the formation of letter E with help of match sticks.
         </p>
 
         <p>
             <p>1)</p>
-            <img src="images/matchstick-triangle-1.png" height="100px" width="120px" alt="Match Stick Triangle 1"/>
+            <img src="images/matchstick-e-1.png" height="150px" width="120px" alt="Match Stick Triangle 1"/>
         </p>
         <p>
             <p>2)</p>
-            <img src="images/matchstick-triangle-2.png" height="100px" width="240px" alt="Match Stick Triangle 2"/>
+            <img src="images/matchstick-e-2.png" height="150px" width="240px" alt="Match Stick Triangle 2"/>
         </p>
         <p>
             <p>3)</p>
-            <img src="images/matchstick-triangle-3.png" height="100px" width="360px" alt="Match Stick Triangle 3"/>
-        </p>
-        <br/>
-        <p>
-            To find out the total match sticks used for the above formation he prepared the following table.
+            <img src="images/matchstick-e-3.png" height="150px" width="360px" alt="Match Stick Triangle 3"/>
         </p>
         <br/>
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>Number of triangles</th>
+                    <th>Number of E Formation</th>
                     <th>1</th>
                     <th>2</th>
                     <th>3</th>
@@ -64,10 +60,10 @@
             <tbody>
                 <tr>
                     <td>Number of match sticks used</td>
-                    <td>3</td>
-                    <td>6</td>
+                    <td>5</td>
+                    <td>10</td>
                     <td>
-                        <textEntryInteraction class="input-small" responseIdentifier="A" expectedLength="1"/>
+                        <textEntryInteraction class="input-small" responseIdentifier="A" expectedLength="2"/>
                     </td>
                     <td>
                         <textEntryInteraction class="input-small" responseIdentifier="B" expectedLength="2"/>
@@ -80,57 +76,32 @@
         </table>
         <feedbackBlock outcomeIdentifier="STEP1" showHide="show" identifier="step1">
             <p>
-                From the above table he found a relation between the number of triangles and the number of match sticks
-                used.
-                That is
+                Let us denote Number of E formation as the variable
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>x</m:mi>
+                    </m:mstyle>
+                </m:math>.
+                Based on calculations from above table.
                 <br/>
                 Number of match sticks used =
                 <textEntryInteraction class="input-small" responseIdentifier="D" expectedLength="2"/>
-                x number of triangles.
-            </p>
-        </feedbackBlock>
-        <feedbackBlock outcomeIdentifier="STEP2" showHide="show" identifier="step2">
-            <p>
-                We find the number of match sticks used to form a triangle is always fixed. A quantity which takes a
-                fixed numerical value is called as<code>constant</code>. So 3 is a <em>constant</em>
-                <br/>
-                But number of triangles formed in each step keep changing. A quantity which takes different numerical
-                values is called as<code>variable</code>. Usually variables are denoted by small letters
-                <m:math title="a,b,c...x,y,z" xmlns="http://www.w3.org/1998/Math/MathML">
-                    <m:mstyle fontfamily="serif" displaystyle="true">
-                        <m:mi>a</m:mi>
-                        <m:mo>,</m:mo>
-                        <m:mi>b</m:mi>
-                        <m:mo>,</m:mo>
-                        <m:mi>c</m:mi>
-                        <m:mo>...</m:mo>
-                        <m:mi>x</m:mi>
-                        <m:mo>,</m:mo>
-                        <m:mi>y</m:mi>
-                        <m:mo>,</m:mo>
-                        <m:mi>z</m:mi>
-                    </m:mstyle>
-                </m:math>
-                .<br/>
-                Let's denote number of triangles by the letter
+                x
                 <m:math>
                     <m:mstyle fontfamily="serif" displaystyle="true">
                         <m:mi>x</m:mi>
                     </m:mstyle>
                 </m:math>
-                .
-                <br/>
-                Therefore number of match sticks used =
-                <strong>3 x
-                    <m:math>
-                        <m:mstyle fontfamily="serif" displaystyle="true">
-                            <m:mi>x</m:mi>
-                        </m:mstyle>
-                    </m:math>
-                    =
+            </p>
+        </feedbackBlock>
+        <feedbackBlock outcomeIdentifier="STEP2" showHide="show" identifier="step2">
+            <p>
+                This can be simply written in algebric expression as
+                Number of match sticks used =
+                <strong>
                     <m:math>
                         <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
-                            <m:mn>3</m:mn>
+                            <m:mn>5</m:mn>
                             <m:mi>x</m:mi>
                         </m:mstyle>
                     </m:math>

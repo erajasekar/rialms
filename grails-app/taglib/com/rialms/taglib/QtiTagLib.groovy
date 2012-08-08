@@ -49,12 +49,16 @@ class QtiTagLib {
         Map responseValues = assessmentItemInfo.responseValues;
 
         String id = getRequiredAttribute(attrs, 'responseIdentifier', tag);
-        String maxlength = getAttribute(attrs, 'expectedLength', tag);
+        String maxlength = getOptionalAttribute(attrs, 'expectedLength');
+        String placeHolder = getOptionalAttribute(attrs, 'placeholderText');
 
         Map fieldAttributes = [name: id];
 
         if (maxlength) {
             fieldAttributes.maxlength = fieldAttributes.size = maxlength;
+        }
+        if (placeHolder) {
+            fieldAttributes.placeholder = placeHolder;
         }
 
         def value = responseValues[id];
