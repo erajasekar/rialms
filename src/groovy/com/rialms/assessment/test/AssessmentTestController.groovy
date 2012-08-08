@@ -55,7 +55,8 @@ import com.rialms.assessment.item.AssessmentItemInfo
 import com.rialms.consts.AssessmentItemStatus
 import org.qtitools.qti.node.test.SectionPart;
 import com.rialms.consts.Constants as Consts
-import org.qtitools.qti.node.result.AssessmentResult;
+import org.qtitools.qti.node.result.AssessmentResult
+import org.qtitools.qti.node.test.NavigationMode;
 
 /**
  * This class wraps JQTI to provide a nice interface for building
@@ -138,7 +139,13 @@ public class AssessmentTestController implements Serializable {
     }
 
     public boolean isCurrentTestPartSubmissionModeSimultaneous() {
+        println "RAJA SUB MODE ${getCurrentTestPart()} ${getCurrentTestPart()?.identifier} ==> ${getCurrentTestPart()?.submissionMode}"
         return getCurrentTestPart()?.submissionMode == SubmissionMode.SIMULTANEOUS;
+    }
+
+    public boolean isCurrentTestPartNavigationModeNonLinear(){
+        println "RAJA NAV MODE ${getCurrentTestPart()} ${getCurrentTestPart()?.identifier} ==> ${getCurrentTestPart()?.navigationMode}"
+        return getCurrentTestPart()?.navigationMode == NavigationMode.NONLINEAR;
     }
 
     public boolean hasNoMoreItemsInCurrentTestPart() {
@@ -312,9 +319,8 @@ public class AssessmentTestController implements Serializable {
 
     public boolean nextEnabled() {
         TestPart testPart = getCurrentTestPart();
-        if (testPart != null && testPart.areJumpsEnabled() && !getCurrentItemRef().isFinished())
+        if (testPart.navigationMode == NavigationMode.LINEAR || ( testPart.areJumpsEnabled() && !getCurrentItemRef().isFinished() ))
             return false;
-
         return true;
     }
 

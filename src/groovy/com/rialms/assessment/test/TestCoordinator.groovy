@@ -141,7 +141,7 @@ public class TestCoordinator implements Serializable {
         return cachedTestRenderInfo;
     }
 
-    public void getNextQuestion(boolean includeFinished) throws QTIException {
+    /*public void getNextQuestion(boolean includeFinished) throws QTIException {
 
         log.info("hasNextItem in current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
          //TODO: p1 we need to handle this same use case for non linear individual as well.
@@ -166,6 +166,45 @@ public class TestCoordinator implements Serializable {
         }else{
             test.getNextItem(includeFinished);
             cachedTestRenderInfo = null;
+        }
+    } */
+
+    public void getNextQuestion(boolean includeFinished) throws QTIException {
+
+        log.info("hasNextItem in current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
+        //For simultaneous submission mode, if no more unpresented items in current test part or test timedout, renderSubmitTestPartContent(), else render next unpresented item;
+        if (test.isCurrentTestPartNavigationModeNonLinear() && test.hasNoMoreItemsInCurrentTestPart() && !submittedTestPartIds.contains(test.currentTestPart.identifier)){
+            log.info("non-linear navigation mode, checking next unpresented item to navigate");
+
+            if (!test.isTestTimedOut()){
+                test.navigateToFirstItem();
+                boolean foundNextUnpresentedItem = test.findAndNavigateToNextUnpresentedItem();
+                if (foundNextUnpresentedItem){
+                    //reset cache to show current item
+                    cachedTestRenderInfo = null;
+                }else{
+                    if (test.isCurrentTestPartSubmissionModeSimultaneous()){
+                        log.info("DEBUG Found all items as presented in simultaneous submission mode, rendering renderSubmitTestPartContent");
+                        renderSubmitTestPartContent();
+                    }else{
+                        log.info("DEBUG Found all items as presented in individual submission mode, rendering next item to show feedback");
+                        test.getNextItem(includeFinished);
+                        cachedTestRenderInfo = null;
+                    }
+                }
+            }else{      //TODO P1: handle for for timeout.
+                log.debug("Test timedout...rendering renderSubmitTestPartContent ")
+                renderSubmitTestPartContent();
+            }
+        }else{
+            if (test.isCurrentTestPartSubmissionModeSimultaneous()){
+                log.info("DEBUG Found all items as presented in simultaneous submission mode, rendering renderSubmitTestPartContent");
+                renderSubmitTestPartContent();
+            }else{
+                log.info("DEBUG Found all items as presented in individual submission mode, rendering next item to show feedback");
+                test.getNextItem(includeFinished);
+                cachedTestRenderInfo = null;
+            }
         }
     }
 
