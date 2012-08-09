@@ -3,46 +3,69 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:m="http://www.w3.org/1998/Math/MathML"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
-                identifier="Exercise1" title="Exercise 1" adaptive="false"
+                identifier="Exercise1" title="Exercise 1" adaptive="true"
                 timeDependent="false">
     <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
         <correctResponse>
-            <value>ChoiceA</value>
+            <value>ChoiceC</value>
         </correctResponse>
     </responseDeclaration>
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <outcomeDeclaration identifier="FEEDBACK" cardinality="single" baseType="identifier"/>
     <itemBody>
         <table class="table table-bordered">
             <tbody>
                 <tr>
                     <td>First Number</td>
-                    <td>16</td>
-                    <td>26</td>
-                    <td>36</td>
-                    <td>46</td>
-                    <td>56</td>
-                    <td>66</td>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                    <td>5</td>
                 </tr>
 
                 <tr>
                     <td>Second Number</td>
+                    <td>9</td>
                     <td>10</td>
-                    <td>20</td>
-                    <td>30</td>
-                    <td>40</td>
-                    <td>50</td>
-                    <td>60</td>
+                    <td>11</td>
+                    <td>12</td>
+                    <td>13</td>
                 </tr>
             </tbody>
         </table>
         <choiceInteraction responseIdentifier="RESPONSE" maxChoices="1">
-            <prompt>Choose the law in which the above pairs are based on ? <br/></prompt>
-            <simpleChoice identifier="ChoiceA">Second number = first number + 6</simpleChoice>
-            <simpleChoice identifier="ChoiceB">Second number = first number - 6</simpleChoice>
-            <simpleChoice identifier="ChoiceC">Second number = first number / 6</simpleChoice>
-            <simpleChoice identifier="ChoiceD">Second number = first number x 6</simpleChoice>
+            <prompt>
+                <p>Choose the law in which the above pairs are based on ?</p>
+            </prompt>
+            <simpleChoice identifier="ChoiceA">Second number = first number x 5</simpleChoice>
+            <simpleChoice identifier="ChoiceB">Second number = first number - 8</simpleChoice>
+            <simpleChoice identifier="ChoiceC">Second number = first number + 8</simpleChoice>
+            <simpleChoice identifier="ChoiceD">Second number = first number x 8</simpleChoice>
         </choiceInteraction>
     </itemBody>
-    <responseProcessing
-            template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/match_correct"/>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <match>
+                    <variable identifier="RESPONSE"/>
+                    <correct identifier="RESPONSE"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+        <setOutcomeValue identifier="FEEDBACK">
+            <variable identifier="RESPONSE"/>
+        </setOutcomeValue>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="FEEDBACK" identifier="ChoiceC" showHide="show">
+        <div> Yes, that is correct!.</div>
+    </modalFeedback>
+    <modalFeedback outcomeIdentifier="FEEDBACK" identifier="ChoiceC" showHide="hide"><div>No!, that is wrong.</div>
+    </modalFeedback>
 </assessmentItem>

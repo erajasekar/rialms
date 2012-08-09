@@ -96,7 +96,7 @@
         </feedbackBlock>
         <feedbackBlock outcomeIdentifier="STEP2" showHide="show" identifier="step2">
             <p>
-                This can be simply written in algebric expression as
+                This can be simply written in algebraic expression as
                 Number of match sticks used =
                 <strong>
                     <m:math>

@@ -141,7 +141,7 @@ public class TestCoordinator implements Serializable {
         return cachedTestRenderInfo;
     }
 
-    /*public void getNextQuestion(boolean includeFinished) throws QTIException {
+    public void getNextQuestion(boolean includeFinished) throws QTIException {
 
         log.info("hasNextItem in current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
          //TODO: p1 we need to handle this same use case for non linear individual as well.
@@ -167,9 +167,9 @@ public class TestCoordinator implements Serializable {
             test.getNextItem(includeFinished);
             cachedTestRenderInfo = null;
         }
-    } */
+    }
 
-    public void getNextQuestion(boolean includeFinished) throws QTIException {
+   /* public void getNextQuestion(boolean includeFinished) throws QTIException {
 
         log.info("hasNextItem in current testPart ==> ${test.getItemFlow().hasNextItemRef(true)}");
         //For simultaneous submission mode, if no more unpresented items in current test part or test timedout, renderSubmitTestPartContent(), else render next unpresented item;
@@ -206,7 +206,7 @@ public class TestCoordinator implements Serializable {
                 cachedTestRenderInfo = null;
             }
         }
-    }
+    }*/
 
     public void getPreviousQuestion(boolean includeFinished) throws QTIException {
         test.getPreviousItem(includeFinished);

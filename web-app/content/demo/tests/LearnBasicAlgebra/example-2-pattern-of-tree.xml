@@ -163,7 +163,7 @@
         </feedbackBlock>
         <feedbackBlock outcomeIdentifier="STEP2" showHide="show" identifier="step2">
             <p>
-                This can be written in algebric expression as
+                This can be written in algebraic expression as
                 Number of match sticks used =
                 <textEntryInteraction class="input-small" responseIdentifier="I"/>
                 (write without spaces Eg:
@@ -180,7 +180,15 @@
         </feedbackBlock>
         <feedbackBlock outcomeIdentifier="STEP3" showHide="show" identifier="step3">
             <p>
-                Correct!.
+                Correct!. The algebraic expression for Number of match sticks used =
+                <m:math title="3x+2" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                        <m:mn>3</m:mn>
+                        <m:mi>x</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>2</m:mn>
+                    </m:mstyle>
+                </m:math>
             </p>
         </feedbackBlock>
     </itemBody>

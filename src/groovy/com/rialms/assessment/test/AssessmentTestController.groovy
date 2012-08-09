@@ -319,7 +319,7 @@ public class AssessmentTestController implements Serializable {
 
     public boolean nextEnabled() {
         TestPart testPart = getCurrentTestPart();
-        if (testPart.navigationMode == NavigationMode.LINEAR || ( testPart.areJumpsEnabled() && !getCurrentItemRef().isFinished() ))
+        if (testPart!=null && testPart.areJumpsEnabled() && !getCurrentItemRef().isFinished())
             return false;
         return true;
     }

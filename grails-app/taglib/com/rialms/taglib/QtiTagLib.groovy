@@ -857,16 +857,17 @@ class QtiTagLib {
         Node xmlNode = getRequiredAttribute(attrs, 'xmlNode', tag);
         attrs += xmlNode.attributes();
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        String divAttributes = CollectionUtils.convertMapToAttributes(xmlNode.attributes())
         String divId =  getOptionalAttribute(attrs, 'id');
         int hintNumber = 0;
         int multiHintClickCount = assessmentItemInfo.getMultiHintClickCount();
         if (divId && divId.startsWith(Consts.MULTI_HINT_PREFIX)){
             hintNumber = (divId - Consts.MULTI_HINT_PREFIX).toInteger();
             assessmentItemInfo.incrementMultiHintStepCount();
-            out << """<div ng-init="multiHintClickCount=${multiHintClickCount}" ng-show="multiHintClickCount>=${hintNumber}">"""
+            out << """<div ng-init="multiHintClickCount=${multiHintClickCount}" ng-show="multiHintClickCount>=${hintNumber}"  ${divAttributes}>"""
         }
         else{
-            out << "<div>";
+            out << "<div ${divAttributes}>";
         }
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
         out << "</div>";
