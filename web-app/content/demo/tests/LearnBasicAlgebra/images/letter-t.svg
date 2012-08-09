@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   width="300"
+   height="400"
+   id="svg5079">
+  <defs
+     id="defs5081" />
+  <g
+     transform="translate(0,-652.36218)"
+     id="layer1">
+    <g
+       transform="matrix(-1,0,0,1,-13.795173,-184.15177)"
+       id="g782-6-8">
+      <rect
+         width="6.4285712"
+         height="227.14285"
+         ry="5.7251287"
+         x="-157.01146"
+         y="963.07648"
+         id="rect10-9-5"
+         style="fill:#ffeeaa;fill-opacity:1;fill-rule:nonzero;stroke:#decd87;stroke-width:2.20970869;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <path
+         d="m -141.22815,946.90942 a 13.424162,20.828615 0 1 1 -26.84832,0 13.424162,20.828615 0 1 1 26.84832,0 z"
+         id="path12-4-9"
+         style="fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:#aa4400;stroke-width:3.125;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <rect
+         width="6.4285712"
+         height="227.14285"
+         ry="5.7251287"
+         x="-921.88916"
+         y="-258.79718"
+         transform="matrix(0,-1,1,0,0,0)"
+         id="rect10-9-5-1"
+         style="fill:#ffeeaa;fill-opacity:1;fill-rule:nonzero;stroke:#decd87;stroke-width:2.20970869;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+      <path
+         d="m -268.93802,904.08365 a 20.828615,13.424162 0 1 1 0,26.84832 20.828615,13.424162 0 1 1 0,-26.84832 z"
+         id="path12-4-9-7"
+         style="fill:#ff6600;fill-opacity:1;fill-rule:nonzero;stroke:#aa4400;stroke-width:3.125;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    </g>
+  </g>
+</svg>
