@@ -11,6 +11,7 @@
 <head>
 
     <meta name="layout" content="primary"/>
+    <qti:stylesheet assessmentItemInfo="${assessmentItemInfo}"/>
     <title>${assessmentItemInfo[Consts.title]}</title>
 </head>
 
