@@ -496,19 +496,15 @@ class QtiTagLib {
             allChoices = CollectionUtils.orderValuesByPosition(fixedChoices);
         }
 
-        if (prompt) {
-            out << g.render(template: '/renderer/renderItemSubTree', model: [node: prompt, assessmentItemInfo: assessmentItemInfo]);
+        contents.each { content ->
+            out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
         }
 
-        out << "<div>";
+        out << "<p>";
         allChoices.each { choice ->
             out << gapText('xmlNode': choice, 'assessmentItemInfo': assessmentItemInfo);
         }
-        out << "</div>";
-        contents.each { content ->
-            out << g.render(template: '/renderer/renderItemSubTree', model: [node: content, assessmentItemInfo: assessmentItemInfo]);
-        }
-
+        out << "</p>";
     }
 
     def gapText = {attrs ->

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="ExpressionToStatements" title="Expression to statements" adaptive="false"
+                timeDependent="false">
+
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>add gap_add</value>
+            <value>sub gap_sub</value>
+            <value>four gap_four_1</value>
+            <value>four gap_four_2</value>
+            <value>four gap_four_3</value>
+            <value>three gap_three_1</value>
+            <value>three gap_three_2</value>
+            <value>three gap_three_3</value>
+            <value>times gap_times_1</value>
+            <value>times gap_times_2</value>
+            <value>times gap_times_3</value>
+            <value>times gap_times_4</value>
+            <value>one_third gap_one_third</value>
+            <value>one_fourth gap_one_fourth</value>
+        </correctResponse>
+        <mapping defaultValue="0">
+            <mapEntry mapKey="add gap_add" mappedValue="1"/>
+            <mapEntry mapKey="sub gap_sub" mappedValue="1"/>
+            <mapEntry mapKey="four gap_four_1" mappedValue="1"/>
+            <mapEntry mapKey="four gap_four_2" mappedValue="1"/>
+            <mapEntry mapKey="four gap_four_3" mappedValue="1"/>
+            <mapEntry mapKey="four gap_four_4" mappedValue="1"/>
+            <mapEntry mapKey="three gap_three_1" mappedValue="1"/>
+            <mapEntry mapKey="three gap_three_2" mappedValue="1"/>
+            <mapEntry mapKey="three gap_three_3" mappedValue="1"/>
+            <mapEntry mapKey="times gap_times_1" mappedValue="1"/>
+            <mapEntry mapKey="times gap_times_2" mappedValue="1"/>
+            <mapEntry mapKey="times gap_times_3" mappedValue="1"/>
+            <mapEntry mapKey="times gap_times_4" mappedValue="1"/>
+            <mapEntry mapKey="one_third gap_one_third" mappedValue="1"/>
+            <mapEntry mapKey="one_fourth gap_one_fourth" mappedValue="1"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="true">
+            <prompt>Fill the missing words in statements representing each expression from choices below.</prompt>    <!--TODO fix double font -->
+            <gapText identifier="add" matchMax="1">Add</gapText>
+            <gapText identifier="four" matchMax="3">4</gapText>
+            <gapText identifier="three" matchMax="3">3</gapText>
+            <gapText identifier="times" matchMax="4">times</gapText>
+            <gapText identifier="sub" matchMax="1">Subtract</gapText>
+            <gapText identifier="one_fourth" matchMax="1">One fourth</gapText>
+            <gapText identifier="one_third" matchMax="1">One third</gapText>
+
+            <table cellpadding="15px"> <!--TODO fix cellpadding warning with custom css -->
+                <tbody>
+                    <tr>
+                        <td>
+                            <m:math title="3m+4" xmlns="http://www.w3.org/1998/Math/MathML">
+                                <m:mstyle fontfamily="serif" displaystyle="true">
+                                    <m:mn>3</m:mn>
+                                    <m:mi>m</m:mi>
+                                    <m:mo>+</m:mo>
+                                    <m:mn>4</m:mn>
+                                </m:mstyle>
+                            </m:math>
+                        </td>
+                        <td>
+                            <gap identifier="gap_add"/>
+                            <gap identifier="gap_four_1"/>
+                            to
+                            <gap identifier="gap_three_1"/>
+                            <gap identifier="gap_times_1"/>
+                            a number
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <m:math title="4m/3" xmlns="http://www.w3.org/1998/Math/MathML">
+                                <m:mstyle fontfamily="serif" displaystyle="true">
+                                    <m:mn>4</m:mn>
+                                    <m:mfrac>
+                                        <m:mi>m</m:mi>
+                                        <m:mn>3</m:mn>
+                                    </m:mfrac>
+                                </m:mstyle>
+                            </m:math>
+                        </td>
+                        <td>
+                            <gap identifier="gap_one_third"/>
+                            of
+                            <gap identifier="gap_four_2"/>
+                            <gap identifier="gap_times_2"/>
+                            a number
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <m:math title="4m-3" xmlns="http://www.w3.org/1998/Math/MathML">
+                                <m:mstyle fontfamily="serif" displaystyle="true">
+                                    <m:mn>4</m:mn>
+                                    <m:mi>m</m:mi>
+                                    <m:mo>-</m:mo>
+                                    <m:mn>3</m:mn>
+                                </m:mstyle>
+                            </m:math>
+                        </td>
+                        <td>
+                            <gap identifier="gap_sub"/>
+                            <gap identifier="gap_three_2"/>
+                            from
+                            <gap identifier="gap_four_3"/>
+                            <gap identifier="gap_times_3"/>
+                            a number
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <m:math title="3m/4" xmlns="http://www.w3.org/1998/Math/MathML">
+                                <m:mstyle fontfamily="serif" displaystyle="true">
+                                    <m:mn>3</m:mn>
+                                    <m:mfrac>
+                                        <m:mi>m</m:mi>
+                                        <m:mn>4</m:mn>
+                                    </m:mfrac>
+                                </m:mstyle>
+                            </m:math>
+                        </td>
+                        <td>
+                            <gap identifier="gap_one_fourth"/>
+                            of
+                            <gap identifier="gap_three_3"/>
+                            <gap identifier="gap_times_4"/>
+                            a number
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </gapMatchInteraction>
+    </itemBody>
+    <responseProcessing
+            template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/map_response"/>
+</assessmentItem>

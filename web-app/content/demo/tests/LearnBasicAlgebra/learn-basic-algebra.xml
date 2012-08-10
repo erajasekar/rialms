@@ -13,6 +13,7 @@
             <assessmentItemRef identifier="Example2" href="example-2-pattern-of-tree.xml"/>
             <assessmentItemRef identifier="Exercise1" href="exercise-1.xml"/>
             <assessmentItemRef identifier="ExpressionFromStatements" href="expression-from-statements.xml"/>
+            <assessmentItemRef identifier="ExpressionToStatements" href="expression-to-statements.xml"/>
         </assessmentSection>
     </testPart>
 
