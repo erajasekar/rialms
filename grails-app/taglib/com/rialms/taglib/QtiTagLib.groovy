@@ -13,12 +13,14 @@ import grails.util.Environment
 import com.rialms.util.CollectionUtils
 import java.text.DecimalFormat
 import java.text.NumberFormat
+import org.qtitools.qti.node.item.Stylesheet
 
 
 class QtiTagLib {
     static namespace = "qti";
     private static final NumberFormat scoreFormat = new DecimalFormat("##.#");
 
+    //TODO: P3 fix excessive new lines
     def img = {  attrs ->
 
         String tag = "img";
@@ -37,6 +39,45 @@ class QtiTagLib {
             g.img(fieldAttributes);
         }
         renderTag(fieldAttributes, tagBody);
+    }
+
+
+    def stylesheet = {  attrs ->
+
+        String tag = "stylesheet";
+        AssessmentItemInfo assessmentItemInfo =  getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        String dir = assessmentItemInfo.dataPath;
+
+        List<Stylesheet> stylesheets = assessmentItemInfo.assessmentItem.stylesheets;
+
+        stylesheets.each{ stylesheet ->
+            String file = stylesheet.getHref();
+            String fullPath = dir + file;
+            int i = fullPath.lastIndexOf('/');
+            Map fieldAttributes = [dir: fullPath.substring(0, i), file: fullPath.substring(i + 1)];
+
+            String media = stylesheet.getMedia();
+            String title = stylesheet.getTitle();
+            String type = stylesheet.getTitle();
+
+            if (media){
+                fieldAttributes[media] = media;
+            }
+            if (type){
+                fieldAttributes[type] = type;
+            }
+            if (media){
+                fieldAttributes[title] = title;
+            }
+
+            log.info("DEBUG Stylesheet Field Attributes ${fieldAttributes} ${g.external(fieldAttributes).toString()}");
+           // out << g.external(fieldAttributes);
+            //out << "added"
+            def tagBody = {
+                g.external(fieldAttributes);
+            }
+            renderTag(attrs, tagBody);
+        }
     }
 
     def textEntryInteraction = {  attrs ->
