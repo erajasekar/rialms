@@ -104,5 +104,6 @@ class Constants {
     public static final String isEnabled = 'isEnabled';
     public static final String itemResult = 'itemResult';
     public static final String isResponseValid = 'isResponseValid';
+    public static final String itemStylesheets = 'itemStylesheets';
 
 }

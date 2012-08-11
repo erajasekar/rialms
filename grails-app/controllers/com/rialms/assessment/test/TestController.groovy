@@ -136,10 +136,10 @@ class TestController {
                     renderOutput[Consts.testSectionTitleContent] = qti.assessmentSection(sectionTitles:testRenderInfo.assessmentParams[Consts.sectionTitles]);
 
                     renderOutput[Consts.angularData][Consts.endAttemptButtons] = testRenderInfo.assessmentItemInfo.endAttemptButtons;
+                    renderOutput[Consts.angularData][Consts.itemStylesheets] = testRenderInfo.assessmentParams.itemStylesheets;
 
                 }
             } else {
-                println "RAJA here"
                 //To render same item, just get render output for controls.
                 renderOutput = CollectionUtils.mergeMapsByKeyAsList(coordinator.testController.currentItemInfo.renderOutput, renderOutput);
             }

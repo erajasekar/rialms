@@ -71,4 +71,10 @@ class JsObjectUtil {
         log.debug("createJSONObject result => ${result}")
         return result as JSON;
     }
+
+    public static JSON createJSONObject(String parentDataKey, String dataKey, Object data){
+        Map result = [(parentDataKey):[(dataKey):data]];
+        log.info("DEBUG createJSONObject result => ${result}");
+        return result as JSON;
+    }
 }

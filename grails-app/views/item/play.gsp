@@ -6,12 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="com.rialms.consts.Constants as Consts; com.rialms.assessment.item.AssessmentItemInfo" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.angular.JsObjectUtil; com.rialms.consts.Constants as Consts; com.rialms.assessment.item.AssessmentItemInfo" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
 
     <meta name="layout" content="primary"/>
-    <qti:stylesheet assessmentItemInfo="${assessmentItemInfo}"/>
     <title>${assessmentItemInfo[Consts.title]}</title>
 </head>
 
@@ -20,11 +19,13 @@
 <r:script>
     $(document).ready(function () {
         initTestRendering();
+        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, Consts.itemStylesheets,assessmentItemInfo.itemStylesheets)});
     });
 </r:script>
 
 
 <div class="row-fluid">
+
     <div class="span12" id="${Consts.content}" ng-controller='ItemContentController'>
 
         <g:if test="${!flash[Consts.validationResult].allItems.isEmpty()}">
@@ -39,6 +40,7 @@
                 <g:render template="/renderer/renderAssessmentHeader"
                           model="[(Consts.assessmentTitle): assessmentItemInfo[Consts.title]]"/>
                 <div class="block-content">
+
                     <g:render template="/renderer/renderItemSubTree"
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
                     <hr/>

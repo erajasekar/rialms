@@ -10,6 +10,7 @@
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
+
     <title>${assessmentParams[Consts.title]}</title>
 </head>
 
@@ -18,7 +19,7 @@
 <r:script>
     $(document).ready(function () {
         initTestRendering();
-        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, assessmentParams, Consts.testStatusModel, Consts.navigationButtonStates, Consts.testPartTitle)});
+        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, assessmentParams, Consts.testStatusModel, Consts.navigationButtonStates, Consts.testPartTitle, Consts.itemStylesheets)});
     });
 </r:script>
 

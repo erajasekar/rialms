@@ -348,6 +348,7 @@ public class TestCoordinator implements Serializable {
         params.put(timeSelected, test.getTimeSelected());
         params.put(timeRemaining, test.getTimeRemaining());
         params.put(filterByStatus, this.filterItemByStatus);
+        params.put(itemStylesheets, test.currentItemInfo.itemStylesheets)
 
         params.put(Consts.testStatusModel, test.testStatusModel);
 

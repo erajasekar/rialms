@@ -6,6 +6,7 @@
                 identifier="ExpressionToStatements" title="Expression to statements" adaptive="false"
                 timeDependent="false">
 
+    <stylesheet href="css/LearnBasicAlgebra.css" type="text/css"/>
     <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
         <correctResponse>
             <value>add gap_add</value>
@@ -53,7 +54,7 @@
             <gapText identifier="one_fourth" matchMax="1">One fourth</gapText>
             <gapText identifier="one_third" matchMax="1">One third</gapText>
 
-            <table cellpadding="15px"> <!--TODO fix cellpadding warning with custom css -->
+            <table class="expression-statement"> <!--TODO fix cellpadding warning with custom css -->
                 <tbody>
                     <tr>
                         <td>

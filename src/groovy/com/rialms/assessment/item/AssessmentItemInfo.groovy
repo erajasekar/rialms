@@ -16,6 +16,7 @@ import org.qtitools.qti.validation.ValidationResult
 import org.qtitools.qti.value.Value
 import static com.rialms.consts.AssessmentItemStatus.*
 import org.qtitools.qti.value.NullValue
+import org.qtitools.qti.node.item.Stylesheet
 
 /**
  * Created by IntelliJ IDEA.
@@ -211,7 +212,7 @@ class AssessmentItemInfo {
     /**
      * This method will reset multiHintClickCount value so that re-starting assessmentItem in a test work as expected
      */
-    public void resetAllMultiHintCounts(){
+    public void resetAllMultiHintCounts() {
         multiHintStepCount = 0;
         multiHintClickCount = 0;
         multiHintRemainingCount = 0;
@@ -261,6 +262,25 @@ class AssessmentItemInfo {
         }
     }
 
+    public List<Map<String, String>> getItemStylesheets() {
+        List<Map<String, String>> stylesheets = [];
+
+        assessmentItem.stylesheets.each { stylesheet ->
+            String fullPath = dataPath + stylesheet.getHref();
+
+            Map attrs = [href:fullPath];
+            String media = stylesheet.getMedia();
+            String title = stylesheet.getTitle();
+            String type = stylesheet.getTitle();
+            attrs.media = (media) ? media : "screen,projector"
+            attrs.type = (type) ? type : "text/css"
+            attrs.title = (title) ? title : "";
+            stylesheets << attrs;
+        }
+        log.info("DEBUG Returning ItemStylesheets ${stylesheets}")
+        return stylesheets;
+    }
+
     public Map getRenderOutput() {
         Map<String, Set<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
         Map output = [(Consts.itemOutcomeValues): outcomeValues,
@@ -269,7 +289,10 @@ class AssessmentItemInfo {
         if (isResponseValid && isCorrect()) {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
-        Map angularData = [(Consts.assessmentHeader): header, (Consts.endAttemptButtons): endAttemptButtons, (Consts.isResponseValid): isResponseValid];
+        Map angularData = [(Consts.assessmentHeader): header,
+                (Consts.endAttemptButtons): endAttemptButtons,
+                (Consts.isResponseValid): isResponseValid];
+
         output[Consts.angularData] = angularData;
 
         log.debug("DEBUG AssessmentItemInfo renderOutput ${output}")

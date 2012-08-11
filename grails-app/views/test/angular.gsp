@@ -1,7 +1,9 @@
 <!doctype html>
 <html ng-app>
 <head>
+    <h1>Hello {{yourName}}!</h1>
     <meta name="layout" content="primary"/>
+
 </head>
 
 <body>

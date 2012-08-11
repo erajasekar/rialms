@@ -11,7 +11,11 @@
 <html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en" ng-app="RialmsAngularApp">
 <head>
     <title><g:layoutTitle/></title>
-    <g:layoutHead/>
+    <div id='head'>
+        <div ng-repeat="stylesheet in itemStylesheets">
+            <link href="${request.contextPath}/{{stylesheet.href}}" type="{{stylesheet.type}}" rel="stylesheet" media="{{stylesheet.media}}" title="{{stylesheet.title}}" />
+        </div>
+    </div>
     <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
             type="text/javascript"></script>
     <r:require module="core"/>

@@ -106,11 +106,20 @@ window.initGapInteraction =->
   return
 
 window.initAngularScopeObjects = (data)->
+  #console.log(data.angularData)
   if data.angularData
     contentScope = angular.element('#content').scope()
-    contentScope.$apply ->
-      for key,value of data.angularData
-        contentScope[key] = value;
+    headScope = angular.element('#head').scope()
+
+    for key,value of data.angularData
+      #Stylesheet should go to head
+      if key is "itemStylesheets"
+        headScope.$apply ->
+          headScope[key] = value
+      else
+        contentScope.$apply ->
+          contentScope[key] = value
+    #console.log(headScope.itemStylesheet)
   return
 
 window.initMatchInteraction = ->
