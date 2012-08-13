@@ -46,6 +46,7 @@
             <img src="images/matchstick-e-3.png" height="150px" width="360px" alt="Match Stick Triangle 3"/>
         </p>
         <br/>
+        <p>Let's prepare a table to find number of match sticks used.</p>
         <table class="table table-bordered">
             <thead>
                 <tr>

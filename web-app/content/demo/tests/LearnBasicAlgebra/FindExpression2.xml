@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="FindExpression2" title="Find Expression 2" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <responseDeclaration identifier="HINTS" cardinality="single" baseType="boolean"/>
+    <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
+    <itemBody>
+        <p>
+            Look at the following matchstick pattern of squares. The squares are not separate. Two neighbouring squares
+            have a common matchstick.
+        </p>
+        <p>
+            <p>1)</p>
+            <img src="images/matchstick-square-1.png" height="100px" width="100px" alt="Match Stick Square 1"/>
+        </p>
+        <p>
+            <p>2)</p>
+            <img src="images/matchstick-square-2.png" height="100px" width="200px" alt="Match Stick Square 2"/>
+        </p>
+        <p>
+            <p>3)</p>
+            <img src="images/matchstick-square-3.png" height="100px" width="300px" alt="Match Stick Square 3"/>
+        </p>
+        <p>
+            <br/>
+            Observe the patterns and find the rule that gives the number of matchsticks for given number of squares.
+            Let's call number of squares as
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            .
+            <br/>
+            Number of match sticks used =
+            <textEntryInteraction class="input-small" responseIdentifier="RESPONSE"/>
+        </p>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINTS"/>
+                <setOutcomeValue identifier="SHOWHINT">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <or>
+                    <patternMatch pattern="(\s)*1(\s)*\+(\s)*3x(\s)*"> <!-- pattern 1+3x with spaces allowed -->
+                        <variable identifier="RESPONSE"/>
+                    </patternMatch>
+                    <patternMatch pattern="(\s)*3x(\s)*\+(\s)*1(\s)*"> <!-- pattern 3x+1 with spaces allowed -->
+                        <variable identifier="RESPONSE"/>
+                    </patternMatch>
+                </or>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
+        <div id='HINT_1'>
+            <p>Forming a square requires 4 match sticks. 1 match stick is always in common between two squares.</p>
+            <p>So a square can be formed using 1 match stick in common + 3 match sticks to complete.</p>
+            <p>Two adjacent square can be formed using 1 match stick in common + (2 x 3 match sticks to complete)</p>
+        </div>
+        <div id='HINT_2'>
+            <p>Let's prepare a table based on prove above logic.</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Number of Squares</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Number of match sticks used</td>
+                        <td>4</td>
+                        <td>7</td>
+                        <td>10</td>
+                        <td>13</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id='HINT_3'><p>So we can say that Number of match sticks used = 1 + (3 x Number of squares) </p>
+        </div>
+        <div id='HINT_4'><p> Number of match sticks used =
+            <m:math title="1+3x" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>1</m:mn>
+                    <m:mo>+</m:mo>
+                    <m:mn>3</m:mn>
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math> or
+            <m:math title="3x+1" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mi>x</m:mi>
+                    <m:mo>+</m:mo>
+                    <m:mn>1</m:mn>
+                </m:mstyle>
+            </m:math>
+            </p>
+        </div>
+
+
+    </modalFeedback>
+</assessmentItem>

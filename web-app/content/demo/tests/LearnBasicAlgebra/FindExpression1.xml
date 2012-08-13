@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="FindExpression1" title="Find Expression 1" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <responseDeclaration identifier="HINTS" cardinality="single" baseType="boolean"/>
+    <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
+    <itemBody>
+        <p>
+            Find the rule which gives the number of match sticks required to make the pattern 'T' below. Let's use
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            to denote variable.
+        </p>
+        <p>
+            <img src="images/matchstick-letter-t.png" height="60px" width="70px" alt="Match Stick Letter T"/>
+        </p>
+        <p>
+            Number of match sticks used =
+            <textEntryInteraction class="input-small" responseIdentifier="RESPONSE"/>
+        </p>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINTS"/>
+                <setOutcomeValue identifier="SHOWHINT">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <patternMatch pattern="(\s)*2x(\s)*"> <!-- pattern 2x with spaces allowed -->
+                    <variable identifier="RESPONSE"/>
+                </patternMatch>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
+        <div id='HINT_1'>
+            <p>Let's prepare a table to find number of match sticks required</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Number of Pattern 'T'</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Number of match sticks used</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>6</td>
+                        <td>8</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div id='HINT_2'>
+            <p>So we can see that Number of match sticks used = 2 x Number of pattern 'T'</p>
+            <p>Number of match sticks used =
+                <m:math title="2x" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>x</m:mi>
+                    </m:mstyle>
+                </m:math>
+            </p>
+        </div>
+    </modalFeedback>
+</assessmentItem>

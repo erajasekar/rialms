@@ -234,10 +234,11 @@ class QtiTagLib {
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
                 'ng-class': 'getMultiHintStyle()','ng-click':'multiHintClicked()','ng-init':"multiHintClickCount=${multiHintClickCount};multiHintStepCount=${multiHintStepCount}"];
 
-        if (assessmentItemInfo.multiHintRemainingCount > 0){
-            fieldAttributes['action'] = AssessmentItemInfo.controllerActionForProcessItem;
-        }else{
+        //if multiHintStep is present, make endAttemptButton actionable only if multiHind remaining is present as well
+        if (assessmentItemInfo.multiHintStepCount > 0 && assessmentItemInfo.multiHintRemainingCount <= 0){
             fieldAttributes['href'] = '';
+        }else{
+            fieldAttributes['action'] = AssessmentItemInfo.controllerActionForProcessItem;
         }
 
         fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];

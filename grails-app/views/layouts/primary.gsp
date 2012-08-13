@@ -11,10 +11,10 @@
 <html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en" ng-app="RialmsAngularApp">
 <head>
     <title><g:layoutTitle/></title>
+
     <div id='head'>
-        <div ng-repeat="stylesheet in itemStylesheets">
-            <link href="${request.contextPath}/{{stylesheet.href}}" type="{{stylesheet.type}}" rel="stylesheet" media="{{stylesheet.media}}" title="{{stylesheet.title}}" />
-        </div>
+        <link ng-repeat="stylesheet in itemStylesheets" ng-href="${request.contextPath}/{{stylesheet.href}}"
+              type="{{stylesheet.type}}" rel="stylesheet" media="{{stylesheet.media}}" title="{{stylesheet.title}}"/>
     </div>
     <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
             type="text/javascript"></script>
@@ -25,7 +25,7 @@
 <body>
 <qti:less2Css/>
 <nav class="navbar navbar-fixed-top">
-    <!-- TODO P3 Enable for dev  -->
+<!-- TODO P3 Enable for dev  -->
     <g:if test="${!Environment.currentEnvironment == grails.util.Environment.DEVELOPMENT}">
         <div class="navbar-inner">
 

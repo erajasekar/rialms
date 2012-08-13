@@ -14,6 +14,8 @@
             <assessmentItemRef identifier="Exercise1" href="exercise-1.xml"/>
             <assessmentItemRef identifier="ExpressionFromStatements" href="expression-from-statements.xml"/>
             <assessmentItemRef identifier="ExpressionToStatements" href="expression-to-statements.xml"/>
+            <assessmentItemRef identifier="FindExpression1" href="FindExpression1.xml"/>
+            <assessmentItemRef identifier="FindExpression2" href="FindExpression2.xml"/>
         </assessmentSection>
     </testPart>
 

@@ -115,7 +115,7 @@ class AssessmentItemInfo {
     public boolean processResponses(Map params) {
         setResponses(params);
         assessmentItem.processResponses();
-        log.debug("DEBUG Response after processing ${responseValues}")
+        log.info("DEBUG Response after processing ${responseValues}")
         log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
 
     }
@@ -277,7 +277,7 @@ class AssessmentItemInfo {
             attrs.title = (title) ? title : "";
             stylesheets << attrs;
         }
-        log.info("DEBUG Returning ItemStylesheets ${stylesheets}")
+        log.debug("DEBUG Returning ItemStylesheets ${stylesheets}")
         return stylesheets;
     }
 
