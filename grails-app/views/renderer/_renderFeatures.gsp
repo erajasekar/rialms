@@ -24,7 +24,7 @@
         <g:each in="${features}" var="feature">
             <% preStyle = params.filterByFeature == feature.name ? "class='active'" : '' %>
             <div class="feature-list">
-                <g:link action="demo" params="${params + ['filterByFeature': feature.name]}">
+                <g:link action="demo" params="${params + ['filterByFeature': feature.name, offset:0]}">
                     <pre ${preStyle}><span class="label label-info">${feature.name}</span> ${feature.description}</pre>
                 </g:link>
             </div>

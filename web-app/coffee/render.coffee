@@ -52,7 +52,7 @@ window.updateRenderedItem = (data) ->
   return
 
 window.initTestRendering = ->
-  $("a , .associable-choice").tooltip()
+  $("a , .associable-choice, .draggable-gap-text, .droppable-gap").tooltip()
   $('.dropdown-toggle').dropdown();
   window.initInteractions();
   $("a.toggleNav").click ->

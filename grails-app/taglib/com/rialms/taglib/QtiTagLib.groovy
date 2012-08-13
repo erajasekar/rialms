@@ -572,8 +572,7 @@ class QtiTagLib {
         if (matchMax == 0 || remainingCount > 0) {
             Tag xmlTag = Tag.gapText;
             Map tagAttributes = [class: 'draggable-gap-text'];
-
-            String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier, matchMax: (remainingCount)])
+            String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier, matchMax: (remainingCount),'original-title': g.message(code: 'gapText.tooltip')])
             out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
             String gapTextValue = g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]).toString();
             out << gapTextValue;
@@ -602,7 +601,7 @@ class QtiTagLib {
             inputValue = "${responseValue} ${identifier}";
         }
         log.debug("DEBUG ${tag} => responseValue = ${responseValue}")
-        String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier]);
+        String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier,'original-title': g.message(code: 'gap.tooltip')]);
         out << """<span ${dataAttributes} class='droppable-gap'>"""
         out << """<input type='hidden' name="${responseIdentifier}" value="${inputValue}" /> """
         out << "<span>${displayValue}</span></span>";

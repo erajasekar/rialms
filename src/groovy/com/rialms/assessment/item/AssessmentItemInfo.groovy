@@ -93,7 +93,7 @@ class AssessmentItemInfo {
         return QtiUtils.convertQTITypesToParams(assessmentItem.templateValues);
     }
 
-    private void setResponses(Map params) {
+    private void setAndProcessResponses(Map params) {
         if (params.containsKey(Consts.MULTI_HINT_IDENTIFIER)) {
             multiHintClicked();
         }
@@ -102,8 +102,11 @@ class AssessmentItemInfo {
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
         isResponseValid = !responseValues.isEmpty();
         log.info("Response Values ${this} ==> ${responseValues} , valid : ${isResponseValid}");
+
         if (isResponseValid) {
+            log.debug("DEBUG Got valid response, updating assessmentItem")
             assessmentItem.setResponses(responseValues);
+            assessmentItem.processResponses();
         }
         if (params.containsKey(Consts.submitClicked) && isResponseValid) {
             status = RESPONDED;
@@ -113,11 +116,9 @@ class AssessmentItemInfo {
     }
 
     public boolean processResponses(Map params) {
-        setResponses(params);
-        assessmentItem.processResponses();
-        log.info("DEBUG Response after processing ${responseValues}")
+        setAndProcessResponses(params);
+        log.debug("DEBUG Response after processing ${responseValues}")
         log.info("OUTCOME ==> ${assessmentItem.outcomeValues}");
-
     }
 
     public void addEndAttemptButton(String buttonId, String buttonTitle) {

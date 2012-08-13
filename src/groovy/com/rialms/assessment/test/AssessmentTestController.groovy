@@ -139,12 +139,10 @@ public class AssessmentTestController implements Serializable {
     }
 
     public boolean isCurrentTestPartSubmissionModeSimultaneous() {
-        println "RAJA SUB MODE ${getCurrentTestPart()} ${getCurrentTestPart()?.identifier} ==> ${getCurrentTestPart()?.submissionMode}"
         return getCurrentTestPart()?.submissionMode == SubmissionMode.SIMULTANEOUS;
     }
 
     public boolean isCurrentTestPartNavigationModeNonLinear(){
-        println "RAJA NAV MODE ${getCurrentTestPart()} ${getCurrentTestPart()?.identifier} ==> ${getCurrentTestPart()?.navigationMode}"
         return getCurrentTestPart()?.navigationMode == NavigationMode.NONLINEAR;
     }
 
