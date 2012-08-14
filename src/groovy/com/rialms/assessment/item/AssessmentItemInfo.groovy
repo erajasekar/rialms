@@ -207,6 +207,7 @@ class AssessmentItemInfo {
      * This method will reset multiHintStepCount value so that re-rendering assessmentItem will not cause any problems.
      */
     public void resetMultiHintStepCount() {
+        println "RAJA resetMultiHintStepCount"
         multiHintStepCount = 0;
     }
 
