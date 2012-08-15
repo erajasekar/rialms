@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="FindExpression5" title="Find Expression 5" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <responseDeclaration identifier="HINTS" cardinality="single" baseType="boolean"/>
+    <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
+    <itemBody>
+        <p>
+            A rabbit covers a distance of 30 feet by walk and then runs with the speed of 2 feet per second for
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>t</m:mi>
+                </m:mstyle>
+            </m:math>
+            seconds. Frame an algebraic expression for the total distance covered by the rabbit.
+        </p>
+        <p>
+            Total distance covered by rabbit =
+            <textEntryInteraction class="input-small" responseIdentifier="RESPONSE"/>
+            feet.
+        </p>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINTS"/>
+                <setOutcomeValue identifier="SHOWHINT">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <or>
+                    <patternMatch pattern="(\s)*30(\s)*\+(\s)*2t(\s)*"> <!-- pattern 30 + 2t with spaces allowed -->
+                        <variable identifier="RESPONSE"/>
+                    </patternMatch>
+                    <patternMatch pattern="(\s)*2t(\s)*\+(\s)*30(\s)*"> <!-- pattern 2t + 30 with spaces allowed -->
+                        <variable identifier="RESPONSE"/>
+                    </patternMatch>
+                </or>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
+        <div id='HINT_1'>
+            If distance travelled in 1 second is 2 feet, then the distance travelled in
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>t</m:mi>
+                </m:mstyle>
+            </m:math>
+            seconds will be 2 feet x
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>t</m:mi>
+                </m:mstyle>
+            </m:math>
+        </div>
+        <div id='HINT_2'>
+            The distance covered by walk = 30 feet.
+        </div>
+        <div id='HINT_3'>
+            so the total distance covered = 2 x
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>t</m:mi>
+                    <m:mo>+</m:mo>
+                    <m:mn>30</m:mn>
+                </m:mstyle>
+            </m:math>
+            =
+            <m:math title="2t+30" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>2</m:mn>
+                    <m:mi>t</m:mi>
+                    <m:mo>+</m:mo>
+                    <m:mn>30</m:mn>
+                </m:mstyle>
+            </m:math>
+        </div>
+    </modalFeedback>
+</assessmentItem>

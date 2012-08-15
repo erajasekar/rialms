@@ -53,6 +53,7 @@ window.updateRenderedItem = (data) ->
 
 window.initTestRendering = ->
   $("a , .associable-choice, .draggable-gap-text, .droppable-gap").tooltip()
+  #$(".order-interaction > li > span").tooltip()
   $('.dropdown-toggle').dropdown();
   window.initInteractions();
   $("a.toggleNav").click ->

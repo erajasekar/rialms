@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="FindExpression4" title="Find Expression 4" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <responseDeclaration identifier="HINTS" cardinality="single" baseType="boolean"/>
+    <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
+    <itemBody>
+        <p>
+            Bill saves
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            dollars every day. How much does he save in one week?
+        </p>
+        <p>
+            Money saved in one week =
+            <textEntryInteraction class="input-small" responseIdentifier="RESPONSE"/>
+            dollars.
+        </p>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINTS"/>
+                <setOutcomeValue identifier="SHOWHINT">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <patternMatch pattern="(\s)*7x(\s)*"> <!-- pattern 7x with spaces allowed -->
+                    <variable identifier="RESPONSE"/>
+                </patternMatch>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
+        <div id='HINT_1'>
+            If
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            dollars is saved in one day, then money saved in 2 days will be 2 x
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+        </div>
+        <div id='HINT_2'>
+            Number of days in week is 7
+        </div>
+        <div id='HINT_3'>
+            so the money saved in one week = 7 x
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            =
+            <m:math title="7x" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>7</m:mn>
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+        </div>
+    </modalFeedback>
+</assessmentItem>

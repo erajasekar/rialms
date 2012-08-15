@@ -228,11 +228,13 @@ class QtiTagLib {
         //TODO P1: Do validation for multi hint
         String multiHintClickCount = assessmentItemInfo.getMultiHintClickCount().toString();
         String multiHintStepCount = assessmentItemInfo.getMultiHintStepCount().toString();
+        String multiHintRemainingCount = assessmentItemInfo.getMultiHintRemainingCount().toString();
         String remainingHintMessage = g.message(code: 'hint.remaining.message');
+        log.debug("DEBUG multiHintClickCount = ${multiHintClickCount} ; multiHintStepCount = ${multiHintStepCount} ; multiHintRemainingCount = ${assessmentItemInfo.multiHintRemainingCount}")
 
         Map fieldAttributes = [
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
-                'ng-class': 'getMultiHintStyle()','ng-click':'multiHintClicked()','ng-init':"multiHintClickCount=${multiHintClickCount};multiHintStepCount=${multiHintStepCount}"];
+                'ng-class': 'getMultiHintStyle()','ng-click':'multiHintClicked()','ng-init':"multiHintClickCount=${multiHintClickCount};multiHintStepCount=${multiHintStepCount};multiHintRemainingCount=${multiHintRemainingCount}"];
 
         //if multiHintStep is present, make endAttemptButton actionable only if multiHind remaining is present as well
         if (assessmentItemInfo.multiHintStepCount > 0 && assessmentItemInfo.multiHintRemainingCount <= 0){
@@ -242,7 +244,6 @@ class QtiTagLib {
         }
 
         fieldAttributes.params = ['id': params.id, (buttonIdentifier): title];
-
 
         def tagBody = {
             g.remoteLink(fieldAttributes) {
@@ -422,7 +423,7 @@ class QtiTagLib {
         }
         out << """<ol class="order-interaction">""";
         allChoices.each { choice ->
-            out << "<li><span>"
+            out << "<li><span title='${g.message(code: 'order.tooltip')}'>"
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: choice, assessmentItemInfo: assessmentItemInfo]);
             out << """<input id="${id}" name="${id}" type="hidden" value="${choice.attribute('identifier')}" />"""
             out << "</span></li>"

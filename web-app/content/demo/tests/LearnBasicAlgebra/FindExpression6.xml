@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="FindExpression6" title="Find Expression 6" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="A" cardinality="single" baseType="string"/>
+    <responseDeclaration identifier="B" cardinality="single" baseType="string"/>
+    <responseDeclaration identifier="C" cardinality="single" baseType="string"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <responseDeclaration identifier="HINTS" cardinality="single" baseType="boolean"/>
+    <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
+    <itemBody>
+        <p>
+            If daniel is
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>z</m:mi>
+                </m:mstyle>
+            </m:math>
+            years old, answer the following using algebraic expression.
+        </p>
+        <table>
+            <tbody>
+                <tr>
+                    <td>
+                        What will be again on daniel after 5 years
+                    </td>
+                    <td>
+                        <textEntryInteraction class="input-small" responseIdentifier="A"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        How old is daniel's grand father, if he is 7 times as old as daniel
+                    </td>
+                    <td>
+                        <textEntryInteraction class="input-small" responseIdentifier="B"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        How is daniel's father if he is 5 more than 3 times as old as daniel
+                    </td>
+                    <td>
+                        <textEntryInteraction class="input-small" responseIdentifier="C"/>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINTS"/>
+                <setOutcomeValue identifier="SHOWHINT">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <and>
+                    <or>
+                        <patternMatch pattern="(\s)*5(\s)*\+(\s)*z(\s)*"> <!-- pattern 5 + z with spaces allowed -->
+                            <variable identifier="A"/>
+                        </patternMatch>
+                        <patternMatch pattern="(\s)*z(\s)*\+(\s)*5(\s)*"> <!-- pattern z + 5 with spaces allowed -->
+                            <variable identifier="A"/>
+                        </patternMatch>
+                    </or>
+                    <patternMatch pattern="(\s)*7z(\s)*"> <!-- pattern 7z with spaces allowed -->
+                        <variable identifier="B"/>
+                    </patternMatch>
+                    <or>
+                        <patternMatch pattern="(\s)*5(\s)*\+(\s)*3z(\s)*"> <!-- pattern 5 + 3z with spaces allowed -->
+                            <variable identifier="C"/>
+                        </patternMatch>
+                        <patternMatch pattern="(\s)*3z(\s)*\+(\s)*5(\s)*"> <!-- pattern 3z + 5 with spaces allowed -->
+                            <variable identifier="C"/>
+                        </patternMatch>
+                    </or>
+                </and>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">3</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
+        <div id='HINT_1'>
+            If daniel is
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>z</m:mi>
+                </m:mstyle>
+            </m:math>
+            years old, then after 5 years, he will be
+            <m:math>
+                <m:mstyle color='blue' fontfamily="serif" displaystyle="true">
+                    <m:mi>z</m:mi>
+                    <m:mo>+</m:mo>
+                    <m:mn>5</m:mn>
+                </m:mstyle>
+            </m:math>
+            years old.
+        </div>
+        <div id='HINT_2'>
+            Daniel's grand father is 7 times as old as daniel = 7 x
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>z</m:mi>
+                </m:mstyle>
+            </m:math>
+            =
+            <m:math>
+                <m:mstyle color='blue' fontfamily="serif" displaystyle="true">
+                    <m:mn>7</m:mn>
+                    <m:mi>z</m:mi>
+                </m:mstyle>
+            </m:math>
+            years old.
+        </div>
+        <div id='HINT_3'>
+            Daniel's father is 5 more than 3 times as daniel = 3 x
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>z</m:mi>
+                    <m:mo>+</m:mo>
+                    <m:mn>5</m:mn>
+                </m:mstyle>
+            </m:math>
+            =
+            <m:math title="3z+5" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mi>z</m:mi>
+                    <m:mo>+</m:mo>
+                    <m:mn>5</m:mn>
+                </m:mstyle>
+            </m:math>
+            years old.
+        </div>
+    </modalFeedback>
+</assessmentItem>

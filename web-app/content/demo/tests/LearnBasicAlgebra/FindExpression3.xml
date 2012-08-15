@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="FindExpression3" title="Find Expression 3" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <responseDeclaration identifier="HINTS" cardinality="single" baseType="boolean"/>
+    <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
+    <itemBody>
+        <p>
+            The cost of 1 pen is 10 dollars. What is cost of
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>y</m:mi>
+                </m:mstyle>
+            </m:math>
+            pens..?
+        </p>
+        <p>
+            Cost of
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>y</m:mi>
+                </m:mstyle>
+            </m:math>
+            pens =
+            <textEntryInteraction class="input-small" responseIdentifier="RESPONSE"/>
+            dollars.
+        </p>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINTS"/>
+                <setOutcomeValue identifier="SHOWHINT">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <patternMatch pattern="(\s)*10y(\s)*"> <!-- pattern 10y with spaces allowed -->
+                    <variable identifier="RESPONSE"/>
+                </patternMatch>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
+        <div id='HINT_1'>
+            If cost of 1 pen is 10, then cost of 2 pen will be 2 x 10
+        </div>
+        <div id='HINT_2'>
+            so the cost of 3 pen = 3 x 10
+        </div>
+        <div id='HINT_3'>
+            so the cost of
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>y</m:mi>
+                </m:mstyle>
+            </m:math>
+            pens =
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>y</m:mi>
+                </m:mstyle>
+            </m:math>
+            x 10 =
+            <m:math title="10y" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>10</m:mn>
+                    <m:mi>y</m:mi>
+                </m:mstyle>
+            </m:math>
+        </div>
+    </modalFeedback>
+</assessmentItem>
