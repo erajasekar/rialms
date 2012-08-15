@@ -18,8 +18,12 @@
 
         <g:if test="${Tag.isMixedTag(tag)}">
             <${n.name().getLocalPart()} ${CollectionUtils.convertMapToAttributes(n.attributes())}>
-            <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
+              <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
             </${n.name().getLocalPart()}>
+        </g:if>
+
+        <g:if test="${tag == Tag.br}">
+            <${n.name().getLocalPart()} ${CollectionUtils.convertMapToAttributes(n.attributes())}/>
         </g:if>
 
         <g:if test="${Tag.isFlowThroughTag(tag)}">

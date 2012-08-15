@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="IntroductionToEquations" title="Introduction to Equations" adaptive="false"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <p>
+            Lets us recall the match stick pattern of forming triangle. For our convenience, figure is redrawn below
+        </p>
+        <p>
+            <p>1)</p>
+            <img src="images/matchstick-triangle-1.png" height="100px" width="120px" alt="Match Stick Triangle 1"/>
+        </p>
+        <p>
+            <p>2)</p>
+            <img src="images/matchstick-triangle-2.png" height="100px" width="240px" alt="Match Stick Triangle 2"/>
+        </p>
+        <p>
+            <p>3)</p>
+            <img src="images/matchstick-triangle-3.png" height="100px" width="360px" alt="Match Stick Triangle 3"/>
+        </p>
+        <p>
+            Table below shows the number of match sticks required for different number of triangles formed.
+        </p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Number of triangles</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Number of match sticks used</td>
+                    <td>
+                        3
+                    </td>
+                    <td>
+                        6
+                    </td>
+                    <td>
+                        9
+                    </td>
+                    <td>
+                        12
+                    </td>
+                    <td>
+                        15
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            We know that the number of match sticks required is given by the rule
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            ,
+            where
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            is number of triangles formed.
+            <br/>
+            Lets think differently, "We know how to find the number of match sticks required for given number of
+            triangles.
+            What about the other way round? How does one find the number of triangles formed, given the number of match
+            sticks" ?
+        </p>
+        <p>
+            Lets ask ourselves a definite question. How many triangles are formed if the number of match sticks give is
+            12?
+            This means we have to find the number of triangles, given the number of match sticks is 12. So,
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            = 12
+        </p>
+        <p>
+            Here, we have a condition to be satisfied by the variable
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            . This condition is an example of an<code>equation</code>.
+        </p>
+        <p>
+            Our question can be answered by looking at below table. Look at the various values of
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            . if
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            = 1, the number of match sticks is 3. Clearly, the condition is not satisfied, because 3 is no 12.
+            We go on checking
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            <m:math>
+                                <m:mstyle fontfamily="serif" displaystyle="true">
+                                    <m:mi>x</m:mi>
+                                </m:mstyle>
+                            </m:math>
+                        </th>
+                        <th>
+                            <m:math>
+                                <m:mstyle fontfamily="serif" displaystyle="true">
+                                    <m:mn>3</m:mn>
+                                    <m:mi>x</m:mi>
+                                </m:mstyle>
+                            </m:math>
+                        </th>
+                        <th>Condition satisfied.? Yes/No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            6
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            9
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            12
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            5
+                        </td>
+                        <td>
+                            15
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>
+            We find that only if
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            = 4, the condition i.e the equation
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            = 12
+            is satisfied. For any value of
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            other than 4, the equation is not satisfied.
+        </p>
+        <p>
+            To summarise,
+            <strong>
+                Any equation like the above, is a condition on a variable. It is satisfied only for a definite value of
+                the variable.
+            </strong>
+        </p>
+    </itemBody>
+</assessmentItem>

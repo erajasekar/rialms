@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="ExpressionsWithVariables" title="Expressions with Variables" adaptive="false"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceB</value>
+            <value>ChoiceC</value>
+            <value>ChoiceE</value>
+        </correctResponse>
+        <mapping lowerBound="0" upperBound="3">
+            <mapEntry mapKey="ChoiceB" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceC" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceE" mappedValue="1"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <p>
+            Recall that in arithmetic we have come across expressions like (2 x 10) + 3, 3 + (4 x 5) etc.
+            These expressions are formed from numbers and basic operations like addition, subtraction, multiplication
+            and division.
+        </p>
+        <p>
+            Expressions can be formed from variables too.
+            For example the expression
+            <m:math title="2n" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mn>2</m:mn>
+                    <m:mi>n</m:mi>
+                </m:mstyle>
+            </m:math>
+            is formed by multiplying the variable n by 2; the expression
+            <m:math title="(x+10)" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mrow>
+                        <m:mo>(</m:mo>
+                        <m:mi>x</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>10</m:mn>
+                        <m:mo>)</m:mo>
+                    </m:mrow>
+                </m:mstyle>
+            </m:math>
+            is formed by adding 10 to the variable
+            <m:math title="x" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mrow>
+                        <m:mi>x</m:mi>
+                    </m:mrow>
+                </m:mstyle>
+            </m:math>
+            .
+        </p>
+        <blockquote><p>
+                Note that a number expression
+                like (4 x 3) + 5 can be immediately
+                evaluated as (4 x 3) + 5 = 12 + 5 = 17.
+                But an expression like
+                <m:math title="4x+5" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>4</m:mn>
+                        <m:mi>x</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>5</m:mn>
+                    </m:mstyle>
+                </m:math>
+                ,
+                which contains the variable
+                <m:math title="x" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mrow>
+                            <m:mi>x</m:mi>
+                        </m:mrow>
+                    </m:mstyle>
+                </m:math>
+                ,
+                cannot be evaluated.<br/>
+                Only if
+                <m:math title="x" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mrow>
+                            <m:mi>x</m:mi>
+                        </m:mrow>
+                    </m:mstyle>
+                </m:math>
+                is given some value, an expression like
+                <m:math title="4x+5" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>4</m:mn>
+                        <m:mi>x</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>5</m:mn>
+                    </m:mstyle>
+                </m:math>
+                can be evaluated. For example
+                when
+                <m:math title="x" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mrow>
+                            <m:mi>x</m:mi>
+                        </m:mrow>
+                    </m:mstyle>
+                </m:math>
+                = 3,
+                <m:math title="4x+5" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>4</m:mn>
+                        <m:mi>x</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>5</m:mn>
+                    </m:mstyle>
+                </m:math>
+                =
+                (4 x 3) + 5 = 17.
+
+        </p></blockquote>
+
+            <choiceInteraction responseIdentifier="RESPONSE" maxChoices="0">   <!-- TODO p2, IF i don't automatically provide itemresult in test, this should be made as adaptive -->
+                <prompt>
+                    <p>Ok, Let's do a quick self check. Which of the following is a variable expression ?</p>
+                </prompt>
+                <simpleChoice identifier="ChoiceA">(4 x 2) + 5</simpleChoice>
+                <simpleChoice identifier="ChoiceB">
+                    <m:math title="10y" xmlns="http://www.w3.org/1998/Math/MathML">
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mn>10</m:mn>
+                            <m:mi>y</m:mi>
+                        </m:mstyle>
+                    </m:math>
+                </simpleChoice>
+                <simpleChoice identifier="ChoiceC">
+                    <m:math title="2t + 15" xmlns="http://www.w3.org/1998/Math/MathML">
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mn>2</m:mn>
+                            <m:mi>t</m:mi>
+                            <m:mo>+</m:mo>
+                            <m:mn>15</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleChoice>
+                <simpleChoice identifier="ChoiceD">(10 + 5) / 15</simpleChoice>
+                <simpleChoice identifier="ChoiceE">
+                    <m:math title="5x+6y" xmlns="http://www.w3.org/1998/Math/MathML">
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mn>5</m:mn>
+                            <m:mi>x</m:mi>
+                            <m:mo>+</m:mo>
+                            <m:mn>6</m:mn>
+                            <m:mi>x</m:mi>
+                        </m:mstyle>
+                    </m:math>
+                </simpleChoice>
+            </choiceInteraction>
+
+    </itemBody>
+    <responseProcessing
+            template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/map_response"/>
+</assessmentItem>
