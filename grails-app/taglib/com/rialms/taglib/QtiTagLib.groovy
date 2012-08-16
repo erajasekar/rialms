@@ -16,6 +16,7 @@ import java.text.NumberFormat
 import org.qtitools.qti.node.item.Stylesheet
 import org.qtitools.qti.node.item.interaction.Interaction
 import com.rialms.assessment.item.InteractionHelp
+import grails.converters.JSON
 
 
 class QtiTagLib {
@@ -988,7 +989,9 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         if (assessmentItemInfo.renderHelpButton) {
             out << "<span>";
-            out << """<a class="btn btn-info" onclick="javascript:\$('#${Consts.interactionHelp}').dialog({title:'${g.message(code: InteractionHelp.titleMessageCode)}', height:${InteractionHelp.height}, width:${InteractionHelp.width}})" >Help</a>"""
+          //  out << """<a class="btn btn-info" onclick="javascript:\$('#${Consts.interactionHelp}').dialog({title:'${g.message(code: InteractionHelp.titleMessageCode)}', height:${InteractionHelp.height}, width:${InteractionHelp.width}})" >Help</a>"""
+            Map options = [(Consts.title):g.message(code: InteractionHelp.titleMessageCode),(Consts.height):InteractionHelp.height, (Consts.width):InteractionHelp.width]
+            out << """<a class="btn btn-info" onclick='window.showInteractionHelp(${options as JSON})' >Help</a>"""
             out << "</span>";
         }
     }

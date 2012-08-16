@@ -106,5 +106,7 @@ class Constants {
     public static final String isResponseValid = 'isResponseValid';
     public static final String itemStylesheets = 'itemStylesheets';
     public static final String interactionHelp = 'interactionHelp';
+    public static final String height = 'height';
+    public static final String width = 'width';
 
 }

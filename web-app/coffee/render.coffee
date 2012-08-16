@@ -234,4 +234,6 @@ window.bindJsPlumbEvents = ->
 
   return;
 
-
+window.showInteractionHelp = (options)->
+  console.log(options);
+  $('#interactionHelp').dialog(options);
