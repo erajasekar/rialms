@@ -81,7 +81,7 @@ public enum Tag {
     private static final EnumSet<Tag> feedBackTags = EnumSet.of(feedbackBlock, modalFeedback, feedbackInline);
     private static final EnumSet<Tag> templateTags = EnumSet.of(templateBlock, templateInline);
     private static final EnumSet<Tag> inlineTags = EnumSet.of(feedbackInline, templateInline);
-    private static final EnumSet<Tag> flowThroughTags = EnumSet.of(prompt, itemBody);
+    private static final EnumSet<Tag> flowThroughTags = EnumSet.of(prompt);
 
     private static Map<String, Tag> intValuesByLowerCase() {
         Map<String, Tag> map = [:]

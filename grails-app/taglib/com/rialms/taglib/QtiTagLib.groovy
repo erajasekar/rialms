@@ -14,6 +14,8 @@ import com.rialms.util.CollectionUtils
 import java.text.DecimalFormat
 import java.text.NumberFormat
 import org.qtitools.qti.node.item.Stylesheet
+import org.qtitools.qti.node.item.interaction.Interaction
+import com.rialms.assessment.item.InteractionHelp
 
 
 class QtiTagLib {
@@ -45,12 +47,12 @@ class QtiTagLib {
     def stylesheet = {  attrs ->
 
         String tag = "stylesheet";
-        AssessmentItemInfo assessmentItemInfo =  getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         String dir = assessmentItemInfo.dataPath;
 
         List<Stylesheet> stylesheets = assessmentItemInfo.assessmentItem.stylesheets;
 
-        stylesheets.each{ stylesheet ->
+        stylesheets.each { stylesheet ->
             String file = stylesheet.getHref();
             String fullPath = dir + file;
             int i = fullPath.lastIndexOf('/');
@@ -60,18 +62,18 @@ class QtiTagLib {
             String title = stylesheet.getTitle();
             String type = stylesheet.getTitle();
 
-            if (media){
+            if (media) {
                 fieldAttributes[media] = media;
             }
-            if (type){
+            if (type) {
                 fieldAttributes[type] = type;
             }
-            if (media){
+            if (media) {
                 fieldAttributes[title] = title;
             }
 
             log.info("DEBUG Stylesheet Field Attributes ${fieldAttributes} ${g.external(fieldAttributes).toString()}");
-           // out << g.external(fieldAttributes);
+            // out << g.external(fieldAttributes);
             //out << "added"
             def tagBody = {
                 g.external(fieldAttributes);
@@ -174,17 +176,17 @@ class QtiTagLib {
         double score = assessmentItemInfo.getScore();
         String scoreString = scoreFormat.format(score);
 
-        if (assessmentItemInfo.isCorrect() && score > 0){
+        if (assessmentItemInfo.isCorrect() && score > 0) {
             out << """<span class="alert item-result result-correct">"""
-            out << g.message(code: 'itemResult.correct.message', args:[scoreString]);
+            out << g.message(code: 'itemResult.correct.message', args: [scoreString]);
             out << "</span>"
         }
-        else if (!assessmentItemInfo.adaptive){
-            if (score > 0){
+        else if (!assessmentItemInfo.adaptive) {
+            if (score > 0) {
                 out << """<span class="alert item-result result-partiallyCorrect">"""
-                out << g.message(code: 'itemResult.partiallyCorrect.message', args:[scoreString]);
+                out << g.message(code: 'itemResult.partiallyCorrect.message', args: [scoreString]);
                 out << "</span>"
-            }else{
+            } else {
                 out << """<span class="alert item-result result-incorrect">"""
                 out << g.message(code: 'itemResult.incorrect.message');
                 out << "</span>"
@@ -234,12 +236,12 @@ class QtiTagLib {
 
         Map fieldAttributes = [
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
-                'ng-class': 'getMultiHintStyle()','ng-click':'multiHintClicked()','ng-init':"multiHintClickCount=${multiHintClickCount};multiHintStepCount=${multiHintStepCount};multiHintRemainingCount=${multiHintRemainingCount}"];
+                'ng-class': 'getMultiHintStyle()', 'ng-click': 'multiHintClicked()', 'ng-init': "multiHintClickCount=${multiHintClickCount};multiHintStepCount=${multiHintStepCount};multiHintRemainingCount=${multiHintRemainingCount}"];
 
         //if multiHintStep is present, make endAttemptButton actionable only if multiHind remaining is present as well
-        if (assessmentItemInfo.multiHintStepCount > 0 && assessmentItemInfo.multiHintRemainingCount <= 0){
+        if (assessmentItemInfo.multiHintStepCount > 0 && assessmentItemInfo.multiHintRemainingCount <= 0) {
             fieldAttributes['href'] = '';
-        }else{
+        } else {
             fieldAttributes['action'] = AssessmentItemInfo.controllerActionForProcessItem;
         }
 
@@ -259,7 +261,7 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
         assessmentItemInfo.endAttemptButtons.each { key, value ->
-            out << endAttemptButton(buttonIdentifier: key, buttonTitle: value, assessmentItemInfo:assessmentItemInfo);
+            out << endAttemptButton(buttonIdentifier: key, buttonTitle: value, assessmentItemInfo: assessmentItemInfo);
         }
     }
 
@@ -548,6 +550,14 @@ class QtiTagLib {
             out << gapText('xmlNode': choice, 'assessmentItemInfo': assessmentItemInfo);
         }
         out << "</p>";
+        out << "<div id='gap-match-help' style='display:none' >"
+        out << g.img(dir: 'images/qti', file: 'gap-match-help.gif');
+        out << "</div>"
+        //TODO: P2 remove commented code
+        // out << """<p><a class="btn" data-toggle="modal" href="#gap-match-help" onclick="javascript:\$('#gap-match-help').modal()" >Help</a></p>"""
+        // out << """<p><a class="btn" data-toggle="modal" data-target="#gap-match-help" " >Help</a></p>"""
+        //out << """<p><a class="btn" data-toggle="collapse" data-target="#gap-match-help" >Help</a></p>"""
+
     }
 
     def gapText = {attrs ->
@@ -573,7 +583,7 @@ class QtiTagLib {
         if (matchMax == 0 || remainingCount > 0) {
             Tag xmlTag = Tag.gapText;
             Map tagAttributes = [class: 'draggable-gap-text'];
-            String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier, matchMax: (remainingCount),'original-title': g.message(code: 'gapText.tooltip')])
+            String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier, matchMax: (remainingCount), 'original-title': g.message(code: 'gapText.tooltip')])
             out << """<span ${CollectionUtils.convertMapToAttributes(tagAttributes)} ${dataAttributes} class='draggable'> """
             String gapTextValue = g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]).toString();
             out << gapTextValue;
@@ -602,7 +612,7 @@ class QtiTagLib {
             inputValue = "${responseValue} ${identifier}";
         }
         log.debug("DEBUG ${tag} => responseValue = ${responseValue}")
-        String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier,'original-title': g.message(code: 'gap.tooltip')]);
+        String dataAttributes = CollectionUtils.convertMapToDataAttributes([identifier: identifier, 'original-title': g.message(code: 'gap.tooltip')]);
         out << """<span ${dataAttributes} class='droppable-gap'>"""
         out << """<input type='hidden' name="${responseIdentifier}" value="${inputValue}" /> """
         out << "<span>${displayValue}</span></span>";
@@ -679,7 +689,7 @@ class QtiTagLib {
         out << """<div class='match-interaction'>""";
 
         log.debug("responseValues ${responseValues}")
-        responseValues.each{ responseValue ->
+        responseValues.each { responseValue ->
             out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
         }
 
@@ -720,7 +730,7 @@ class QtiTagLib {
                                 identifier: choice.attribute('identifier'),
                                 matchMax: choice.attribute('matchMax'),
                                 (Consts.responseIdentifier): responseIdentifier,
-                                (Consts.role): Consts.target  ,
+                                (Consts.role): Consts.target,
                                 'original-title': g.message(code: 'associableChoice.tooltip')
                         ]
                 );
@@ -745,7 +755,6 @@ class QtiTagLib {
         List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
 
         log.debug("responseValues ${responseValues}")
-
 
         //TODO p3: maxAssociations and minAssociations attributes for matchInteraction are not used.
 
@@ -784,7 +793,7 @@ class QtiTagLib {
         }
         out << """<div class='associate-interaction' data-initialized='false' >""";
 
-        responseValues.each{ responseValue ->
+        responseValues.each { responseValue ->
             out << """<input type='hidden' name="${responseIdentifier}" value="${responseValue}" /> """
         }
 
@@ -795,7 +804,7 @@ class QtiTagLib {
 
         String dataAttributes;
 
-        allChoices.each{ choice ->
+        allChoices.each { choice ->
             out << """<div class="row-fluid">"""
             out << """<div class="span12">"""
             dataAttributes = CollectionUtils.convertMapToDataAttributes(
@@ -803,7 +812,7 @@ class QtiTagLib {
                             identifier: choice.attribute('identifier'),
                             matchMax: choice.attribute('matchMax'),
                             (Consts.responseIdentifier): responseIdentifier,
-                            (Consts.role): Consts.sourceAndTarget ,
+                            (Consts.role): Consts.sourceAndTarget,
                             'original-title': g.message(code: 'associableChoice.tooltip')
                     ]
             );
@@ -832,27 +841,27 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
 
         if (!assessmentItemInfo.checkForHiddenElement(xmlNode, Tag.hottext)) {
-            String identifier = getRequiredAttribute(attrs, Consts.identifier, tag);;
+            String identifier = getRequiredAttribute(attrs, Consts.identifier, tag); ;
             Node hottextInteraction = QtiUtils.findParentByTag(xmlNode, Tag.hottextInteraction)
             String responseIdentifier = hottextInteraction.attribute(Consts.responseIdentifier);
             List responseValues = assessmentItemInfo.responseValues[responseIdentifier];
             log.debug("responseValues ${responseValues}");
 
             String maxChoices = hottextInteraction.attribute(Consts.maxChoices);
-            String type = maxChoices.toInteger() == 1 ? 'radio': 'checkbox';
+            String type = maxChoices.toInteger() == 1 ? 'radio' : 'checkbox';
 
-            Map fieldAttributes = [type:type, name: responseIdentifier,value: identifier];
+            Map fieldAttributes = [type: type, name: responseIdentifier, value: identifier];
             boolean checked = responseValues && responseValues.contains(identifier);
 
-            if (checked){
+            if (checked) {
                 out << """<input ${CollectionUtils.convertMapToAttributes(fieldAttributes)} checked ><b>"""
-            }else{
+            } else {
                 out << """<input ${CollectionUtils.convertMapToAttributes(fieldAttributes)}><b>"""
             }
 
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
             out << "</b></input>"
-        }else{
+        } else {
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
         }
     }
@@ -896,15 +905,15 @@ class QtiTagLib {
         attrs += xmlNode.attributes();
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         String divAttributes = CollectionUtils.convertMapToAttributes(xmlNode.attributes())
-        String divId =  getOptionalAttribute(attrs, 'id');
+        String divId = getOptionalAttribute(attrs, 'id');
         int hintNumber = 0;
         int multiHintClickCount = assessmentItemInfo.getMultiHintClickCount();
-        if (divId && divId.startsWith(Consts.MULTI_HINT_PREFIX)){
+        if (divId && divId.startsWith(Consts.MULTI_HINT_PREFIX)) {
             hintNumber = (divId - Consts.MULTI_HINT_PREFIX).toInteger();
             assessmentItemInfo.incrementMultiHintStepCount();
             out << """<div ng-init="multiHintClickCount=${multiHintClickCount}" ng-show="multiHintClickCount>=${hintNumber}"  ${divAttributes}>"""
         }
-        else{
+        else {
             out << "<div ${divAttributes}>";
         }
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
@@ -956,9 +965,37 @@ class QtiTagLib {
                    </div> """
     }
 
+    def interactionHelp = {attrs ->
+        String tag = 'interactionHelp';
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        List<Interaction> interactions = assessmentItemInfo.assessmentItem.itemBody.interactions;
+
+        Set<Tag> interactionTags = interactions.collect {Tag.valueOf(it.CLASS_TAG)};
+        log.info("DEBUG interactionTags ${interactionTags}");
+        out << """<div id='${Consts.interactionHelp}' style='display:none'> """
+        interactionTags.each { interactionTag ->
+            String imageFile = InteractionHelp.getHelpImage(interactionTag);
+            if (imageFile) {
+                out << g.img(dir: InteractionHelp.IMAGE_DIR, file: imageFile);
+                assessmentItemInfo.setRenderHelpButton(true);
+            }
+        }
+        out << "</div>"
+    }
+
+    def helpButtons = {attrs ->
+        String tag = 'helpButtons';
+        AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
+        if (assessmentItemInfo.renderHelpButton) {
+            out << "<span>";
+            out << """<a class="btn btn-info" onclick="javascript:\$('#${Consts.interactionHelp}').dialog({title:'${g.message(code: InteractionHelp.titleMessageCode)}', height:${InteractionHelp.height}, width:${InteractionHelp.width}})" >Help</a>"""
+            out << "</span>";
+        }
+    }
+
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-              // com.rialms.util.Less2Css.run();
+            // com.rialms.util.Less2Css.run();
         }
     }
 

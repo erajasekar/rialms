@@ -31,6 +31,14 @@
                 <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
             </p>
         </g:if>
+
+        <g:if test="${tag == Tag.itemBody}">
+            <p>
+                <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
+                <qti:interactionHelp  assessmentItemInfo="${assessmentItemInfo}"/>
+            </p>
+        </g:if>
+
         <g:if test="${tag == Tag.rubricBlock}"><!-- TODO P3 ADD VIEW SUPPORT FOR RUBRIC -->
             <g:render template="/renderer/renderItemSubTree" model="[node: n]"/>
         </g:if>

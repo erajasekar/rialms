@@ -22,9 +22,9 @@
 			<gapText identifier="Su" matchMax="1">summer</gapText>
 			<gapText identifier="A" matchMax="1">autumn</gapText>
     		<blockquote>
-				<p>Now is the <gap identifier="G1"/> of our discontent<br/> Made glorious <gap
-						identifier="G2"/> by this sun of York;<br/> And all the clouds that lour'd
-					upon our house<br/> In the deep bosom of the ocean buried.</p>
+				<p>Now is the <gap identifier="G1"/> of our discontent<br/><br/> Made glorious <gap
+						identifier="G2"/> by this sun of York;<br/><br/> And all the clouds that lour'd
+					upon our house<br/><br/> In the deep bosom of the ocean buried.</p>
 			</blockquote>
 		</gapMatchInteraction>
 	</itemBody>

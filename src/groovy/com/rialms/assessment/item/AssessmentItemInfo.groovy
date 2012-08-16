@@ -67,6 +67,10 @@ class AssessmentItemInfo {
     //Variable to track remaining number of multi hint steps available to show to user.
     private int multiHintRemainingCount = 0;
 
+
+
+    private boolean renderHelpButton = false;
+
     public AssessmentItemInfo() {
     }
 
@@ -299,6 +303,14 @@ class AssessmentItemInfo {
 
         log.debug("DEBUG AssessmentItemInfo renderOutput ${output}")
         return output;
+    }
+
+    public boolean getRenderHelpButton() {
+        return renderHelpButton
+    }
+
+    public void setRenderHelpButton(boolean renderHelpButton) {
+        this.renderHelpButton = renderHelpButton
     }
 
     public String getTitle() {
