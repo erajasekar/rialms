@@ -239,7 +239,6 @@ class QtiTagLib {
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
                 'ng-class': 'getMultiHintStyle()', 'ng-click': 'multiHintClicked()', 'ng-init': "multiHintClickCount=${multiHintClickCount};multiHintStepCount=${multiHintStepCount};multiHintRemainingCount=${multiHintRemainingCount}"];
 
-        //TODO: p1 doesn't work well for single hint.
         //if multiHintStep is present, make endAttemptButton actionable only if multiHint remaining is present as well
         if (assessmentItemInfo.multiHintStepCount > 0 && assessmentItemInfo.multiHintRemainingCount <= 0) {
             fieldAttributes['href'] = '';
@@ -251,7 +250,7 @@ class QtiTagLib {
 
         def tagBody = {
             g.remoteLink(fieldAttributes) {
-                "<i class='${iconClass}'></i>&nbsp;&nbsp;${title} &nbsp;<span ng-show='multiHintRemainingCount >= 0'>({{multiHintRemainingCount}} ${remainingHintMessage})</span>"
+                "<i class='${iconClass}'></i>&nbsp;&nbsp;${title}&nbsp;<span ng-show='multiHintStepCount > 0 && multiHintRemainingCount >= 0'>({{multiHintRemainingCount}} ${remainingHintMessage})</span>"
             }
         }
         renderTag(attrs, tagBody);
@@ -555,10 +554,6 @@ class QtiTagLib {
         out << "<div id='gap-match-help' style='display:none' >"
         out << g.img(dir: 'images/qti', file: 'gap-match-help.gif');
         out << "</div>"
-        //TODO: P2 remove commented code
-        // out << """<p><a class="btn" data-toggle="modal" href="#gap-match-help" onclick="javascript:\$('#gap-match-help').modal()" >Help</a></p>"""
-        // out << """<p><a class="btn" data-toggle="modal" data-target="#gap-match-help" " >Help</a></p>"""
-        //out << """<p><a class="btn" data-toggle="collapse" data-target="#gap-match-help" >Help</a></p>"""
 
     }
 
@@ -928,10 +923,10 @@ class QtiTagLib {
         String id = attrs.name;
         String value = attrs.value;
         assessmentItemInfo.addDisableOnCompletionId(id);
-        out << """<div class='span1'> <button type="submit" class="btn btn-success" id="${id}">
+        out << """<button type="submit" class="btn btn-success" id="${id}">
         									<i class="icon-ok icon-white"></i>
         									${value}
-        								</button></div>"""
+        								</button>"""
     }
 
     def mathML = {  attrs ->
@@ -985,14 +980,11 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         List<InteractionHelp> interactionHelps = assessmentItemInfo.interactionHelps;
         int size = interactionHelps.size();
-        if (size > 0) {
+        /* if (size > 0) {
             InteractionHelp interactionHelp = interactionHelps[0];
-       //     out << "<span>";
-
-            out << "<div class='span2 btn-group'>";
-            String title = g.message(code: interactionHelp.titleMessageCode);
-            Map params = [(Consts.title): title, (Consts.height): interactionHelp.height, (Consts.width): interactionHelp.width, (Consts.elementId): "#${interactionHelp.id}"];
-            out << """<a class="btn btn-info" href='#' onclick='window.showInteractionHelp(${params as JSON})' >${title}</a>"""
+            out << "<span class='pull-right btn-group'>";
+            Map params = getShowInteractionHelpParams(interactionHelp);
+            out << """<a class="btn btn-info" href='#' onclick='window.showInteractionHelp(${params as JSON})' ><i class="icon-question-sign"></i>&nbsp;&nbsp;${params[Consts.title]}</a>"""
             if (size > 1) {
                 out << """<a class="btn btn-info dropdown-toggle" data-toggle="dropdown">"""
                 out << """ <span class="caret"></span>""";
@@ -1004,16 +996,39 @@ class QtiTagLib {
                 for (i in 1..size - 1) {
                     interactionHelp = interactionHelps[i];
                     out << "<li>"
-                    title = g.message(code: interactionHelp.titleMessageCode);
-                    params = [(Consts.title): title, (Consts.height): interactionHelp.height, (Consts.width): interactionHelp.width, (Consts.elementId): "#${interactionHelp.id}"];
-                    out << """<a href='#' onclick='window.showInteractionHelp(${params as JSON})' >${title}</a>"""
+                    params =  getShowInteractionHelpParams(interactionHelp);
+                    out << """<a href='#' onclick='window.showInteractionHelp(${params as JSON})' >${params[Consts.title]}</a>"""
                     out << "</li>"
                 }
                 out << "</ul>"
             }
-            out << "</div>";
+            out << "</span>";
+        }*/
 
-         //   out << "</span>";
+        if (size > 0) {
+            out << "<span class='pull-right btn-group'>";
+            if (size > 1) {
+
+                //out << """<a class="btn btn-info" href='#' onclick='window.showInteractionHelp(${params as JSON})' ><i class="icon-question-sign"></i>&nbsp;&nbsp;${params[Consts.title]}</a>"""
+                out << """<a class="btn btn-info dropdown-toggle" data-toggle="dropdown"><i class="icon-question-sign"></i>&nbsp;&nbsp;"""
+                out << g.message(code: 'help.title');
+                out << """&nbsp;&nbsp;<span class="caret"></span>""";
+                out << "</a>"
+                out << """ <ul class="dropdown-menu"> """;
+                interactionHelps.each{ interactionHelp->
+                    out << "<li>"
+                    Map params = getShowInteractionHelpParams(interactionHelp);
+                    out << """<a href='#' onclick='window.showInteractionHelp(${params as JSON})' >${params[Consts.title]}</a>"""
+                    out << "</li>"
+                }
+                out << "</ul>"
+
+
+            }else{
+                Map params = getShowInteractionHelpParams(interactionHelps[0]);
+                out << """<a class="btn btn-info" href='#' onclick='window.showInteractionHelp(${params as JSON})' ><i class="icon-question-sign"></i>&nbsp;&nbsp;${params[Consts.title]}</a>"""
+            }
+            out << "</span>";
         }
     }
 
@@ -1040,6 +1055,11 @@ class QtiTagLib {
 
     protected getOptionalAttribute(Map attrs, String name) {
         return getAttribute(attrs, name, null, false);
+    }
+
+    private Map<String, String> getShowInteractionHelpParams(InteractionHelp interactionHelp) {
+        Map params = [(Consts.title): g.message(code: interactionHelp.titleMessageCode), (Consts.height): interactionHelp.height, (Consts.width): interactionHelp.width, (Consts.elementId): "#${interactionHelp.id}"];
+        return params;
     }
 
     private EndAttemptButton getEndAttemptButton(String buttonIdentifier) {

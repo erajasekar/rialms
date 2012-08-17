@@ -45,17 +45,16 @@
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
                     <hr/>
 
-                    <div class="row-fluid">
-                        <qti:submit assessmentItemInfo="${assessmentItemInfo}"
-                                    value='${g.message(code: "button.submit.label")}'
-                                    name="${Consts.submit}"/>
-                        <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}"/>
-                        <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
-                        <span ng-bind-html="${Consts.itemResult}">
-                            <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
-                        </span>
-                        <g:render template="/renderer/renderResponseValidation"/>
-                    </div>
+                            <qti:submit assessmentItemInfo="${assessmentItemInfo}"
+                                        value='${g.message(code: "button.submit.label")}'
+                                        name="${Consts.submit}"/>
+                            <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}"/>
+
+                            <span ng-bind-html="${Consts.itemResult}">
+                                <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
+                            </span>
+                            <g:render template="/renderer/renderResponseValidation"/>
+                            <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
                 </div>
             </g:formRemote>
         </g:if>

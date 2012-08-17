@@ -32,7 +32,7 @@ window.ItemContentController = ($scope,$compile)->
       $scope.multiHintRemainingCount =  $scope.multiHintStepCount - $scope.multiHintClickCount
 
   $scope.getMultiHintStyle = ->
-    if ($scope.multiHintRemainingCount?)
+    if ($scope.multiHintStepCount > 0)
       if $scope.multiHintRemainingCount > 0
         "btn btn-info"
       else
