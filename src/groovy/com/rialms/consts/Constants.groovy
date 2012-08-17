@@ -108,5 +108,6 @@ class Constants {
     public static final String interactionHelp = 'interactionHelp';
     public static final String height = 'height';
     public static final String width = 'width';
+    public static final String elementId = 'elementId';
 
 }

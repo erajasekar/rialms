@@ -19,7 +19,7 @@
 <r:script>
     $(document).ready(function () {
         initTestRendering();
-        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, Consts.itemStylesheets,assessmentItemInfo.itemStylesheets)});
+        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, Consts.itemStylesheets, assessmentItemInfo.itemStylesheets)});
     });
 </r:script>
 
@@ -44,15 +44,18 @@
                     <g:render template="/renderer/renderItemSubTree"
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
                     <hr/>
-                    <qti:submit assessmentItemInfo="${assessmentItemInfo}"
-                                value='${g.message(code: "button.submit.label")}'
-                                name="${Consts.submit}"/>
-                    <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}"/>
-                    <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
-                    <span ng-bind-html="${Consts.itemResult}">
-                        <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
-                    </span>
-                    <g:render template="/renderer/renderResponseValidation" />
+
+                    <div class="row-fluid">
+                        <qti:submit assessmentItemInfo="${assessmentItemInfo}"
+                                    value='${g.message(code: "button.submit.label")}'
+                                    name="${Consts.submit}"/>
+                        <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}"/>
+                        <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
+                        <span ng-bind-html="${Consts.itemResult}">
+                            <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
+                        </span>
+                        <g:render template="/renderer/renderResponseValidation"/>
+                    </div>
                 </div>
             </g:formRemote>
         </g:if>

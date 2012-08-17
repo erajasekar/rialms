@@ -1,7 +1,8 @@
 $ = jQuery
 window.updateRenderedItem = (data) ->
-  initAngularScopeObjects(data)
-
+  initAngularScopeObjects(data);
+  #Close any interaction help dialogs open.
+  $('div[id^=interactionHelp]').dialog('close');
 
   if data.redirectUrl
     $.post(data.redirectUrl, (resp) ->
@@ -234,6 +235,6 @@ window.bindJsPlumbEvents = ->
 
   return;
 
-window.showInteractionHelp = (options)->
-  console.log(options);
-  $('#interactionHelp').dialog(options);
+window.showInteractionHelp = (params)->
+  $(params.elementId).dialog(params);
+  return false;

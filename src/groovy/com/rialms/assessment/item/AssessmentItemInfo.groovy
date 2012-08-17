@@ -17,6 +17,8 @@ import org.qtitools.qti.value.Value
 import static com.rialms.consts.AssessmentItemStatus.*
 import org.qtitools.qti.value.NullValue
 import org.qtitools.qti.node.item.Stylesheet
+import org.qtitools.qti.node.item.interaction.Interaction
+import org.apache.commons.collections.CollectionUtils
 
 /**
  * Created by IntelliJ IDEA.
@@ -67,9 +69,8 @@ class AssessmentItemInfo {
     //Variable to track remaining number of multi hint steps available to show to user.
     private int multiHintRemainingCount = 0;
 
-
-
-    private boolean renderHelpButton = false;
+    //To avoid conflict with getter, named with beginning underscore
+    private List<InteractionHelp> _interactionHelps = new ArrayList<InteractionHelp>();
 
     public AssessmentItemInfo() {
     }
@@ -83,6 +84,7 @@ class AssessmentItemInfo {
         xmlRoot = new XmlParser().parse(assessmentItem.sourceFile);
         status = PRESENTED;
         createHeader();
+        initInteractionHelps();
     }
 
     public Map<String, List<String>> getResponseValues() {
@@ -131,6 +133,28 @@ class AssessmentItemInfo {
 
     public Map<String, String> getEndAttemptButtons() {
         return endAttemptButtons
+    }
+
+    private void initInteractionHelps(){
+        try{
+
+            List<Interaction> interactions = assessmentItem.itemBody.interactions;
+
+            Set<Tag> interactionTags = interactions.collect {Tag.valueOf(it.CLASS_TAG)};
+            log.debug("DEBUG interactionTags ${interactionTags}");
+            interactionTags.each { interactionTag ->
+                InteractionHelp interactionHelp = InteractionHelp.forTag(interactionTag);
+
+                if (interactionHelp) {
+                    _interactionHelps << interactionHelp;
+                }
+            }
+
+            log.info("interactionHelps ${interactionHelps}");
+        } catch(Throwable t){
+            t.printStackTrace();
+        }
+
     }
 
     public void createHeader() {
@@ -211,7 +235,6 @@ class AssessmentItemInfo {
      * This method will reset multiHintStepCount value so that re-rendering assessmentItem will not cause any problems.
      */
     public void resetMultiHintStepCount() {
-        println "RAJA resetMultiHintStepCount"
         multiHintStepCount = 0;
     }
 
@@ -305,14 +328,6 @@ class AssessmentItemInfo {
         return output;
     }
 
-    public boolean getRenderHelpButton() {
-        return renderHelpButton
-    }
-
-    public void setRenderHelpButton(boolean renderHelpButton) {
-        this.renderHelpButton = renderHelpButton
-    }
-
     public String getTitle() {
         return assessmentItem?.getTitle();
     }
@@ -339,6 +354,10 @@ class AssessmentItemInfo {
 
     public AssessmentItem getAssessmentItem() {
         return assessmentItem;
+    }
+
+    public List<InteractionHelp> getInteractionHelps() {
+        return _interactionHelps.asImmutable();
     }
 
     public ValidationResult validate() {

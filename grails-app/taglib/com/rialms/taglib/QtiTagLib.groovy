@@ -239,7 +239,8 @@ class QtiTagLib {
                 onSuccess: AssessmentItemInfo.onSuccessCallbackForProcessItem,
                 'ng-class': 'getMultiHintStyle()', 'ng-click': 'multiHintClicked()', 'ng-init': "multiHintClickCount=${multiHintClickCount};multiHintStepCount=${multiHintStepCount};multiHintRemainingCount=${multiHintRemainingCount}"];
 
-        //if multiHintStep is present, make endAttemptButton actionable only if multiHind remaining is present as well
+        //TODO: p1 doesn't work well for single hint.
+        //if multiHintStep is present, make endAttemptButton actionable only if multiHint remaining is present as well
         if (assessmentItemInfo.multiHintStepCount > 0 && assessmentItemInfo.multiHintRemainingCount <= 0) {
             fieldAttributes['href'] = '';
         } else {
@@ -927,10 +928,10 @@ class QtiTagLib {
         String id = attrs.name;
         String value = attrs.value;
         assessmentItemInfo.addDisableOnCompletionId(id);
-        out << """ <button type="submit" class="btn btn-success" id="${id}">
+        out << """<div class='span1'> <button type="submit" class="btn btn-success" id="${id}">
         									<i class="icon-ok icon-white"></i>
         									${value}
-        								</button>  """
+        								</button></div>"""
     }
 
     def mathML = {  attrs ->
@@ -969,30 +970,50 @@ class QtiTagLib {
     def interactionHelp = {attrs ->
         String tag = 'interactionHelp';
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        List<Interaction> interactions = assessmentItemInfo.assessmentItem.itemBody.interactions;
 
-        Set<Tag> interactionTags = interactions.collect {Tag.valueOf(it.CLASS_TAG)};
-        log.info("DEBUG interactionTags ${interactionTags}");
-        out << """<div id='${Consts.interactionHelp}' style='display:none'> """
-        interactionTags.each { interactionTag ->
-            String imageFile = InteractionHelp.getHelpImage(interactionTag);
-            if (imageFile) {
-                out << g.img(dir: InteractionHelp.IMAGE_DIR, file: imageFile);
-                assessmentItemInfo.setRenderHelpButton(true);
-            }
+        out << "<div>";
+        assessmentItemInfo.interactionHelps.each {interactionHelp ->
+            out << """<div id='${interactionHelp.id}' style='display:none' > """
+            out << g.img(dir: InteractionHelp.IMAGE_DIR, file: interactionHelp.imageFile);
+            out << "</div>"
         }
-        out << "</div>"
+        out << "</div>";
     }
 
     def helpButtons = {attrs ->
         String tag = 'helpButtons';
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
-        if (assessmentItemInfo.renderHelpButton) {
-            out << "<span>";
-          //  out << """<a class="btn btn-info" onclick="javascript:\$('#${Consts.interactionHelp}').dialog({title:'${g.message(code: InteractionHelp.titleMessageCode)}', height:${InteractionHelp.height}, width:${InteractionHelp.width}})" >Help</a>"""
-            Map options = [(Consts.title):g.message(code: InteractionHelp.titleMessageCode),(Consts.height):InteractionHelp.height, (Consts.width):InteractionHelp.width]
-            out << """<a class="btn btn-info" onclick='window.showInteractionHelp(${options as JSON})' >Help</a>"""
-            out << "</span>";
+        List<InteractionHelp> interactionHelps = assessmentItemInfo.interactionHelps;
+        int size = interactionHelps.size();
+        if (size > 0) {
+            InteractionHelp interactionHelp = interactionHelps[0];
+       //     out << "<span>";
+
+            out << "<div class='span2 btn-group'>";
+            String title = g.message(code: interactionHelp.titleMessageCode);
+            Map params = [(Consts.title): title, (Consts.height): interactionHelp.height, (Consts.width): interactionHelp.width, (Consts.elementId): "#${interactionHelp.id}"];
+            out << """<a class="btn btn-info" href='#' onclick='window.showInteractionHelp(${params as JSON})' >${title}</a>"""
+            if (size > 1) {
+                out << """<a class="btn btn-info dropdown-toggle" data-toggle="dropdown">"""
+                out << """ <span class="caret"></span>""";
+                out << "</a>"
+            }
+
+            if (size > 1) {
+                out << """ <ul class="dropdown-menu"> """;
+                for (i in 1..size - 1) {
+                    interactionHelp = interactionHelps[i];
+                    out << "<li>"
+                    title = g.message(code: interactionHelp.titleMessageCode);
+                    params = [(Consts.title): title, (Consts.height): interactionHelp.height, (Consts.width): interactionHelp.width, (Consts.elementId): "#${interactionHelp.id}"];
+                    out << """<a href='#' onclick='window.showInteractionHelp(${params as JSON})' >${title}</a>"""
+                    out << "</li>"
+                }
+                out << "</ul>"
+            }
+            out << "</div>";
+
+         //   out << "</span>";
         }
     }
 
