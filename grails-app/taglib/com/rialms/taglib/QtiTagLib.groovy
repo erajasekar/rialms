@@ -879,7 +879,7 @@ class QtiTagLib {
         Map sectionTagAttributes = [id: hiddenElement.elementId];
         boolean isModelFeedback = xmlTag == Tag.modalFeedback;
         if (isModelFeedback) {
-            sectionTagAttributes['class'] = 'model-feedback';
+            sectionTagAttributes['class'] = 'well model-feedback';
         }
         if (!assessmentItemInfo.isVisible(hiddenElement)) {
             sectionTagAttributes['style'] = 'display: none';

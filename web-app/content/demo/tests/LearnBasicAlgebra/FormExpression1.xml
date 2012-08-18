@@ -3,7 +3,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:m="http://www.w3.org/1998/Math/MathML"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
-                identifier="FindExpression3" title="Find Expression 3" adaptive="true"
+                identifier="FormExpression1" title="Form Expression 1" adaptive="true"
                 timeDependent="false">
     <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
@@ -11,24 +11,20 @@
     <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
     <itemBody>
         <p>
-            The cost of 1 pen is 10 dollars. What is cost of
+            Find the rule which gives the number of match sticks required to make the pattern 'T' below. Let's use
             <m:math>
                 <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>y</m:mi>
+                    <m:mi>x</m:mi>
                 </m:mstyle>
             </m:math>
-            pens..?
+            to denote variable.
         </p>
         <p>
-            Cost of
-            <m:math>
-                <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>y</m:mi>
-                </m:mstyle>
-            </m:math>
-            pens =
+            <img src="images/matchstick-letter-t.png" height="60px" width="70px" alt="Match Stick Letter T"/>
+        </p>
+        <p>
+            Number of match sticks used =
             <textEntryInteraction class="input-small" responseIdentifier="RESPONSE"/>
-            dollars.
         </p>
         <p>
             <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
@@ -43,7 +39,7 @@
                 </setOutcomeValue>
             </responseIf>
             <responseElseIf>
-                <patternMatch pattern="(\s)*10y(\s)*"> <!-- pattern 10y with spaces allowed -->
+                <patternMatch pattern="(\s)*2x(\s)*"> <!-- pattern 2x with spaces allowed -->
                     <variable identifier="RESPONSE"/>
                 </patternMatch>
                 <setOutcomeValue identifier="SCORE">
@@ -57,31 +53,38 @@
     </responseProcessing>
     <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
         <div id='HINT_1'>
-            If cost of 1 pen is 10, then cost of 2 pen will be 2 x 10
+            <p>Let's prepare a table to find number of match sticks required</p>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Number of Pattern 'T'</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Number of match sticks used</td>
+                        <td>2</td>
+                        <td>4</td>
+                        <td>6</td>
+                        <td>8</td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
         <div id='HINT_2'>
-            so the cost of 3 pen = 3 x 10
-        </div>
-        <div id='HINT_3'>
-            so the cost of
-            <m:math>
-                <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>y</m:mi>
-                </m:mstyle>
-            </m:math>
-            pens =
-            <m:math>
-                <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>y</m:mi>
-                </m:mstyle>
-            </m:math>
-            x 10 =
-            <m:math title="10y" xmlns="http://www.w3.org/1998/Math/MathML">
-                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
-                    <m:mn>10</m:mn>
-                    <m:mi>y</m:mi>
-                </m:mstyle>
-            </m:math>
+            <p>So we can see that Number of match sticks used = 2 x Number of pattern 'T'</p>
+            <p>Number of match sticks used =
+                <m:math title="2x" xmlns="http://www.w3.org/1998/Math/MathML">
+                    <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>x</m:mi>
+                    </m:mstyle>
+                </m:math>
+            </p>
         </div>
     </modalFeedback>
 </assessmentItem>

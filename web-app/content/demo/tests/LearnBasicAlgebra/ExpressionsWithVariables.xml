@@ -25,7 +25,7 @@
             and division.
         </p>
         <p>
-            Expressions can be formed from variables too.
+            <strong>Expressions can be formed from variables too.</strong>
             For example the expression
             <m:math title="2n" xmlns="http://www.w3.org/1998/Math/MathML">
                 <m:mstyle fontfamily="serif" displaystyle="true">
@@ -55,7 +55,8 @@
             </m:math>
             .
         </p>
-        <blockquote><p>
+        <blockquote>
+            <p>
                 Note that a number expression
                 like (4 x 3) + 5 can be immediately
                 evaluated as (4 x 3) + 5 = 12 + 5 = 17.
@@ -78,7 +79,7 @@
                     </m:mstyle>
                 </m:math>
                 ,
-                cannot be evaluated.<br/>
+                cannot be evaluated.
                 Only if
                 <m:math title="x" xmlns="http://www.w3.org/1998/Math/MathML">
                     <m:mstyle fontfamily="serif" displaystyle="true">
@@ -117,11 +118,16 @@
                 =
                 (4 x 3) + 5 = 17.
 
-        </p></blockquote>
-
-            <choiceInteraction responseIdentifier="RESPONSE" maxChoices="0">   <!-- TODO p2, IF i don't automatically provide itemresult in test, this should be made as adaptive -->
+            </p>
+        </blockquote>
+        <p>
+            <strong>Check your understanding</strong>
+        </p>
+        <div class="well">
+            <choiceInteraction responseIdentifier="RESPONSE"
+                               maxChoices="0">   <!-- TODO p2, IF i don't automatically provide itemresult in test, this should be made as adaptive -->
                 <prompt>
-                    <p>Ok, Let's do a quick self check. Which of the following is a variable expression ?</p>
+                    <p>Which of the following is a variable expression ?</p>
                 </prompt>
                 <simpleChoice identifier="ChoiceA">(4 x 2) + 5</simpleChoice>
                 <simpleChoice identifier="ChoiceB">
@@ -155,6 +161,7 @@
                     </m:math>
                 </simpleChoice>
             </choiceInteraction>
+        </div>
 
     </itemBody>
     <responseProcessing

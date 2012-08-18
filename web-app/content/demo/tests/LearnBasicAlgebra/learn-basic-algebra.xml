@@ -15,12 +15,16 @@
             <assessmentItemRef identifier="Exercise1" href="exercise-1.xml"/>
             <assessmentItemRef identifier="ExpressionFromStatements" href="expression-from-statements.xml"/>
             <assessmentItemRef identifier="ExpressionToStatements" href="expression-to-statements.xml"/>
-            <assessmentItemRef identifier="FindExpression1" href="FindExpression1.xml"/>
-            <assessmentItemRef identifier="FindExpression2" href="FindExpression2.xml"/>
-            <assessmentItemRef identifier="FindExpression3" href="FindExpression3.xml"/>
-            <assessmentItemRef identifier="FindExpression4" href="FindExpression4.xml"/>
-            <assessmentItemRef identifier="FindExpression5" href="FindExpression5.xml"/>
-            <assessmentItemRef identifier="FindExpression6" href="FindExpression6.xml"/>
+            <assessmentItemRef identifier="FormExpression1" href="FormExpression1.xml"/>
+            <assessmentItemRef identifier="FormExpression2" href="FormExpression2.xml"/>
+            <assessmentItemRef identifier="FormExpression3" href="FormExpression3.xml"/>
+            <assessmentItemRef identifier="FormExpression4" href="FormExpression4.xml"/>
+            <assessmentItemRef identifier="FormExpression5" href="FormExpression5.xml"/>
+            <assessmentItemRef identifier="FormExpression6" href="FormExpression6.xml"/>
+            <assessmentItemRef identifier="IntroductionToEquations" href="IntroductionToEquations.xml"/>
+            <assessmentItemRef identifier="IdentifyVariable1" href="IdentifyVariable1.xml"/>
+            <assessmentItemRef identifier="IdentifyEquation1" href="IdentifyEquation1.xml"/>
+            <assessmentItemRef identifier="IdentifyEquation2" href="IdentifyEquation2.xml"/>
         </assessmentSection>
     </testPart>
 

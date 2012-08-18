@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/math/mathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="IdentifyVariable1" title="Identify Variable 1" adaptive="false"
+                timeDependent="false">
+
+    <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceD</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <itemBody>
+        <choiceInteraction responseIdentifier="RESPONSE" maxChoices="1">
+            <prompt>
+                <p>Which is the variable in Equation
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mn>2</m:mn>
+                            <m:mi>s</m:mi>
+                            <m:mo>-</m:mo>
+                            <m:mn>4</m:mn>
+                            <m:mo>=</m:mo>
+                            <m:mn>10</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                    ?
+                </p>
+            </prompt>
+            <simpleChoice identifier="ChoiceA">2</simpleChoice>
+            <simpleChoice identifier="ChoiceB">
+                10
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceC">
+                -4
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceD">
+                <m:math>
+                    <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                        <m:mi>s</m:mi>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+        </choiceInteraction>
+    </itemBody>
+    <responseProcessing
+            template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/match_correct"/>
+</assessmentItem>

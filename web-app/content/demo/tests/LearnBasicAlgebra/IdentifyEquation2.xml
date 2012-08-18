@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="IdentifyEquation2" title="Identify Equation 2" adaptive="false"
+                timeDependent="false">
+
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceA</value>
+            <value>ChoiceE</value>
+            <value>ChoiceF</value>
+            <value>ChoiceH</value>
+            <value>ChoiceJ</value>
+            <value>ChoiceK</value>
+            <value>ChoiceO</value>
+        </correctResponse>
+        <mapping lowerBound="0" upperBound="7">
+            <mapEntry mapKey="ChoiceA" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceE" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceF" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceH" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceJ" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceK" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceO" mappedValue="1"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <choiceInteraction responseIdentifier="RESPONSE" maxChoices="0">
+            <prompt>
+                <p>Which of the following is are Equations ?</p>
+            </prompt>
+            <simpleChoice identifier="ChoiceA">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>17</m:mn>
+                        <m:mo>=</m:mo>
+                        <m:mi>x</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>7</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceB">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mrow>
+                            <m:mo>(</m:mo>
+                            <m:mi>t</m:mi>
+                            <m:mo>-</m:mo>
+                            <m:mn>7</m:mn>
+                            <m:mo>)</m:mo>
+                        </m:mrow>
+                        <m:mo>&gt;</m:mo>
+                        <m:mn>5</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceC">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mfrac>
+                            <m:mn>4</m:mn>
+                            <m:mn>2</m:mn>
+                        </m:mfrac>
+                        <m:mo>=</m:mo>
+                        <m:mn>2</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceD">(7 x 3) - 19 = 8</simpleChoice>
+            <simpleChoice identifier="ChoiceE">5 + 4 - 8 =
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>x</m:mi>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceF">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>x</m:mi>
+                        <m:mo>-</m:mo>
+                        <m:mn>2</m:mn>
+                        <m:mo>=</m:mo>
+                        <m:mn>0</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceG">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>m</m:mi>
+                        <m:mo>&lt;</m:mo>
+                        <m:mn>30</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceH">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>n</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>1</m:mn>
+                        <m:mo>=</m:mo>
+                        <m:mn>11</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceI">7 = (11 x 5) - (12 x 4)</simpleChoice>
+            <simpleChoice identifier="ChoiceJ">7 = (11 x 2) +
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>p</m:mi>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceK">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>20</m:mn>
+                        <m:mo>=</m:mo>
+                        <m:mn>5</m:mn>
+                        <m:mi>y</m:mi>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceL">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>3</m:mn>
+                        <m:mfrac>
+                            <m:mi>q</m:mi>
+                            <m:mn>2</m:mn>
+                        </m:mfrac>
+                        <m:mo>&lt;</m:mo>
+                        <m:mn>5</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceM">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>z</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>12</m:mn>
+                        <m:mo>&gt;</m:mo>
+                        <m:mn>24</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+            <simpleChoice identifier="ChoiceN">20 - (10 - 5) = 3 x 5</simpleChoice>
+            <simpleChoice identifier="ChoiceO">
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>7</m:mn>
+                        <m:mo>-</m:mo>
+                        <m:mi>x</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>5</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </simpleChoice>
+        </choiceInteraction>
+    </itemBody>
+    <responseProcessing
+            template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/map_response"/>
+</assessmentItem>

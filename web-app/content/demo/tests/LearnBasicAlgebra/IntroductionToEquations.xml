@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="IntroductionToEquations" title="Introduction to Equations" adaptive="false"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceA</value>
+            <value>ChoiceD</value>
+            <value>ChoiceE</value>
+        </correctResponse>
+        <mapping lowerBound="0" upperBound="3">
+            <mapEntry mapKey="ChoiceA" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceD" mappedValue="1"/>
+            <mapEntry mapKey="ChoiceE" mappedValue="1"/>
+        </mapping>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <itemBody>
+        <p>
+            Lets us recall the match stick pattern of forming triangle. For our convenience, figure is redrawn below
+        </p>
+        <p>
+            <p>1)</p>
+            <img src="images/matchstick-triangle-1.png" height="100px" width="120px" alt="Match Stick Triangle 1"/>
+        </p>
+        <p>
+            <p>2)</p>
+            <img src="images/matchstick-triangle-2.png" height="100px" width="240px" alt="Match Stick Triangle 2"/>
+        </p>
+        <p>
+            <p>3)</p>
+            <img src="images/matchstick-triangle-3.png" height="100px" width="360px" alt="Match Stick Triangle 3"/>
+        </p>
+        <p>
+            Table below shows the number of match sticks required for different number of triangles formed.
+        </p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Number of triangles</th>
+                    <th>1</th>
+                    <th>2</th>
+                    <th>3</th>
+                    <th>4</th>
+                    <th>5</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Number of match sticks used</td>
+                    <td>
+                        3
+                    </td>
+                    <td>
+                        6
+                    </td>
+                    <td>
+                        9
+                    </td>
+                    <td>
+                        12
+                    </td>
+                    <td>
+                        15
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            We know that the number of match sticks required is given by the rule
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            ,
+            where
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            is number of triangles formed.
+            <br/>
+            <br/>
+            Lets think differently,
+            <em>We know how to find the number of match sticks required for given number of
+                triangles.
+                What about the other way round? How does one find the number of triangles formed, given the number of
+                match
+                sticks
+            </em>
+            ?
+        </p>
+        <p>
+            Lets ask ourselves a definite question. How many triangles are formed if the number of match sticks give is
+            12?
+            This means we have to find the number of triangles, given the number of match sticks is 12. So,
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mi>x</m:mi>
+                    <m:mo>=</m:mo>
+                    <m:mn>12</m:mn>
+                </m:mstyle>
+            </m:math>
+        </p>
+        <p>
+            Here, <strong>we have a condition to be satisfied by the variable </strong>
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            . This condition is an example of an<code>equation</code>.
+        </p>
+        <p>
+            Our question can be answered by looking at below table. Look at the various values of
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            . if
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                    <m:mo>=</m:mo>
+                    <m:mn>1</m:mn>
+                </m:mstyle>
+            </m:math>
+            ,
+            the number of match sticks is 3. Clearly, the condition is not satisfied, because 3 is no 12.
+            We go on checking
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>
+                            <m:math>
+                                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                                    <m:mi>x</m:mi>
+                                </m:mstyle>
+                            </m:math>
+                        </th>
+                        <th>
+                            <m:math>
+                                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                                    <m:mn>3</m:mn>
+                                    <m:mi>x</m:mi>
+                                </m:mstyle>
+                            </m:math>
+                        </th>
+                        <th>Condition satisfied.? Yes/No</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            1
+                        </td>
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            2
+                        </td>
+                        <td>
+                            6
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            3
+                        </td>
+                        <td>
+                            9
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            4
+                        </td>
+                        <td>
+                            12
+                        </td>
+                        <td>
+                            Yes
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            5
+                        </td>
+                        <td>
+                            15
+                        </td>
+                        <td>
+                            No
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+        <p>
+            We find that only if
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                    <m:mo>=</m:mo>
+                    <m:mn>4</m:mn>
+                </m:mstyle>
+            </m:math>
+            ,
+            the condition i.e the equation
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mi>x</m:mi>
+                    <m:mo>=</m:mo>
+                    <m:mn>12</m:mn>
+                </m:mstyle>
+            </m:math>
+            is satisfied. For any value of
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mi>x</m:mi>
+                </m:mstyle>
+            </m:math>
+            other than 4, the equation is not satisfied.
+        </p>
+        <p>
+            To summarise,
+            <strong>
+                Any equation like the above, is a condition on a variable. It is satisfied only for a definite value of
+                the variable.
+            </strong>
+        </p>
+        <p>
+            Note that an equation has an
+            <strong>equal sign (=)</strong>
+            between its two sides. if left hand side (LHS) is not equal to
+            the right hand side (RHS) we do not get the equation.
+            <br/>
+            For example : The statement
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>2</m:mn>
+                    <m:mi>n</m:mi>
+                </m:mstyle>
+            </m:math>
+            is greater than 10, i.e
+            <m:math title="2n > 10" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>2</m:mn>
+                    <m:mi>n</m:mi>
+                    <m:mo>&gt;</m:mo>
+                    <m:mn>10</m:mn>
+                </m:mstyle>
+            </m:math>
+            is not an equation.
+            Also the statements
+            <m:math title="(x-3)>11" xmlns="http://www.w3.org/1998/Math/MathML">
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mrow>
+                        <m:mo>(</m:mo>
+                        <m:mi>x</m:mi>
+                        <m:mo>-</m:mo>
+                        <m:mn>3</m:mn>
+                        <m:mo>)</m:mo>
+                    </m:mrow>
+                    <m:mo>&gt;</m:mo>
+                    <m:mn>11</m:mn>
+                </m:mstyle>
+            </m:math>
+            or
+            <m:math>
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mrow>
+                        <m:mo>(</m:mo>
+                        <m:mi>x</m:mi>
+                        <m:mo>-</m:mo>
+                        <m:mn>3</m:mn>
+                        <m:mo>)</m:mo>
+                    </m:mrow>
+                    <m:mo>&lt;</m:mo>
+                    <m:mn>11</m:mn>
+                </m:mstyle>
+            </m:math>
+            are not equations.
+        </p>
+        <p>
+            Now, let us consider 8 - 3 = 5
+            There is an equal sign between LHS and RHS. Neither of the two sides contain a variable. We may call this a
+            <code>numerical equation</code>.
+            The word equation is used only for the equations with one or more variables.
+        </p>
+        <p><strong>Check your understanding</strong></p>
+        <div class="well">
+            <choiceInteraction responseIdentifier="RESPONSE" maxChoices="0">
+                <prompt>
+                    <h4>Identify which of the following are equations.</h4>
+                    <br/>
+                </prompt>
+                <simpleChoice identifier="ChoiceA">
+                    <m:math title="x+20=70">
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mi>x</m:mi>
+                            <m:mo>+</m:mo>
+                            <m:mn>20</m:mn>
+                            <m:mo>=</m:mo>
+                            <m:mn>70</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleChoice>
+                <simpleChoice identifier="ChoiceB">8 x 3 = 24</simpleChoice>
+                <simpleChoice identifier="ChoiceC">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mn>2</m:mn>
+                            <m:mi>p</m:mi>
+                            <m:mo>&gt;</m:mo>
+                            <m:mn>30</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleChoice>
+                <simpleChoice identifier="ChoiceD">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mi>n</m:mi>
+                            <m:mo>-</m:mo>
+                            <m:mn>4</m:mn>
+                            <m:mo>=</m:mo>
+                            <m:mn>100</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleChoice>
+                <simpleChoice identifier="ChoiceE">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mn>20</m:mn>
+                            <m:mi>b</m:mi>
+                            <m:mo>=</m:mo>
+                            <m:mn>80</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleChoice>
+                <simpleChoice identifier="ChoiceF">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mfrac>
+                                <m:mi>y</m:mi>
+                                <m:mn>8</m:mn>
+                            </m:mfrac>
+                            <m:mo>&lt;</m:mo>
+                            <m:mn>50</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleChoice>
+            </choiceInteraction>
+        </div>
+    </itemBody>
+    <responseProcessing
+            template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/map_response"/>
+</assessmentItem>

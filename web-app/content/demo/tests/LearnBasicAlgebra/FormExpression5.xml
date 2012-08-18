@@ -3,7 +3,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:m="http://www.w3.org/1998/Math/MathML"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
-                identifier="FindExpression4" title="Find Expression 4" adaptive="true"
+                identifier="FormExpression5" title="Form Expression 5" adaptive="true"
                 timeDependent="false">
     <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
@@ -11,18 +11,18 @@
     <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
     <itemBody>
         <p>
-            Bill saves
+            A rabbit covers a distance of 30 feet by walk and then runs with the speed of 2 feet per second for
             <m:math>
                 <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>x</m:mi>
+                    <m:mi>t</m:mi>
                 </m:mstyle>
             </m:math>
-            dollars every day. How much does he save in one week?
+            seconds. Frame an algebraic expression for the total distance covered by the rabbit.
         </p>
         <p>
-            Money saved in one week =
+            Total distance covered by rabbit =
             <textEntryInteraction class="input-small" responseIdentifier="RESPONSE"/>
-            dollars.
+            feet.
         </p>
         <p>
             <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
@@ -37,9 +37,14 @@
                 </setOutcomeValue>
             </responseIf>
             <responseElseIf>
-                <patternMatch pattern="(\s)*7x(\s)*"> <!-- pattern 7x with spaces allowed -->
-                    <variable identifier="RESPONSE"/>
-                </patternMatch>
+                <or>
+                    <patternMatch pattern="(\s)*30(\s)*\+(\s)*2t(\s)*"> <!-- pattern 30 + 2t with spaces allowed -->
+                        <variable identifier="RESPONSE"/>
+                    </patternMatch>
+                    <patternMatch pattern="(\s)*2t(\s)*\+(\s)*30(\s)*"> <!-- pattern 2t + 30 with spaces allowed -->
+                        <variable identifier="RESPONSE"/>
+                    </patternMatch>
+                </or>
                 <setOutcomeValue identifier="SCORE">
                     <baseValue baseType="integer">1</baseValue>
                 </setOutcomeValue>
@@ -51,34 +56,38 @@
     </responseProcessing>
     <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
         <div id='HINT_1'>
-            If
+            If distance travelled in 1 second is 2 feet, then the distance travelled in
             <m:math>
                 <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>x</m:mi>
+                    <m:mi>t</m:mi>
                 </m:mstyle>
             </m:math>
-            dollars is saved in one day, then money saved in 2 days will be 2 x
+            seconds will be 2 feet x
             <m:math>
                 <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>x</m:mi>
+                    <m:mi>t</m:mi>
                 </m:mstyle>
             </m:math>
         </div>
         <div id='HINT_2'>
-            Number of days in week is 7
+            The distance covered by walk = 30 feet.
         </div>
         <div id='HINT_3'>
-            so the money saved in one week = 7 x
+            so the total distance covered = 2 x
             <m:math>
                 <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>x</m:mi>
+                    <m:mi>t</m:mi>
+                    <m:mo>+</m:mo>
+                    <m:mn>30</m:mn>
                 </m:mstyle>
             </m:math>
             =
-            <m:math title="7x" xmlns="http://www.w3.org/1998/Math/MathML">
+            <m:math title="2t+30" xmlns="http://www.w3.org/1998/Math/MathML">
                 <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
-                    <m:mn>7</m:mn>
-                    <m:mi>x</m:mi>
+                    <m:mn>2</m:mn>
+                    <m:mi>t</m:mi>
+                    <m:mo>+</m:mo>
+                    <m:mn>30</m:mn>
                 </m:mstyle>
             </m:math>
         </div>

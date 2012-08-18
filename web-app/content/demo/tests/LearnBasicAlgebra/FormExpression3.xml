@@ -3,7 +3,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:m="http://www.w3.org/1998/Math/MathML"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
-                identifier="FindExpression5" title="Find Expression 5" adaptive="true"
+                identifier="FormExpression3" title="Form Expression 3" adaptive="true"
                 timeDependent="false">
     <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
@@ -11,18 +11,24 @@
     <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
     <itemBody>
         <p>
-            A rabbit covers a distance of 30 feet by walk and then runs with the speed of 2 feet per second for
+            The cost of 1 pen is 10 dollars. What is cost of
             <m:math>
                 <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>t</m:mi>
+                    <m:mi>y</m:mi>
                 </m:mstyle>
             </m:math>
-            seconds. Frame an algebraic expression for the total distance covered by the rabbit.
+            pens..?
         </p>
         <p>
-            Total distance covered by rabbit =
+            Cost of
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>y</m:mi>
+                </m:mstyle>
+            </m:math>
+            pens =
             <textEntryInteraction class="input-small" responseIdentifier="RESPONSE"/>
-            feet.
+            dollars.
         </p>
         <p>
             <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
@@ -37,14 +43,9 @@
                 </setOutcomeValue>
             </responseIf>
             <responseElseIf>
-                <or>
-                    <patternMatch pattern="(\s)*30(\s)*\+(\s)*2t(\s)*"> <!-- pattern 30 + 2t with spaces allowed -->
-                        <variable identifier="RESPONSE"/>
-                    </patternMatch>
-                    <patternMatch pattern="(\s)*2t(\s)*\+(\s)*30(\s)*"> <!-- pattern 2t + 30 with spaces allowed -->
-                        <variable identifier="RESPONSE"/>
-                    </patternMatch>
-                </or>
+                <patternMatch pattern="(\s)*10y(\s)*"> <!-- pattern 10y with spaces allowed -->
+                    <variable identifier="RESPONSE"/>
+                </patternMatch>
                 <setOutcomeValue identifier="SCORE">
                     <baseValue baseType="integer">1</baseValue>
                 </setOutcomeValue>
@@ -56,38 +57,29 @@
     </responseProcessing>
     <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
         <div id='HINT_1'>
-            If distance travelled in 1 second is 2 feet, then the distance travelled in
-            <m:math>
-                <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>t</m:mi>
-                </m:mstyle>
-            </m:math>
-            seconds will be 2 feet x
-            <m:math>
-                <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>t</m:mi>
-                </m:mstyle>
-            </m:math>
+            If cost of 1 pen is 10, then cost of 2 pen will be 2 x 10
         </div>
         <div id='HINT_2'>
-            The distance covered by walk = 30 feet.
+            so the cost of 3 pen = 3 x 10
         </div>
         <div id='HINT_3'>
-            so the total distance covered = 2 x
+            so the cost of
             <m:math>
                 <m:mstyle fontfamily="serif" displaystyle="true">
-                    <m:mi>t</m:mi>
-                    <m:mo>+</m:mo>
-                    <m:mn>30</m:mn>
+                    <m:mi>y</m:mi>
                 </m:mstyle>
             </m:math>
-            =
-            <m:math title="2t+30" xmlns="http://www.w3.org/1998/Math/MathML">
+            pens =
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mi>y</m:mi>
+                </m:mstyle>
+            </m:math>
+            x 10 =
+            <m:math title="10y" xmlns="http://www.w3.org/1998/Math/MathML">
                 <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
-                    <m:mn>2</m:mn>
-                    <m:mi>t</m:mi>
-                    <m:mo>+</m:mo>
-                    <m:mn>30</m:mn>
+                    <m:mn>10</m:mn>
+                    <m:mi>y</m:mi>
                 </m:mstyle>
             </m:math>
         </div>

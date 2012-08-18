@@ -3,7 +3,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:m="http://www.w3.org/1998/Math/MathML"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
-                identifier="FindExpression2" title="Find Expression 2" adaptive="true"
+                identifier="FormExpression2" title="Form Expression 2" adaptive="true"
                 timeDependent="false">
     <responseDeclaration identifier="RESPONSE" cardinality="single" baseType="string"/>
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
