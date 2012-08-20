@@ -26,16 +26,24 @@ class InteractionHelp {
 
 
     static {
-        interactionHelps = [(Tag.gapMatchInteraction): new InteractionHelp(Tag.gapMatchInteraction,'interaction.help.gapMatch.title',"gap-match-help.gif"),
-                            (Tag.textEntryInteraction):new InteractionHelp(Tag.textEntryInteraction,'interaction.help.match.title',"apple-touch-icon.png") ];
+        interactionHelps = [(Tag.gapMatchInteraction): new InteractionHelp(Tag.gapMatchInteraction,'interaction.help.gapMatch.title',"gap-match-interaction-help.gif"),
+                            (Tag.associateInteraction):new InteractionHelp(Tag.associateInteraction,'interaction.help.associate.title',"associate-interaction-help.gif", 400,500),
+                            (Tag.matchInteraction):new InteractionHelp(Tag.matchInteraction,'interaction.help.match.title',"match-interaction-help.gif",300,650),
+                            (Tag.orderInteraction):new InteractionHelp(Tag.orderInteraction,'interaction.help.order.title',"order-interaction-help.gif",300,520)
+                            ];
     }
 
     public InteractionHelp(Tag tag, String titleMessageCode, String imageFile){
-       id = "${Constants.interactionHelp}-${tag.name()}";
-       this.titleMessageCode = titleMessageCode;
-       this.imageFile = imageFile
-       this.height = DEFAULT_HEIGHT;
-       this.width = DEFAULT_WIDTH;
+      this(tag,titleMessageCode,imageFile,DEFAULT_HEIGHT,DEFAULT_WIDTH)
+    }
+
+    public InteractionHelp(Tag tag, String titleMessageCode, String imageFile,int height, int width){
+        id = "${Constants.interactionHelp}-${tag.name()}";
+        this.titleMessageCode = titleMessageCode;
+        this.imageFile = imageFile
+        this.height = height;
+        this.width = width;
+
     }
 
     public static InteractionHelp forTag(Tag tag){

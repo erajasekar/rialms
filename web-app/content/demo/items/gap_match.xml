@@ -3,7 +3,6 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
 	identifier="gapMatch" title="Richard III" adaptive="false" timeDependent="false">
-    <responseDeclaration identifier="RESPONSE2" cardinality="single" baseType="string"/>
     <responseDeclaration identifier="HINT" cardinality="single" baseType="boolean"/>
 	<responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
 		<correctResponse>
@@ -32,7 +31,6 @@
         <p>
             <endAttemptInteraction responseIdentifier="HINT" title="Show Hint"/>
         </p>
-        <p>to be removed <textEntryInteraction responseIdentifier="RESPONSE2" />  </p>   <!-- TODO DO CLEAN UP -->
 	</itemBody>
 	<responseProcessing
 		template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/map_response"/>
