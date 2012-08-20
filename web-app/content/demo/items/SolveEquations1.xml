@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="SolveEquations1" title="Solve Equations1" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="A" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceNo</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="HINT" cardinality="single" baseType="boolean"/>
+    <responseDeclaration identifier="SOLUTION" cardinality="single" baseType="boolean"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <outcomeDeclaration identifier="SHOWHINT1" cardinality="single" baseType="identifier"/>
+    <outcomeDeclaration identifier="SHOWHINT2" cardinality="single" baseType="identifier"/>
+    <outcomeDeclaration identifier="SHOWSOLUTION1" cardinality="single" baseType="identifier"/>
+    <itemBody>
+        <p>
+            Complete the following table.
+        </p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Equation</th>
+                    <th>Value of Variable</th>
+
+                    <th>Solution (Yes/No)</th>
+                    <th>
+                        Hint and Solution (if requested)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <m:math title="x+10=30">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mi>x</m:mi>
+                                <m:mo>+</m:mo>
+                                <m:mn>10</m:mn>
+                                <m:mo>=</m:mo>
+                                <m:mn>30</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        <m:math title="x=10">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mi>x</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>10</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        <choiceInteraction responseIdentifier="A" maxChoices="1">
+                            <simpleChoice identifier="ChoiceYes">Yes</simpleChoice>
+                            <simpleChoice identifier="ChoiceNo">No</simpleChoice>
+                        </choiceInteraction>
+                    </td>
+                    <td>
+                        <feedbackInline
+                                outcomeIdentifier="SHOWHINT2" identifier="HINT" showHide="show">
+
+                            Substituting variable, 10 + 10 = 20.
+                            <feedbackInline
+                                    outcomeIdentifier="SHOWSOLUTION1" identifier="SOLUTION" showHide="show">
+                                Condition not satisfied, Not a solution
+                            </feedbackInline>
+                        </feedbackInline>
+
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINT" title="Show Hint"/>
+        </p>
+        <p>
+            <endAttemptInteraction responseIdentifier="SOLUTION" title="Show Solution"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINT"/>
+                <setOutcomeValue identifier="SHOWHINT1">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="SHOWHINT2">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <variable identifier="SOLUTION"/>
+                <setOutcomeValue identifier="SHOWHINT2">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="SHOWSOLUTION1">
+                    <baseValue baseType="identifier">SOLUTION</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+            <responseElseIf>
+                <match>
+                    <variable identifier="A"/>
+                    <correct identifier="A"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+</assessmentItem>
+

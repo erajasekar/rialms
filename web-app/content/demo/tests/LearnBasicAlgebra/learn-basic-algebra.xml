@@ -25,6 +25,7 @@
             <assessmentItemRef identifier="IdentifyVariable1" href="IdentifyVariable1.xml"/>
             <assessmentItemRef identifier="IdentifyEquation1" href="IdentifyEquation1.xml"/>
             <assessmentItemRef identifier="IdentifyEquation2" href="IdentifyEquation2.xml"/>
+            <assessmentItemRef identifier="SolutionToEquation" href="SolutionToEquation.xml"/>
         </assessmentSection>
     </testPart>
 

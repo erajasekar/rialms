@@ -1,0 +1,332 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="SolutionToEquation" title="Solution To Equation" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="A" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceNo</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="B" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceNo</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="C" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceNo</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="D" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceNo</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="E" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceYes</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="F" cardinality="single" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceNo</value>
+        </correctResponse>
+    </responseDeclaration>
+    <outcomeDeclaration identifier="STEP1" cardinality="single" baseType="identifier"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <itemBody>
+        <p>
+            Now Let us solve the equation
+            <m:math title="2n=10">
+                <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                    <m:mn>2</m:mn>
+                    <m:mi>n</m:mi>
+                    <m:mo>=</m:mo>
+                    <m:mn>10</m:mn>
+                </m:mstyle>
+            </m:math>
+            by substitution method.
+        </p>
+        <br/>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Equation</th>
+                    <th>Value of Variable</th>
+                    <th>Substituting the value of the variable</th>
+                    <th>Does value of variable satisfies equation?</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <m:math title="2n=10">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mn>2</m:mn>
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>10</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        <m:math title="n=1">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>1</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        2 x 1 = 2
+                    </td>
+                    <td>
+                        <choiceInteraction responseIdentifier="A" maxChoices="1">
+                            <simpleChoice identifier="ChoiceYes">Yes</simpleChoice>
+                            <simpleChoice identifier="ChoiceNo">No</simpleChoice>
+                        </choiceInteraction>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <m:math title="2n=10">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mn>2</m:mn>
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>10</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        <m:math title="n=2">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>2</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        2 x 2 = 4
+                    </td>
+                    <td>
+                        <choiceInteraction responseIdentifier="B" maxChoices="1">
+                            <simpleChoice identifier="ChoiceYes">Yes</simpleChoice>
+                            <simpleChoice identifier="ChoiceNo">No</simpleChoice>
+                        </choiceInteraction>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <m:math title="2n=10">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mn>2</m:mn>
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>10</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        <m:math title="n=3">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>3</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        2 x 3 = 6
+                    </td>
+                    <td>
+                        <choiceInteraction responseIdentifier="C" maxChoices="1">
+                            <simpleChoice identifier="ChoiceYes">Yes</simpleChoice>
+                            <simpleChoice identifier="ChoiceNo">No</simpleChoice>
+                        </choiceInteraction>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <m:math title="2n=10">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mn>2</m:mn>
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>10</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        <m:math title="n=4">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>4</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        2 x 4 = 8
+                    </td>
+                    <td>
+                        <choiceInteraction responseIdentifier="D" maxChoices="1">
+                            <simpleChoice identifier="ChoiceYes">Yes</simpleChoice>
+                            <simpleChoice identifier="ChoiceNo">No</simpleChoice>
+                        </choiceInteraction>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <m:math title="2n=10">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mn>2</m:mn>
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>10</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        <m:math title="n=5">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>5</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        2 x 5 = 10
+                    </td>
+                    <td>
+                        <choiceInteraction responseIdentifier="E" maxChoices="1">
+                            <simpleChoice identifier="ChoiceYes">Yes</simpleChoice>
+                            <simpleChoice identifier="ChoiceNo">No</simpleChoice>
+                        </choiceInteraction>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <m:math title="2n=10">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mn>2</m:mn>
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>10</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        <m:math title="n=6">
+                            <m:mstyle fontfamily="serif" displaystyle="true">
+                                <m:mi>n</m:mi>
+                                <m:mo>=</m:mo>
+                                <m:mn>6</m:mn>
+                            </m:mstyle>
+                        </m:math>
+                    </td>
+                    <td>
+                        2 x 6 = 12
+                    </td>
+                    <td>
+                        <choiceInteraction responseIdentifier="F" maxChoices="1">
+                            <simpleChoice identifier="ChoiceYes">Yes</simpleChoice>
+                            <simpleChoice identifier="ChoiceNo">No</simpleChoice>
+                        </choiceInteraction>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <feedbackBlock outcomeIdentifier="STEP1" showHide="show" identifier="step1">
+            <p>
+                We see that the value of
+                <m:math title="n=5">
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>n</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>5</m:mn>
+                    </m:mstyle>
+                </m:math>
+                satisfies the equation and no other value of
+                <m:math title="n">
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>n</m:mi>
+                    </m:mstyle>
+                </m:math>
+                satisfies the equation.
+            </p>
+            <p>
+                <strong>
+                    The value of the variable in an equation which satisfies the equation is called a solution to the
+                    equation.
+                </strong>
+            </p>
+            <p>
+                Thus,
+                <m:math title="n=5">
+                    <m:mstyle color="blue" fontfamily="serif" displaystyle="true">
+                        <m:mi>n</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>5</m:mn>
+                    </m:mstyle>
+                </m:math>
+                is a solution to the equation
+                <m:math title="2n=10">
+                    <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>n</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>10</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </p>
+        </feedbackBlock>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <and>
+                    <match>
+                        <variable identifier="A"/>
+                        <correct identifier="A"/>
+                    </match>
+                    <match>
+                        <variable identifier="B"/>
+                        <correct identifier="B"/>
+                    </match>
+                    <match>
+                        <variable identifier="C"/>
+                        <correct identifier="C"/>
+                    </match>
+                    <match>
+                        <variable identifier="D"/>
+                        <correct identifier="D"/>
+                    </match>
+                    <match>
+                        <variable identifier="E"/>
+                        <correct identifier="E"/>
+                    </match>
+                    <match>
+                        <variable identifier="F"/>
+                        <correct identifier="F"/>
+                    </match>
+                </and>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="STEP1">
+                    <baseValue baseType="identifier">step1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+        </responseCondition>
+    </responseProcessing>
+</assessmentItem>

@@ -873,7 +873,7 @@ class QtiTagLib {
         String title = xmlNode.'@title';
 
         HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(xmlNode, xmlTag);
-        log.debug("DEBUG Added hiddenElement ${hiddenElement}")
+        log.info("DEBUG Added hiddenElement ${hiddenElement}")
 
         String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' : 'div';
         Map sectionTagAttributes = [id: hiddenElement.elementId];
