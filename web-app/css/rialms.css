@@ -207,5 +207,7 @@ a.toggleNav:hover {
   margin: 5px;
   padding: 10px;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  background-color: #ffffe0;
+  border: 1px solid #yellow;
   color: green;
 }

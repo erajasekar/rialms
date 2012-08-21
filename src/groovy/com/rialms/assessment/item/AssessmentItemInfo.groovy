@@ -251,8 +251,9 @@ class AssessmentItemInfo {
         String identifier = node.'@identifier';
         String valueLookUpKey = (valueLookUpType == HiddenElement.ValueLookUpType.Template) ? node.'@templateIdentifier' : node.'@outcomeIdentifier';
         String visibilityMode = node.'@showHide';
+        String sourceElementId= node.'@id';
         if (valueLookUpType && visibilityMode) {
-            return new HiddenElement(identifier, valueLookUpKey, xmlTag, visibilityMode, valueLookUpType);
+            return new HiddenElement(identifier, valueLookUpKey, xmlTag, visibilityMode, valueLookUpType,sourceElementId);
         }
         else {
             return null;

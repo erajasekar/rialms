@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="MatchEquationsToSolution" title="Match Equations To Solution" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="directedPair">
+        <correctResponse>
+            <value>A Y</value>
+            <value>B X</value>
+            <value>C Z</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="HINTS" cardinality="single" baseType="boolean"/>
+    <responseDeclaration identifier="SOLUTION" cardinality="single" baseType="boolean"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
+    <itemBody>
+        <matchInteraction responseIdentifier="RESPONSE" shuffle="false" maxAssociations="4">
+            <prompt>Match the following Equations to solution.</prompt>
+            <simpleMatchSet>
+                <simpleAssociableChoice identifier="A" matchMax="1">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mi>y</m:mi>
+                            <m:mo>-</m:mo>
+                            <m:mn>2</m:mn>
+                            <m:mo>=</m:mo>
+                            <m:mn>0</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleAssociableChoice>
+                <simpleAssociableChoice identifier="B" matchMax="1">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mn>2</m:mn>
+                            <m:mi>y</m:mi>
+                            <m:mo>=</m:mo>
+                            <m:mn>6</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleAssociableChoice>
+                <simpleAssociableChoice identifier="C" matchMax="1">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mn>2</m:mn>
+                            <m:mo>=</m:mo>
+                            <m:mi>y</m:mi>
+                            <m:mo>+</m:mo>
+                            <m:mn>2</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleAssociableChoice>
+            </simpleMatchSet>
+            <simpleMatchSet>
+                <simpleAssociableChoice identifier="Z" matchMax="1">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mi>y</m:mi>
+                            <m:mo>=</m:mo>
+                            <m:mn>0</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleAssociableChoice>
+                <simpleAssociableChoice identifier="Y" matchMax="1">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mi>y</m:mi>
+                            <m:mo>=</m:mo>
+                            <m:mn>2</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleAssociableChoice>
+                <simpleAssociableChoice identifier="X" matchMax="1">
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mi>y</m:mi>
+                            <m:mo>=</m:mo>
+                            <m:mn>3</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                </simpleAssociableChoice>
+            </simpleMatchSet>
+        </matchInteraction>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINTS" title="Show Hint"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINTS"/>
+                <setOutcomeValue identifier="SHOWHINT">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <match>
+                    <variable identifier="RESPONSE"/>
+                    <correct identifier="RESPONSE"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
+        <div id='HINT_1'>
+            <p>
+                Substitute
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>0</m:mn>
+                    </m:mstyle>
+                </m:math>
+                , in
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>-</m:mo>
+                        <m:mn>2</m:mn>
+                        <m:mo>=</m:mo>
+                        <m:mn>0</m:mn>
+                    </m:mstyle>
+                </m:math>
+                ,
+                0 - 2 = -2
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mo>&#8800;</m:mo>
+                        <m:mn>0</m:mn>
+                    </m:mstyle>
+                </m:math>
+                ,
+                Not satisfied.
+            </p>
+            <p>
+                Substitute
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>2</m:mn>
+                    </m:mstyle>
+                </m:math>
+                , in
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>-</m:mo>
+                        <m:mn>2</m:mn>
+                        <m:mo>=</m:mo>
+                        <m:mn>0</m:mn>
+                    </m:mstyle>
+                </m:math>
+                ,
+                2 - 2 = 0 = 0.
+                It's satisfied. So match equation
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>-</m:mo>
+                        <m:mn>2</m:mn>
+                        <m:mo>=</m:mo>
+                        <m:mn>0</m:mn>
+                    </m:mstyle>
+                </m:math>
+                to solution.
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>2</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </p>
+        </div>
+        <div id='HINT_2'>
+            <p>
+                Substitute
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>0</m:mn>
+                    </m:mstyle>
+                </m:math>
+                , in
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>6</m:mn>
+                    </m:mstyle>
+                </m:math>
+                ,
+                2 x 0 = 0
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mo>&#8800;</m:mo>
+                        <m:mn>6</m:mn>
+                    </m:mstyle>
+                </m:math>
+                ,
+                Not satisfied.
+            </p>
+            <p>
+                Substitute
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>2</m:mn>
+                    </m:mstyle>
+                </m:math>
+                , in
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>6</m:mn>
+                    </m:mstyle>
+                </m:math>
+                ,
+                2 x 2 = 4
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mo>&#8800;</m:mo>
+                        <m:mn>6</m:mn>
+                    </m:mstyle>
+                </m:math>
+                ,
+                Not satisfied.
+
+            </p>
+            <p>
+                Substitute
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>3</m:mn>
+                    </m:mstyle>
+                </m:math>
+                , in
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>6</m:mn>
+                    </m:mstyle>
+                </m:math>
+                2 * 3 = 6,
+                It's satisfied. So match equation
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>6</m:mn>
+                    </m:mstyle>
+                </m:math>
+                to solution.
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>3</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </p>
+
+        </div>
+        <div id='HINT_3'>
+            <p>
+                Match one remaining equation
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mn>2</m:mn>
+                        <m:mo>=</m:mo>
+                        <m:mi>y</m:mi>
+                        <m:mo>+</m:mo>
+                        <m:mn>2</m:mn>
+                    </m:mstyle>
+                </m:math>
+                to remaining solution
+                <m:math>
+                    <m:mstyle fontfamily="serif" displaystyle="true">
+                        <m:mi>y</m:mi>
+                        <m:mo>=</m:mo>
+                        <m:mn>0</m:mn>
+                    </m:mstyle>
+                </m:math>
+            </p>
+        </div>
+    </modalFeedback>
+</assessmentItem>
+
