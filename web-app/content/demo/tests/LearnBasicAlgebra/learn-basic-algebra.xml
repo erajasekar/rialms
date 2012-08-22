@@ -7,27 +7,40 @@
         title="Learn Basic Algebra">
 
     <testPart identifier="Part1" navigationMode="nonlinear" submissionMode="individual">
-        <assessmentSection identifier="ConstantsAndVariables" title="Know Constants And Variables" visible="true">
-            <assessmentItemRef identifier="KnowConstantsAndVariables" href="know-constants-and-variables.xml"/>
-            <assessmentItemRef identifier="Example1" href="example-1-letter-e.xml"/>
-            <assessmentItemRef identifier="Example2" href="example-2-pattern-of-tree.xml"/>
+        <assessmentSection identifier="IntroductionToConstantsAndVariables"
+                           title="Introduction To Constants And Variables" visible="true">
+            <assessmentItemRef identifier="KnowConstantsAndVariables" href="IntroductionToConstantsAndVariables.xml"/>
+            <assessmentItemRef identifier="FormationOfLetterE" href="FormationOfLetterE.xml"/>
+            <assessmentItemRef identifier="PatternOfTree" href="PatternOfTree.xml"/>
+        </assessmentSection>
+        <assessmentSection identifier="IntroductionToExpressions" title="Introduction To Expressions" visible="true">
             <assessmentItemRef identifier="ExpressionsWithVariables" href="ExpressionsWithVariables.xml"/>
-            <assessmentItemRef identifier="Exercise1" href="exercise-1.xml"/>
+            <assessmentItemRef identifier="IdentifyStatement" href="IdentifyStatement.xml"/>
             <assessmentItemRef identifier="ExpressionFromStatements" href="expression-from-statements.xml"/>
             <assessmentItemRef identifier="ExpressionToStatements" href="expression-to-statements.xml"/>
+        </assessmentSection>
+        <assessmentSection identifier="UsingExpressionsPractically" title="Using Expressions practically"
+                           visible="true">
             <assessmentItemRef identifier="FormExpression1" href="FormExpression1.xml"/>
             <assessmentItemRef identifier="FormExpression2" href="FormExpression2.xml"/>
             <assessmentItemRef identifier="FormExpression3" href="FormExpression3.xml"/>
             <assessmentItemRef identifier="FormExpression4" href="FormExpression4.xml"/>
             <assessmentItemRef identifier="FormExpression5" href="FormExpression5.xml"/>
             <assessmentItemRef identifier="FormExpression6" href="FormExpression6.xml"/>
-            <assessmentItemRef identifier="IntroductionToEquations" href="IntroductionToEquations.xml"/>
+        </assessmentSection>
+        <assessmentSection identifier="IntroductionToEquations" title="Introduction To Equations" visible="true">
+            <assessmentItemRef identifier="WhatIsAnEquation" href="WhatIsAnEquation.xml"/>
             <assessmentItemRef identifier="IdentifyVariable1" href="IdentifyVariable1.xml"/>
             <assessmentItemRef identifier="IdentifyEquation1" href="IdentifyEquation1.xml"/>
             <assessmentItemRef identifier="IdentifyEquation2" href="IdentifyEquation2.xml"/>
+        </assessmentSection>
+        <assessmentSection identifier="HowToSolveEquations" title="How To Solve Equations" visible="true">
             <assessmentItemRef identifier="SolutionToEquation" href="SolutionToEquation.xml"/>
             <assessmentItemRef identifier="SolveEquation" href="SolveEquation1.xml"/>
             <assessmentItemRef identifier="MatchEquationsToSolution" href="MatchEquationsToSolution.xml"/>
+            <assessmentItemRef identifier="IdentifySolution1" href="IdentifySolution1.xml"/>
+            <assessmentItemRef identifier="IdentifySolution2" href="IdentifySolution2.xml"/>
+            <assessmentItemRef identifier="IdentifySolution3" href="IdentifySolution3.xml"/>
         </assessmentSection>
     </testPart>
 

@@ -3,7 +3,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:m="http://www.w3.org/1998/Math/MathML"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
-                identifier="Example2" title="Example 2 - Pattern of Tree" adaptive="true"
+                identifier="PatternOfTree" title="Pattern of Tree" adaptive="true"
                 timeDependent="false">
     <responseDeclaration identifier="A" cardinality="single" baseType="integer">
         <correctResponse>
@@ -143,7 +143,7 @@
                 </m:math>
                 .
                 We can see that
-                <br/>
+                <br/><br/>
                 Number of match sticks used = (
                 <textEntryInteraction class="input-small" responseIdentifier="G" expectedLength="2"/>
                 x

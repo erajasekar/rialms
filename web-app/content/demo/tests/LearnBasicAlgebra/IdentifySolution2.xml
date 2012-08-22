@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assessmentItem xmlns="http://www.imsglobal.org/xsd/imsqti_v2p1"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xmlns:m="http://www.w3.org/1998/Math/MathML"
+                xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
+                identifier="IdentifySolution2" title="Identify Solution 2" adaptive="true"
+                timeDependent="false">
+    <responseDeclaration identifier="RESPONSE" cardinality="multiple" baseType="identifier">
+        <correctResponse>
+            <value>ChoiceB</value>
+        </correctResponse>
+    </responseDeclaration>
+    <responseDeclaration identifier="HINT" cardinality="single" baseType="boolean"/>
+    <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
+    <itemBody>
+        <choiceInteraction responseIdentifier="RESPONSE" maxChoices="1">
+            <prompt>
+                <p>Identify solution for the equation
+                    <m:math>
+                        <m:mstyle fontfamily="serif" displaystyle="true">
+                            <m:mn>n</m:mn>
+                            <m:mo>+</m:mo>
+                            <m:mn>12</m:mn>
+                            <m:mo>=</m:mo>
+                            <m:mn>20</m:mn>
+                        </m:mstyle>
+                    </m:math>
+                    from values below
+                </p>
+            </prompt>
+            <simpleChoice identifier="ChoiceA">12</simpleChoice>
+            <simpleChoice identifier="ChoiceB">8</simpleChoice>
+            <simpleChoice identifier="ChoiceC">20</simpleChoice>
+            <simpleChoice identifier="ChoiceD">0</simpleChoice>
+        </choiceInteraction>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINT" title="Show Hint"/>
+        </p>
+    </itemBody>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINT"/>
+                <setOutcomeValue identifier="SHOWHINT">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <match>
+                    <variable identifier="RESPONSE"/>
+                    <correct identifier="RESPONSE"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <baseValue baseType="integer">1</baseValue>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+        </responseCondition>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
+        Let's substitute each of choices in equation.<br/><br/>
+        Substitute
+        <m:math>
+            <m:mstyle fontfamily="serif" displaystyle="true">
+                <m:mi>n</m:mi>
+                <m:mo>=</m:mo>
+                <m:mn>12</m:mn>
+            </m:mstyle>
+        </m:math>
+        in
+        <m:math>
+            <m:mstyle fontfamily="serif" displaystyle="true">
+                <m:mn>n</m:mn>
+                <m:mo>+</m:mo>
+                <m:mn>12</m:mn>
+                <m:mo>=</m:mo>
+                <m:mn>20</m:mn>
+            </m:mstyle>
+        </m:math>,
+        12 * 12 = 24
+        <m:math>
+            <m:mstyle fontfamily="serif" displaystyle="true">
+                <m:mo>&#8800;</m:mo>
+                <m:mn>20</m:mn>
+            </m:mstyle>
+        </m:math>,
+        Not a solution. <br/>
+        Substitute
+        <m:math>
+            <m:mstyle fontfamily="serif" displaystyle="true">
+                <m:mi>n</m:mi>
+                <m:mo>=</m:mo>
+                <m:mn>8</m:mn>
+            </m:mstyle>
+        </m:math>
+        in
+        <m:math>
+            <m:mstyle fontfamily="serif" displaystyle="true">
+                <m:mn>n</m:mn>
+                <m:mo>+</m:mo>
+                <m:mn>12</m:mn>
+                <m:mo>=</m:mo>
+                <m:mn>20</m:mn>
+            </m:mstyle>
+        </m:math>,
+        8 + 12 = 20,
+        So it is a solution.
+    </modalFeedback>
+</assessmentItem>

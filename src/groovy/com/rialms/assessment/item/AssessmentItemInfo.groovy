@@ -104,7 +104,7 @@ class AssessmentItemInfo {
             multiHintClicked();
         }
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
-
+        //TODO P1: cLICKING HINT SUBMITING ITEM sets status to timedout.
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
         isResponseValid = !responseValues.isEmpty();
         log.info("Response Values ${this} ==> ${responseValues} , valid : ${isResponseValid}");
