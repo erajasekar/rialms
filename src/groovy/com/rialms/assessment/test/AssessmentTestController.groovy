@@ -354,6 +354,10 @@ public class AssessmentTestController implements Serializable {
         return false;
     }
 
+    public boolean getItemSessionShowFeedBack(){
+        return getCurrentItemRef().getItemSessionControl().getShowFeedback();
+    }
+
     public List<TestFeedback> getAssessmentFeedback() {
         log.debug("Getting AssessmentFeedback");
 

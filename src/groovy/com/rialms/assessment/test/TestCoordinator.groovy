@@ -442,6 +442,7 @@ public class TestCoordinator implements Serializable {
         boolean hasNoFeedbackAndNotAdaptive = ((test.getAssessmentFeedback() == null || test.getAssessmentFeedback().size() == 0) &&
                 (test.getTestPartFeedback() == null || test.getTestPartFeedback().size() == 0) &&
                 !test.currentItemInfo.itemBody.willShowFeedback() &&
+                !test.getItemSessionShowFeedBack() &&
                 !test.currentItemInfo.adaptive)
         log.info("hasNoFeedbackAndNotAdaptive = ${hasNoFeedbackAndNotAdaptive} <======> nextEnabled ${test.nextEnabled()}");
         return hasNoFeedbackAndNotAdaptive && test.nextEnabled() && test.currentItemInfo.isResponseValid;
