@@ -551,9 +551,6 @@ class QtiTagLib {
             out << gapText('xmlNode': choice, 'assessmentItemInfo': assessmentItemInfo);
         }
         out << "</p>";
-        out << "<div id='gap-match-help' style='display:none' >"
-        out << g.img(dir: 'images/qti', file: 'gap-match-help.gif');
-        out << "</div>"
 
     }
 

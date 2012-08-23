@@ -282,14 +282,16 @@ public class AssessmentTestController implements Serializable {
     }
 
     public void timeOut() {
-        currentItemInfo.setStatus(AssessmentItemStatus.TIMED_OUT)
+        log.info("Timing out test");
         AssessmentItemRef air = getCurrentItemRef();
         if (air?.isTimedOut()) {
             air.timeOut();
+            currentItemInfo.setStatus(AssessmentItemStatus.TIMED_OUT)
         }
     }
 
     public boolean isTestTimedOut() {
+        log.info("DEBUG Timing out test");
         AssessmentItemRef air = getCurrentItemRef();
         return (air && !air.passMaximumTimeLimit());
     }

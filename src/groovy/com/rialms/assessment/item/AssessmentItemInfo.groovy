@@ -104,7 +104,6 @@ class AssessmentItemInfo {
             multiHintClicked();
         }
         List identifiers = assessmentItem.responseDeclarations.collect {it -> it.identifier};
-        //TODO P1: cLICKING HINT SUBMITING ITEM sets status to timedout.
         Map<String, List<String>> responseValues = QtiUtils.convertToRespValues(params, identifiers);
         isResponseValid = !responseValues.isEmpty();
         log.info("Response Values ${this} ==> ${responseValues} , valid : ${isResponseValid}");
@@ -247,6 +246,7 @@ class AssessmentItemInfo {
         multiHintRemainingCount = 0;
     }
 
+    //TODO P1: Connvert hidden elements to angular
     private HiddenElement createHiddenElement(Node node, Tag xmlTag, HiddenElement.ValueLookUpType valueLookUpType) {
         String identifier = node.'@identifier';
         String valueLookUpKey = (valueLookUpType == HiddenElement.ValueLookUpType.Template) ? node.'@templateIdentifier' : node.'@outcomeIdentifier';

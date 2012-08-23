@@ -103,8 +103,9 @@ class TestController {
 
     def navigate = {
         log.info("Executing navigate with params ${params}");
-
-        boolean renderNextItem = (params[Consts.renderNextItem]) ?: true;
+        boolean renderNextItem = (params[(Consts.renderNextItem)]) ?: true;
+        //boolean renderNextItem = (params.containsKey(Consts.renderNextItem)) ? params[Consts.renderNextItem]: true;
+        log.info("navigate renderNextItem = ${renderNextItem}");
 
         if (!params.id) {
             return redirect(action: 'list')
@@ -141,7 +142,11 @@ class TestController {
                 }
             } else {
                 //To render same item, just get render output for controls.
-                renderOutput = CollectionUtils.mergeMapsByKeyAsList(coordinator.testController.currentItemInfo.renderOutput, renderOutput);
+                AssessmentItemInfo assessmentItemInfo = coordinator.testController.currentItemInfo;
+                /*if (assessmentItemInfo.isResponseValid){
+                    renderOutput[Consts.angularData][Consts.itemResult] = qti.itemResult(assessmentItemInfo:assessmentItemInfo);
+                } */
+                renderOutput = CollectionUtils.mergeMapsByKeyAsList(assessmentItemInfo.renderOutput, renderOutput);
             }
 
             //Render if any test feedback

@@ -108,7 +108,7 @@ window.initGapInteraction =->
   return
 
 window.initAngularScopeObjects = (data)->
-  #console.log(data.angularData)
+  console.log(data.angularData)
   if data.angularData
     contentScope = angular.element('#content').scope()
     headScope = angular.element('#head').scope()

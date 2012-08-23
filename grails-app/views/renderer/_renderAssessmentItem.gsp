@@ -54,9 +54,11 @@
                 </button>
             </g:else>
             <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}" />
-            <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
+            <span ng-bind-html="${Consts.itemResult}">
+                <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
+            </span>
             <g:render template="/renderer/renderResponseValidation" />
-
+            <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
         </div>
     </div>
 </div>

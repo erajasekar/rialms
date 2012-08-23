@@ -3,7 +3,7 @@
                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                 xmlns:m="http://www.w3.org/1998/Math/MathML"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
-                identifier="ExpressionToStatements" title="Expression to statements" adaptive="false"
+                identifier="ExpressionToStatements" title="Expression to statements" adaptive="true"
                 timeDependent="false">
 
     <stylesheet href="css/LearnBasicAlgebra.css" type="text/css"/>
@@ -42,10 +42,13 @@
             <mapEntry mapKey="one_fourth gap_one_fourth" mappedValue="1"/>
         </mapping>
     </responseDeclaration>
+    <responseDeclaration identifier="HINTS" cardinality="single" baseType="boolean"/>
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
+    <outcomeDeclaration identifier="SHOWHINT" cardinality="single" baseType="identifier"/>
     <itemBody>
         <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="true">
-            <prompt>Fill the missing words in statements representing each expression from choices below.</prompt>    <!--TODO fix double font -->
+            <prompt>Fill the missing words in statements representing each expression from choices below.</prompt>
+            <!--TODO fix double font -->
             <gapText identifier="add" matchMax="1">Add</gapText>
             <gapText identifier="four" matchMax="3">4</gapText>
             <gapText identifier="three" matchMax="3">3</gapText>
@@ -140,7 +143,79 @@
             </table>
 
         </gapMatchInteraction>
+        <p>
+            <endAttemptInteraction responseIdentifier="HINTS" title="Hints"/>
+        </p>
     </itemBody>
-    <responseProcessing
-            template="http://www.imsglobal.org/question/qti_v2p1/rptemplates/map_response"/>
+    <responseProcessing>
+        <responseCondition>
+            <responseIf>
+                <variable identifier="HINTS"/>
+                <setOutcomeValue identifier="SHOWHINT">
+                    <baseValue baseType="identifier">HINT</baseValue>
+                </setOutcomeValue>
+            </responseIf>
+            <responseElseIf>
+                <match>
+                    <variable identifier="RESPONSE"/>
+                    <correct identifier="RESPONSE"/>
+                </match>
+                <setOutcomeValue identifier="SCORE">
+                    <mapResponse identifier="RESPONSE"/>
+                </setOutcomeValue>
+                <setOutcomeValue identifier="completionStatus">
+                    <baseValue baseType="identifier">completed</baseValue>
+                </setOutcomeValue>
+            </responseElseIf>
+            <responseElse>
+                <setOutcomeValue identifier="SCORE">
+                    <mapResponse identifier="RESPONSE"/>
+                </setOutcomeValue>
+            </responseElse>
+        </responseCondition>
+    </responseProcessing>
+    <modalFeedback outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
+        <div id='HINT_1'>
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mi>m</m:mi>
+                    <m:mo>+</m:mo>
+                    <m:mn>4</m:mn>
+                </m:mstyle>
+            </m:math> can be written as <q>Add 4 to 3 times a number</q>
+        </div>
+        <div id='HINT_2'>
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mn>4</m:mn>
+                    <m:mfrac>
+                        <m:mi>m</m:mi>
+                        <m:mn>3</m:mn>
+                    </m:mfrac>
+                </m:mstyle>
+            </m:math> can be written as <q>One third of 4 times a number</q>
+        </div>
+        <div id='HINT_3'>
+            <m:math >
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mn>4</m:mn>
+                    <m:mi>m</m:mi>
+                    <m:mo>-</m:mo>
+                    <m:mn>3</m:mn>
+                </m:mstyle>
+            </m:math> can be written as <q>Subtract 3 from 4 times a number</q>
+        </div>
+        <div id='HINT_4'>
+            <m:math>
+                <m:mstyle fontfamily="serif" displaystyle="true">
+                    <m:mn>3</m:mn>
+                    <m:mfrac>
+                        <m:mi>m</m:mi>
+                        <m:mn>4</m:mn>
+                    </m:mfrac>
+                </m:mstyle>
+            </m:math> can be written as <q>One fourth of 3 times a number</q>
+        </div>
+    </modalFeedback>
 </assessmentItem>
