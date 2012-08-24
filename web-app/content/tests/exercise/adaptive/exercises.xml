@@ -6,6 +6,7 @@
         identifier="AdaptiveExercise"
         title="Adaptive Exercises">
     <testPart identifier="part1" navigationMode="linear" submissionMode="individual">
+        <itemSessionControl showFeedback="true"/>
         <assessmentSection identifier="sectionA" title="Section 1" visible="true">
             <assessmentItemRef identifier="perimeter1" href="perimeter1.xml"></assessmentItemRef>
             <assessmentItemRef identifier="Sequences_Ex_2_1" href="Sequences_Ex_2_1.xml"></assessmentItemRef>

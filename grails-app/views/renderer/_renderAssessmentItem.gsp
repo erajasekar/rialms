@@ -33,31 +33,20 @@
                        value="true"/> <!-- Used to indicate if submit button was clicked. This param will be set only if submit was clicked -->
 
         <hr/>
+
         <div>
-            <g:if test="${assessmentParams.submitEnabled}">
-                <button type='submit'
-                        value='Submit'
-                        id='submit'
-                        class="btn btn-success">
-                    <i class="icon-ok icon-white"></i>Submit
+            <button type='submit'
+                    value='Submit'
+                    id='submit'
+                    class="btn btn-success" ng-disabled="${Consts.submitDisabled}">
+                <i class="icon-ok icon-white"></i>Submit
+            </button>
 
-                </button>
-
-            </g:if>
-            <g:else>
-                <button type='submit'
-                        value='Submit'
-                        id='submit'
-                        class="btn btn-success"
-                        disabled="disabled">
-                    <i class="icon-ok icon-white"></i>Submit
-                </button>
-            </g:else>
-            <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}" />
+            <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}"/>
             <span ng-bind-html="${Consts.itemResult}">
                 <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
             </span>
-            <g:render template="/renderer/renderResponseValidation" />
+            <g:render template="/renderer/renderResponseValidation"/>   <!--TODO p1: RESPONSE VALIDATION NOT WORKING FOR TESTS -->
             <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
         </div>
     </div>

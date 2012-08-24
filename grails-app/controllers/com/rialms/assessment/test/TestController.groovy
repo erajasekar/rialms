@@ -103,8 +103,6 @@ class TestController {
 
     def navigate = {
         log.info("Executing navigate with params ${params}");
-        //TODO p1 getrid of renderNextItem
-       // boolean renderNextItem = (params[(Consts.renderNextItem)]) ?: true;
         boolean renderNextItem = (params.containsKey(Consts.renderNextItem)) ? params[Consts.renderNextItem]: true;
         log.info("navigate renderNextItem = ${renderNextItem}");
 
@@ -126,6 +124,7 @@ class TestController {
             render createRedirectLinkJSON(controller: 'test', action: 'feedback', params: params);
         } else {
             Map renderOutput = testRenderInfo.renderOutput;
+
             if (renderNextItem) {
                 //To render next item, reset testContent
                 if (testRenderInfo[Consts.assessmentParams][Consts.submitTestPartContent]) {
@@ -142,14 +141,13 @@ class TestController {
 
                 }
             } else {
-                renderOutput[Consts.testContent] = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
+
                 AssessmentItemInfo assessmentItemInfo = coordinator.testController.currentItemInfo;
-                if (assessmentItemInfo.isResponseValid){
+                //itemSessionShowFeedBack is enabled show itemResult event for test.
+                if (assessmentItemInfo.isResponseValid && coordinator.testController.itemSessionShowFeedBack){
                     renderOutput[Consts.angularData][Consts.itemResult] = qti.itemResult(assessmentItemInfo:assessmentItemInfo);
                 }
-                println "BEFORE ${renderOutput}";
                 renderOutput = CollectionUtils.mergeMapsByKeyAsList(assessmentItemInfo.renderOutput, renderOutput);
-                println "AFTER ${renderOutput}";
             }
 
             //Render if any test feedback
