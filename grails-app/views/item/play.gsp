@@ -19,7 +19,7 @@
 <r:script>
     $(document).ready(function () {
         initTestRendering();
-        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, Consts.itemStylesheets, assessmentItemInfo.itemStylesheets)});
+        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, [(Consts.itemStylesheets): assessmentItemInfo.itemStylesheets, (Consts.isResponseValid):assessmentItemInfo.isResponseValid])});
     });
 </r:script>
 

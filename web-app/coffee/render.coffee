@@ -122,7 +122,7 @@ window.initAngularScopeObjects = (data)->
       else
         contentScope.$apply ->
           contentScope[key] = value
-    #console.log(headScope.itemStylesheet)
+    console.log(contentScope.isResponseValid)
   return
 
 window.initMatchInteraction = ->

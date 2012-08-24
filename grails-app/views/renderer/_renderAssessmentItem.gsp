@@ -46,7 +46,7 @@
             <span ng-bind-html="${Consts.itemResult}">
                 <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
             </span>
-            <g:render template="/renderer/renderResponseValidation"/>   <!--TODO p1: RESPONSE VALIDATION NOT WORKING FOR TESTS -->
+            <g:render template="/renderer/renderResponseValidation"/>
             <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
         </div>
     </div>
