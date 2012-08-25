@@ -11,8 +11,7 @@
     <div class="span3" id="sidebar">
         <div class="sidebar-nav">
             <div class="block-header">
-                <h4>  <!--TODO p2: remove hardcoded string test -->
-                    <g:message code="test.label"/>
+                <h4>
                     <g:if test="${assessmentParams[Consts.testPartTitle]}">
                         <span ng-bind="${Consts.testPartTitle}"></span>
                     </g:if>
