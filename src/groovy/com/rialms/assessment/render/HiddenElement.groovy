@@ -28,17 +28,13 @@ class HiddenElement {
     private String elementId;
     private ValueLookUpType valueLookUpType;
 
-    public HiddenElement(String identifier, String valueLookUpKey, Tag tag, String visibilityMode,ValueLookUpType valueLookUpType, String sourceElementId=null) {
+    public HiddenElement(String identifier, String valueLookUpKey, Tag tag, String visibilityMode,ValueLookUpType valueLookUpType) {
         this.identifier = identifier;
         this.valueLookUpKey = valueLookUpKey
         this.tag = tag;
         this.visibilityMode = com.rialms.consts.VisibilityMode.valueOfString(visibilityMode)
         this.valueLookUpType=valueLookUpType;
-        this.elementId = "${tag}-${identifier}-${valueLookUpKey}-${visibilityMode}";
-        if (sourceElementId){
-            this.elementId = "${this.elementId}-${sourceElementId}";
-        }
-
+        this.elementId = "${tag}_${identifier}_${valueLookUpKey}_${visibilityMode}";
     }
 
     public String getIdentifier() {

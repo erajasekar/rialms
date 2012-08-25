@@ -134,8 +134,8 @@ class AssessmentItemInfo {
         return endAttemptButtons
     }
 
-    private void initInteractionHelps(){
-        try{
+    private void initInteractionHelps() {
+        try {
 
             List<Interaction> interactions = assessmentItem.itemBody.interactions;
 
@@ -150,7 +150,7 @@ class AssessmentItemInfo {
             }
 
             log.info("interactionHelps ${interactionHelps}");
-        } catch(Throwable t){
+        } catch (Throwable t) {
             t.printStackTrace();
         }
 
@@ -198,17 +198,14 @@ class AssessmentItemInfo {
         return header;
     }
 
-    public Map<String, Set<String>> getVisibleAndHiddenElementIds() {
-        Set<String> visibleIds = [];
-        Set<String> hiddenIds = [];
-        hiddenElements.each { element ->
-            if (isVisible(element)) {
-                visibleIds << "#${element.elementId}";
-            } else {
-                hiddenIds << "#${element.elementId}";
-            }
+    public Map<String, Boolean> getHiddenElementsData() {
+        Map<String, Boolean> result;
+        result = hiddenElements.collectEntries { hiddenElement ->
+            String key = "${hiddenElement.elementId}_${Consts.visible}";
+            [(key): isVisible(hiddenElement)];
         }
-        return [(Consts.visibleElementIds): visibleIds, (Consts.hiddenElementIds): hiddenIds]
+        log.debug("DEBUG getHiddenElementsData ${result}");
+        return result;
     }
 
     public boolean isVisible(HiddenElement element) {
@@ -221,7 +218,6 @@ class AssessmentItemInfo {
     }
 
     public HiddenElement addHiddenElement(Node node, Tag xmlTag) {
-
         HiddenElement.ValueLookUpType valueLookUpType = Tag.isFeedBackTag(xmlTag) ? HiddenElement.ValueLookUpType.Outcome : HiddenElement.ValueLookUpType.Template;
         HiddenElement hiddenElement = createHiddenElement(node, xmlTag, valueLookUpType);
         if (hiddenElement) {
@@ -246,14 +242,12 @@ class AssessmentItemInfo {
         multiHintRemainingCount = 0;
     }
 
-    //TODO P1: Connvert hidden elements to angular
     private HiddenElement createHiddenElement(Node node, Tag xmlTag, HiddenElement.ValueLookUpType valueLookUpType) {
         String identifier = node.'@identifier';
         String valueLookUpKey = (valueLookUpType == HiddenElement.ValueLookUpType.Template) ? node.'@templateIdentifier' : node.'@outcomeIdentifier';
         String visibilityMode = node.'@showHide';
-        String sourceElementId= node.'@id';
         if (valueLookUpType && visibilityMode) {
-            return new HiddenElement(identifier, valueLookUpKey, xmlTag, visibilityMode, valueLookUpType,sourceElementId);
+            return new HiddenElement(identifier, valueLookUpKey, xmlTag, visibilityMode, valueLookUpType);
         }
         else {
             return null;
@@ -298,7 +292,7 @@ class AssessmentItemInfo {
         assessmentItem.stylesheets.each { stylesheet ->
             String fullPath = dataPath + stylesheet.getHref();
 
-            Map attrs = [href:fullPath];
+            Map attrs = [href: fullPath];
             String media = stylesheet.getMedia();
             String title = stylesheet.getTitle();
             String type = stylesheet.getTitle();
@@ -312,20 +306,18 @@ class AssessmentItemInfo {
     }
 
     public Map getRenderOutput() {
-        Map<String, Set<String>> visibleAndHiddenElementIds = visibleAndHiddenElementIds;
-        Map output = [(Consts.itemOutcomeValues): outcomeValues,
-                (Consts.visibleElementIds): visibleAndHiddenElementIds[Consts.visibleElementIds],
-                (Consts.hiddenElementIds): visibleAndHiddenElementIds[Consts.hiddenElementIds]];
+        Map output = [(Consts.itemOutcomeValues): outcomeValues];
         if (isResponseValid && isCorrect()) {
             output[(Consts.disableElementIds)] = disableOnCompletionIds.collect { "#${it}"};
         }
         Map angularData = [(Consts.assessmentHeader): header,
                 (Consts.endAttemptButtons): endAttemptButtons,
-                (Consts.isResponseValid): isResponseValid];
+                (Consts.isResponseValid): isResponseValid,
+                (Consts.hiddenElementsData): hiddenElementsData];
 
         output[Consts.angularData] = angularData;
 
-        log.debug("DEBUG AssessmentItemInfo renderOutput ${output}")
+        log.info("DEBUG AssessmentItemInfo renderOutput ${output}")
         return output;
     }
 

@@ -63,6 +63,7 @@ class TestRenderInfo {
                 (Consts.testPartTitle): assessmentParams[Consts.testPartTitle],
                 (Consts.submitDisabled) : !assessmentParams[Consts.submitEnabled],
                 (Consts.isResponseValid):assessmentItemInfo.isResponseValid,
+                (Consts.hiddenElementsData):assessmentItemInfo.hiddenElementsData,
                 (Consts.itemResult):'',
         ]
         output[Consts.angularData] = angularData;

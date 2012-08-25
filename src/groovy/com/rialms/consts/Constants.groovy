@@ -109,5 +109,7 @@ class Constants {
     public static final String height = 'height';
     public static final String width = 'width';
     public static final String elementId = 'elementId';
+    public static final String visible = 'visible';
+    public static final String hiddenElementsData = 'hiddenElementsData';
 
 }

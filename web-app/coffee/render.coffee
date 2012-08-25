@@ -12,10 +12,6 @@ window.updateRenderedItem = (data) ->
     )
     return
   else
-    if data.visibleElementIds
-      $(visibleElementId).show() for visibleElementId in data.visibleElementIds
-    if data.hiddenElementIds
-      $(hiddenElementId).hide() for hiddenElementId in data.hiddenElementIds
     if data.itemOutcomeValues
       outcomeValuesText = JSON.stringify(data.itemOutcomeValues)
       $('#itemOutcomeValues').text(outcomeValuesText)
@@ -108,8 +104,7 @@ window.initGapInteraction =->
   return
 
 window.initAngularScopeObjects = (data)->
-  console.log('data');
-  console.log(data.angularData)
+  #console.log('data');
   if data.angularData
     contentScope = angular.element('#content').scope()
     headScope = angular.element('#head').scope()
@@ -122,7 +117,6 @@ window.initAngularScopeObjects = (data)->
       else
         contentScope.$apply ->
           contentScope[key] = value
-    console.log(contentScope.isResponseValid)
   return
 
 window.initMatchInteraction = ->

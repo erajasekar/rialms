@@ -118,14 +118,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintA"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 10 + 10 = 20
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionA"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition not satisfied, Not a solution
                         </feedbackInline>
@@ -159,14 +159,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintB"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 10 + 30 = 40
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionB"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition not satisfied, Not a solution
                         </feedbackInline>
@@ -200,14 +200,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintC"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 10 + 20 = 30
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionC"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition satisfied, It's a solution
                         </feedbackInline>
@@ -241,14 +241,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintD"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 5 - 3 = 2.
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionD"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition not satisfied, Not a solution
                         </feedbackInline>
@@ -282,14 +282,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintE"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 15 - 3 = 12.
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionE"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition not satisfied, Not a solution.
                         </feedbackInline>
@@ -323,14 +323,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintF"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 10 - 3 = 7.
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionF"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition satisfied, It's a solution
                         </feedbackInline>
@@ -363,14 +363,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintG"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 3 x 9 = 27.
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionG"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition not satisfied, Not a solution
                         </feedbackInline>
@@ -403,14 +403,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintH"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 3 x 7 = 21.
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionH"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition satisfied, It is a solution
                         </feedbackInline>
@@ -444,14 +444,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintI"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 25 / 5 = 5.
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionI"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition not satisfied, Not a solution
                         </feedbackInline>
@@ -485,14 +485,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintJ"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, 20 / 5 = 4.
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionJ"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition satisfied, It's  a solution
                         </feedbackInline>
@@ -527,14 +527,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintK"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, (2 * 5) + 3 = 13.
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionK"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition not satisfied, Not a solution
                         </feedbackInline>
@@ -569,14 +569,14 @@
                         </choiceInteraction>
                     </td>
                     <td>
-                        <feedbackInline id="hintL"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWHINT" identifier="HINT" showHide="show">
 
                             Substituting variable, (2 * 2) + 3 = 7.
                         </feedbackInline>
                     </td>
                     <td>
-                        <feedbackInline id="solutionL"
+                        <feedbackInline
                                         outcomeIdentifier="SHOWSOLUTION" identifier="SOLUTION" showHide="show">
                             Condition satisfied, It's a solution
                         </feedbackInline>

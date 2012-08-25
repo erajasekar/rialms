@@ -873,13 +873,10 @@ class QtiTagLib {
         log.info("DEBUG Added hiddenElement ${hiddenElement}")
 
         String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' : 'div';
-        Map sectionTagAttributes = [id: hiddenElement.elementId];
+        Map sectionTagAttributes = ['ng-show': "${Consts.hiddenElementsData}.${hiddenElement.elementId}_${Consts.visible}"];
         boolean isModelFeedback = xmlTag == Tag.modalFeedback;
         if (isModelFeedback) {
             sectionTagAttributes['class'] = 'well model-feedback';
-        }
-        if (!assessmentItemInfo.isVisible(hiddenElement)) {
-            sectionTagAttributes['style'] = 'display: none';
         }
         out << "<${sectionTag} ${CollectionUtils.convertMapToAttributes(sectionTagAttributes)} >";
 
@@ -977,30 +974,6 @@ class QtiTagLib {
         AssessmentItemInfo assessmentItemInfo = getRequiredAttribute(attrs, 'assessmentItemInfo', tag);
         List<InteractionHelp> interactionHelps = assessmentItemInfo.interactionHelps;
         int size = interactionHelps.size();
-        /* if (size > 0) {
-            InteractionHelp interactionHelp = interactionHelps[0];
-            out << "<span class='pull-right btn-group'>";
-            Map params = getShowInteractionHelpParams(interactionHelp);
-            out << """<a class="btn btn-info" href='#' onclick='window.showInteractionHelp(${params as JSON})' ><i class="icon-question-sign"></i>&nbsp;&nbsp;${params[Consts.title]}</a>"""
-            if (size > 1) {
-                out << """<a class="btn btn-info dropdown-toggle" data-toggle="dropdown">"""
-                out << """ <span class="caret"></span>""";
-                out << "</a>"
-            }
-
-            if (size > 1) {
-                out << """ <ul class="dropdown-menu"> """;
-                for (i in 1..size - 1) {
-                    interactionHelp = interactionHelps[i];
-                    out << "<li>"
-                    params =  getShowInteractionHelpParams(interactionHelp);
-                    out << """<a href='#' onclick='window.showInteractionHelp(${params as JSON})' >${params[Consts.title]}</a>"""
-                    out << "</li>"
-                }
-                out << "</ul>"
-            }
-            out << "</span>";
-        }*/
 
         if (size > 0) {
             out << "<span class='pull-right btn-group'>";
