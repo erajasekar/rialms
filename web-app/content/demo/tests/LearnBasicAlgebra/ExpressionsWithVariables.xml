@@ -125,7 +125,7 @@
         </p>
         <div class="well">
             <choiceInteraction responseIdentifier="RESPONSE"
-                               maxChoices="0">   <!-- TODO p2, IF i don't automatically provide itemresult in test, this should be made as adaptive -->
+                               maxChoices="0">
                 <prompt>
                     <p>Which of the following is a variable expression ?</p>
                 </prompt>

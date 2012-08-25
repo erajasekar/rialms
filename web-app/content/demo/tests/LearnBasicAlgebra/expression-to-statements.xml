@@ -48,7 +48,6 @@
     <itemBody>
         <gapMatchInteraction responseIdentifier="RESPONSE" shuffle="true">
             <prompt>Fill the missing words in statements representing each expression from choices below.</prompt>
-            <!--TODO fix double font -->
             <gapText identifier="add" matchMax="1">Add</gapText>
             <gapText identifier="four" matchMax="3">4</gapText>
             <gapText identifier="three" matchMax="3">3</gapText>
@@ -57,7 +56,7 @@
             <gapText identifier="one_fourth" matchMax="1">One fourth</gapText>
             <gapText identifier="one_third" matchMax="1">One third</gapText>
 
-            <table class="expression-statement"> <!--TODO fix cellpadding warning with custom css -->
+            <table class="expression-statement">
                 <tbody>
                     <tr>
                         <td>
