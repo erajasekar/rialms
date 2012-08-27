@@ -58,6 +58,10 @@ class TestService implements InitializingBean {
         return "${contentPath}/${dataPath}/"
     }
 
+    public String findTestIdByTitle(String title){
+        return Test.findByTitle(title).id;
+    }
+
     public PagedResultList listTestsByFilter(Map params){
         if (!params.max) params.max = maxEntriesPerPage
         if (!params.filterByFeature) params.filterByFeature = 'all'

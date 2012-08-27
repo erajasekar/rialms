@@ -111,5 +111,6 @@ class Constants {
     public static final String elementId = 'elementId';
     public static final String visible = 'visible';
     public static final String hiddenElementsData = 'hiddenElementsData';
+    public static final String learnBasicAlgebraTitle = 'Learn Basic Algebra';
 
 }

@@ -25,8 +25,7 @@
 <body>
 <qti:less2Css/>
 <nav class="navbar navbar-fixed-top">
-<!-- TODO P3 Enable for dev  -->
-    <g:if test="${!Environment.currentEnvironment == grails.util.Environment.DEVELOPMENT}">
+<!-- TODO P3 Enable for dev -->
         <div class="navbar-inner">
 
             <div class="container">
@@ -39,16 +38,19 @@
 
                 <div class="nav-collapse">
                     <ul class="nav">
-                        <li  <%='item' == params.controller ? ' class="active"' : ''%>><a
+                        <li  <%='demo' == params.controller ? ' class="active"' : ''%>><a
+                                href="${createLink(controller: 'demo')}"><g:message code="demo.label"/></a>
+                        </li>
+                      <!--  <li  <%='item' == params.controller ? ' class="active"' : ''%>><a
                                 href="${createLink(controller: 'item')}"><g:message code="item.label"/></a>
                         </li>
                         <li <%='test' == params.controller ? ' class="active"' : ''%>><a
-                                href="${createLink(controller: 'test')}"><g:message code="tests.label"/></a></li>
+                                href="${createLink(controller: 'test')}"><g:message code="tests.label"/></a></li> -->
                     </ul>
                 </div>
             </div>
         </div>
-    </g:if>
+
 </nav>
 
 <div class="container-fluid">

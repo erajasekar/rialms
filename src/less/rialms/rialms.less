@@ -3,6 +3,7 @@
 @import "rialms-mixins.less";
 @import "../bootstrap/mixins.less";
 
+//TODO p3 Modularize into multiple files
 body {
     padding-top: 65px;
 }
@@ -97,7 +98,7 @@ a.toggleNav {
 .page-title {
     .center;
     padding: 10px;
-    border-bottom: 2px solid @grayLighter;
+    //border-bottom: 2px solid @grayLighter;
 }
 
 .title {
@@ -207,4 +208,14 @@ a.toggleNav {
     color: green;
 }
 
+
+.subnav {
+    height: 45px;
+    background-color: @subNavBackground;
+    border: 1px solid @subNavBorder;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    padding: 5px 30px 5px 30px;
+}
 

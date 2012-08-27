@@ -24,10 +24,6 @@ class ItemController {
 
     }
 
-    def demo = {
-        [itemList: itemService.listItemsByFilter(params)]
-    }
-
     def reset = {
         if (params[Consts.redirectto]) {
             return redirect(action: params[Consts.redirectto])

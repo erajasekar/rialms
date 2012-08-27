@@ -19,10 +19,6 @@ class TestController {
         [testList: Test.list(params)]
     }
 
-    def demo = {
-        [testList: testService.listTestsByFilter(params)]
-    }
-
     //TODO P3 remove after testing
     def angular = {
         render (view:'angular');
