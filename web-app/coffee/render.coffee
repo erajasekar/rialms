@@ -50,8 +50,7 @@ window.updateRenderedItem = (data) ->
 
 window.initTestRendering = ->
   $("a , .associable-choice, .draggable-gap-text, .droppable-gap").tooltip()
-  #$("#gap-match-help").modal();
-  $('.dropdown-toggle').dropdown();
+  window.initBootstrap();
   window.initInteractions();
   $("a.toggleNav").click ->
     if $("a.toggleNav span").text() is $("<div>").html("&laquo;").text()
@@ -68,6 +67,9 @@ window.initTestRendering = ->
     $("#content").toggleClass "span12 span9"
     $("#content").toggleClass "no-sidebar"
     $("#sidebar").toggleClass "span3"
+
+window.initBootstrap = ->
+  $('.dropdown-toggle').dropdown();
 
 window.initInteractions =->
   window.initOrderInteraction();
@@ -104,11 +106,11 @@ window.initGapInteraction =->
   return
 
 window.initAngularScopeObjects = (data)->
-  #console.log('data');
+  console.log('data');
+  console.log(data.angularData.hiddenElementsData);
   if data.angularData
     contentScope = angular.element('#content').scope()
     headScope = angular.element('#head').scope()
-
     for key,value of data.angularData
       #Stylesheet should go to head
       if key is "itemStylesheets"
@@ -117,6 +119,7 @@ window.initAngularScopeObjects = (data)->
       else
         contentScope.$apply ->
           contentScope[key] = value
+  console.log(contentScope)
   return
 
 window.initMatchInteraction = ->

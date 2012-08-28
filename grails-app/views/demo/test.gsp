@@ -15,7 +15,6 @@
 </head>
 
 <body>
-<g:render template="/renderer/renderDemoNavigation" />
 <div class="row-fluid">
     <div class="span3">
         <g:render template="/renderer/renderFeatures" model="[features:TestFeature.getFeatures()]"/>

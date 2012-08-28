@@ -23,33 +23,55 @@
 </head>
 
 <body>
+<r:script>
+    $(document).ready(function () {
+        initBootstrap();
+    });
+</r:script>
 <qti:less2Css/>
 <nav class="navbar navbar-fixed-top">
-<!-- TODO P3 Enable for dev -->
-        <div class="navbar-inner">
+    <!-- TODO P3 Enable for dev -->
+    <div class="navbar-inner">
 
-            <div class="container">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="${request.contextPath}">Rialms</a>
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            <a class="brand" href="${request.contextPath}">Rialms</a>
 
-                <div class="nav-collapse">
-                    <ul class="nav">
-                        <li  <%='demo' == params.controller ? ' class="active"' : ''%>><a
+            <div class="nav-collapse">
+                <ul class="nav">
+                    <!--  <li  <%='demo' == params.controller ? ' class="active"' : ''%>><a
                                 href="${createLink(controller: 'demo')}"><g:message code="demo.label"/></a>
                         </li>
-                      <!--  <li  <%='item' == params.controller ? ' class="active"' : ''%>><a
+                       <li  <%='item' == params.controller ? ' class="active"' : ''%>><a
                                 href="${createLink(controller: 'item')}"><g:message code="item.label"/></a>
                         </li>
                         <li <%='test' == params.controller ? ' class="active"' : ''%>><a
                                 href="${createLink(controller: 'test')}"><g:message code="tests.label"/></a></li> -->
-                    </ul>
-                </div>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <g:message code="demo.label"/>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <g:link controller="demo" action="learnBasicAlgegra"><g:message code="LearnBasicAlgebra.label"/></g:link>
+                            </li>
+                            <li>
+                                <g:link controller="demo" action="item"><g:message code="item.label"/></g:link>
+                            </li>
+                            <li>
+                                <g:link controller="demo" action="test"><g:message code="test.label"/></g:link>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
             </div>
         </div>
+    </div>
 
 </nav>
 

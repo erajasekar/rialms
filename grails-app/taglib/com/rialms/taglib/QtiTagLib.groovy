@@ -870,10 +870,12 @@ class QtiTagLib {
         String title = xmlNode.'@title';
 
         HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(xmlNode, xmlTag);
-        log.info("DEBUG Added hiddenElement ${hiddenElement}")
-
+        log.info("DEBUG Added hiddenElement ${hiddenElement} => isVisible => ${assessmentItemInfo.isVisible(hiddenElement)}")
+        boolean isVisible = assessmentItemInfo.isVisible(hiddenElement);
+        String ngShowCondition = "${Consts.hiddenElementsData}.${hiddenElement.elementId}_${Consts.visible}";
+        out << "${ngShowCondition} == {{${ngShowCondition}}}"
         String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' : 'div';
-        Map sectionTagAttributes = ['ng-show': "${Consts.hiddenElementsData}.${hiddenElement.elementId}_${Consts.visible}"];
+        Map sectionTagAttributes = ['ng-show': "${ngShowCondition}"];
         boolean isModelFeedback = xmlTag == Tag.modalFeedback;
         if (isModelFeedback) {
             sectionTagAttributes['class'] = 'well model-feedback';
@@ -1004,7 +1006,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-             com.rialms.util.Less2Css.run();
+            // com.rialms.util.Less2Css.run();
         }
     }
 

@@ -11,9 +11,9 @@ modules = {
     }
 
     coffee {
-        resource url: 'coffee/render.coffee', bundle:'render' , disposition :'head'
-        resource url: 'coffee/datetime-utils.coffee', bundle:'render' , disposition :'head'
-        resource url: 'coffee/controllers.coffee', bundle:'render' , disposition :'head'
+        resource url: 'coffee/render.coffee', bundle: 'render', disposition: 'head'
+        resource url: 'coffee/datetime-utils.coffee', bundle: 'render', disposition: 'head'
+        resource url: 'coffee/controllers.coffee', bundle: 'render', disposition: 'head'
     }
 
     mybootstrap {
@@ -25,7 +25,7 @@ modules = {
         resource url: 'js/bootstrap-carousel.js'
         resource url: 'js/bootstrap-collapse.js'
         resource url: 'js/bootstrap-dropdown.js'
-       // resource url: 'js/bootstrap-modal.js'
+        // resource url: 'js/bootstrap-modal.js'
         resource url: 'js/bootstrap-popover.js'
         resource url: 'js/bootstrap-scrollspy.js'
         resource url: 'js/bootstrap-tab.js'
@@ -35,8 +35,8 @@ modules = {
     }
 
     angular {
-          resource url: 'js/angular/angular-1.0.0rc10.js', disposition: 'head'
-        resource url: 'js/angular/angular-sanitize-1.0.0rc10.js', disposition: 'head'
+        resource url: 'js/angular/angular-1.0.1.js', disposition: 'head'
+        resource url: 'js/angular/angular-sanitize-1.0.1.js', disposition: 'head'
     }
 
     jsPlumb {

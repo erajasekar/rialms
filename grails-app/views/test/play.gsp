@@ -23,9 +23,6 @@
     });
 </r:script>
 
-<g:if test="${assessmentParams[Consts.title] == Consts.learnBasicAlgebraTitle}"> <!-- P2 find better way to include subnav in test -->
-    <g:render template="/renderer/renderDemoNavigation" />
-</g:if>
 <g:render template="/renderer/renderTestTitle" model="[testTitle: assessmentParams[Consts.title]]"/>
 
 <div class="row-fluid">
