@@ -106,8 +106,6 @@ window.initGapInteraction =->
   return
 
 window.initAngularScopeObjects = (data)->
-  console.log('data');
-  console.log(data.angularData.hiddenElementsData);
   if data.angularData
     contentScope = angular.element('#content').scope()
     headScope = angular.element('#head').scope()
@@ -119,7 +117,6 @@ window.initAngularScopeObjects = (data)->
       else
         contentScope.$apply ->
           contentScope[key] = value
-  console.log(contentScope)
   return
 
 window.initMatchInteraction = ->

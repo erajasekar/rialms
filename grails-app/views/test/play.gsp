@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!doctype html>
-<%@ page import="com.rialms.consts.NavButton; com.rialms.angular.JsObjectUtil; grails.converters.JSON; com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.util.CollectionUtils; com.rialms.consts.NavButton; com.rialms.angular.JsObjectUtil; grails.converters.JSON; com.rialms.assessment.test.NavigationControls; com.rialms.assessment.item.AssessmentItemInfo; org.qtitools.qti.validation.ValidationResult; com.rialms.consts.Constants as Consts" contentType="text/html;charset=UTF-8" %>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
@@ -16,12 +16,6 @@
 
 <body>
 
-<r:script>
-    $(document).ready(function () {
-        initTestRendering();
-        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, assessmentParams, Consts.testStatusModel, Consts.navigationButtonStates, Consts.testPartTitle, Consts.itemStylesheets, Consts.submitDisabled, Consts.isResponseValid)});
-    });
-</r:script>
 
 <g:render template="/renderer/renderTestTitle" model="[testTitle: assessmentParams[Consts.title]]"/>
 
@@ -43,7 +37,7 @@
         </div>
     </div>
 
-     <div class="row-fluid">
+    <div class="row-fluid">
 
         <g:render template="/renderer/renderTestPartStatus" model="[assessmentParams: assessmentParams]"/>
 
@@ -113,6 +107,21 @@
     <g:render template="/renderer/renderInternalState"
               model="[outcomeValues: assessmentParams[Consts.outcomeValues], divId: Consts.testOutcomeValues]"/>
 </g:if>
+
+<r:script>
+    $(document).ready(function () {
+        initTestRendering();
+        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData,
+        CollectionUtils.filterMapByKeys(assessmentParams,
+                Consts.testStatusModel, Consts.navigationButtonStates,
+                Consts.testPartTitle, Consts.itemStylesheets,
+                Consts.submitDisabled,
+                Consts.isResponseValid)
+                +[(Consts.hiddenElementsData):assessmentItemInfo.hiddenElementsData]
+)});
+
+    });
+</r:script>
 
 </body>
 </html>

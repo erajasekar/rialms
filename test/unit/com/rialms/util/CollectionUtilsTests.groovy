@@ -57,4 +57,10 @@ class CollectionUtilsTests {
         }
 
     }
+
+    void testFilterMapByKeys(){
+        String msg = "testFilterMapByKeys Failed"
+        Map<String,Object> data = [a: '1', b: '2', c: '3'];
+        assertEquals(msg, [a: '1', c: '3'], CollectionUtils.filterMapByKeys(data,'a','c'))
+    }
 }

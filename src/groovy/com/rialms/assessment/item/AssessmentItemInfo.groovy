@@ -317,7 +317,7 @@ class AssessmentItemInfo {
 
         output[Consts.angularData] = angularData;
 
-        log.info("DEBUG AssessmentItemInfo renderOutput ${output}")
+        log.debug("DEBUG AssessmentItemInfo renderOutput ${output}")
         return output;
     }
 

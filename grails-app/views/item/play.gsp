@@ -16,14 +16,6 @@
 
 <body>
 
-<r:script>
-    $(document).ready(function () {
-        initTestRendering();
-        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, [(Consts.itemStylesheets): assessmentItemInfo.itemStylesheets, (Consts.isResponseValid):assessmentItemInfo.isResponseValid])});
-    });
-</r:script>
-
-
 <div class="row-fluid">
 
     <div class="span12" id="${Consts.content}" ng-controller='ItemContentController'>
@@ -45,16 +37,16 @@
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
                     <hr/>
 
-                            <qti:submit assessmentItemInfo="${assessmentItemInfo}"
-                                        value='${g.message(code: "button.submit.label")}'
-                                        name="${Consts.submit}"/>
-                            <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}"/>
+                    <qti:submit assessmentItemInfo="${assessmentItemInfo}"
+                                value='${g.message(code: "button.submit.label")}'
+                                name="${Consts.submit}"/>
+                    <qti:endAttemptButtons assessmentItemInfo="${assessmentItemInfo}"/>
 
-                            <span ng-bind-html="${Consts.itemResult}">
-                                <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
-                            </span>
-                            <g:render template="/renderer/renderResponseValidation"/>
-                            <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
+                    <span ng-bind-html="${Consts.itemResult}">
+                        <qti:itemResult assessmentItemInfo="${assessmentItemInfo}"/>
+                    </span>
+                    <g:render template="/renderer/renderResponseValidation"/>
+                    <qti:helpButtons assessmentItemInfo="${assessmentItemInfo}"/>
                 </div>
             </g:formRemote>
         </g:if>
@@ -65,6 +57,13 @@
         </g:if>
     </div>
 </div>
+
+<r:script>
+    $(document).ready(function () {
+        initTestRendering();
+        initAngularScopeObjects(${JsObjectUtil.createJSONObject(Consts.angularData, [(Consts.itemStylesheets): assessmentItemInfo.itemStylesheets, (Consts.isResponseValid): assessmentItemInfo.isResponseValid, (Consts.hiddenElementsData): assessmentItemInfo.hiddenElementsData])});
+    });
+</r:script>
 
 </body>
 </html>

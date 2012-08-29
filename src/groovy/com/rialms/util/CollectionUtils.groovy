@@ -70,6 +70,10 @@ class CollectionUtils {
         return result;
     }
 
+    public static Map<String,Object> filterMapByKeys(Map<String,Object> data, String... keysToInclude){
+        keysToInclude.collectEntries{key -> [(key) : data[key]]}
+    }
+
     public static String convertMapToAttributes(Map input){
         StringBuilder sb = new StringBuilder();
         input.each{k,v->

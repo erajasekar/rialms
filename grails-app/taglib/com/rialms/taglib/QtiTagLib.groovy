@@ -870,10 +870,8 @@ class QtiTagLib {
         String title = xmlNode.'@title';
 
         HiddenElement hiddenElement = assessmentItemInfo.addHiddenElement(xmlNode, xmlTag);
-        log.info("DEBUG Added hiddenElement ${hiddenElement} => isVisible => ${assessmentItemInfo.isVisible(hiddenElement)}")
-        boolean isVisible = assessmentItemInfo.isVisible(hiddenElement);
+        log.debug("DEBUG Added hiddenElement ${hiddenElement}")
         String ngShowCondition = "${Consts.hiddenElementsData}.${hiddenElement.elementId}_${Consts.visible}";
-        out << "${ngShowCondition} == {{${ngShowCondition}}}"
         String sectionTag = (Tag.isInlineTag(xmlTag)) ? 'span' : 'div';
         Map sectionTagAttributes = ['ng-show': "${ngShowCondition}"];
         boolean isModelFeedback = xmlTag == Tag.modalFeedback;
@@ -889,6 +887,7 @@ class QtiTagLib {
         }
         out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
         out << "</${sectionTag}>";
+
     }
 
     def div = {  attrs ->

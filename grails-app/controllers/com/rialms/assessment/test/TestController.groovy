@@ -129,11 +129,12 @@ class TestController {
                     renderOutput[Consts.angularData][Consts.assessmentHeader] = AssessmentItemInfo.createHeader(g.message(code: 'test.submission.title').toString());
 
                 } else {
+                    //P3 : DO SOME REFACTORING TO AVOID DUPLICATE
                     renderOutput[Consts.testContent] = g.render(template: '/renderer/renderAssessmentItem', model: testRenderInfo.toPropertiesMap());
                     renderOutput[Consts.testSectionTitleContent] = qti.assessmentSection(sectionTitles:testRenderInfo.assessmentParams[Consts.sectionTitles]);
-
                     renderOutput[Consts.angularData][Consts.endAttemptButtons] = testRenderInfo.assessmentItemInfo.endAttemptButtons;
                     renderOutput[Consts.angularData][Consts.itemStylesheets] = testRenderInfo.assessmentParams.itemStylesheets;
+                    renderOutput[Consts.angularData][Consts.hiddenElementsData] = coordinator.testController.currentItemInfo.hiddenElementsData;
 
                 }
             } else {
