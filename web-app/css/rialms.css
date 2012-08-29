@@ -74,6 +74,10 @@ body {
   max-height: 500px;
   overflow: auto;
 }
+#check-sb {
+  max-height: 70px;
+  overflow: auto;
+}
 .sidebar-nav {
   padding: 0px 0px 10px;
   margin-bottom: 20px;

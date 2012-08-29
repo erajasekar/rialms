@@ -4,7 +4,7 @@ modules = {
     }
 
     core {
-        dependsOn 'jquery,jquery-ui,mybootstrap,coffee,angular,jsPlumb,jqueryPlugins'
+        dependsOn 'jquery,jquery-ui,mybootstrap,coffee,angular,jsPlumb,jqueryPlugins, customScrollbar'
         resource url: 'js/sample.js'
         resource url: 'css/rialms.css'
 
@@ -45,5 +45,11 @@ modules = {
 
     jqueryPlugins {
         resource url: 'js/jquery/jquery.dataSelector.js'
+    }
+
+    customScrollbar {
+        resource url: 'js/scrollbar/jquery.mCustomScrollbar.js'
+        resource url: 'js/scrollbar/jquery.mousewheel.min.js'
+        resource url: 'css/scrollbar/jquery.mCustomScrollbar.css'
     }
 }
