@@ -48,8 +48,13 @@ modules = {
     }
 
     customScrollbar {
-        resource url: 'js/scrollbar/jquery.mCustomScrollbar.js'
-        resource url: 'js/scrollbar/jquery.mousewheel.min.js'
-        resource url: 'css/scrollbar/jquery.mCustomScrollbar.css'
+       // resource url: 'js/scrollbar/jquery.mCustomScrollbar.js'
+      //  resource url: 'js/scrollbar/jquery.mousewheel.min.js'
+       // resource url: 'css/scrollbar/jquery.mCustomScrollbar.css'
+       // resource url: 'css/scrollbar/mCSB_buttons.png'
+       // resource url:'css/scrollbar/jquery.jscrollpane.css'
+       // resource url:'js/scrollbar/jquery.jscrollpane.min.js'
+        //resource url: 'js/scrollbar/jquery.tinyscrollbar.min.js'
+
     }
 }

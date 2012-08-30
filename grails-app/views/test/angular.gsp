@@ -1,86 +1,497 @@
-<!doctype html>
-<html ng-app>
+<!DOCTYPE HTML>
+<html>
 <head>
-    <h1>Hello {{yourName}}!</h1>
-    <meta name="layout" content="primary"/>
+    <style>
+    body{background:#333; color:#ddd;}
+    #check-sb{width:250px; height:100px; overflow:auto;}
+    </style>
+    <!-- Custom scrollbars CSS     -->
+    <link href="/rialms/static/bundle-bundle_customScrollbar_head.css" type="text/css" rel="stylesheet" media="screen, projection" />
+    <script src="/rialms/static/bundle-bundle_angular_head.js" type="text/javascript" ></script>
+
+    <script src="/rialms/static/bundle-render_head.js" type="text/javascript" ></script>
+
+
+
+    <link href="/rialms/static/bundle-bundle_core_head.css" type="text/css" rel="stylesheet" media="screen, projection" />
+
 
 </head>
-
 <body>
-<div>
-    <label>Name:</label>
-    <input type="text" ng-model="yourName" placeholder="Enter a name here">
+<div id="check-sb">
+fdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasf
+fdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasf
 
-    <hr>
+fdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasf
+fdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasf
+fdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasf
+fdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasffdasfdsf
+sdf
+asdf
+asdfasd
+fasd
+fasd
+fasd
+fas
+df
+asdf
+dsaf
+dasfadsfadsfasdf
+fasdf
+asdf
+asdf
+asfasd
+fasf
 
-    <h1>Hello {{yourName}}!</h1>
-    <div ng-init="yourName='Hello'"></div>
+fdasfdsf
+    sdf
+    asdf
+    asdfasd
+    fasd
+    fasd
+    fasd
+    fas
+    df
+    asdf
+    dsaf
+    dasfadsfadsfasdf
+    fasdf
+    asdf
+    asdf
+    asfasd
+    fasf
+    fdasfdsf
+    sdf
+    asdf
+    asdfasd
+    fasd
+    fasd
+    fasd
+    fas
+    df
+    asdf
+    dsaf
+    dasfadsfadsfasdf
+    fasdf
+    asdf
+    asdf
+    asfasd
+    fasffdasfdsf
+    sdf
+    asdf
+    asdfasd
+    fasd
+    fasd
+    fasd
+    fas
+    df
+    asdf
+    dsaf
+    dasfadsfadsfasdf
+    fasdf
+    asdf
+    asdf
+    asfasd
+    fasffdasfdsf
+    sdf
+    asdf
+    asdfasd
+    fasd
+    fasd
+    fasd
+    fas
+    df
+    asdf
+    dsaf
+    dasfadsfadsfasdf
+    fasdf
+    asdf
+    asdf
+    asfasd
+    fasffdasfdsf
+    sdf
+    asdf
+    asdfasd
+    fasd
+    fasd
+    fasd
+    fas
+    df
+    asdf
+    dsaf
+    dasfadsfadsfasdf
+    fasdf
+    asdf
+    asdf
+    asfasd
+    fasffdasfdsf
+    sdf
+    asdf
+    asdfasd
+    fasd
+    fasd
+    fasd
+    fas
+    df
+    asdf
+    dsaf
+    dasfadsfadsfasdf
+    fasdf
+    asdf
+    asdf
+    asfasd
+    fasffdasfdsf
+    sdf
+    asdf
+    asdfasd
+    fasd
+    fasd
+    fasd
+    fas
+    df
+    asdf
+    dsaf
+    dasfadsfadsfasdf
+    fasdf
+    asdf
+    asdf
+    asfasd
+    fasf
 
 </div>
-<div>
-<span id="source1"> source 1</span>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<span id="target1"> target 1</span>
-   <!-- <span id="target2"> target 2</span>
-    <span id="target3"> target 3</span>
-    <span id="target4"> target 4</span>
-    <span id="target5"> target 5</span>-->
+<!-- Get Google CDN's jQuery and jQuery UI with fallback to local
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>-->
+<script src="/rialms/static/plugins/jquery-1.7.1/js/jquery/jquery-1.7.1.min.js" type="text/javascript" ></script>
+<script src="/rialms/static/plugins/jquery-ui-1.8.15/jquery-ui/js/jquery-ui-1.8.15.custom.min.js" type="text/javascript" ></script>
 
-</div>
-
-<r:script>
-    $(document).ready(function () {
-       /*
-        // retrieve the elements however you want (class name, tag name, ..)
-        var elems = document.getElementsByTagName('span');
-        var increase = Math.PI * 2 / elems.length;
-        var x = 0, y = 0, angle = 0;
-
-        for (var i = 0; i < elems.length; i++) {
-            elem = elems[i];
-            // modify to change the radius and position of a circle
-            x = 100 * Math.cos(angle) + 200;
-            y = 100 * Math.sin(angle) + 200;
-            elem.style.position = 'absolute';
-            elem.style.left = x + 'px';
-            elem.style.top = y + 'px';
-            angle += increase;
-        }   */
-
-        jsPlumb.importDefaults({
-            Endpoint : ["Dot", {radius:2}],
-           // HoverPaintStyle : {strokeStyle:"#42a62c", lineWidth:2 },
-            ConnectionOverlays : [
-                [ "Arrow", {
-                    location:1,
-                    id:"arrow",
-                    length:10,
-                    foldback:0.8
-                } ]
-            ]
+<script src="/rialms/static/bundle-bundle_customScrollbar_defer.js" type="text/javascript" ></script>
+<script>
+    (function($){
+        $(window).load(function(){
+            $("#check-sb").mCustomScrollbar();
         });
-
-        jsPlumb.bind("click", function(c) {
-            jsPlumb.detach(c);
-        });
-
-        var exampleGreyEndpointOptions = {
-            endpoint:"Rectangle",
-            paintStyle:{ width:5, height:5, fillStyle:'#666' },
-            isSource:true,
-           // connector : "Straight",
-           // connectorStyle: { lineWidth:1, strokeStyle:'green' },
-            anchor:"Continuous",
-            connector:[ "StateMachine", { curviness:20 } ],
-            connectorStyle:{ strokeStyle:'green', lineWidth:2 },
-            isTarget:true
-        };
-
-        var endpointOptions1 = { isSource:true };
-        var endpoint1 = jsPlumb.addEndpoint('source1',{ anchor:"RightMiddle" }, exampleGreyEndpointOptions);
-
-        var endpointOptions2 = { isTarget:true, endpoint:"Rectangle", paintStyle:{ fillStyle:"gray" } };
-        var endpoint2 = jsPlumb.addEndpoint("target1", { anchor:"LeftMiddle" }, exampleGreyEndpointOptions);
-    });
-</r:script>
+    })(jQuery);
+</script>
 </body>
 </html>

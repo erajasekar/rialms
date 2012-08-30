@@ -50,7 +50,10 @@ window.updateRenderedItem = (data) ->
 
 window.initTestRendering = ->
   $("a , .associable-choice, .draggable-gap-text, .droppable-gap").tooltip()
-  $("#check-sb").mCustomScrollbar()
+  #$("#check-sb").mCustomScrollbar()
+  #$("#sidebar-status-list").jScrollPane();
+  #$("#sidebar-status-list").tinyscrollbar();
+
   window.initBootstrap();
   window.initInteractions();
   $("a.toggleNav").click ->
