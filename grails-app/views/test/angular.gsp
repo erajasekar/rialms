@@ -11,13 +11,13 @@
 
     <script src="/rialms/static/bundle-render_head.js" type="text/javascript" ></script>
 
-
-
     <link href="/rialms/static/bundle-bundle_core_head.css" type="text/css" rel="stylesheet" media="screen, projection" />
-
+    <meta name="layout" content="primary"/>
 
 </head>
 <body>
+<div class="row-fluid">
+<div class="span3">
 <div id="check-sb">
 fdasfdsf
 sdf
@@ -478,6 +478,8 @@ fdasfdsf
     asfasd
     fasf
 
+</div>
+</div>
 </div>
 <!-- Get Google CDN's jQuery and jQuery UI with fallback to local
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
