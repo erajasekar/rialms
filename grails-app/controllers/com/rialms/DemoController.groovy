@@ -1,4 +1,4 @@
-package com.rialms.demo
+package com.rialms
 
 import com.rialms.assessment.item.ItemService
 import com.rialms.assessment.test.TestService

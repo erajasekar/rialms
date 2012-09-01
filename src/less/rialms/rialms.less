@@ -48,14 +48,16 @@ body {
 }
 
 #sidebar-status-list {
-    max-height: 500px;
+    max-height: 770px;
     overflow: auto;
 }
+
 //TODO p2 remove
-#check-sb{
+#check-sb {
     max-height: 70px;
     overflow: auto;
 }
+
 .sidebar-nav {
     padding: 0px 0px 10px;
     margin-bottom: 20px;
@@ -101,8 +103,7 @@ a.toggleNav {
 
 .page-title {
     .center;
-    padding: 10px;
-    //border-bottom: 2px solid @grayLighter;
+    padding: 10px; //border-bottom: 2px solid @grayLighter;
 }
 
 .title {
@@ -212,7 +213,6 @@ a.toggleNav {
     color: green;
 }
 
-
 .subnav {
     height: 45px;
     background-color: @subNavBackground;
@@ -221,5 +221,23 @@ a.toggleNav {
     -moz-border-radius: 4px;
     border-radius: 4px;
     padding: 5px 30px 5px 30px;
+}
+
+.documentation {
+    p, li {
+        font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+        margin-top: 10px;
+        font-size: 16px;
+    }
+    .highlight {
+        color: green
+    }
+    a {
+        color: @blueDark;
+        &:hover {
+            color: darken(@blueDark, 10%);
+            text-decoration: underline;
+        }
+    }
 }
 

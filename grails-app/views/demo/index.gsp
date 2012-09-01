@@ -14,6 +14,6 @@
     <title><g:message code="demo.label"/></title>
 </head>
 <body>
-  <g:render template="/renderer/renderDemoNavigation" />
+
 </body>
 </html>

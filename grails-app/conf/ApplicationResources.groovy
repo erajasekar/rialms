@@ -48,6 +48,7 @@ modules = {
     }
 
     customScrollbar {
+        //TODO P3: Fix scrollbar customization
       //  resource url: 'js/scrollbar/jquery.mCustomScrollbar.js'
       //  resource url: 'js/scrollbar/jquery.mousewheel.min.js'
       //  resource url: 'css/scrollbar/jquery.mCustomScrollbar.css'

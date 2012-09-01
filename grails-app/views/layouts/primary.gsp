@@ -39,18 +39,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="${request.contextPath}">Rialms</a>
+            <a class="brand" href="${request.contextPath}"><g:message code="project.name"/></a>
 
             <div class="nav-collapse">
                 <ul class="nav">
-                    <!--  <li  <%='demo' == params.controller ? ' class="active"' : ''%>><a
-                                href="${createLink(controller: 'demo')}"><g:message code="demo.label"/></a>
-                        </li>
+                    <!--
                        <li  <%='item' == params.controller ? ' class="active"' : ''%>><a
                                 href="${createLink(controller: 'item')}"><g:message code="item.label"/></a>
                         </li>
                         <li <%='test' == params.controller ? ' class="active"' : ''%>><a
                                 href="${createLink(controller: 'test')}"><g:message code="tests.label"/></a></li> -->
+                    <li <%='home' == params.controller ? ' class="active"' : ''%> >
+                        <g:link controller="home"><g:message
+                                code="home.label"/></g:link>
+                    </li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown">
                             <g:message code="demo.label"/>
@@ -58,7 +60,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li>
-                                <g:link controller="demo" action="learnBasicAlgegra"><g:message code="LearnBasicAlgebra.label"/></g:link>
+                                <g:link controller="demo" action="learnBasicAlgegra"><g:message
+                                        code="LearnBasicAlgebra.label"/></g:link>
                             </li>
                             <li>
                                 <g:link controller="demo" action="item"><g:message code="item.label"/></g:link>
@@ -68,6 +71,15 @@
                             </li>
                         </ul>
                     </li>
+                    <li <%='about' == params.controller ? ' class="active"' : ''%> >
+                        <g:link controller="about"><g:message
+                                code="about.label"/></g:link>
+                    </li>
+                    <li <%='contact' == params.controller ? ' class="active"' : ''%> >
+                        <g:link controller="contact"><g:message
+                                code="contact.label"/></g:link>
+                    </li>
+
                 </ul>
             </div>
         </div>
@@ -81,7 +93,7 @@
     <hr>
 
     <footer>
-        <p>&copy; Company 2011</p>
+
     </footer>
 </div>
 
