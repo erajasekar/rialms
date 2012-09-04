@@ -228,6 +228,7 @@ a.toggleNav:hover {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-top: 10px;
   font-size: 16px;
+  line-height: 150%;
 }
 .documentation .highlight {
   color: #008000;
