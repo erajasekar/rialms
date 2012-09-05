@@ -1,0 +1,38 @@
+.block-header {
+    .create-border(@blockHeaderBackgroud);
+    font-size: 11px;
+    font-weight: bold;
+    line-height: @baseLineHeight;
+    padding: 10px 0px 10px 20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: @blockHeaderTextColor;
+    .shadow;
+    a {
+        padding: 5px;
+        border: none;
+        margin: 1px;
+        &:hover {
+            background-color: darken(@blockHeaderBackgroud, 10%);
+            outline: 1px solid darken(@blockHeaderBackgroud, 20%);
+        }
+    }
+}
+
+.block-content {
+    background-color: @blockContentBackground;
+    margin-bottom: 20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border: 1px solid @blockContentBorder;
+    border-top: 0px;
+    padding: 20px 20px 20px 20px;
+    .shadow;
+}
+
+.block-controls {
+    padding: 15px 20px 05px 20px;
+    margin-top: 20px;
+    background-color: @blockControlsBackground;
+    border-top: 2px solid @grayLighter;
+}

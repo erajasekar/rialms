@@ -49,7 +49,7 @@ window.updateRenderedItem = (data) ->
   return
 
 window.initTestRendering = ->
-  $("a , .associable-choice, .draggable-gap-text, .droppable-gap").tooltip()
+
   #$("#check-sb").mCustomScrollbar()
   #$("#sidebar-status-list").jScrollPane();
   #$("#sidebar-status-list").tinyscrollbar();
@@ -73,6 +73,7 @@ window.initTestRendering = ->
     $("#sidebar").toggleClass "span3"
 
 window.initBootstrap = ->
+  $("a , .associable-choice, .draggable-gap-text, .droppable-gap").tooltip();
   $('.dropdown-toggle').dropdown();
 
 window.initInteractions =->

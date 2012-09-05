@@ -40,8 +40,9 @@
         <p>
             <g:link url="http://en.wikipedia.org/wiki/QTI"
                     target="_blank">QTI</g:link> specification is a widely used standard for marking up questions and other learning material.
-            Rialms is a delivery engine that can play <g:link url="http://en.wikipedia.org/wiki/QTI"
-                                                              target="_blank">QTI</g:link> compatible content.
+            Rialms is a delivery engine that can play QTI compatible content. All learning material in this site
+            Rialms is a delivery engine that can play QTI compatible content. All learning material in this site
+            (Questions and Tests) are created as per QTI Spec. So Rialms can deliver more learning material by simply adding more content based on QTI Spec.
 
         <p>Check out these demos <i>(You can also use demo navigation menu)</i></p>
         <ul class="unstyled">

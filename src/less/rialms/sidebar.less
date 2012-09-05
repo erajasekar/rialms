@@ -1,0 +1,33 @@
+#sidebar-status-list {
+    max-height: 770px;
+    overflow: auto;
+}
+
+//TODO p2 remove
+#check-sb {
+    max-height: 70px;
+    overflow: auto;
+}
+
+.sidebar-nav {
+    padding: 0px 0px 10px;
+    margin-bottom: 20px;
+    background-color: @sidebarNavBackground;
+    .create-border(@sidebarNavBackground);
+    .border-radius(5px);
+    box-shadow: 2px 2px 10px @grayLighter;
+    a {
+        &:hover {
+            color: @sidebarNavLinkHoverColor;
+        }
+    }
+    .block-header {
+        border-bottom: none;
+        background-color: @blockHeaderBackgroud;
+    }
+
+}
+
+.no-sidebar {
+    margin-left: 0 !important;
+}

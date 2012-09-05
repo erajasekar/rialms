@@ -1,0 +1,24 @@
+.feature-list {
+    margin: 2px;
+    code {
+        a {
+            color: @featureLinkColor;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    .active {
+        color: @featureLinkColor;
+    }
+    a {
+        color: @featureLinkColor;
+        &:hover {
+            text-decoration: none;
+            pre {
+                color: @featureLinkColor;
+            }
+
+        }
+    }
+}

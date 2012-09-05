@@ -1,0 +1,76 @@
+.model-feedback {
+    margin: 5px;
+    padding: 10px;
+    font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+    background-color: #ffffe0;
+    border: 1px solid #yellow;
+    color: green;
+}
+
+.order-interaction {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    li {
+        margin: 0px 5px 5px -5px;
+        padding: 5px;
+        span {
+            .pad;
+            .create-shadow-border(@green);
+            cursor: move;
+            border-left-width: 3px;
+        }
+    }
+}
+
+.draggable-gap-text {
+    display: inline-block;
+    margin: 0px 10px 20px 10px;
+    padding: 5px 30px 5px 30px;
+    cursor: move;
+    .create-shadow-border(@green);
+}
+
+.droppable-gap {
+    margin: 5px;
+    padding: 5px 30px 5px 30px;
+    .create-shadow-border(@green);
+}
+
+.associable-choice {
+    .pad;
+    margin: 10px;
+    .create-shadow-border(@green);
+    border-radius: 5px;
+}
+
+.associable-choice-endpoint {
+    padding: 0px 5px 0px 5px;
+    background-color: @green;
+    cursor: pointer;
+}
+
+.item-result {
+    margin: 0px 0px 0px 10px;
+    font-family: 'Fredoka One', Cursive, sans-serif;
+    font-weight: normal;
+    text-rendering: optimizelegibility;
+    line-height: 18px;
+    font-size: 14px;
+}
+
+.result-correct {
+    color: @itemResultCorrectColor
+}
+
+.result-incorrect {
+    color: @itemResultInCorrectColor
+}
+
+.result-partiallyCorrect {
+    color: @itemResultPartiallyCorrectColor
+}
+
+.submission {
+    padding: 20px
+}

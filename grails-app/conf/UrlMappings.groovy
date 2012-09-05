@@ -7,7 +7,7 @@ class UrlMappings {
             }
         }
 
-        "/"(controller: "test")
+        "/"(controller: "home")
         "500"(view: '/error')
 
         name processItem: "/processItem" {
