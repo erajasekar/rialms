@@ -13,6 +13,9 @@ modules = {
     coffee {
         resource url: 'coffee/render.coffee', bundle: 'render', disposition: 'head'
         resource url: 'coffee/datetime-utils.coffee', bundle: 'render', disposition: 'head'
+        resource url: 'coffee/angular-utils.coffee', bundle: 'render', disposition: 'head'
+        resource url: 'coffee/bootstrap-utils.coffee', bundle: 'render', disposition: 'head'
+        resource url: 'coffee/qti.coffee', bundle: 'render', disposition: 'head'
         resource url: 'coffee/controllers.coffee', bundle: 'render', disposition: 'head'
     }
 
