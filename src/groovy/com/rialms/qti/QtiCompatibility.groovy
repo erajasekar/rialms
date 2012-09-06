@@ -36,6 +36,14 @@ public class QtiCompatibility {
         result << new QtiCompatibility("Match Interaction" , true);
         result << new QtiCompatibility("Order Interaction" , true);
         result << new QtiCompatibility("Text Entry Interaction" , true);
+        result << new QtiCompatibility("Adaptive Questions" , true);
+        result << new QtiCompatibility("Partial Scoring" , true);
+        result << new QtiCompatibility("Questions Using Templates" , true);
+        result << new QtiCompatibility("Provide Interactive Feedback" , true);
+        result << new QtiCompatibility("Text Entry Interaction" , true);
+        result << new QtiCompatibility("Mathematical Expressions Using MathML" , true);
+        result << new QtiCompatibility("Provide Hint" , true);
+        result << new QtiCompatibility("Provide Solution" , true);
 
         result << new QtiCompatibility("Custom Interaction" , false);
         result << new QtiCompatibility("Drawing Interaction" , false);
@@ -61,10 +69,10 @@ public class QtiCompatibility {
         result << new QtiCompatibility("Individal Submission Mode" , true);
         result << new QtiCompatibility("Simultaneous Submission Mode" , true);
         result << new QtiCompatibility("Limit Max Duration of Attempt" , true);
-        result << new QtiCompatibility("Branching based on Response" , true);
+        result << new QtiCompatibility("Branch based on Response" , true);
         result << new QtiCompatibility("Allow/Disable Skipping a Question" , true);
         result << new QtiCompatibility("Allow/Disable Reviewing a Question" , true);
-        result << new QtiCompatibility("Specifying the Number of Allowed Attempts" , true);
+        result << new QtiCompatibility("Specify the Number of Allowed Attempts" , true);
         result << new QtiCompatibility("Questions Arranged into Parts/Sections within Tests" , true);
 
         result << new QtiCompatibility("Limit Min Duration of Attempt" , false);

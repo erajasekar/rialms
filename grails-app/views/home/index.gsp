@@ -29,6 +29,7 @@
                 url="http://en.wikipedia.org/wiki/QTI"
                 target="_blank">Question and Test Interoperability specification (QTI)</g:link>
         produced by <g:link url="http://www.imsglobal.org/" target="_blank">IMS Global</g:link>
+        <!-- TODO P2 remove qti add tagline support -->
         </p>
     </div>
 
