@@ -78,7 +78,7 @@ public class QtiCompatibility {
         result << new QtiCompatibility("Limit Min Duration of Attempt" , false);
         result << new QtiCompatibility("Statistics on Quesions Usage Data" , false);
 
-        //TODO p2: Determine if weight is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest02.xml
+        //TODO p2: Determine if weight is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest02.xml - supported
         //TODO p2: Determine if category is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest03.xml
         //TODO p2: Determine if exitText is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest10.xml
         //TODO p2: Determine if required & keepTogether is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest12.xml

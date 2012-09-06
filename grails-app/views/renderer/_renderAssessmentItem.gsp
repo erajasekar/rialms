@@ -20,7 +20,9 @@
         <g:if test="${assessmentParams.rubric}">
 
             <g:each var="section" in="${assessmentParams.rubric.children()}">
-                <g:render template="/renderer/renderItemSubTree" model="[node: section.children().get(0)]"/>
+                <g:if test="${section.children().size() > 0}">
+                    <g:render template="/renderer/renderItemSubTree" model="[node: section.children().get(0)]"/>
+                </g:if>
             </g:each>
 
         </g:if>

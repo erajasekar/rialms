@@ -81,5 +81,15 @@ class BootStrap {
         testService.createTest('tests/qti/NavigationMixed', 'test-ns-disabled_allowReview.xml');
         testService.createTest("tests/qti/NavigationMixed", "test-nested-sections.xml");
 
+        //11-15
+        testService.createTest("tests/qti/IMSExamples", "rtest02.xml");
+        testService.createTest("tests/qti/IMSExamples", "rtest03.xml");
+        testService.createTest("tests/qti/IMSExamples", "rtest10.xml");
+        testService.createTest("tests/qti/IMSExamples", "rtest12.xml");
+        testService.createTest("tests/qti/IMSExamples", "rtest24.xml");
+
+        //16-20
+        testService.createTest("tests/qti/IMSExamples", "rtest26.xml");
+
     }
 }

@@ -14,17 +14,19 @@ import com.rialms.consts.Constants as Consts
 @Log4j
 class TestReportBuilder {
 
-    private static final List<String> DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE = ['SCORE'];
+    private static final List<String> DEFAULT_ITEM_OUTCOME_VARIABLES_TO_INCLUDE = ['SCORE'];
+    private static final List<String> DEFAULT_TEST_OUTCOME_VARIABLES_TO_INCLUDE = ['SCORE', 'duration'];
 
-    private List<String> outcomeVariablesToInclude = DEFAULT_OUTCOME_VARIABLES_TO_INCLUDE;
+    private List<String> itemOutcomeVariablesToInclude = DEFAULT_ITEM_OUTCOME_VARIABLES_TO_INCLUDE;
+    private List<String> testOutcomeVariablesToInclude = DEFAULT_TEST_OUTCOME_VARIABLES_TO_INCLUDE;
 
     public TestReport buildTestReport(String testTitle, String xmlString, Map<String, AssessmentItemStatus> testStatus) {
 
         log.info("Report xmlString ${xmlString}");
         def assessmentResult = new XmlSlurper().parseText(xmlString);
-        def testResultDuration = assessmentResult.testResult.outcomeVariable.findAll { outcomeVariable -> outcomeVariable.@identifier =~ 'duration'}
+        def testResultSummary = assessmentResult.testResult.outcomeVariable.findAll { outcomeVariable -> testOutcomeVariablesToInclude.find{variable -> outcomeVariable.@identifier =~ variable}}
         Map<String, String> summary = [:];
-        testResultDuration.each {it ->
+        testResultSummary.each {it ->
             summary[(it.@identifier.toString())] = it.text();
         }
 
@@ -35,7 +37,7 @@ class TestReportBuilder {
             String itemResultId = itemResult.@identifier;
             Map<String, String> detailResult = [:];
             detailResult[Consts.item] = itemResultId;
-            def outcomeVariables = itemResult.outcomeVariable.findAll {outcomeVariable -> outcomeVariablesToInclude.contains(outcomeVariable.@identifier)}
+            def outcomeVariables = itemResult.outcomeVariable.findAll {outcomeVariable -> itemOutcomeVariablesToInclude.contains(outcomeVariable.@identifier)}
             outcomeVariables.each { it ->
                 detailResult[(it.@identifier.toString())] = it.text();
             }
@@ -49,11 +51,11 @@ class TestReportBuilder {
     }
 
     public void setOutcomeVariablesToInclude(List<String> outcomeVariablesToInclude) {
-        this.outcomeVariablesToInclude = outcomeVariablesToInclude
+        this.itemOutcomeVariablesToInclude = outcomeVariablesToInclude
     }
 
     public List<String> getOutcomeVariablesToInclude() {
-        return outcomeVariablesToInclude;
+        return itemOutcomeVariablesToInclude;
     }
 
 }
