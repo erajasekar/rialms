@@ -16,7 +16,7 @@
 				<p>Instructions for Section A</p>
 			</rubricBlock>
 			<assessmentItemRef identifier="item034" href="item034.xml"/>
-			<assessmentItemRef identifier="item160" href="ïtem160.xml"/>
+            <assessmentItemRef identifier="item160" href="item160.xml"/>
 			<assessmentItemRef identifier="item063" href="item063.xml"/>
 		</assessmentSection>
 		<assessmentSection identifier="sectionB" title="Section B" visible="true">

@@ -78,12 +78,15 @@ public class QtiCompatibility {
         result << new QtiCompatibility("Limit Min Duration of Attempt" , false);
         result << new QtiCompatibility("Statistics on Quesions Usage Data" , false);
 
-        //TODO p2: Determine if weight is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest02.xml - supported
-        //TODO p2: Determine if category is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest03.xml
-        //TODO p2: Determine if exitText is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest10.xml
-        //TODO p2: Determine if required & keepTogether is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest12.xml
-        //TODO p2: Determine if random & ordering is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest24.xml
-        //TODO p2: Determine if variable mapping is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest26.xml
+
+        //TOTO p2: test rtest01
+        //TODO P2: test rtest04
+        //done TODO p2: Determine if weight is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest02.xml - supported
+        //done TODO p2: Determine if category is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest03.xml
+        //done TODO p2: Determine if exitText is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest10.xml
+        //works only with ordering and shuffle enabled p2: Determine if required & keepTogether is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest12.xml
+        //done TODO p2: Determine if random & ordering is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest24.xml
+        //notworking TODO p2: Determine if variable mapping is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest26.xml
 
         result;
 

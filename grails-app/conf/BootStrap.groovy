@@ -90,6 +90,8 @@ class BootStrap {
 
         //16-20
         testService.createTest("tests/qti/IMSExamples", "rtest26.xml");
+        testService.createTest("tests/qti/IMSExamples", "rtest01.xml");
+        testService.createTest("tests/qti/IMSExamples", "rtest04.xml");
 
     }
 }

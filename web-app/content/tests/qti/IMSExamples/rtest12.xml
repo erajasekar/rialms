@@ -18,7 +18,7 @@
             <!-- In Section B, we select 2 children but Section B1 is required so
                 we effectively select B1 and one of the other three items.
                 B1 is an invisible section and the three items it contains will
-                be mixed in with the other selected item when shuffling. -->
+                be mixed in with the other selected item when shuffling.   -->
             <selection select="2"/>
             <ordering shuffle="true"/>
             <rubricBlock view="candidate">

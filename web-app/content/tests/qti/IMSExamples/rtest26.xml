@@ -24,7 +24,7 @@
 				<p>Instructions for Section B</p>
 			</rubricBlock>
 			<assessmentItemRef identifier="item434" href="item434.xml"/>
-			<assessmentItemRef identifier="item065" href="ïtem065.xml"/>
+			<assessmentItemRef identifier="item065" href="item065.xml"/>
 			<assessmentItemRef identifier="item365" href="item365.xml"/>
 		</assessmentSection>
 	</testPart>
