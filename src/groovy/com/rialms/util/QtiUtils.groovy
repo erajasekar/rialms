@@ -297,6 +297,29 @@ class QtiUtils {
             featureNames << 'branch';
         }
 
+        def testVariables = testXml.depthFirst().findAll {it.name() == 'testVariables'};
+        if (testVariables.find{testVariable -> testVariable.attributes().containsKey('includeCategory') ||  testVariable.attributes().containsKey('excludeCategory')}){
+            featureNames << 'score using item categories'
+        }
+
+        def itemRefs = testXml.depthFirst().findAll {it.name() == 'assessmentItemRef'};
+        for (def itemRef in itemRefs){
+            if (itemRef.children().find{
+                it.name() == 'weight'
+            }){
+                featureNames << 'weight item outcomes'
+            }
+        }
+
+        if (testXml.depthFirst().find{it.name() == 'exitTest'}){
+            featureNames << 'early termination';
+        }
+
+        def ordering = testXml.depthFirst().findAll {it.name() == 'ordering'};
+        if (ordering.find{it.'@shuffle' == 'true'}){
+            featureNames << 'randomize order'
+        }
+
         return featureNames.flatten().unique();
     }
 }

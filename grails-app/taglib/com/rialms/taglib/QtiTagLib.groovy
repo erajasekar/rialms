@@ -1005,7 +1005,7 @@ class QtiTagLib {
 
     def less2Css = { attrs ->
         if (Environment.currentEnvironment == Environment.DEVELOPMENT) {
-             com.rialms.util.Less2Css.run();
+          //   com.rialms.util.Less2Css.run();
         }
     }
 

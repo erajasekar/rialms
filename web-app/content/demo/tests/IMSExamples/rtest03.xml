@@ -3,7 +3,7 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 http://www.imsglobal.org/xsd/imsqti_v2p1.xsd"
     identifier="RTEST-03" title="Categories of Item">
-    <outcomeDeclaration identifier="MATH_SCORE" cardinality="single" baseType="integer"/>
+    <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="integer"/>
     <testPart navigationMode="nonlinear" submissionMode="simultaneous" identifier="RTEST-03-A">
         <assessmentSection identifier="sectionA" title="Section A" visible="true">
             <rubricBlock view="candidate">
@@ -27,7 +27,7 @@
         </assessmentSection>
     </testPart>
     <outcomeProcessing>
-        <setOutcomeValue identifier="MATH_SCORE">
+        <setOutcomeValue identifier="SCORE">
             <sum>
                 <testVariables includeCategory="Math" excludeCategory="PreTest"
                     variableIdentifier="SCORE"/>

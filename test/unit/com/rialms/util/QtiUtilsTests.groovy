@@ -7,6 +7,11 @@ import org.custommonkey.xmlunit.XMLUnit
 
 import static com.rialms.util.QtiUtils.*
 import groovy.xml.MarkupBuilder
+import org.custommonkey.xmlunit.Diff
+import org.springframework.core.io.ClassPathResource
+import com.rialms.assessment.test.AssessmentTestController
+import org.qtitools.qti.node.content.variable.RubricBlock
+import groovy.xml.XmlUtil
 
 /**
  * Created by IntelliJ IDEA.
@@ -23,8 +28,7 @@ class QtiUtilsTests {
         XMLUnit.setNormalizeWhitespace(true);
         XMLUnit.setIgnoreComments(true);
     }
-
-    /*void testConvertRubricBlockToNode() {
+    void testConvertRubricBlockToNode() {
         String msg = "testConvertRubricBlockToNode Failed ";
         File inputFile = new ClassPathResource("data/TestConvertRubricBlockToNodeInputData.xml").getFile()
         File expectedFile = new ClassPathResource("data/TestConvertRubricBlockToNodeExpectedData.xml").getFile()
@@ -85,7 +89,7 @@ class QtiUtilsTests {
 
         def xmlDiff = new Diff(expectedResult, XmlUtil.serialize(actualResult));
         assertTrue(msg + xmlDiff.toString(), xmlDiff.similar());
-    }  */
+    }
 
     void testGetFeaturesFromItemXml() {
         String test = "testGetFeaturesFromItemXml";
@@ -314,13 +318,17 @@ class QtiUtilsTests {
     void testGetFeaturesFromTestXml() {
         String test = "testGetFeaturesFromTestXml";
         String msg = "${test} Failed ";
+        def testContent;
+        String xml;
+        File file;
 
-        def testContent = {  builder ->
+
+        testContent = {  builder ->
             builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual')
             builder.testPart(identifier: 'part2', navigationMode:'nonlinear', submissionMode:'simultaneous')
         }
-        String xml = createTestXml(testContent)
-        File file = writeToTempFile(test, xml)
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
         getTestFeaturesAndValidate(file, ['multiple parts', 'linear', 'nonlinear','individual', 'simultaneous'], msg);
         assertTrue(msg, file.delete());
 
@@ -424,6 +432,81 @@ class QtiUtilsTests {
         getTestFeaturesAndValidate(file, ['linear', 'individual', 'branch'], msg);
         assertTrue(msg, file.delete());
 
+        testContent = {  builder ->
+            builder.outcomeProcessing(){
+                builder.setOutcomeValue(identifier:'FINAL_SCORE'){
+                    builder.sum(){
+                        builder.testVariables(includeCategory:'Math', excludeCategory:'PreTest', variableIdentifier:'SCORE')
+                    }
+                }
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['score using item categories'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.outcomeProcessing(){
+                builder.setOutcomeValue(identifier:'FINAL_SCORE'){
+                    builder.sum(){
+                        builder.testVariables(excludeCategory:'PreTest', variableIdentifier:'SCORE')
+                    }
+                }
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['score using item categories'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.assessmentSection(identifier:'math1'){
+                    builder.assessmentItemRef(identifier:'math1'){
+                        builder.weight(identifier: 'item256', value:'0.5')
+                    }
+                    builder.assessmentItemRef(identifier:'math2')
+                }
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'weight item outcomes'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.outcomeProcessing(){
+                builder.outcomeCondition(){
+                    builder.outcomeIf(){
+                        builder.gt(){
+                            builder.variable(identifier:'SCORE')
+                            builder.baseValue(baseType:'integer','3')
+                        }
+                        builder.exitTest()
+                    }
+                }
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['early termination'], msg);
+        assertTrue(msg, file.delete());
+
+        testContent = {  builder ->
+            builder.testPart(identifier: 'part1', navigationMode:'linear', submissionMode:'individual'){
+                builder.assessmentSection(identifier:'math1'){
+                    builder.assessmentItemRef(identifier:'math1'){
+                        builder.ordering(shuffle:'true')
+                    }
+                    builder.assessmentItemRef(identifier:'math2')
+                }
+            }
+        }
+        xml = createTestXml(testContent)
+        file = writeToTempFile(test, xml)
+        getTestFeaturesAndValidate(file, ['linear', 'individual', 'randomize order'], msg);
+        assertTrue(msg, file.delete());
     }
 
     private void getItemFeaturesAndValidate(File inputFile, List<String> expectedFeatures, String msg) {

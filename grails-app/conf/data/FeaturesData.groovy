@@ -142,6 +142,26 @@ data {
                     name: 'multiple parts',
                     description: "Test can have multiple test parts"
             ]
+            ,
+            [
+                    name: 'weight item outcomes',
+                    description: "Overall test score can be computed based on add weight individual item score"
+            ]
+            ,
+            [
+                    name: 'score using item categories',
+                    description: "Items can be categorized to one or more categories and score based on categories "
+            ]
+            ,
+            [
+                    name: 'early termination',
+                    description: "Tests can be terminated early based on accumulated item outcomes"
+            ]
+            ,
+            [
+                    name: 'randomize order',
+                    description: "Test can randomize order of items and sections"
+            ]
 
     ]
 }

@@ -74,20 +74,21 @@ public class QtiCompatibility {
         result << new QtiCompatibility("Allow/Disable Reviewing a Question" , true);
         result << new QtiCompatibility("Specify the Number of Allowed Attempts" , true);
         result << new QtiCompatibility("Questions Arranged into Parts/Sections within Tests" , true);
+        result << new QtiCompatibility("Arbitrary Weighting of Item Outcomes" , true);
+        result << new QtiCompatibility("Include/Exclude Categories of Item for Scoring" , true);
+        result << new QtiCompatibility("Early Termination of Test based on accumulated Item Outcomes" , true);
+        result << new QtiCompatibility("Randomizing the Order of Items and Sections" , true);
 
         result << new QtiCompatibility("Limit Min Duration of Attempt" , false);
-        result << new QtiCompatibility("Statistics on Quesions Usage Data" , false);
+        result << new QtiCompatibility("Sharing Common Fragment Material across Items" , false);
+        result << new QtiCompatibility("Mapping Item Outcomes" , false);
+        result << new QtiCompatibility("Disabling Visibility of a Section" , false);
 
 
-        //TOTO p2: test rtest01
-        //TODO P2: test rtest04
-        //done TODO p2: Determine if weight is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest02.xml - supported
-        //done TODO p2: Determine if category is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest03.xml
-        //done TODO p2: Determine if exitText is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest10.xml
-        //works only with ordering and shuffle enabled p2: Determine if required & keepTogether is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest12.xml
-        //done TODO p2: Determine if random & ordering is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest24.xml
-        //notworking TODO p2: Determine if variable mapping is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest26.xml
-
+        //notworking TODO p3: test rtest01
+        //works only with ordering and shuffle enabled TODO p3: Determine if required & keepTogether is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest12.xml
+        //notworking TODO p3: Determine if variable mapping is supported in test http://www.imsglobal.org/question/qtiv2p1pd2/examples/tests/rtest26.xml
+        //notworking TODO p3: visible attribute in nested section -  test title Nested sections (2, 4 not visible)
         result;
 
     }
