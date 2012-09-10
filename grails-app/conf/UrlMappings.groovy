@@ -14,6 +14,11 @@ class UrlMappings {
             controller = 'item'
             action = 'process'
         }
+
+        name viewItemXML: "/viewItemXML/$id?"{
+            controller = 'item'
+            action = 'viewItemXML'
+        }
         "/fieldFunctionTest"(view: 'uitest/fieldFunctionTest')
 
     }

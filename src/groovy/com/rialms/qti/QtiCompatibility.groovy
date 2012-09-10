@@ -1,5 +1,7 @@
 package com.rialms.qti
 
+import groovy.transform.ToString
+
 /**
  * Created with IntelliJ IDEA.
  * User: relango
@@ -7,6 +9,7 @@ package com.rialms.qti
  * Time: 10:57 PM
  * To change this template use File | Settings | File Templates.
  */
+@ToString(includeFields = true)
 public class QtiCompatibility {
     private String feature;
     private boolean supported;

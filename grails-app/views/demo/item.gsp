@@ -1,4 +1,4 @@
-<%@ page import="com.rialms.assessment.item.Item; com.rialms.assessment.item.ItemFeature" %>
+<%@ page import="grails.converters.JSON; com.rialms.assessment.item.Item; com.rialms.assessment.item.ItemFeature" %>
 <%--
   Created by IntelliJ IDEA.
   User: relango
@@ -32,6 +32,7 @@
                 <thead>
                 <tr>
                     <g:sortableColumn property="id" title="${g.message(code: 'id.label')}" params="${params}"/>
+                    <th><g:message code="view.label" /> </th>
                     <g:sortableColumn property="title" title="${g.message(code: 'title.label')}" params="${params}"/>
 
                     <th><g:message code="action.label"/></th>
@@ -43,7 +44,11 @@
                     <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
                         <td>${fieldValue(bean: item, field: 'id')}
-
+                        <td>
+                            <button class="btn btn-info" onclick="window.showUrlInDialog('/rialms/viewItemXML/${item.id}','${[] as JSON}')">
+                                <i class="icon-file"></i>
+                            </button>
+                        </td>
                         <td>${fieldValue(bean: item, field: 'title')}
                             <g:each in="${item.features}" var="feature">
                                 <span class='feature-list'>

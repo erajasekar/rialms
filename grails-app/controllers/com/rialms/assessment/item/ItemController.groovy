@@ -60,4 +60,11 @@ class ItemController {
         log.info("Render Output ${renderOutput}");
         render renderOutput as JSON;
     }
+
+    def viewItemXML() {
+        log.info("Showing Item Xml with param ${params}");
+        Map result = itemService.getItemXML(params.id);
+        result = result + ['data.url':"'/rialms/viewItemXML/${result.id}'", options:[options:[height:'600',width:'600']]];
+        render result as JSON;
+    }
 }
