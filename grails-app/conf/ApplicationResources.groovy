@@ -17,6 +17,7 @@ modules = {
         resource url: 'coffee/bootstrap-utils.coffee', bundle: 'render', disposition: 'head'
         resource url: 'coffee/qti.coffee', bundle: 'render', disposition: 'head'
         resource url: 'coffee/controllers.coffee', bundle: 'render', disposition: 'head'
+        resource url: 'coffee/dialog-utils.coffee', bundle: 'render', disposition: 'head'
     }
 
     mybootstrap {

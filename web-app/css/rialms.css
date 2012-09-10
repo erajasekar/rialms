@@ -231,3 +231,6 @@ a.toggleNav:hover {
   text-align: center;
   padding: 10px;
 }
+td.center {
+  text-align: center;
+}
