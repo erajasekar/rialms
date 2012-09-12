@@ -8,7 +8,7 @@ window.showUrlInDialog = (url) ->
       if typeof data is "object" and data.html #response is assumed to be JSON
         options = data.options;
         console.log(options);
-        tag.html(data.html).dialog(
+        tag.text(data.html).dialog(
           title : options.title
           modal : options.modal
           height : options.height
