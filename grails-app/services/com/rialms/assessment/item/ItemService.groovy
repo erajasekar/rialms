@@ -7,6 +7,8 @@ import com.rialms.util.QtiUtils
 
 import com.rialms.assessment.Feature
 import grails.orm.PagedResultList
+import sun.reflect.generics.scope.ConstructorScope
+import com.rialms.consts.Constants
 
 class ItemService implements InitializingBean {
 
@@ -14,6 +16,8 @@ class ItemService implements InitializingBean {
     String contentPath;
     String demoItemsPath;
     int maxEntriesPerPage;
+    def gspTagLibraryLookup;
+    def g;
 
     public AssessmentItem getAssessmentItem(Item e) {
 
@@ -98,6 +102,7 @@ class ItemService implements InitializingBean {
         contentPath = grailsApplication.config.rialms.contentPath;
         maxEntriesPerPage = grailsApplication.config.rialms.maxEntriesPerPage
         demoItemsPath = grailsApplication.config.rialms.demoItemsPath
+        g = gspTagLibraryLookup.lookupNamespaceDispatcher("g")
     }
 
     public Map getItemXML(String id) {
@@ -108,7 +113,7 @@ class ItemService implements InitializingBean {
             Item item = Item.get(Long.valueOf(id));
             if (item) {
                 File itemXml = getItemDataFile(item.dataPath, item.dataFile);
-                result['data.html'] = itemXml.text;
+                result[Constants.html] = itemXml.text;
             } else {
                 errMsg = "Invalid Item Id : ${id}"
             }
@@ -118,9 +123,9 @@ class ItemService implements InitializingBean {
         }
         if (errMsg) {
             log.error("${errMsg}");
-            result['data.html'] = errMsg;
+            result[Constants.html] = errMsg;
         }
-        result = result + ['data.id':id];
+        result[Constants.options] = [(Constants.title):g.message(['code':Constants.itemXMLMessageCode])]
         result;
     }
 }

@@ -10,10 +10,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="primary"/>
+
     <title><g:message code="item.list.title"/></title>
 </head>
 
-<body>
+<body onload="prettyPrint()">
 <div class="row-fluid">
     <div class="span3">
         <g:render template="/renderer/renderFeatures" model="[features: ItemFeature.getFeatures()]"/>
@@ -45,7 +46,7 @@
 
                         <td>${fieldValue(bean: item, field: 'id')}
                         <td>
-                            <button class="btn btn-info" onclick="window.showUrlInDialog('/rialms/viewItemXML/${item.id}','${[] as JSON}')">
+                            <button class="btn btn-info" onclick="window.showUrlInDialog('/rialms/viewItemXML/${item.id}')">
                                 <i class="icon-file"></i>
                             </button>
                         </td>

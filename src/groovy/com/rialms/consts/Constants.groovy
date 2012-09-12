@@ -112,5 +112,9 @@ class Constants {
     public static final String visible = 'visible';
     public static final String hiddenElementsData = 'hiddenElementsData';
     public static final String learnBasicAlgebraTitle = 'Learn Basic Algebra';
+    public static final String options = 'options';
+    public static final String html = 'html';
+    public static final String itemXMLMessageCode = 'item.xml.label';
+    public static final String modal = 'model';
 
 }
