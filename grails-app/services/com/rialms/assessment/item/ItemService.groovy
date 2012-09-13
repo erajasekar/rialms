@@ -9,6 +9,8 @@ import com.rialms.assessment.Feature
 import grails.orm.PagedResultList
 import sun.reflect.generics.scope.ConstructorScope
 import com.rialms.consts.Constants
+import org.apache.commons.lang.StringEscapeUtils
+
 
 class ItemService implements InitializingBean {
 
@@ -113,7 +115,7 @@ class ItemService implements InitializingBean {
             Item item = Item.get(Long.valueOf(id));
             if (item) {
                 File itemXml = getItemDataFile(item.dataPath, item.dataFile);
-                result[Constants.html] = itemXml.text;
+                result[Constants.content] = StringEscapeUtils.escapeHtml(itemXml.text);
             } else {
                 errMsg = "Invalid Item Id : ${id}"
             }
@@ -123,7 +125,7 @@ class ItemService implements InitializingBean {
         }
         if (errMsg) {
             log.error("${errMsg}");
-            result[Constants.html] = errMsg;
+            result[Constants.content] = errMsg;
         }
         result[Constants.options] = [(Constants.title):g.message(['code':Constants.itemXMLMessageCode])]
         result;

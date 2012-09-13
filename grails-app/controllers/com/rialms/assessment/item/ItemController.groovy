@@ -1,14 +1,10 @@
 package com.rialms.assessment.item
 
-import com.rialms.util.UtilitiesService
+import com.rialms.consts.Constants as Consts
 
-import org.qtitools.qti.validation.ValidationItem
-import grails.web.JSONBuilder
+import com.rialms.util.UtilitiesService
 import grails.converters.JSON
 import org.qtitools.qti.validation.ValidationResult
-import com.rialms.consts.Constants as Consts
-import com.rialms.assessment.Feature
-import com.rialms.consts.Constants
 
 class ItemController {
 
@@ -66,13 +62,8 @@ class ItemController {
         log.info("Showing Item Xml with param ${params}");
         Map result = itemService.getItemXML(params.id);
 
-     /*   Map result = [(Constants.html):"""<?xml version=\"1.0\" encoding=\"UTF-8\"?> <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float" normalMaximum="1.0">
-        <defaultValue>
-            <value>0</value>
-        </defaultValue>
-    </outcomeDeclaration>"""]
-        result[Consts.options] = [:]; //TODO p1 remove   */
-        Map options = [(Consts.height):'600',(Consts.width):'600', (Consts.modal):true];
+        Map options = [(Consts.height):'600',(Consts.width):'auto', (Consts.modal):true, (Consts.closeButtonLabel) : g.message('code':'close.label')];
+
         result[Consts.options] = result[Consts.options] + options;
         log.info("DEBUG itemXML ${result}");
         render result as JSON;

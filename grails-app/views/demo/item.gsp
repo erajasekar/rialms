@@ -10,11 +10,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="primary"/>
-
+    <r:require module="prettify"/>
     <title><g:message code="item.list.title"/></title>
 </head>
 
-<body onload="prettyPrint()">
+<body>
 <div class="row-fluid">
     <div class="span3">
         <g:render template="/renderer/renderFeatures" model="[features: ItemFeature.getFeatures()]"/>
@@ -33,7 +33,7 @@
                 <thead>
                 <tr>
                     <g:sortableColumn property="id" title="${g.message(code: 'id.label')}" params="${params}"/>
-                    <th><g:message code="view.label" /> </th>
+                    <th><g:message code="view.label"/> </th>
                     <g:sortableColumn property="title" title="${g.message(code: 'title.label')}" params="${params}"/>
 
                     <th><g:message code="action.label"/></th>
@@ -47,7 +47,7 @@
                         <td>${fieldValue(bean: item, field: 'id')}
                         <td>
                             <button class="btn btn-info" onclick="window.showUrlInDialog('/rialms/viewItemXML/${item.id}')">
-                                <i class="icon-file"></i>
+                                <i class="icon-file"></i>&nbsp;<g:message code="view.label"/>
                             </button>
                         </td>
                         <td>${fieldValue(bean: item, field: 'title')}
@@ -77,5 +77,6 @@
         <b:paginate total="${itemList.getTotalCount()}" params="${params}"/>
     </div>
 </div>
+
 </body>
 </html>

@@ -86,9 +86,6 @@
     </div>
 
 </nav>
-
-<!--<link href="http://code.google.com/p/google-code-prettify/source/browse/trunk/src/prettify.css" type="text/css" rel="stylesheet" />
-<script src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js" type="text/javascript"/><!--TODO: p1 move to applicaiton resources -->
 <div class="container-fluid">
     <g:layoutBody/>
 

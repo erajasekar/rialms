@@ -116,5 +116,6 @@ class Constants {
     public static final String html = 'html';
     public static final String itemXMLMessageCode = 'item.xml.label';
     public static final String modal = 'model';
-
+    public static final String buttons = 'buttons';
+    public static final String closeButtonLabel = 'closeButtonLabel';
 }

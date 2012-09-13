@@ -51,6 +51,11 @@ modules = {
         resource url: 'js/jquery/jquery.dataSelector.js'
     }
 
+    prettify {
+        resource url: 'js/prettify/prettify.js'
+        resource url: 'css/prettify/prettify.css'
+    }
+
     customScrollbar {
         //TODO P3: Fix scrollbar customization
       //  resource url: 'js/scrollbar/jquery.mCustomScrollbar.js'
