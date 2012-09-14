@@ -30,7 +30,7 @@
     <outcomeDeclaration identifier="STEP2" cardinality="single" baseType="identifier"/>
     <itemBody>
         <p>
-            Joe made the following triangular patterns with the match sticks he had
+            Let's have some fun with match sticks. Suppose we want to make following triangular patterns with the match sticks.
         </p>
 
         <p>
@@ -47,7 +47,7 @@
         </p>
         <br/>
         <p>
-            To find out the total match sticks used for the above formation he prepared the following table.
+            To find out the total match sticks used for the above formation let's prepare the following table. Go a head and fill the missing values.
         </p>
         <br/>
         <table class="table table-bordered">
@@ -80,7 +80,7 @@
         </table>
         <feedbackBlock outcomeIdentifier="STEP1" showHide="show" identifier="step1">
             <p>
-                From the above table he found a relation between the number of triangles and the number of match sticks
+                From the above table we can see that relation between the number of triangles and the number of match sticks
                 used.
                 That is
                 <br/><br/>

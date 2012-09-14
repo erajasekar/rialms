@@ -9,6 +9,8 @@ import org.springframework.validation.Errors
 import com.rialms.assessment.Feature
 import grails.orm.PagedResultList
 import com.rialms.assessment.item.Item
+import com.rialms.consts.Constants
+import org.apache.commons.lang.StringEscapeUtils
 
 class TestService implements InitializingBean {
 
@@ -16,6 +18,8 @@ class TestService implements InitializingBean {
     String contentPath;
     String demoTestsPath;
     int maxEntriesPerPage;
+    def gspTagLibraryLookup;
+    def g;
 
     public void createTest(String dataPath, String dataFile){
         File testXml = getTestDataFile(dataPath,dataFile);
@@ -115,10 +119,34 @@ class TestService implements InitializingBean {
         return coordinator.getTestRenderInfo()
     }
 
+    public Map getTestXML(String id) {
+        Map result = [:];
+        log.debug("testId ${id}")
+        String errMsg;
+        if (id) {
+            Test test = Test.get(Long.valueOf(id));
+            if (test) {
+                File testXml = getTestDataFile(test.dataPath, test.dataFile);
+                result[Constants.content] = StringEscapeUtils.escapeHtml(testXml.text);
+            } else {
+                errMsg = "Invalid Test Id : ${id}"
+            }
+        }
+        else {
+            errMsg = "Test Id is null"
+        }
+        if (errMsg) {
+            log.error("${errMsg}");
+            result[Constants.content] = errMsg;
+        }
+        result[Constants.options] = [(Constants.title):g.message(['code':Constants.testXMLMessageCode])]
+        result;
+    }
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
         maxEntriesPerPage = grailsApplication.config.rialms.maxEntriesPerPage
         demoTestsPath = grailsApplication.config.rialms.demoTestsPath;
+        g = gspTagLibraryLookup.lookupNamespaceDispatcher("g")
     }
 
 }

@@ -44,6 +44,7 @@ rialms {
     hintIdentifier = 'HINT';
     solutionIdentifier = 'SOLUTION';
     maxEntriesPerPage = 10;
+    qtiXMLDialogHeight = 600;
 
 }
 

@@ -11,6 +11,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="primary"/>
+    <r:require module="prettify"/>
     <title><g:message code="test.list.title"/></title>
 </head>
 
@@ -33,7 +34,7 @@
                 <tr>
 
                     <g:sortableColumn property="id" title="${g.message(code: 'id.label')}"  params="${params}"/>
-
+                    <th><g:message code="view.label"/> </th>
                     <g:sortableColumn property="title" title="${g.message(code: 'title.label')}"  params="${params}"/>
 
                     <th><g:message code="action.label"/></th>
@@ -45,6 +46,12 @@
                     <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
                         <td>${fieldValue(bean: test, field: 'id')}</td>
+
+                        <td>
+                            <button class="btn btn-info" onclick="window.showUrlInDialog('/rialms/viewTestXML/${test.id}')">
+                               <g:message code="view.label"/>
+                            </button>
+                        </td>
 
                         <td>${fieldValue(bean: test, field: 'title')}
                             <g:each in="${test.features}" var="feature">

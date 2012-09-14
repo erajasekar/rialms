@@ -47,7 +47,7 @@
                         <td>${fieldValue(bean: item, field: 'id')}
                         <td>
                             <button class="btn btn-info" onclick="window.showUrlInDialog('/rialms/viewItemXML/${item.id}')">
-                                <i class="icon-file"></i>&nbsp;<g:message code="view.label"/>
+                               <g:message code="view.label"/>
                             </button>
                         </td>
                         <td>${fieldValue(bean: item, field: 'title')}

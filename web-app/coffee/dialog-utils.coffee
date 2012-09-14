@@ -1,5 +1,7 @@
 window.showUrlInDialog = (url) ->
-  tag = $("<pre class='prettyprint language-xml'></pre>") #This tag will the hold the dialog content.
+  tag =  $("#dialogHolder");
+  if (!tag.length)
+    tag = $("<pre id='dialogHolder' class='prettyprint language-xml'></pre>") #This tag will the hold the dialog content.
   $.ajax
     url: url
     type: "GET"
@@ -11,7 +13,10 @@ window.showUrlInDialog = (url) ->
         closeButtonLabel = options.closeButtonLabel;
         if closeButtonLabel
           options['buttons'] = {}
-          options['buttons'][closeButtonLabel] =  ->
+          options['buttons'][closeButtonLabel] =
+            text: closeButtonLabel
+         #   class: "ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only"
+            click: ->
               $(this).dialog "close"
         console.log(options);
         tag.html(data.content).dialog(

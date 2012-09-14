@@ -62,10 +62,10 @@ class ItemController {
         log.info("Showing Item Xml with param ${params}");
         Map result = itemService.getItemXML(params.id);
 
-        Map options = [(Consts.height):'600',(Consts.width):'auto', (Consts.modal):true, (Consts.closeButtonLabel) : g.message('code':'close.label')];
+        Map options = [(Consts.height):grailsApplication.config.rialms.qtiXMLDialogHeight,(Consts.width):'auto', (Consts.modal):true, (Consts.closeButtonLabel) : g.message('code':'close.label')];//TODO P3 find better name/type for closeButtonLabel, in java it's used as boolean and string
 
         result[Consts.options] = result[Consts.options] + options;
-        log.info("DEBUG itemXML ${result}");
+        log.debug("DEBUG itemXML ${result}");
         render result as JSON;
     }
 }

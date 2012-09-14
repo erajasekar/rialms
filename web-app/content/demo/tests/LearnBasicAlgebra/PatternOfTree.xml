@@ -166,7 +166,7 @@
         </feedbackBlock>
         <feedbackBlock outcomeIdentifier="STEP3" showHide="show" identifier="step3">
             <p>
-                Correct!. The algebraic expression for Number of match sticks used =
+                <span class='result-correct'>Correct!.</span> The algebraic expression for Number of match sticks used =
                 <m:math title="3x+2" xmlns="http://www.w3.org/1998/Math/MathML">
                     <m:mstyle mathcolor="blue" fontfamily="serif" displaystyle="true">
                         <m:mn>3</m:mn>

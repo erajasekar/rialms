@@ -210,4 +210,15 @@ class TestController {
         Map<String, String> renderOutput = [(Consts.redirectUrl): createLink(attributes).toString()];
         render renderOutput as JSON;
     }
+
+    def viewTestXML() {
+        log.info("Showing Test Xml with param ${params}");
+        Map result = testService.getTestXML(params.id);
+
+        Map options = [(Consts.height):grailsApplication.config.rialms.qtiXMLDialogHeight,(Consts.width):'auto', (Consts.modal):true, (Consts.closeButtonLabel) : g.message('code':'close.label')];//TODO P3 find better name/type for closeButtonLabel, in java it's used as boolean and string
+
+        result[Consts.options] = result[Consts.options] + options;
+        log.debug("DEBUG testXML ${result}");
+        render result as JSON;
+    }
 }

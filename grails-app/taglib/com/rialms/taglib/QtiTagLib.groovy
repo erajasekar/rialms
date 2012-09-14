@@ -73,9 +73,7 @@ class QtiTagLib {
                 fieldAttributes[title] = title;
             }
 
-            log.info("DEBUG Stylesheet Field Attributes ${fieldAttributes} ${g.external(fieldAttributes).toString()}");
-            // out << g.external(fieldAttributes);
-            //out << "added"
+            log.debug("DEBUG Stylesheet Field Attributes ${fieldAttributes} ${g.external(fieldAttributes).toString()}");
             def tagBody = {
                 g.external(fieldAttributes);
             }
