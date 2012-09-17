@@ -38,7 +38,7 @@
     </p>
     <blockquote>
         <p class="highlight">
-            Our intent is to build a platform for delivering best self learning experience.
+            Our intent is to build a platform for bringing excellence in education through interactive and adaptive learning.
         </p>
     </blockquote>
 </div>
@@ -111,7 +111,7 @@
             Riamls is build using these popular technologies and open source libraries.
         <ul class="unstyled">
             <li>
-                <i class="icon-thumbs-up"></i>
+                <i class="icon-leaf"></i>
                 <g:link
                         url="http://qtitools.org/"
                         target="_blank">QTI Tools</g:link> library for processing
@@ -120,37 +120,37 @@
                         target="_blank">QTI v2.1</g:link> questions and tests.
             </li>
             <li>
-                <i class="icon-thumbs-up"></i>
+                <i class="icon-leaf"></i>
                 <g:link
                         url="http://grails.org/"
                         target="_blank">Grails</g:link> web application framework.
             </li>
             <li>
-                <i class="icon-thumbs-up"></i>
+                <i class="icon-leaf"></i>
                 <g:link
                         url="http://angularjs.org/"
                         target="_blank">AngularJS</g:link> javascript framework.
             </li>
             <li>
-                <i class="icon-thumbs-up"></i>
+                <i class="icon-leaf"></i>
                 <g:link
                         url="http://jquery.com//"
                         target="_blank">jQuery</g:link> javascript library.
             </li>
             <li>
-                <i class="icon-thumbs-up"></i>
+                <i class="icon-leaf"></i>
                 <g:link
                         url="http://twitter.github.com/bootstrap/"
                         target="_blank">Twitter Bootstrap</g:link> front-end toolkit.
             </li>
             <li>
-                <i class="icon-thumbs-up"></i>
+                <i class="icon-leaf"></i>
                 <g:link
                         url="http://coffeescript.org/"
                         target="_blank">CoffeeScript</g:link> language that transcompiles to javascript.
             </li>
             <li>
-                <i class="icon-thumbs-up"></i>
+                <i class="icon-leaf"></i>
                 <g:link
                         url="http://jsplumb.org/"
                         target="_blank">JsPlumb</g:link> library to connect elements on webpage.

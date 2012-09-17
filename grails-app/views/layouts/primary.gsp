@@ -16,6 +16,10 @@
         <link ng-repeat="stylesheet in itemStylesheets" ng-href="${request.contextPath}/{{stylesheet.href}}"
               type="{{stylesheet.type}}" rel="stylesheet" media="{{stylesheet.media}}" title="{{stylesheet.title}}"/>
     </div>
+    <link href='http://fonts.googleapis.com/css?family=Hammersmith+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif:400italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,300italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Droid+Sans:700' rel='stylesheet' type='text/css'>
     <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"
             type="text/javascript"></script>
     <r:require module="core"/>
@@ -39,7 +43,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="${request.contextPath}"><g:message code="project.name"/></a>
+            <a class="brand" style="font-family: 'Droid Sans', sans-serif;color:#333;" href="${request.contextPath}">
+                RIALMS
+                <p style="font-family: 'Lato', sans-serif " ><g:message code="tagline.message"/></p>
+            </a>
 
             <div class="nav-collapse">
                 <ul class="nav">

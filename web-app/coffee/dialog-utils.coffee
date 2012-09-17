@@ -1,3 +1,4 @@
+# TODO p3 change to use bootstrap theme http://addyosmani.github.com/jquery-ui-bootstrap/
 window.showUrlInDialog = (url) ->
   tag =  $("#dialogHolder");
   if (!tag.length)

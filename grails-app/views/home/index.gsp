@@ -18,18 +18,18 @@
 <div class="documentation row-fluid">
     <div class="span6">
         <h2>
-            What is Rialms ?
+            What is <g:message code="project.name"/> ?
         </h2>
 
         <p>
-            Rialms is a <span class="highlight">R</span>adical <span class="highlight">I</span>nteractive <span
+            <g:message code="project.name"/> is a <span class="highlight">R</span>adical <span class="highlight">I</span>nteractive <span
                 class="highlight">A</span>daptive <span class="highlight">L</span>earning <span
                 class="highlight">M</span>anagement <span class="highlight">S</span>ystem.
-        It is a platform for delivering interactive and adaptive learning content based on <g:link
-                url="http://en.wikipedia.org/wiki/QTI"
-                target="_blank">Question and Test Interoperability specification (QTI)</g:link>
-        produced by <g:link url="http://www.imsglobal.org/" target="_blank">IMS Global</g:link>
-        <!-- TODO P2 remove qti add tagline support -->
+            <g:message code="project.name"/> is a platform for delivering interactive and <g:link
+                url="http://en.wikipedia.org/wiki/Adaptive_learning"
+                target="_blank">adaptive learning content</g:link> content.
+            <blockquote><p><b>Adaptive learning</b> is an educational method which uses computers as interactive teaching devices.</p></blockquote>
+            <p><g:message code="project.name"/> adapts the presentation of learning material according to students' learning needs, as indicated by their responses to questions.</p>
         </p>
     </div>
 
@@ -39,11 +39,13 @@
         </h2>
 
         <p>
-            <g:link url="http://en.wikipedia.org/wiki/QTI"
-                    target="_blank">QTI</g:link> specification is a widely used standard for marking up questions and other learning material.
-            Rialms is a delivery engine that can play QTI compatible content. All learning material in this site
-            Rialms is a delivery engine that can play QTI compatible content. All learning material in this site
-            (Questions and Tests) are created as per QTI Spec. So Rialms can deliver more learning material by simply adding more content based on QTI Spec.
+            <g:message code="project.name"/> is based on <g:link
+                    url="http://en.wikipedia.org/wiki/QTI"
+                    target="_blank">Question and Test Interoperability specification (QTI)</g:link>
+            produced by <g:link url="http://www.imsglobal.org/" target="_blank">IMS Global</g:link>. <br/>
+            QTI specification is a widely used standard for marking up questions and other learning material.
+            <g:message code="project.name"/> is a delivery engine that can play QTI compatible content. All learning material in this site
+            (Questions and Tests) are created as per QTI Spec. So <g:message code="project.name"/> can deliver more learning material by simply adding more content based on QTI Spec.
 
         <p>Check out these demos <i>(You can also use demo navigation menu)</i></p>
         <ul class="unstyled">
