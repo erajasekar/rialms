@@ -40,7 +40,7 @@ rialms {
     contentPath = 'content';
     demoItemsPath = "/demo/items"
     demoTestsPath = "/demo/tests"
-    showInternalState = true;
+    showInternalState = false;
     hintIdentifier = 'HINT';
     solutionIdentifier = 'SOLUTION';
     maxEntriesPerPage = 10;

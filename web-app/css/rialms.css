@@ -1,3 +1,6 @@
+@import url(http://fonts.googleapis.com/css?family=Vollkorn:700italic);
+
+@import url(http://fonts.googleapis.com/css?family=Droid+Sans:700);
 .center {
   text-align: center;
 }
@@ -125,6 +128,16 @@ a.toggleNav:hover {
   color: #000000;
   text-decoration: none;
 }
+.navbar .logo {
+  font-family: 'Droid Sans', sans-serif;
+  color: #0d4f42;
+}
+.navbar .tagline {
+  font-family: 'Vollkorn', serif;
+  font-size: small;
+  font-weight: "bolder";
+  color: #fff8af;
+}
 .model-feedback {
   margin: 5px;
   padding: 10px;
@@ -225,7 +238,7 @@ a.toggleNav:hover {
 }
 .page-title {
   text-align: center;
-  padding: 10px;
+  padding: 10px 10px 5px 10px;
 }
 .title {
   text-align: center;

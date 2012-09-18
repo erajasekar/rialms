@@ -74,7 +74,7 @@
                url="http://www.imsglobal.org/question/qtiv2p1pd2/imsqti_implv2p1pd2.html"
                target="_blank">QTI spec</g:link> is generalized to support wide range of features. We want to iteratively deliver most useful features instead of implementing everything with some features never being used.
 
-    The following table summarized compatibility of Rialms with QTI features. <i>(Note that this doesn't list each and every option in QTI.
+    The following table summarized compatibility of <g:message code="project.name" /> with QTI features. <i>(Note that this doesn't list each and every option in QTI.
     Please refer to
     <g:link title="QTI Implementation Guide"
             url="http://www.imsglobal.org/question/qtiv2p1pd2/imsqti_implv2p1pd2.html"
@@ -167,15 +167,15 @@
     </h2>
 
     <p class="highlight">
-        <b>Rialms 0.1</b>
+        <b><g:message code="project.name" /> 0.1</b>
     </p>
 
     <p>
-        Current version Rialms 0.1 is a alpha version that showcases demo questions and tests.
+        Current version <g:message code="project.name" /> 0.1 is a alpha version that showcases demo questions and tests.
     </p>
 
     <p class="highlight">
-        <b>Rialms 1.0</b>
+        <b><g:message code="project.name" /> 1.0</b>
     </p>
 
     <p>
@@ -183,7 +183,7 @@
     </p>
 
     <p class="highlight">
-        <b>Rialms 1.1</b>
+        <b><g:message code="project.name" /> 1.1</b>
     </p>
 
     <p>

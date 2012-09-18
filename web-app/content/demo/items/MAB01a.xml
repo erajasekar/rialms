@@ -4,7 +4,7 @@
                 xmlns:ma="http://mathassess.qtitools.org/xsd/mathassess"
                 xsi:schemaLocation="http://www.imsglobal.org/xsd/imsqti_v2p1 imsqti_v2p1.xsd
  http://mathassess.qtitools.org/xsd/mathassess mathassess.xsd"
-                xmlns:m="http://www.w3.org/1998/Math/MathML" adaptive="false"
+                xmlns:m="http://www.w3.org/1998/Math/MathML" adaptive="true"
                 identifier="MAB01a" timeDependent="false"
                 title="Expand brackets in a(x+b)+cx and simplify">
     <!--
