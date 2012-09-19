@@ -19,6 +19,7 @@ class ItemService implements InitializingBean {
     String demoItemsPath;
     int maxEntriesPerPage;
     def gspTagLibraryLookup;
+    def messageSource;
     def g;
 
     public AssessmentItem getAssessmentItem(Item e) {
@@ -33,17 +34,25 @@ class ItemService implements InitializingBean {
 
     public void createItem(String dataPath, String dataFile) {
         File itemXml = getItemDataFile(dataPath, dataFile)
-        String itemTitle = QtiUtils.getTitleFromXml(itemXml);
-        Item item = new Item(dataPath: dataPath, dataFile: dataFile, title: itemTitle);
-        item.save();
 
-        if (item.hasErrors()) {
-            log.warn("Errors in creating feature : ${item.errors}")
-        }
         if (dataPath == demoItemsPath) {
-            addFeaturesToItem(item, QtiUtils.getFeaturesFromItemXml(itemXml))
+            addFeaturesToItem(findOrCreateItem(dataPath,dataFile, itemXml), QtiUtils.getFeaturesFromItemXml(itemXml))
         }
 
+    }
+
+    private Item findOrCreateItem(String dataPath, String dataFile, File itemXml){
+        Item item = Item.findByDataPathAndDataFile(dataPath,dataFile, [cache : true])
+        if (!item){
+            String itemTitle = QtiUtils.getTitleFromXml(itemXml);
+            item = new Item(dataPath: dataPath, dataFile: dataFile, title: itemTitle);
+            item.save();
+            log.debug("DEBUG creating Item with dataPath : ${dataPath} , dataFile : ${dataFile} , itemTitle , ${itemTitle}")
+            if (item.hasErrors()) {
+                item.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}
+            }
+        }
+        return item;
     }
 
 
@@ -59,11 +68,13 @@ class ItemService implements InitializingBean {
     }
 
     private void createItemFeature(Item item, Feature feature) {
-        ItemFeature itemFeature = new ItemFeature(item: item, feature: feature);
-        log.debug("DEBUG creatingItemFeature ${item.title} -> ${feature.name}")
-        itemFeature.save();
-        if (itemFeature.hasErrors()) {
-            log.error("Error in creating Item Feature ${itemFeature.errors}");
+        if (!ItemFeature.findByItemAndFeature(item,feature, [cache: true])){
+            ItemFeature itemFeature = new ItemFeature(item: item, feature: feature);
+            log.debug("DEBUG creatingItemFeature ${item.title} -> ${feature.name}")
+            itemFeature.save();
+            if (itemFeature.hasErrors()) {
+                log.error("Error in creating Item Feature ${itemFeature.errors}");
+            }
         }
     }
 

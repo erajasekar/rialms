@@ -23,10 +23,12 @@ class FeatureService {
     }
 
     private Feature createFeature(String name, String description){
-        Feature f = new Feature(name: name,description: description);
-        f.save();
-        if (f.hasErrors()){
-           log.error("Errors in creating feature : ${f.errors}")
+        if (!Feature.findByNameAndDescription(name,description, [cache:true])){
+            Feature f = new Feature(name: name,description: description);
+            f.save();
+            if (f.hasErrors()){
+                log.error("Errors in creating feature : ${f.errors}")
+            }
         }
     }
 }

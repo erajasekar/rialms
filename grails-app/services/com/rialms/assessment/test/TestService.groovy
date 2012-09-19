@@ -17,44 +17,54 @@ class TestService implements InitializingBean {
     def grailsApplication;
     String contentPath;
     String demoTestsPath;
+    def messageSource;
     int maxEntriesPerPage;
     def gspTagLibraryLookup;
     def g;
 
-    public void createTest(String dataPath, String dataFile){
-        File testXml = getTestDataFile(dataPath,dataFile);
-        String testTitle = QtiUtils.getTitleFromXml(testXml);
-        Test test = new Test(dataPath: dataPath, dataFile: dataFile, title:testTitle);
-        test.save();
-        if (test.hasErrors()){
-            log.warn("Errors in creating feature : ${test.errors}")
+    public void createTest(String dataPath, String dataFile) {
+        File testXml = getTestDataFile(dataPath, dataFile);
+        if (dataPath.startsWith(demoTestsPath)) {
+            addFeaturesToTest(findOrCreateTest(dataPath, dataFile, testXml), QtiUtils.getFeaturesFromTestXml(testXml))
         }
-
-        if (dataPath.startsWith(demoTestsPath)){
-            addFeaturesToTest(test, QtiUtils.getFeaturesFromTestXml(testXml))
-        }
-
     }
 
-    private void addFeaturesToTest(Test test, List<String> featureNames){
+    private Test findOrCreateTest(String dataPath, String dataFile, File testXml) {
+        Test test = Test.findByDataPathAndDataFile(dataPath, dataFile, [cache: true])
+        if (!test) {
+            String testTitle = QtiUtils.getTitleFromXml(testXml);
+            test = new Test(dataPath: dataPath, dataFile: dataFile, title: testTitle);
+            test.save();
+            if (test.hasErrors()) {
+                test.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}
+            }
+        }
+        return test;
+    }
 
-        featureNames.each{ featureName ->
+    private void addFeaturesToTest(Test test, List<String> featureNames) {
+
+        featureNames.each { featureName ->
             Feature feature = Feature.findByName(featureName);
-            if (!feature){
+            if (!feature) {
                 log.error("Cannot add ${featureName} to test ${test.title}: invalid feature name")
             }
-            createTestFeature(test,feature);
+            createTestFeature(test, feature);
         }
     }
 
-    private void createTestFeature(Test test, Feature feature){
-        TestFeature testFeature = new TestFeature(test: test, feature: feature);
-        testFeature.save();
-        if (testFeature.hasErrors()){
-            log.error("Error in creating Item Feature ${testFeature.errors}");
+    private void createTestFeature(Test test, Feature feature) {
+        if (!TestFeature.findByTestAndFeature(test, feature, [cache: true])) {
+            TestFeature testFeature = new TestFeature(test: test, feature: feature);
+            testFeature.save();
+            if (testFeature.hasErrors()) {
+                log.error("Error in creating Item Feature ${testFeature.errors}");
+                testFeature.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}
+            }
         }
     }
-    private File getTestDataFile(String dataPath,String dataFile) {
+
+    private File getTestDataFile(String dataPath, String dataFile) {
         return grailsApplication.parentContext.getResource("${getAbsoluteDataPath(dataPath)}" + dataFile).getFile();
     }
 
@@ -62,33 +72,33 @@ class TestService implements InitializingBean {
         return "${contentPath}/${dataPath}/"
     }
 
-    public String findTestIdByTitle(String title){
+    public String findTestIdByTitle(String title) {
         return Test.findByTitle(title).id;
     }
 
-    public PagedResultList listTestsByFilter(Map params){
+    public PagedResultList listTestsByFilter(Map params) {
         if (!params.max) params.max = maxEntriesPerPage
         if (!params.filterByFeature) params.filterByFeature = 'all'
 
         Closure filterCriteria = {
-            if (params.filterByFeature != 'all'){
-                testFeatures{
-                    feature{
-                        'eq'('name',params.filterByFeature)
+            if (params.filterByFeature != 'all') {
+                testFeatures {
+                    feature {
+                        'eq'('name', params.filterByFeature)
                     }
                 }
-            }else{
+            } else {
                 isNotEmpty('testFeatures')
             }
         }
-        PagedResultList testList = Test.createCriteria().list(params,filterCriteria);
+        PagedResultList testList = Test.createCriteria().list(params, filterCriteria);
 
         return testList;
     }
 
     public TestCoordinator createTestCoordinator(String testId) {
         Test test = Test.get(testId);
-        TestCoordinator coordinator = new TestCoordinator(getTestDataFile(test.dataPath,test.dataFile), getAbsoluteDataPath(test.dataPath), null);
+        TestCoordinator coordinator = new TestCoordinator(getTestDataFile(test.dataPath, test.dataFile), getAbsoluteDataPath(test.dataPath), null);
 
         //render the first instance only with error report
         coordinator.setValidate(true);
@@ -139,9 +149,10 @@ class TestService implements InitializingBean {
             log.error("${errMsg}");
             result[Constants.content] = errMsg;
         }
-        result[Constants.options] = [(Constants.title):g.message(['code':Constants.testXMLMessageCode])]
+        result[Constants.options] = [(Constants.title): g.message(['code': Constants.testXMLMessageCode])]
         result;
     }
+
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
         maxEntriesPerPage = grailsApplication.config.rialms.maxEntriesPerPage

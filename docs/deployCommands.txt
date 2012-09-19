@@ -1,0 +1,4 @@
+grails cf-create-service mysql rialmsDB
+grails prod cf-push
+grails prod cf-update-memory 1G
+grails cf-env-add JAVA_OPTS "-XX:MaxPermSize=1024m -Xms256M -Xmx1024M"
