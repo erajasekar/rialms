@@ -27,7 +27,7 @@
                 class="highlight">M</span>anagement <span class="highlight">S</span>ystem.
             <g:message code="project.name"/> is a platform for delivering interactive and <g:link
                 url="http://en.wikipedia.org/wiki/Adaptive_learning"
-                target="_blank">adaptive learning content</g:link> content.
+                target="_blank">adaptive learning</g:link> content.
             <blockquote><p><b>Adaptive learning</b> is an educational method which uses computers as interactive teaching devices.</p></blockquote>
             <p><g:message code="project.name"/> adapts the presentation of learning material according to students' learning needs, as indicated by their responses to questions.</p>
         </p>
