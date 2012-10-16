@@ -20,7 +20,7 @@
     <outcomeDeclaration identifier="SCORE" cardinality="single" baseType="float"/>
     <itemBody>
         <p>
-            Lets us recall the match stick pattern of forming triangle. For our convenience, figure is redrawn below
+            Let us recall the match stick pattern of forming triangle. For our convenience, figure is redrawn below
         </p>
         <p>
             <p>1)</p>
@@ -97,7 +97,7 @@
             ?
         </p>
         <p>
-            Lets ask ourselves a definite question. How many triangles are formed if the number of match sticks give is
+            Lets ask ourselves a definite question. How many triangles are formed if the number of match sticks given is
             12?
             This means we have to find the number of triangles, given the number of match sticks is 12. So,
             <m:math>
