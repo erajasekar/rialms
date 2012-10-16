@@ -544,12 +544,15 @@ class QtiTagLib {
             out << g.render(template: '/renderer/renderItemSubTree', model: [node: xmlNode, assessmentItemInfo: assessmentItemInfo]);
         }
 
+        out << "<hr/>";
         out << "<p>";
+        out << "<span class='gap-choices'>"
+        out << g.message(code: 'gapText.title');
+        out << "</span>"
         allChoices.each { choice ->
             out << gapText('xmlNode': choice, 'assessmentItemInfo': assessmentItemInfo);
         }
         out << "</p>";
-
     }
 
     def gapText = {attrs ->
@@ -581,7 +584,6 @@ class QtiTagLib {
             out << gapTextValue;
             assessmentItemInfo.addParam("${Tag.gapMatchInteraction.name()}.${identifier}.${Consts.value}", gapTextValue)
             out << "</span>"
-
         }
     }
 

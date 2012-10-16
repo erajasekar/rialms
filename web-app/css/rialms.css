@@ -176,6 +176,10 @@ a.toggleNav:hover {
   border: 1px solid #62c729;
   box-shadow: 2px 2px 20px #eeeeee;
 }
+.gap-choices {
+  color: #387218;
+  font-weight: bolder;
+}
 .associable-choice {
   padding: 5px 15px 5px 15px;
   margin: 10px;
@@ -238,7 +242,6 @@ a.toggleNav:hover {
 }
 .page-title {
   text-align: center;
-  padding: 10px 10px 5px 10px;
 }
 .title {
   text-align: center;
