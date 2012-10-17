@@ -34,9 +34,9 @@ class ItemService implements InitializingBean {
 
     public void createItem(String dataPath, String dataFile) {
         File itemXml = getItemDataFile(dataPath, dataFile)
-
+        Item item = findOrCreateItem(dataPath,dataFile, itemXml);
         if (dataPath == demoItemsPath) {
-            addFeaturesToItem(findOrCreateItem(dataPath,dataFile, itemXml), QtiUtils.getFeaturesFromItemXml(itemXml))
+            addFeaturesToItem(item, QtiUtils.getFeaturesFromItemXml(itemXml))
         }
 
     }

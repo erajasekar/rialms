@@ -7,58 +7,60 @@ class BootStrap {
     def testService;
     def itemService;
     def featureService;
+    def packageService;
     def grailsApplication;
 
     def init = { servletContext ->
-           initData();
+        initData();
     }
     def destroy = {
     }
 
-    def initData(){
-       featureService.createFeatures();
+    def initData() {
+        featureService.createFeatures();
         createItems();
         createTests();
+        testService.createTest(packageService.unpackContent('content/packages/packages-test1.zip'));
     }
 
-    def createDemoItems(){
+    def createDemoItems() {
         String demoPath = grailsApplication.config.rialms.demoItemsPath;
         File demoDir = grailsApplication.parentContext.getResource("${grailsApplication.config.rialms.contentPath}/${demoPath}").getFile()
-        demoDir.eachFile(FileType.FILES){ file ->
-            itemService.createItem(demoPath,file.name);
+        demoDir.eachFile(FileType.FILES) { file ->
+            itemService.createItem(demoPath, file.name);
         }
-   }
+    }
 
-   def createDemoTests(){
-       String demoPath = grailsApplication.config.rialms.demoTestsPath;
-       File contentDir =  grailsApplication.parentContext.getResource("${grailsApplication.config.rialms.contentPath}").getFile()
-       File demoDir = new File(contentDir,demoPath);
+    def createDemoTests() {
+        String demoPath = grailsApplication.config.rialms.demoTestsPath;
+        File contentDir = grailsApplication.parentContext.getResource("${grailsApplication.config.rialms.contentPath}").getFile()
+        File demoDir = new File(contentDir, demoPath);
 
-       demoDir.eachFileRecurse(FileType.FILES){ file ->
-           if (file.name.endsWith(".xml")){
-               def xml = new XmlSlurper().parse(file);
-               if (xml.name() == 'assessmentTest'){
-                   def relativePath = file.parent.substring(contentDir.absolutePath.length()).replace('\\', '/')
-                   testService.createTest(relativePath,file.name);
-               }
-           }
-       }
-   }
+        demoDir.eachFileRecurse(FileType.FILES) { file ->
+            if (file.name.endsWith(".xml")) {
+                def xml = new XmlSlurper().parse(file);
+                if (xml.name() == 'assessmentTest') {
+                    def relativePath = file.parent.substring(contentDir.absolutePath.length()).replace('\\', '/')
+                    testService.createTest(relativePath, file.name);
+                }
+            }
+        }
+    }
 
-   def createItems() {
+    def createItems() {
 
         log.info("Initializing Item data...");
         createDemoItems();
 
         //1-5
-        itemService.createItem('exercise','perimeter1.xml');
-        itemService.createItem('qti','choice_multiple_chocolate.xml');
-        itemService.createItem('qti','feedback.xml');
-        itemService.createItem('qti','adaptive.xml');
-        itemService.createItem('qti','mathml-templated.xml');
+        itemService.createItem('exercise', 'perimeter1.xml');
+        itemService.createItem('qti', 'choice_multiple_chocolate.xml');
+        itemService.createItem('qti', 'feedback.xml');
+        itemService.createItem('qti', 'adaptive.xml');
+        itemService.createItem('qti', 'mathml-templated.xml');
 
         //6-10
-        itemService.createItem('qti','content-with-html-tags.xml');
+        itemService.createItem('qti', 'content-with-html-tags.xml');
 
     }
 

@@ -11,6 +11,7 @@ import grails.orm.PagedResultList
 import com.rialms.assessment.item.Item
 import com.rialms.consts.Constants
 import org.apache.commons.lang.StringEscapeUtils
+import org.qtitools.util.ContentPackage
 
 class TestService implements InitializingBean {
 
@@ -22,10 +23,19 @@ class TestService implements InitializingBean {
     def gspTagLibraryLookup;
     def g;
 
+    public void createTest(ContentPackage contentPackage){
+      println "RAJA ${contentPackage.getDestination().absolutePath -  grailsApplication.parentContext.getResource(contentPath).getFile().absolutePath}"
+      println "RAJA ${contentPackage.getTest().name}"
+      String dataPath = contentPackage.getDestination().absolutePath -  grailsApplication.parentContext.getResource(contentPath).getFile().absolutePath;
+      String dataFile = contentPackage.getTest().name;
+      createTest(dataPath,dataFile);
+    }
+
     public void createTest(String dataPath, String dataFile) {
         File testXml = getTestDataFile(dataPath, dataFile);
+        Test test = findOrCreateTest(dataPath, dataFile, testXml);
         if (dataPath.startsWith(demoTestsPath)) {
-            addFeaturesToTest(findOrCreateTest(dataPath, dataFile, testXml), QtiUtils.getFeaturesFromTestXml(testXml))
+            addFeaturesToTest(test, QtiUtils.getFeaturesFromTestXml(testXml))
         }
     }
 

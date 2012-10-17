@@ -1,20 +1,22 @@
 package com.rialms.assessment
 
-import org.codehaus.groovy.grails.commons.ApplicationHolder
 import org.qtitools.util.ContentPackage
-import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.InitializingBean
+import com.rialms.util.FileUtils
 
 class PackageService implements InitializingBean {
     static transactional = false;
-    static scope = "session"
+    static scope = "singleton"
     String contentPath;
     def grailsApplication;
 
 
-    ContentPackage handleZip(InputStream input, File dest) {
-//        File dest = ApplicationHolder.application.parentContext.getResource(contentPath + File.separator + 'packages').getFile()
-        ContentPackage contentPackage = new ContentPackage(input)
+    public ContentPackage unpackContent(String zipFile) {
+        File input = grailsApplication.parentContext.getResource(zipFile).getFile();
+        File dest = new File(input.getParentFile(),FileUtils.getBaseName(input.name));
 
+        ContentPackage contentPackage = new ContentPackage(input)
+        //TODO p2 add validation
         try {
             contentPackage.unpack(dest, true)
         } catch (Exception e) {
@@ -23,7 +25,7 @@ class PackageService implements InitializingBean {
 
         return contentPackage
     }
-
+    //TODO p2 remove if not used
     void afterPropertiesSet() {
         contentPath = grailsApplication.config.rialms.contentPath;
     }
