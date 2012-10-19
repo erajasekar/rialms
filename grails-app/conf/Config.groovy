@@ -120,3 +120,12 @@ log4j = {
     }
 }
 
+
+// Added by the Spring Security Core plugin:
+grails.plugins.springsecurity.userLookup.userDomainClassName = 'com.rialms.auth.User'
+grails.plugins.springsecurity.userLookup.authorityJoinClassName = 'com.rialms.auth.UserRole'
+grails.plugins.springsecurity.authority.className = 'com.rialms.auth.Role'
+grails.plugins.springsecurity.rememberMe.persistent = true
+grails.plugins.springsecurity.rememberMe.persistentToken.domainClassName = 'com.rialms.auth.PersistentLogin'
+
+grails.plugins.springsecurity.openid.domainClass = 'com.rialms.auth.OpenID'

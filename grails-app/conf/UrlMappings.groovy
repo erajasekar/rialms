@@ -10,6 +10,15 @@ class UrlMappings {
         "/"(controller: "home")
         "500"(view: '/error')
 
+        "/login/auth" {
+            controller = 'openId'
+            action = 'auth'
+        }
+        "/login/openIdCreateAccount" {
+            controller = 'openId'
+            action = 'createAccount'
+        }
+
         name processItem: "/processItem" {
             controller = 'item'
             action = 'process'

@@ -1,6 +1,9 @@
 import groovy.io.FileType
 import org.codehaus.groovy.grails.commons.GrailsResourceUtils
 import java.util.regex.Pattern
+import com.rialms.auth.UserRole
+import com.rialms.auth.User
+import com.rialms.auth.Role
 
 class BootStrap {
 
@@ -17,10 +20,25 @@ class BootStrap {
     }
 
     def initData() {
+        initUsers();
         featureService.createFeatures();
         createItems();
         createTests();
-        testService.createTest(packageService.unpackContent('content/packages/packages-test1.zip'));
+        //TODO P1: REMOVE testService.createTest(packageService.unpackContent('content/packages/packages-test1.zip'));
+    }
+
+    def initUsers(){
+        String password = 'spkavi22'
+
+        def roleAdmin = new Role(authority: 'ROLE_ADMIN').save()
+        def roleUser = new Role(authority: 'ROLE_USER').save()
+
+        def user = new User(username: 'raja', password: password, enabled: true).save()
+        def admin = new User(username: 'admin', password: password, enabled: true).save()
+
+        UserRole.create user, roleUser
+        UserRole.create admin, roleUser
+        UserRole.create admin, roleAdmin, true
     }
 
     def createDemoItems() {
