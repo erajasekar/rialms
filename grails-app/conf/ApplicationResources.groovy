@@ -56,6 +56,9 @@ modules = {
         resource url: 'css/prettify/prettify.css'
     }
 
+    zocial {
+        resource url: 'css/zocial/zocial.css'
+    }
     customScrollbar {
         //TODO P3: Fix scrollbar customization
       //  resource url: 'js/scrollbar/jquery.mCustomScrollbar.js'
