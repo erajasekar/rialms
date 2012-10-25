@@ -34,15 +34,15 @@
                     <fieldset>
 
                         <div class="control-group">
-                            <label class="control-label" for="user_name">Username</label>
+                            <label class="control-label" for="user_name"><g:message code='email.label' /></label>
 
                             <div class="controls">
-                                <input type="text" class="input-large" name='j_username' id='username' >
+                                <input type="text" class="input-large" name='j_username' id='email' >
                             </div>
                         </div>
 
                         <div class="control-group">
-                            <label class="control-label" for="pass_word">Password</label>
+                            <label class="control-label" for="pass_word"><g:message code='password.label' /></label>
 
                             <div class="controls">
                                 <input type="password" class="input-large" name='j_password' id='password'>
@@ -52,19 +52,19 @@
                         <div class="control-group">
                             <div class="controls">
                                 <label class="checkbox">
-                                    <input type='checkbox' name='${rememberMeParameter}' id='remember_me'>Remember me </input>
+                                    <input type='checkbox' name='${rememberMeParameter}' id='remember_me'><g:message code='rememberme.label' /> </input>
                                 </label>
                             </div>
                         </div>
 
                         <div class="control-group">
                             <div class="controls">
-                              <button type="submit" class="btn btn-info">Sign in</button>
+                              <button type="submit" class="btn btn-info"><g:message code='button.signin.label' /></button>
                                 <span>&nbsp; or &nbsp;</span>
                            <!-- TODO: P3: WILL WORK ONLY ON HTML5 -->
                            <!-- TODO: P1: add i18n and validation for empty -->
                               <input type="hidden" name="openid_identifier" value="https://www.google.com/accounts/o8/id">
-                              <button type='submit' formaction="${openIdPostUrl}" class="zocial google">Sign in with Google</button>
+                              <button type='submit' formaction="${openIdPostUrl}" class="zocial google"><g:message code='button.signinWithGoogle.label' /></button>
                             </div>
                         </div>
 

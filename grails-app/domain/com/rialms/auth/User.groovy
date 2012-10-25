@@ -4,7 +4,8 @@ class User {
 
 	transient springSecurityService
 
-	String username
+	String email
+    String name
 	String password
 	boolean enabled
 	boolean accountExpired
@@ -14,7 +15,7 @@ class User {
     static hasMany = [openIds: OpenID]
 
 	static constraints = {
-		username blank: false, unique: true
+		email blank: false, unique: true
 		password blank: false
 	}
 

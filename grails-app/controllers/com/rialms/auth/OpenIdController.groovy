@@ -27,7 +27,7 @@ class OpenIdController {
 	static defaultAction = 'auth'
 
 	/**
-	 * Shows the login page. The user has the choice between using an OpenID and a username
+	 * Shows the login page. The user has the choice between using an OpenID and a email
 	 * and password for a local account. If an OpenID authentication is successful but there
 	 * is no corresponding local account, they'll be redirected to createAccount to create
 	 * a new account, or click through to linkAccount to associate the OpenID with an
@@ -61,27 +61,23 @@ class OpenIdController {
 	def createAccount = { OpenIdRegisterCommand command ->
 
 		String openId = session[OIAFH.LAST_OPENID_USERNAME]
-		if (!openId) {
+        List exchangeAttrsList =  session[OIAFH.LAST_OPENID_ATTRIBUTES];
+
+		if (!(openId || exchangeAttrsList)) {
 			flash.error = 'Sorry, an OpenID was not found'
 			return [command: command]
 		}
+        Map exchangeAttrs = exchangeAttrsList.collectEntries {[it.name, it.values]}
+        String email = exchangeAttrs.email.get(0);
+        String password = 'notused';
+        String name = exchangeAttrs.firstName.get(0) + ' ' +  exchangeAttrs.lastName.get(0)
 
-		if (!request.post) {
-			// show the form
-			command.clearErrors()
-			copyFromAttributeExchange command
+		if (!createNewAccount(email, password, name, openId)) {
+            log.error("Error in creating new account");
 			return [command: command, openId: openId]
 		}
 
-		if (command.hasErrors()) {
-			return [command: command, openId: openId]
-		}
-
-		if (!createNewAccount(command.username, command.password, openId)) {
-			return [command: command, openId: openId]
-		}
-
-		authenticateAndRedirect command.username
+		authenticateAndRedirect email
 	}
 
 	/**
@@ -110,7 +106,7 @@ class OpenIdController {
 			registerAccountOpenId command.username, command.password, openId
 		}
 		catch (AuthenticationException e) {
-			flash.error = 'Sorry, no user was found with that username and password'
+			flash.error = 'Sorry, no user was found with that email and password'
 			return [command: command, openId: openId]
 		}
 
@@ -143,17 +139,17 @@ class OpenIdController {
 	/**
 	 * Create the user instance and grant any roles that are specified in the config
 	 * for new users.
-	 * @param username  the username
+	 * @param username  the email
 	 * @param password  the password
 	 * @param openId  the associated OpenID
 	 * @return  true if successful
 	 */
-	protected boolean createNewAccount(String username, String password, String openId) {
+	protected boolean createNewAccount(String email, String password, String name, String openId) {
 		boolean created = User.withTransaction { status ->
 			def config = SpringSecurityUtils.securityConfig
 
 			password = encodePassword(password)
-			def user = new User(username: username, password: password, enabled: true)
+			def user = new User(email: email, password: password, name: name, enabled: true)
 
 			user.addToOpenIds(url: openId)
 
@@ -181,7 +177,7 @@ class OpenIdController {
 	/**
 	 * Associates an OpenID with an existing account. Needs the user's password to ensure
 	 * that the user owns that account, and authenticates to verify before linking.
-	 * @param username  the username
+	 * @param username  the email
 	 * @param password  the password
 	 * @param openId  the associated OpenID
 	 */
@@ -192,7 +188,7 @@ class OpenIdController {
 				new UsernamePasswordAuthenticationToken(username, password))
 
 		User.withTransaction { status ->
-			def user = User.findByUsername(username)
+			def user = User.findByEmail(username)
 			user.addToOpenIds(url: openId)
 			if (!user.validate()) {
 				status.setRollbackOnly()
@@ -225,14 +221,14 @@ class OpenIdRegisterCommand {
 	static constraints = {
 		username blank: false, validator: { String username, command ->
 			User.withNewSession { session ->
-				if (username && User.countByUsername(username)) {
-					return 'openIdRegisterCommand.username.error.unique'
+				if (username && User.countByEmail(username)) {
+					return 'openIdRegisterCommand.email.error.unique'
 				}
 			}
 		}
 		password blank: false, minSize: 8, maxSize: 64, validator: { password, command ->
 			if (command.username && command.username.equals(password)) {
-				return 'openIdRegisterCommand.password.error.username'
+				return 'openIdRegisterCommand.password.error.email'
 			}
 
 			if (password && password.length() >= 8 && password.length() <= 64 &&
