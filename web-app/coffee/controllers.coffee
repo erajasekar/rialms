@@ -40,5 +40,14 @@ window.ItemContentController = ($scope,$compile)->
     else
       "btn btn-info"
 
-
-
+window.LoginController = ($scope)->
+  $scope.toggleForms = ->
+    $scope.isSignUp = !$scope.isSignUp
+    if $scope.isSignUp
+      $scope.title = 'Create a new account'
+      $scope.message = 'Have an account?'
+      $scope.buttonLabel = 'Log in'
+    else
+      $scope.title = 'Login'
+      $scope.message = 'Need an account?'
+      $scope.buttonLabel = 'Sign Up'
