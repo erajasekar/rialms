@@ -20,13 +20,18 @@
     <div class="span4">&nbsp;</div>
 
     <div class="span4" ng-controller='LoginController'>
+        <g:hasErrors bean="${command}">    <!--TODO find better way for errors -->
+            <div class="errors">
+                <g:renderErrors bean="${command}" as="list"/>
+            </div>
+        </g:hasErrors>
         <!-- TODO p4 Figure out how to do i18n with augularJs -->
         <div id="login">
             <div class="block-header">
-                <h4 ng-init="title='Login';isSignUp=false;message='Need an account?';buttonLabel='Sign Up'">{{title}}
+                <h4 ng-init="isSignUp=${isSignUp? isSignUp: false}">{{getTitle()}}
                     <span class="pull-right">
-                        {{message}}&nbsp;
-                        <button ng-click='toggleForms()' class="btn btn-danger btn-mini">{{buttonLabel}}</button>
+                        {{getMessage()}}&nbsp;
+                        <button ng-click='toggleForms()' class="btn btn-danger btn-mini">{{getButtonLabel()}}</button>
                         &nbsp;&nbsp;
                     </span>
                 </h4>
@@ -89,7 +94,7 @@
                 </div>
 
                 <div id='formLogin' ng-show="isSignUp">
-                    <form action='${daoPostUrl}' class="form-horizontal" method='POST' autocomplete='off'>
+                    <g:form action='signUpAccount' controller='OpenId' class="form-horizontal" method='POST' autocomplete='off'>
                         <fieldset>
                             <div class="control-group">
                                 <label class="control-label" for="email"><g:message code='email.label'/></label>
@@ -97,17 +102,17 @@
                                 <div class="controls">
                                     <g:textField type="text" placeholder="${g.message(code:'your.label')} ${g.message(code:'email.label')}"
                                                  class="input-large"
-                                                 name='email' />
+                                                 name='email' value="${command.email}" />
                                 </div>
                             </div>
 
                             <div class="control-group">
-                                <label class="control-label" for="username"><g:message code='username.label'/></label>
+                                <label class="control-label" for="name"><g:message code='username.label'/></label>
 
                                 <div class="controls">
                                     <g:textField type="text" placeholder="${g.message(code:'your.label')} ${g.message(code:'username.label')}"
                                                  class="input-large"
-                                                 name='username' />
+                                                 name='name' value="${command.name}" />
                                 </div>
                             </div>
 
@@ -115,9 +120,9 @@
                                 <label class="control-label" for="password"><g:message code='password.label'/></label>
 
                                 <div class="controls">
-                                    <g:textField type="text"
+                                    <g:passwordField type="text"
                                                  class="input-large"
-                                                 name='password' />
+                                                 name='password' value="${command.password}"/>
                                 </div>
                             </div>
 
@@ -132,7 +137,7 @@
                                 </div>
                             </div>
                         </fieldset>
-                    </form>
+                    </g:form>
                 </div>
 
             </div>

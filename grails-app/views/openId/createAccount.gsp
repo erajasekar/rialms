@@ -36,7 +36,7 @@
 
 		<tr>
 			<td><label for='username'>Username:</label></td>
-			<td><g:textField name='username' value='${command.username}'/></td>
+			<td><g:textField name='username' value='${command.name}'/></td>
 		</tr>
 
 		<tr>

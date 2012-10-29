@@ -43,11 +43,21 @@ window.ItemContentController = ($scope,$compile)->
 window.LoginController = ($scope)->
   $scope.toggleForms = ->
     $scope.isSignUp = !$scope.isSignUp
+
+  $scope.getTitle = ->
     if $scope.isSignUp
-      $scope.title = 'Create a new account'
-      $scope.message = 'Have an account?'
-      $scope.buttonLabel = 'Log in'
+      'Create a new account'
     else
-      $scope.title = 'Login'
-      $scope.message = 'Need an account?'
-      $scope.buttonLabel = 'Sign Up'
+      'Login'
+  $scope.getMessage = ->
+    if $scope.isSignUp
+      'Have an account?'
+    else
+      'Need an account?'
+  $scope.getButtonLabel = ->
+    if $scope.isSignUp
+      'Log in'
+    else
+      'Sign Up'
+
+

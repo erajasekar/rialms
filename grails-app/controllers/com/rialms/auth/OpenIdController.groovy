@@ -8,6 +8,7 @@ import org.springframework.security.web.savedrequest.DefaultSavedRequest
 import com.rialms.auth.User
 import com.rialms.auth.Role
 import com.rialms.auth.UserRole
+import groovy.transform.ToString
 
 /**
  * Manages associating OpenIDs with application users, both by creating a new local user
@@ -46,6 +47,8 @@ class OpenIdController {
 		 daoPostUrl:    "${request.contextPath}${config.apf.filterProcessesUrl}",
 		 persistentRememberMe: config.rememberMe.persistent,
 		 rememberMeParameter: config.rememberMe.parameter,
+         command: new OpenIdRegisterCommand(),
+         isSignUp:false,
 		 openidIdentifier: config.openid.claimedIdentityFieldName]
 	}
 
@@ -74,11 +77,39 @@ class OpenIdController {
 
 		if (!createNewAccount(email, password, name, openId)) {
             log.error("Error in creating new account");
-			return [command: command, openId: openId]
+            render (view: 'auth' ,model: [command: command, isSignUp: true]);
+            return ;
 		}
 
 		authenticateAndRedirect email
 	}
+
+    def signUpAccount = {OpenIdRegisterCommand command ->
+        def config = SpringSecurityUtils.securityConfig
+        String openIdPostUrl = "${request.contextPath}$openIDAuthenticationFilter.filterProcessesUrl";
+        String daoPostUrl = "${request.contextPath}${config.apf.filterProcessesUrl}";
+        if (command.hasErrors()) {
+            render (view: 'auth' ,
+                    model: [command: command,
+                            openIdPostUrl: "${openIdPostUrl}",
+                            daoPostUrl: "${daoPostUrl}",
+                            isSignUp: true]
+            );
+            return;
+        }
+        if (!createNewAccount(command.email, command.password, command.name, null)) {
+            log.error("Error in creating new account");
+            render (view: 'auth' , model: [command: command,
+                    openIdPostUrl: "${openIdPostUrl}",
+                    daoPostUrl: "${daoPostUrl}",
+                    isSignUp: true]
+            );
+            return ;
+        }
+        else{
+            authenticateAndRedirect command.email;
+        }
+    }
 
 	/**
 	 * The registration page has a link to this action so an existing user who successfully
@@ -151,7 +182,10 @@ class OpenIdController {
 			password = encodePassword(password)
 			def user = new User(email: email, password: password, name: name, enabled: true)
 
-			user.addToOpenIds(url: openId)
+            if (openId){
+                user.addToOpenIds(url: openId)
+            }
+
 
 			if (!user.save()) {
 				return false
@@ -162,7 +196,7 @@ class OpenIdController {
 			}
 			return true
 		}
-		return created
+		return created;
 	}
 
 	protected String encodePassword(String password) {
@@ -212,37 +246,39 @@ class OpenIdController {
 	}
 }
 
+@ToString(includeFields=true)
 class OpenIdRegisterCommand {
 
-	String username = ""
+    String email = ""
+	String name = ""
 	String password = ""
-	String password2 = ""
 
 	static constraints = {
-		username blank: false, validator: { String username, command ->
-			User.withNewSession { session ->
-				if (username && User.countByEmail(username)) {
-					return 'openIdRegisterCommand.email.error.unique'
-				}
-			}
-		}
-		password blank: false, minSize: 8, maxSize: 64, validator: { password, command ->
-			if (command.username && command.username.equals(password)) {
+
+        email blank: false, email: true, validator: { String email, command ->
+            User.withNewSession { session ->
+                if (email && User.countByEmail(email)) {
+                    return 'openIdRegisterCommand.email.error.unique'
+                }
+            }
+        }
+
+		name blank: false
+
+		password blank: false, minSize: 8, maxSize: 64/*, validator: { password, command ->
+			if (command.name && command.name.equals(password)) {
 				return 'openIdRegisterCommand.password.error.email'
 			}
 
-			if (password && password.length() >= 8 && password.length() <= 64 &&
+			if (password && password.length() >= 8 && password.length() <= 64
+                    &&
 					(!password.matches('^.*\\p{Alpha}.*$') ||
 					!password.matches('^.*\\p{Digit}.*$') ||
-					!password.matches('^.*[!@#$%^&].*$'))) {
+					!password.matches('^.*[!@#$%^&].*$')) //TODO p2: Enable it
+            ) {
 				return 'openIdRegisterCommand.password.error.strength'
 			}
-		}
-		password2 validator: { password2, command ->
-			if (command.password != password2) {
-				return 'openIdRegisterCommand.password2.error.mismatch'
-			}
-		}
+		}*/
 	}
 }
 
