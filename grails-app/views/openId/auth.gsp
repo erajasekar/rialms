@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="primary"/>
-    <r:require module="zocial"/>
+    <r:require modules="zocial,jquery-validate"/>
     <title><g:message code="project.name"/> - <g:message code="home.label"/></title>
 </head>
 
@@ -38,21 +38,25 @@
             </div>
 
             <div class="block-content">
-                <g:if test='${flash.message}'>
+              <!--  <g:if test='${flash.message}'>
                     <div class='item-result result-incorrect '>${flash.message}</div>
-                </g:if>
+                </g:if>   -->
                 <div id='openidLogin' ng-hide="isSignUp">
                     <form class="form-horizontal" action='${daoPostUrl}' id='loginForm' method='POST'
                           autocomplete='off'>
                         <fieldset>
 
-                            <div class="control-group">
+                            <div class="${flash.message ? 'control-group error' : 'control-group'}">
                                 <label class="control-label" for="email"><g:message code='email.label'/></label>
 
                                 <div class="controls">
-                                    <input type="text" placeholder="${g.message(code:'your.label')} ${g.message(code:'email.label')}" class="input-large"
+                                    <input type="email" placeholder="${g.message(code:'your.label')} ${g.message(code:'email.label')}" class="input-large"
                                            name='j_username' id='email'>
+                                    <g:if test='${flash.message}'>
+                                        <label for='email' class="error">${flash.message}</label>
+                                    </g:if>
                                 </div>
+
                             </div>
 
                             <div class="control-group">
@@ -93,8 +97,8 @@
                     </form>
                 </div>
 
-                <div id='formLogin' ng-show="isSignUp">
-                    <g:form action='signUpAccount' controller='OpenId' class="form-horizontal" method='POST' autocomplete='off'>
+                <div ng-show="isSignUp">
+                    <g:form id='signUpForm' action='signUpAccount' controller='OpenId' class="form-horizontal" method='POST' autocomplete='off'>
                         <fieldset>
                             <div class="control-group">
                                 <label class="control-label" for="email"><g:message code='email.label'/></label>
@@ -102,7 +106,7 @@
                                 <div class="controls">
                                     <g:textField type="text" placeholder="${g.message(code:'your.label')} ${g.message(code:'email.label')}"
                                                  class="input-large"
-                                                 name='email' value="${command.email}" />
+                                                 name='email' value="${command.email}"/>
                                 </div>
                             </div>
 
@@ -145,8 +149,27 @@
         </div>
     </div>
 </div>
+
 <script>
     $(document).ready(function () {
         $('#email').focus();
+        $('#loginForm').validate({
+            rules: {
+                j_password: {
+                    required: true
+                },
+                j_username: {
+                    required: true,
+                    email: true
+                }
+            },
+            highlight: function(label) {
+                $(label).closest('.control-group').addClass('error');
+            },
+            success: function(label) {
+                label
+                        .text('OK!').addClass('valid')
+            }
+        });
     });
 </script>

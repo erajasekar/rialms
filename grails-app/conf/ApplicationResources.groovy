@@ -43,6 +43,10 @@ modules = {
         resource url: 'js/angular/angular-sanitize-1.0.1.js', disposition: 'head'
     }
 
+    'jquery-validate' {
+        resource url: 'js/jquery/jquery.validate.js', disposition: 'head'
+    }
+
     jsPlumb {
         resource url: 'js/jsPlumb/jquery.jsPlumb-1.3.10-all.js'
     }

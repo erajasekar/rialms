@@ -53,8 +53,6 @@ grails.project.dependency.resolution = {
         compile ":cloud-foundry:1.2.2"
         compile ":spring-security-core:1.2.7.3"
         compile ":spring-security-openid:1.0.4"
-
-
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"
