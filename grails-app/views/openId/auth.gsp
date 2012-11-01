@@ -18,7 +18,11 @@
 <body>
 <div class="documentation row-fluid">
     <div class="span4">&nbsp;</div>
-
+    <g:hasErrors bean="${command}">    <!--TODO find better way for errors -->
+        <div class="errors">
+            <g:renderErrors bean="${command}" as="list"/>
+        </div>
+    </g:hasErrors>
     <div class="span4" ng-controller='LoginController'>
         <!-- TODO p4 Figure out how to do i18n with augularJs -->
         <div id="login">
@@ -79,11 +83,10 @@
                                             code='button.login.label'/></button>
                                     <span>&nbsp; or &nbsp;</span>
                                     <!-- TODO: P3: WILL WORK ONLY ON HTML5 -->
-                                    <!-- TODO: P1: add i18n and validation for empty -->
                                     <input type="hidden" name="openid_identifier"
                                            value="https://www.google.com/accounts/o8/id">
-                                    <button type='submit' formaction="${openIdPostUrl}" class="zocial google"><g:message
-                                            code='button.loginWithGoogle.label'/></button>
+                                    <button type='submit' formaction="${openIdPostUrl}" class="zocial google"  onclick="disableValidationRules('#loginForm')" ><g:message
+                                          code='button.loginWithGoogle.label'/></button>
                                 </div>
                             </div>
 
@@ -120,14 +123,19 @@
                                                  name='name' value="${command.name}" />
                                 </div>
                             </div>
-
-                            <div class="control-group">
+                            <% boolean passwordHasError = hasErrors(bean: command, field: 'password', 'errors') %>
+                            <div class="${passwordHasError ? 'control-group error' : 'control-group'}">
                                 <label class="control-label" for="password"><g:message code='password.label'/></label>
 
                                 <div class="controls">
                                     <g:passwordField type="text"
                                                  class="input-large"
                                                  name='password' value="${command.password}"/>
+                                    <g:if test='${passwordHasError}'>
+                                        <g:eachError bean="${command}" field="password">
+                                            <label for='password' class="error"><g:message error="${it}" /></label>
+                                        </g:eachError>
+                                    </g:if>
                                 </div>
                             </div>
 
@@ -137,7 +145,7 @@
                                     <span>&nbsp; <g:message code="or.label"/> &nbsp;</span>
                                     <input type="hidden" name="openid_identifier"
                                            value="https://www.google.com/accounts/o8/id">
-                                    <button type='submit' formaction="${openIdPostUrl}" class="zocial google"><g:message
+                                    <button type='submit' formaction="${openIdPostUrl}" class="zocial google" onclick="disableValidationRules('#signUpForm')"><g:message
                                             code='button.signupWithGoogle.label'/></button>
                                 </div>
                             </div>
@@ -151,41 +159,26 @@
     </div>
 </div>
 <jqvalui:renderValidationScript for="OpenIdRegisterCommand" form="signUpForm" validClass="success"  />
+<jqvalui:renderValidationScript for="LoginCommand" form="loginForm" validClass="success"  />
 <script>
     $(document).ready(function () {
         $('#email').focus();
-        $('#loginForm').validate({
-            rules: {
-                j_password: {
-                    required: true
-                },
-                j_username: {
-                    required: true,
-                    email: true
-                }
-            },
-            messages: {
-                j_username: "Enter your email address",
-                j_password: "Enter your password"
-            },
-            highlight: function(label) {
-                highlightErrorField(label,'error','success');
-            },
-            success: function(label) {
-                unhighlightErrorField(label,'error','success');
-            }
-        });
     });
     // JQuery Validation UI for Twitter Bootstrap
     function highlightErrorField(element, errorClass, validClass) {
         $(element).parents('div.control-group').addClass(errorClass)
-        $(element).parents('div.control-group').removeClass(validClass)
+      //  $(element).parents('div.control-group').removeClass(validClass)
     }
 
     function unhighlightErrorField(element, errorClass, validClass) {
         $(element).parents('div.control-group').removeClass(errorClass)
-        $(element).parents('div.control-group').addClass(validClass)
+        //$(element).parents('div.control-group').addClass(validClass)
     }
 
+    function disableValidationRules(formId){
+        $(formId).find(':input').each(function(){
+           $(this).rules("remove");
+        });
+    }
 </script>
 </body>

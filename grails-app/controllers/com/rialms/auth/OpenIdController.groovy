@@ -244,6 +244,7 @@ class OpenIdController {
 			}
 		}
 	}
+
 }
 
 @ToString(includeFields=true)
@@ -265,20 +266,14 @@ class OpenIdRegisterCommand {
 
 		name blank: false
 
-		password blank: false, minSize: 8, maxSize: 64/*, validator: { password, command ->
-			if (command.name && command.name.equals(password)) {
-				return 'openIdRegisterCommand.password.error.email'
-			}
+		password blank: false, minSize: 8, maxSize: 64, validator: {String password, command ->
 
-			if (password && password.length() >= 8 && password.length() <= 64
-                    &&
-					(!password.matches('^.*\\p{Alpha}.*$') ||
-					!password.matches('^.*\\p{Digit}.*$') ||
-					!password.matches('^.*[!@#$%^&].*$')) //TODO p2: Enable it
-            ) {
-				return 'openIdRegisterCommand.password.error.strength'
-			}
-		}*/
+            if (password && password.length() >= 8 && password.length() <= 64 &&
+                    (!password.matches('^.*\\p{Alpha}.*$') ||
+                            !password.matches('^.*\\p{Digit}.*$'))) {
+                return 'openIdRegisterCommand.password.error.strength'
+            }
+        }
 	}
     //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
     public boolean isAttached(){
@@ -286,6 +281,25 @@ class OpenIdRegisterCommand {
     }
 }
 
+/**
+ * This is class is only used to add validations and translate them to jquery validation
+ * using jquery-validation-ui plugin.
+ */
+class LoginCommand{
+
+    String j_username = ""
+    String j_password = ""
+
+    static constraints = {
+        j_username blank: false, email: true
+        j_password blank: false
+    }
+    //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
+    public boolean isAttached(){
+        return false;
+    }
+
+}
 class OpenIdLinkAccountCommand {
 
 	String username = ""
