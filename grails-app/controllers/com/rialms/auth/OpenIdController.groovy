@@ -280,6 +280,10 @@ class OpenIdRegisterCommand {
 			}
 		}*/
 	}
+    //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
+    public boolean isAttached(){
+        return false;
+    }
 }
 
 class OpenIdLinkAccountCommand {

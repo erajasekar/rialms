@@ -11,7 +11,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta name="layout" content="primary"/>
-    <r:require modules="zocial,jquery-validate"/>
+    <r:require modules="zocial,jquery-validation-ui"/>
     <title><g:message code="project.name"/> - <g:message code="home.label"/></title>
 </head>
 
@@ -20,11 +20,6 @@
     <div class="span4">&nbsp;</div>
 
     <div class="span4" ng-controller='LoginController'>
-        <g:hasErrors bean="${command}">    <!--TODO find better way for errors -->
-            <div class="errors">
-                <g:renderErrors bean="${command}" as="list"/>
-            </div>
-        </g:hasErrors>
         <!-- TODO p4 Figure out how to do i18n with augularJs -->
         <div id="login">
             <div class="block-header">
@@ -98,15 +93,21 @@
                 </div>
 
                 <div ng-show="isSignUp">
-                    <g:form id='signUpForm' action='signUpAccount' controller='OpenId' class="form-horizontal" method='POST' autocomplete='off'>
+                    <g:form action='signUpAccount' controller='OpenId' class="form-horizontal" method='POST' autocomplete='off' name="signUpForm" >
                         <fieldset>
-                            <div class="control-group">
+                            <% boolean emailHasError = hasErrors(bean: command, field: 'email', 'errors') %>
+                            <div class="${emailHasError ? 'control-group error' : 'control-group'}">
                                 <label class="control-label" for="email"><g:message code='email.label'/></label>
 
                                 <div class="controls">
                                     <g:textField type="text" placeholder="${g.message(code:'your.label')} ${g.message(code:'email.label')}"
                                                  class="input-large"
                                                  name='email' value="${command.email}"/>
+                                    <g:if test='${emailHasError}'>
+                                        <g:eachError bean="${command}" field="email">
+                                            <label for='email' class="error"><g:message error="${it}" /></label>
+                                        </g:eachError>
+                                    </g:if>
                                 </div>
                             </div>
 
@@ -149,7 +150,7 @@
         </div>
     </div>
 </div>
-
+<jqvalui:renderValidationScript for="OpenIdRegisterCommand" form="signUpForm" validClass="success"  />
 <script>
     $(document).ready(function () {
         $('#email').focus();
@@ -163,13 +164,28 @@
                     email: true
                 }
             },
+            messages: {
+                j_username: "Enter your email address",
+                j_password: "Enter your password"
+            },
             highlight: function(label) {
-                $(label).closest('.control-group').addClass('error');
+                highlightErrorField(label,'error','success');
             },
             success: function(label) {
-                label
-                        .text('OK!').addClass('valid')
+                unhighlightErrorField(label,'error','success');
             }
         });
     });
+    // JQuery Validation UI for Twitter Bootstrap
+    function highlightErrorField(element, errorClass, validClass) {
+        $(element).parents('div.control-group').addClass(errorClass)
+        $(element).parents('div.control-group').removeClass(validClass)
+    }
+
+    function unhighlightErrorField(element, errorClass, validClass) {
+        $(element).parents('div.control-group').removeClass(errorClass)
+        $(element).parents('div.control-group').addClass(validClass)
+    }
+
 </script>
+</body>

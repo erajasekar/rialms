@@ -138,6 +138,8 @@ jqueryValidationUi {
 	validClass = 'valid'
 	onsubmit = true
 	renderErrorsOnTop = false
+    highlight = 'highlightErrorField'
+    unhighlight = 'unhighlightErrorField'
 	
 	qTip {
 		packed = true
