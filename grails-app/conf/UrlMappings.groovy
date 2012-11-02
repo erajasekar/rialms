@@ -10,10 +10,10 @@ class UrlMappings {
         "/"(controller: "home")
         "500"(view: '/error')
 
-        "/login/auth" {
+       /* "/login/auth" {
             controller = 'openId'
             action = 'auth'
-        }
+        }*/
         "/login/openIdCreateAccount" {
             controller = 'openId'
             action = 'createAccount'
