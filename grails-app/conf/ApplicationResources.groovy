@@ -18,6 +18,7 @@ modules = {
         resource url: 'coffee/qti.coffee', bundle: 'render', disposition: 'head'
         resource url: 'coffee/controllers.coffee', bundle: 'render', disposition: 'head'
         resource url: 'coffee/dialog-utils.coffee', bundle: 'render', disposition: 'head'
+        resource url: 'coffee/validation.coffee', bundle: 'render', disposition: 'head'
     }
 
     mybootstrap {
@@ -41,10 +42,6 @@ modules = {
     angular {
         resource url: 'js/angular/angular-1.0.1.js', disposition: 'head'
         resource url: 'js/angular/angular-sanitize-1.0.1.js', disposition: 'head'
-    }
-
-    'jquery-validate-plugin' {
-        resource url: 'js/jquery/jquery.validate.js', disposition: 'head'
     }
 
     jsPlumb {

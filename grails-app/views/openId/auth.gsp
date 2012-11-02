@@ -83,8 +83,8 @@
                                             code='button.login.label'/></button>
                                     <span>&nbsp; or &nbsp;</span>
                                     <!-- TODO: P3: WILL WORK ONLY ON HTML5 -->
-                                    <input type="hidden" name="openid_identifier"
-                                           value="https://www.google.com/accounts/o8/id">
+                                    <input type="hidden" name="${openidIdentifier}"
+                                           value="${openIdIdentifierValue}">
                                     <button type='submit' formaction="${openIdPostUrl}" class="zocial google"  onclick="disableValidationRules('#loginForm')" ><g:message
                                           code='button.loginWithGoogle.label'/></button>
                                 </div>
@@ -143,8 +143,8 @@
                                 <div class="controls">
                                     <input type='submit' class="btn btn-info" value="${g.message(code:'button.signup.label')}"/>
                                     <span>&nbsp; <g:message code="or.label"/> &nbsp;</span>
-                                    <input type="hidden" name="openid_identifier"
-                                           value="https://www.google.com/accounts/o8/id">
+                                    <input type="hidden" name="${openidIdentifier}"
+                                           value="${openIdIdentifierValue}">
                                     <button type='submit' formaction="${openIdPostUrl}" class="zocial google" onclick="disableValidationRules('#signUpForm')"><g:message
                                             code='button.signupWithGoogle.label'/></button>
                                 </div>
@@ -164,21 +164,5 @@
     $(document).ready(function () {
         $('#email').focus();
     });
-    // JQuery Validation UI for Twitter Bootstrap
-    function highlightErrorField(element, errorClass, validClass) {
-        $(element).parents('div.control-group').addClass(errorClass)
-      //  $(element).parents('div.control-group').removeClass(validClass)
-    }
-
-    function unhighlightErrorField(element, errorClass, validClass) {
-        $(element).parents('div.control-group').removeClass(errorClass)
-        //$(element).parents('div.control-group').addClass(validClass)
-    }
-
-    function disableValidationRules(formId){
-        $(formId).find(':input').each(function(){
-           $(this).rules("remove");
-        });
-    }
 </script>
 </body>

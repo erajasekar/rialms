@@ -45,6 +45,7 @@ rialms {
     solutionIdentifier = 'SOLUTION';
     maxEntriesPerPage = 10;
     qtiXMLDialogHeight = 600;
+    googleOpenIdIdentifier = "https://www.google.com/accounts/o8/id";
 
 }
 

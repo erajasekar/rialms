@@ -25,8 +25,11 @@ class OpenIdController {
 	/** Dependency injection for the springSecurityService. */
 	def springSecurityService
 
-	static defaultAction = 'auth'
+    def grailsApplication;
 
+    static defaultAction = 'auth'
+
+    //TODO P2: Clean up this controller
 	/**
 	 * Shows the login page. The user has the choice between using an OpenID and a email
 	 * and password for a local account. If an OpenID authentication is successful but there
@@ -49,6 +52,7 @@ class OpenIdController {
 		 rememberMeParameter: config.rememberMe.parameter,
          command: new OpenIdRegisterCommand(),
          isSignUp:false,
+         openIdIdentifierValue : grailsApplication.config.rialms.googleOpenIdIdentifier,
 		 openidIdentifier: config.openid.claimedIdentityFieldName]
 	}
 
@@ -93,6 +97,8 @@ class OpenIdController {
                     model: [command: command,
                             openIdPostUrl: "${openIdPostUrl}",
                             daoPostUrl: "${daoPostUrl}",
+                            openIdIdentifierValue : grailsApplication.config.rialms.googleOpenIdIdentifier,
+                            openidIdentifier: config.openid.claimedIdentityFieldName,
                             isSignUp: true]
             );
             return;
@@ -102,6 +108,8 @@ class OpenIdController {
             render (view: 'auth' , model: [command: command,
                     openIdPostUrl: "${openIdPostUrl}",
                     daoPostUrl: "${daoPostUrl}",
+                    openIdIdentifierValue : grailsApplication.config.rialms.googleOpenIdIdentifier,
+                    openidIdentifier: config.openid.claimedIdentityFieldName,
                     isSignUp: true]
             );
             return ;
