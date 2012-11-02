@@ -119,7 +119,7 @@ class OpenIdController {
         }
     }
 
-	/**
+    /**
 	 * The registration page has a link to this action so an existing user who successfully
 	 * authenticated with an OpenID can associate it with their account for future logins.
 	 */

@@ -37,6 +37,10 @@ grails.resources.adhoc.patterns = ['/images/*', '/css/*', '/js/*', '/plugins/*']
 
 
 rialms {
+    user {
+        admin.email = "admin@rialms.com"
+        admin.password = "Raja1733"
+    }
     contentPath = 'content';
     demoItemsPath = "/demo/items"
     demoTestsPath = "/demo/tests"
