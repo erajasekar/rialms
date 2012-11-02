@@ -53,7 +53,11 @@ grails.project.dependency.resolution = {
         compile ":cloud-foundry:1.2.2"
         compile ":spring-security-core:1.2.7.3"
         compile ":spring-security-openid:1.0.4"
+        compile ":spring-security-ui:0.2"
         compile ":jquery-validation-ui:1.3"
+        compile ":mail:1.0"
+        compile ":famfamfam:1.0.1" //TODO p2 remove this plugin later on
+
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
         //runtime ":cached-resources:1.0"

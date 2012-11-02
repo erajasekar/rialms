@@ -1,3 +1,5 @@
+package com.rialms.auth
+
 import grails.converters.JSON
 
 import javax.servlet.http.HttpServletResponse
@@ -12,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder as SCH
 import org.springframework.security.web.WebAttributes
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
-//TODO p1: remove if not used
 class LoginController {
 
 	/**

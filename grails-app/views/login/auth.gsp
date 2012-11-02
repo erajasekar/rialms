@@ -1,4 +1,3 @@
-<!-- TODO remove if not used -->
 <html>
 <head>
 	<meta name='layout' content='main'/>

@@ -1,3 +1,5 @@
+package com.rialms.auth
+
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 
 class LogoutController {
