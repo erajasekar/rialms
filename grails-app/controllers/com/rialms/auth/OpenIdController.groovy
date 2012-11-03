@@ -9,6 +9,8 @@ import com.rialms.auth.User
 import com.rialms.auth.Role
 import com.rialms.auth.UserRole
 import groovy.transform.ToString
+import org.codehaus.groovy.grails.plugins.springsecurity.ui.RegistrationCode
+import groovy.text.SimpleTemplateEngine
 
 /**
  * Manages associating OpenIDs with application users, both by creating a new local user
@@ -24,6 +26,8 @@ class OpenIdController {
 
 	/** Dependency injection for the springSecurityService. */
 	def springSecurityService
+
+    def emailService;
 
     def grailsApplication;
 
@@ -119,6 +123,23 @@ class OpenIdController {
         }
     }
 
+    def forgotPassword = { ForgotPasswordCommand command ->
+
+        if (!request.post) {
+            // show the form
+            return
+        }
+        log.info("DEBUG params ${params}");
+        if (command.hasErrors()) {
+            render (view: 'forgotPassword' ,model: [command: command]);
+            return;
+        }
+
+        emailService.sendForgotPassword(params.email);
+
+        [emailSent: true]
+    }
+
     /**
 	 * The registration page has a link to this action so an existing user who successfully
 	 * authenticated with an OpenID can associate it with their account for future logins.
@@ -151,6 +172,7 @@ class OpenIdController {
 
 		authenticateAndRedirect command.username
 	}
+
 
 	/**
 	 * Authenticate the user for real now that the account exists/is linked and redirect
@@ -307,6 +329,25 @@ class LoginCommand{
         return false;
     }
 
+}
+//Used only for validation
+class ForgotPasswordCommand {
+
+    String email = ""
+    static constraints = {
+
+        email blank: false, email: true, validator: { String email, command ->
+            User.withNewSession { session ->
+                if (email && !User.countByEmail(email)) {
+                    return 'forgotPasswordCommand.user.notFound'
+                }
+            }
+        }
+    }
+    //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
+    public boolean isAttached(){
+        return false;
+    }
 }
 class OpenIdLinkAccountCommand {
 

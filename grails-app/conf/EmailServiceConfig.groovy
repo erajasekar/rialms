@@ -25,25 +25,12 @@ ________________________________________________________________________________
     body = '''\
 Hi ,<br/>
 <br/>
-You (or someone pretending to be you) requested that your password be reset.<br/>
+A request has been made to reset password for your Rialms account.<br/>
 <br/>
-If you didn't make this request then ignore the email; no changes have been made.<br/>
-<br/>
-If you did make the request, then click <a href="$url">here</a> to reset your password.
-<br>
-_______________________________________________________________________________________________
-
-										Unsubscribe
-</br>
-<br>
- To unsubscribe, login to grepdeals.com and goto settings page and remove all categories assigned to you,
- you won't receive an email from us.
-_______________________________________________________________________________________________ 
-</br>
-
+To choose a new password, click on the link </br>
+<a href="$url">$url</a>
 '''
-
-    subject = 'Password Reset for grepdeals Account'
+    subject = 'Rialms Password Recovery'
   }
 
   approve {
