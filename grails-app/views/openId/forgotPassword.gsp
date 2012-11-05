@@ -17,9 +17,7 @@
 
 <body>
 <div class="documentation row-fluid">
-    <div class="span4">&nbsp;</div>
-
-    <div class="span4">
+    <div class="auth-box">
         <g:form action='forgotPassword' name="forgotPasswordForm" class="form-horizontal" autocomplete='off'>
             <fieldset>
                 <g:if test='${emailSent}'>

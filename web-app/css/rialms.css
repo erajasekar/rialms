@@ -114,18 +114,6 @@ body {
 .form-actions {
   background-color: #f3f8ed;
 }
-label.valid {
-  width: 24px;
-  height: 24px;
-  background: url(../images/valid.png) center center no-repeat;
-  display: inline-block;
-  text-indent: -9999px;
-}
-label.error {
-  color: red;
-  padding: 2px 8px;
-  margin-top: 2px;
-}
 .nav .nav-header {
   padding: 10px;
   border-top: 2px solid #eeeeee;
@@ -261,4 +249,13 @@ a.toggleNav:hover {
 }
 td.center {
   text-align: center;
+}
+label.error {
+  color: red;
+  padding: 2px 8px;
+  margin-top: 2px;
+}
+.auth-box {
+  width: 500px;
+  margin: auto;
 }

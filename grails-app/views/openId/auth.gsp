@@ -17,13 +17,12 @@
 
 <body>
 <div class="documentation row-fluid">
-    <div class="span4">&nbsp;</div>
     <g:hasErrors bean="${command}">    <!--TODO find better way for errors -->
         <div class="errors">
             <g:renderErrors bean="${command}" as="list"/>
         </div>
     </g:hasErrors>
-    <div class="span4" ng-controller='LoginController'>
+    <div class="auth-box" ng-controller='LoginController'>
         <!-- TODO p4 Figure out how to do i18n with augularJs -->
         <div id="login">
             <div class="block-header">
@@ -96,7 +95,7 @@
                 </div>
 
                 <div ng-show="isSignUp">
-                    <g:form action='signUpAccount' controller='OpenId' class="form-horizontal" method='POST' autocomplete='off' name="signUpForm" >
+                    <g:form class="form-horizontal" action='signUpAccount' controller='OpenId'  method='POST' autocomplete='off' name="signUpForm" >
                         <fieldset>
                             <% boolean emailHasError = hasErrors(bean: command, field: 'email', 'errors') %>
                             <div class="${emailHasError ? 'control-group error' : 'control-group'}">
@@ -158,8 +157,8 @@
         </div>
     </div>
 </div>
-<jqvalui:renderValidationScript for="OpenIdRegisterCommand" form="signUpForm" validClass="success"  />
-<jqvalui:renderValidationScript for="LoginCommand" form="loginForm" validClass="success"  />
+<jqvalui:renderValidationScript for="OpenIdRegisterCommand" form="signUpForm" />
+<jqvalui:renderValidationScript for="LoginCommand" form="loginForm" />
 <script>
     $(document).ready(function () {
         $('#email').focus();
