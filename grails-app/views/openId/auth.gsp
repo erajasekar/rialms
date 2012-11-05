@@ -17,11 +17,6 @@
 
 <body>
 <div class="documentation row-fluid">
-    <g:hasErrors bean="${command}">    <!--TODO find better way for errors -->
-        <div class="errors">
-            <g:renderErrors bean="${command}" as="list"/>
-        </div>
-    </g:hasErrors>
     <div class="auth-box" ng-controller='LoginController'>
         <!-- TODO p4 Figure out how to do i18n with augularJs -->
         <div id="login">

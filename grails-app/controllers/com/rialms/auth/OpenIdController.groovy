@@ -11,6 +11,7 @@ import com.rialms.auth.UserRole
 import groovy.transform.ToString
 import org.codehaus.groovy.grails.plugins.springsecurity.ui.RegistrationCode
 import groovy.text.SimpleTemplateEngine
+import org.codehaus.groovy.grails.plugins.springsecurity.NullSaltSource
 
 /**
  * Manages associating OpenIDs with application users, both by creating a new local user
@@ -140,6 +141,34 @@ class OpenIdController {
         [emailSent: true]
     }
 
+    def resetPassword = { ResetPasswordCommand command ->
+
+        String token = params.t
+
+        def registrationCode = token ? RegistrationCode.findByToken(token) : null
+        if (!registrationCode) {
+            flash.error = message(code: 'spring.security.ui.resetPassword.badCode')
+            return [command: command]
+        }
+
+        if (!request.post) {
+            return [token: token, command: new ResetPasswordCommand()]
+        }
+
+        command.email = registrationCode.username
+        command.validate()
+
+        if (command.hasErrors()) {
+            return [token: token, command: command]
+        }
+
+        resetPassword(registrationCode,command.password);
+        springSecurityService.reauthenticate  command.email
+
+        [passwordReset: true]
+    }
+
+
     /**
 	 * The registration page has a link to this action so an existing user who successfully
 	 * authenticated with an OpenID can associate it with their account for future logins.
@@ -229,6 +258,16 @@ class OpenIdController {
 		return created;
 	}
 
+
+    protected void resetPassword(RegistrationCode registrationCode, String password){
+        RegistrationCode.withTransaction { status ->
+            def user = User.findByEmail(registrationCode.username)
+            user.password = encodePassword(password);
+            user.save()
+            registrationCode.delete()
+        }
+    }
+
 	protected String encodePassword(String password) {
 		def config = SpringSecurityUtils.securityConfig
 		def encode = config.openid.encodePassword
@@ -275,6 +314,13 @@ class OpenIdController {
 		}
 	}
 
+    static final passwordValidator = { String password, command ->
+        if (password && password.length() >= 8 && password.length() <= 64 &&
+                (!password.matches('^.*\\p{Alpha}.*$') ||
+                        !password.matches('^.*\\p{Digit}.*$'))) {
+            return 'command.password.error.strength'
+        }
+    }
 }
 
 @ToString(includeFields=true)
@@ -296,14 +342,7 @@ class OpenIdRegisterCommand {
 
 		name blank: false
 
-		password blank: false, minSize: 8, maxSize: 64, validator: {String password, command ->
-
-            if (password && password.length() >= 8 && password.length() <= 64 &&
-                    (!password.matches('^.*\\p{Alpha}.*$') ||
-                            !password.matches('^.*\\p{Digit}.*$'))) {
-                return 'openIdRegisterCommand.password.error.strength'
-            }
-        }
+		password blank: false, minSize: 8, maxSize: 64, validator: OpenIdController.passwordValidator;
 	}
     //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
     public boolean isAttached(){
@@ -358,4 +397,19 @@ class OpenIdLinkAccountCommand {
 		username blank: false
 		password blank: false
 	}
+}
+
+class ResetPasswordCommand {
+    String email;
+    String password
+
+    static constraints = {
+        email blank: false, email: true
+        password blank: false,  minSize: 8, maxSize: 64,  validator: OpenIdController.passwordValidator
+    }
+
+    //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
+    public boolean isAttached(){
+        return false;
+    }
 }

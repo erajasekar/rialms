@@ -23,7 +23,7 @@
                 <g:if test='${emailSent}'>
                     <a class="close" data-dismiss="alert" href="#">&times;</a>
                     <div class="alert alert-block">
-                       <h4><g:message code='forgotPassword.sent'/></h4>
+                       <h4><g:message code='forgotPassword.sent.message'/></h4>
                     </div>
                 </g:if>
                 <g:else>
