@@ -16,15 +16,13 @@
 </head>
 
 <body>
+<s2ui:showFlash/>
 <div class="documentation row-fluid">
 
     <div class="auth-box">
 
         <g:if test='${flash.error}'>
-            <a class="close" data-dismiss="alert" href="#">&times;</a>
-            <div class="alert alert-block">
-                <h4><g:message code="${flash.error}"/></h4>
-            </div>
+            <rs:alertMsg messageCode="${flash.error}"/>
         </g:if>
         <g:elseif test='${passwordReset}'>
             <a class="close" data-dismiss="alert" href="#">&times;</a>

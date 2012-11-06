@@ -5,6 +5,7 @@ import grails.util.GrailsUtil
 import org.codehaus.groovy.grails.plugins.springsecurity.ui.RegistrationCode
 import groovy.text.SimpleTemplateEngine
 import org.springframework.web.context.request.RequestContextHolder
+import com.rialms.auth.User
 
 class EmailService implements InitializingBean  {
 
@@ -39,6 +40,23 @@ class EmailService implements InitializingBean  {
             to email
             from conf.email.from
             subject conf.email.forgotPassword.subject
+            html body.toString()
+        }
+    }
+
+    public void sendVerifyRegistration(String email, String name){
+        def registrationCode = new RegistrationCode(username: email).save()
+        String url = generateLink('openId' ,'verifyRegistration', [t: registrationCode.token])
+
+        def body = conf.email.register.body
+
+        if (body.contains('$')) {
+            body = evaluate(body, [url: url, name : name])
+        }
+        mailService.sendMail {
+            to email
+            from conf.email.from
+            subject conf.email.register.subject
             html body.toString()
         }
     }

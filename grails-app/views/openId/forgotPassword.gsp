@@ -17,16 +17,14 @@
 
 <body>
 <div class="documentation row-fluid">
+
     <div class="auth-box">
-        <g:form action='forgotPassword' name="forgotPasswordForm" class="form-horizontal" autocomplete='off'>
-            <fieldset>
-                <g:if test='${emailSent}'>
-                    <a class="close" data-dismiss="alert" href="#">&times;</a>
-                    <div class="alert alert-block">
-                       <h4><g:message code='forgotPassword.sent.message'/></h4>
-                    </div>
-                </g:if>
-                <g:else>
+        <g:if test='${emailSent}'>
+            <rs:alertMsg messageCode='forgotPassword.sent.message'/>
+        </g:if>
+        <g:else>
+            <g:form action='forgotPassword' name="forgotPasswordForm" class="form-horizontal" autocomplete='off'>
+                <fieldset>
                     <div class="block-header">
                         <h4><g:message code="forgotPassword.header"/></h4>
                     </div>
@@ -53,10 +51,11 @@
                             </div>
                         </div>
                     </div>
-                </g:else>
-            </fieldset>
-        </g:form>
+                </fieldset>
+            </g:form>
+        </g:else>
     </div>
+
 </div>
 <jqvalui:renderValidationScript for="ForgotPasswordCommand"/>
 </body>

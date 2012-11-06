@@ -50,7 +50,9 @@ rialms {
     maxEntriesPerPage = 10;
     qtiXMLDialogHeight = 600;
     googleOpenIdIdentifier = "https://www.google.com/accounts/o8/id";
-
+    security{
+        defaultRoleNames = ['ROLE_USER']
+    }
 }
 
 // The default codec used to encode data with ${}
