@@ -19,6 +19,8 @@ import org.codehaus.groovy.grails.plugins.springsecurity.NullSaltSource
  */
 class OpenIdController {
 
+    private static final String OPEN_ID_USER_PASSWORD = "notused";
+
     /** Dependency injection for daoAuthenticationProvider. */
     def daoAuthenticationProvider
 
@@ -52,15 +54,16 @@ class OpenIdController {
             redirect uri: config.successHandler.defaultTargetUrl
             return
         }
-
+        OpenIdRegisterCommand command = new OpenIdRegisterCommand();
+        copyFromAttributeExchange(command);
         [openIdPostUrl: "${request.contextPath}$openIDAuthenticationFilter.filterProcessesUrl",
                 daoPostUrl: "${request.contextPath}${config.apf.filterProcessesUrl}",
                 persistentRememberMe: config.rememberMe.persistent,
                 rememberMeParameter: config.rememberMe.parameter,
-                command: new OpenIdRegisterCommand(),
+                command: command,
                 isSignUp: false,
                 openIdIdentifierValue: grailsApplication.config.rialms.googleOpenIdIdentifier,
-                openidIdentifier: config.openid.claimedIdentityFieldName]
+                openidIdentifier: config.openid.claimedIdentityFieldName]  //TODO find better way to avoid dup
     }
 
     /**
@@ -83,7 +86,7 @@ class OpenIdController {
         }
         Map exchangeAttrs = exchangeAttrsList.collectEntries {[it.name, it.values]}
         String email = exchangeAttrs.email.get(0);
-        String password = 'notused';
+        String password = OPEN_ID_USER_PASSWORD;
         String name = exchangeAttrs.firstName.get(0) + ' ' + exchangeAttrs.lastName.get(0)
 
         User user = User.findByEmail(email);
@@ -207,49 +210,11 @@ class OpenIdController {
 
         User user = authService.activateUser(registrationCode);
 
-        if (!user) {
-            flash.error = message(code: 'spring.security.ui.register.badCode')
-            redirect uri: defaultTargetUrl
-            return
-        }
         springSecurityService.reauthenticate user.email
 
         flash.message = message(code: 'register.complete.message')
         redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
 
-    }
-
-        /**
-     * The registration page has a link to this action so an existing user who successfully
-     * authenticated with an OpenID can associate it with their account for future logins.
-     */
-    def linkAccount = { OpenIdLinkAccountCommand command ->
-
-        String openId = session[OIAFH.LAST_OPENID_USERNAME]
-        if (!openId) {
-            flash.error = 'Sorry, an OpenID was not found'
-            return [command: command]
-        }
-
-        if (!request.post) {
-            // show the form
-            command.clearErrors()
-            return [command: command, openId: openId]
-        }
-
-        if (command.hasErrors()) {
-            return [command: command, openId: openId]
-        }
-
-        try {
-            registerAccountOpenId command.username, command.password, openId
-        }
-        catch (AuthenticationException e) {
-            flash.error = 'Sorry, no user was found with that email and password'
-            return [command: command, openId: openId]
-        }
-
-        authenticateAndRedirect command.username
     }
 
     /**
@@ -272,28 +237,6 @@ class OpenIdController {
         }
         else {
             redirect uri: config.successHandler.defaultTargetUrl
-        }
-    }
-
-    /**
-     * Associates an OpenID with an existing account. Needs the user's password to ensure
-     * that the user owns that account, and authenticates to verify before linking.
-     * @param username the email
-     * @param password the password
-     * @param openId the associated OpenID
-     */
-    protected void registerAccountOpenId(String username, String password, String openId) {
-        // check that the user exists, password is valid, etc. - doesn't actually log in or log out,
-        // just checks that user exists, password is valid, account not locked, etc.
-        daoAuthenticationProvider.authenticate(
-                new UsernamePasswordAuthenticationToken(username, password))
-
-        User.withTransaction { status ->
-            def user = User.findByEmail(username)
-            user.addToOpenIds(url: openId)
-            if (!user.validate()) {
-                status.setRollbackOnly()
-            }
         }
     }
 
@@ -384,16 +327,6 @@ class ForgotPasswordCommand {
     //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
     public boolean isAttached() {
         return false;
-    }
-}
-class OpenIdLinkAccountCommand {
-
-    String username = ""
-    String password = ""
-
-    static constraints = {
-        username blank: false
-        password blank: false
     }
 }
 

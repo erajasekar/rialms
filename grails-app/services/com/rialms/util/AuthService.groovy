@@ -64,7 +64,12 @@ class AuthService implements InitializingBean {
     }
 
     public void addOpenIdToUser(User user, String openId) {
-        user.addToOpenIds(url: openId)
+        User.withTransaction { status ->
+            user.addToOpenIds(url: openId)
+            if (!user.validate()) {
+                status.setRollbackOnly()
+            }
+        }
     }
 
     private void addUserToRole(User user) {
