@@ -8,3 +8,11 @@ window.unhighlightErrorField = (element, errorClass, validClass) ->
 window.disableValidationRules = (formId) ->
   $(formId).find(":input").each ->
     $(this).rules "remove"
+
+window.showFlash = (type, text, duration) ->
+  clazz = "icon "
+  if type is "error"
+    clazz += "icon_error"
+  else clazz += "icon_info"  if type is "info"
+  $.jGrowl "<span class=\"" + clazz + "\">" + text + "</span>",
+    life: duration

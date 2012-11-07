@@ -15,6 +15,24 @@ class RialmsTagLib {
         out << "</div>";
     }
 
+    def showFlash = { attrs ->
+        String message = flash.remove('message')
+        String error = flash.remove('error')
+        if (!message && !error) {
+            return
+        }
+
+        String type = message ? 'info' : 'error'
+        String text = message ?: error
+        out << """
+		<script>
+		\$(document).ready(function() {
+			showFlash('${type}', "${text.encodeAsHTML()}", 3000);
+		});
+		</script>
+		"""
+    }
+
     private getAttribute(Map attrs, String name, String tagName, boolean isRequired = false) {
         if (isRequired && !attrs.containsKey(name)) {
             throwTagError("Tag [$tagName] is missing required attribute [$name]")

@@ -16,7 +16,6 @@
 </head>
 
 <body>
-<s2ui:showFlash/>
 <div class="documentation row-fluid">
 
     <div class="auth-box">

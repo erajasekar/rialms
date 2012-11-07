@@ -35,22 +35,18 @@ class AuthService implements InitializingBean {
         return user;
     }
 
-    public boolean createNewAccount(String email, String password, String name, String openId, boolean accountLocked) {
+    public boolean createNewAccount(String email, String password, String name,boolean accountLocked) {
+
         boolean created = User.withTransaction { status ->
             def config = SpringSecurityUtils.securityConfig
-
             password = encodePassword(password)
+
             def user = new User(email: email, password: password, name: name, enabled: true, accountLocked: accountLocked);
 
-            if (openId) {
-                user.addToOpenIds(url: openId)
-            }
-
-            if (!user.save()) {
+            if (!user.save(flush: true)) {
                 user.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}
                 return false
             }
-
             if (!accountLocked) {
                 for (roleName in config.openid.registration.roleNames) {
                     UserRole.create user, Role.findByAuthority(roleName)
@@ -58,11 +54,17 @@ class AuthService implements InitializingBean {
             }
             return true
         }
+
+        log.info("DEBUG createdNewAccount for ${email} with result : ${created}");
         return created;
     }
 
-    public boolean createNewAccount(String email, String password, String name, String openId) {
-        return createNewAccount(email, password, name, openId, false);
+    public boolean createNewAccount(String email, String password, String name) {
+        return createNewAccount(email, password, name, false);
+    }
+
+    public void addOpenIdToUser(User user, String openId) {
+        user.addToOpenIds(url: openId)
     }
 
     private void addUserToRole(User user) {

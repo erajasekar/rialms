@@ -50,6 +50,7 @@ modules = {
 
     jqueryPlugins {
         resource url: 'js/jquery/jquery.dataSelector.js'
+        resource url: 'js/jquery/jquery.jgrowl.js'
     }
 
     prettify {

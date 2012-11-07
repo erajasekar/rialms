@@ -86,12 +86,21 @@ class OpenIdController {
         String password = 'notused';
         String name = exchangeAttrs.firstName.get(0) + ' ' + exchangeAttrs.lastName.get(0)
 
-        if (!authService.createNewAccount(email, password, name, openId)) {
-            log.error("Error in creating new account");
-            render(view: 'auth', model: [command: command, isSignUp: true]);
-            return;
+        User user = User.findByEmail(email);
+
+        if (!user) {
+            log.info("No existing account found for ${email}, creating new user");
+            if (!authService.createNewAccount(email, password, name, openId)) {
+                log.error("Error in creating new account");
+                render(view: 'auth', model: [command: command, isSignUp: true]);
+                return;
+            }
+        }else{
+            log.info("Existing user account found for ${email}, adding open Id to user");
+            authService.addOpenIdToUser(user, openId);
         }
 
+        flash.message = message(code: 'register.complete.message');
         authenticateAndRedirect email
     }
 
@@ -110,7 +119,7 @@ class OpenIdController {
             );
             return;
         }
-        if (!authService.createNewAccount(command.email, command.password, command.name, null, true)) {
+        if (!authService.createNewAccount(command.email, command.password, command.name, true)) {
             log.error("Error in creating new account");
             render(view: 'auth', model: [command: command,
                     openIdPostUrl: "${openIdPostUrl}",
@@ -175,7 +184,11 @@ class OpenIdController {
         authService.resetPassword(registrationCode, command.password);
         springSecurityService.reauthenticate command.email
 
-        [passwordReset: true]
+        flash.message = message(code: 'resetPassword.success.message')
+
+        def conf = SpringSecurityUtils.securityConfig
+        String postResetUrl = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
+        redirect uri: postResetUrl
     }
 
     def verifyRegistration = {
@@ -201,7 +214,7 @@ class OpenIdController {
         }
         springSecurityService.reauthenticate user.email
 
-        flash.message = message(code: 'spring.security.ui.register.complete')
+        flash.message = message(code: 'register.complete.message')
         redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
 
     }
