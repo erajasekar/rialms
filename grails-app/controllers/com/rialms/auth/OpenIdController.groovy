@@ -12,6 +12,13 @@ import groovy.transform.ToString
 import org.codehaus.groovy.grails.plugins.springsecurity.ui.RegistrationCode
 import groovy.text.SimpleTemplateEngine
 import org.codehaus.groovy.grails.plugins.springsecurity.NullSaltSource
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.WebAttributes
+import org.springframework.security.authentication.AccountExpiredException
+import org.springframework.security.authentication.CredentialsExpiredException
+import org.springframework.security.authentication.DisabledException
+import org.springframework.security.authentication.LockedException
+import grails.converters.JSON
 
 /**
  * Manages associating OpenIDs with application users, both by creating a new local user
@@ -38,7 +45,6 @@ class OpenIdController {
 
     static defaultAction = 'auth'
 
-    //TODO P2: Clean up this controller
     /**
      * Shows the login page. The user has the choice between using an OpenID and a email
      * and password for a local account. If an OpenID authentication is successful but there
@@ -48,32 +54,32 @@ class OpenIdController {
      */
     def auth = {
 
-        def config = SpringSecurityUtils.securityConfig
-
         if (springSecurityService.isLoggedIn()) {
             redirect uri: config.successHandler.defaultTargetUrl
             return
         }
         OpenIdRegisterCommand command = new OpenIdRegisterCommand();
         copyFromAttributeExchange(command);
-        [openIdPostUrl: "${request.contextPath}$openIDAuthenticationFilter.filterProcessesUrl",
+        return getModel(command, false);
+    }
+
+    private Map getModel(OpenIdRegisterCommand command, boolean isSignUp) {
+        def config = SpringSecurityUtils.securityConfig;
+
+        return [openIdPostUrl: "${request.contextPath}$openIDAuthenticationFilter.filterProcessesUrl",
                 daoPostUrl: "${request.contextPath}${config.apf.filterProcessesUrl}",
                 persistentRememberMe: config.rememberMe.persistent,
                 rememberMeParameter: config.rememberMe.parameter,
                 command: command,
-                isSignUp: false,
+                isSignUp: isSignUp,
                 openIdIdentifierValue: grailsApplication.config.rialms.googleOpenIdIdentifier,
-                openidIdentifier: config.openid.claimedIdentityFieldName]  //TODO find better way to avoid dup
-    }
+                openidIdentifier: config.openid.claimedIdentityFieldName]
 
+    }
     /**
      * Initially we're redirected here after a UserNotFoundException with a valid OpenID
      * authentication. This action is specified by the openid.registration.createAccountUri
      * attribute.
-     * <p/>
-     * The GSP displays the OpenID that was received by the external provider and keeps it
-     * in the session rather than passing it between submits so the user has no opportunity
-     * to change it.
      */
     def createAccount = { OpenIdRegisterCommand command ->
 
@@ -81,7 +87,7 @@ class OpenIdController {
         List exchangeAttrsList = session[OIAFH.LAST_OPENID_ATTRIBUTES];
 
         if (!(openId || exchangeAttrsList)) {
-            flash.error = 'Sorry, an OpenID was not found'
+            flash.error = g.message(code: 'openId.notfound.error');
             return [command: command]
         }
         Map exchangeAttrs = exchangeAttrsList.collectEntries {[it.name, it.values]}
@@ -93,12 +99,12 @@ class OpenIdController {
 
         if (!user) {
             log.info("No existing account found for ${email}, creating new user");
-            if (!authService.createNewAccount(email, password, name, openId)) {
+            if (!authService.createNewAccount(email, password, name)) {
                 log.error("Error in creating new account");
                 render(view: 'auth', model: [command: command, isSignUp: true]);
                 return;
             }
-        }else{
+        } else {
             log.info("Existing user account found for ${email}, adding open Id to user");
             authService.addOpenIdToUser(user, openId);
         }
@@ -111,38 +117,21 @@ class OpenIdController {
         def config = SpringSecurityUtils.securityConfig
         String openIdPostUrl = "${request.contextPath}$openIDAuthenticationFilter.filterProcessesUrl";
         String daoPostUrl = "${request.contextPath}${config.apf.filterProcessesUrl}";
+        Map model = getModel(command, true);
         if (command.hasErrors()) {
-            render(view: 'auth',
-                    model: [command: command,
-                            openIdPostUrl: "${openIdPostUrl}",
-                            daoPostUrl: "${daoPostUrl}",
-                            openIdIdentifierValue: grailsApplication.config.rialms.googleOpenIdIdentifier,
-                            openidIdentifier: config.openid.claimedIdentityFieldName,
-                            isSignUp: true]
-            );
+            render(view: 'auth', model: model);
             return;
         }
         if (!authService.createNewAccount(command.email, command.password, command.name, true)) {
             log.error("Error in creating new account");
-            render(view: 'auth', model: [command: command,
-                    openIdPostUrl: "${openIdPostUrl}",
-                    daoPostUrl: "${daoPostUrl}",
-                    openIdIdentifierValue: grailsApplication.config.rialms.googleOpenIdIdentifier,
-                    openidIdentifier: config.openid.claimedIdentityFieldName,
-                    isSignUp: true]
-            );
+            render(view: 'auth', model: model);
             return;
         }
         //Account creation success
         else {
-            emailService.sendVerifyRegistration(command.email,command.name);
-            render(view: 'auth', model: [command: command,
-                    openIdPostUrl: "${openIdPostUrl}",
-                    daoPostUrl: "${daoPostUrl}",
-                    openIdIdentifierValue: grailsApplication.config.rialms.googleOpenIdIdentifier,
-                    openidIdentifier: config.openid.claimedIdentityFieldName,
-                    emailSent: true]
-            );
+            emailService.sendVerifyRegistration(command.email, command.name);
+            model.emailSent = true;
+            render(view: 'auth', model: model);
         }
     }
 
@@ -152,7 +141,7 @@ class OpenIdController {
             // show the form
             return
         }
-        log.info("DEBUG params ${params}");
+        log.info("forgot password params ${params}");
         if (command.hasErrors()) {
             render(view: 'forgotPassword', model: [command: command]);
             return;
@@ -218,6 +207,36 @@ class OpenIdController {
     }
 
     /**
+     * Callback after a failed login. Redirects to the auth page with a warning message.
+     */
+    def authfail = {
+
+        def username = session[UsernamePasswordAuthenticationFilter.SPRING_SECURITY_LAST_USERNAME_KEY]
+        String msg = ''
+        def exception = session[WebAttributes.AUTHENTICATION_EXCEPTION]
+        if (exception) {
+            if (exception instanceof AccountExpiredException) {
+                msg = g.message(code: "springSecurity.errors.login.expired")
+            }
+            else if (exception instanceof CredentialsExpiredException) {
+                msg = g.message(code: "springSecurity.errors.login.passwordExpired")
+            }
+            else if (exception instanceof DisabledException) {
+                msg = g.message(code: "springSecurity.errors.login.disabled")
+            }
+            else if (exception instanceof LockedException) {
+                msg = g.message(code: "springSecurity.errors.login.locked")
+            }
+            else {
+                msg = g.message(code: "springSecurity.errors.login.fail")
+            }
+        }
+
+        flash.message = msg
+        redirect action: 'auth', params: params
+    }
+
+    /**
      * Authenticate the user for real now that the account exists/is linked and redirect
      * to the originally-requested uri if there's a SavedRequest.
      *
@@ -247,7 +266,6 @@ class OpenIdController {
     protected void copyFromAttributeExchange(OpenIdRegisterCommand command) {
         List attributes = session[OIAFH.LAST_OPENID_ATTRIBUTES] ?: []
         for (attribute in attributes) {
-            // TODO document
             String name = attribute.name
             if (command.hasProperty(name)) {
                 command."$name" = attribute.values[0]

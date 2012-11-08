@@ -37,9 +37,6 @@
                 </div>
 
                 <div class="block-content">
-                    <!--  <g:if test='${flash.message}'>
-                        <div class='item-result result-incorrect '>${flash.message}</div>
-                    </g:if>   -->
                     <div id='openidLogin' ng-hide="isSignUp">
                         <form class="form-horizontal" action='${daoPostUrl}' id='loginForm' method='POST'
                               autocomplete='off'>
@@ -166,7 +163,7 @@
                 </div>
 
             </div>
-        </g:else>
+    </g:else>
     </div>
 </div>
 <jqvalui:renderValidationScript for="OpenIdRegisterCommand" form="signUpForm"/>
