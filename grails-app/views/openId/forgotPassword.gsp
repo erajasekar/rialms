@@ -23,7 +23,7 @@
             <rs:alertMsg messageCode='forgotPassword.sent.message'/>
         </g:if>
         <g:else>
-            <g:form action='forgotPassword' name="forgotPasswordForm" class="form-horizontal" autocomplete='off'>
+            <g:form action='forgotPassword' name="forgotPasswordForm" class="form-inline" autocomplete='off'>
                 <fieldset>
                     <div class="block-header">
                         <h4><g:message code="forgotPassword.header"/></h4>
@@ -32,17 +32,21 @@
                     <div class="block-content">
                         <% boolean hasError = hasErrors(bean: command, field: 'email', 'errors') %>
                         <div class="${hasError ? 'control-group error' : 'control-group'}">
-                            <label class="control-label" for="email"><g:message code='email.label'/></label>
 
                             <div class="controls">
-                                <g:textField name="email" size="25"/>
-                                <g:if test='${hasError}'>
-                                    <g:eachError bean="${command}" field="email">
-                                        <label for='email' class="error"><g:message error="${it}"/></label>
-                                    </g:eachError>
-                                </g:if>
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-envelope"></i></span><g:textField name="email"
+                                                                                                          size="25"
+                                                                                                          placeholder="${g.message(code: 'your.label')} ${g.message(code: 'email.label')}"/>
+                                    <g:if test='${hasError}'>
+                                        <g:eachError bean="${command}" field="email">
+                                            <label for='email' class="error"><g:message error="${it}"/></label>
+                                        </g:eachError>
+                                    </g:if>
+                                </div>
                             </div>
                         </div>
+                        <br/>
 
                         <div class="control-group">
                             <div class="controls">

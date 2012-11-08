@@ -47,7 +47,7 @@ window.LoginController = ($scope)->
 
   $scope.getTitle = ->
     if $scope.isSignUp
-      'Create a new account'
+      'Create a free account'
     else
       'Login'
   $scope.getMessage = ->

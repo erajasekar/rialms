@@ -25,6 +25,7 @@
         </g:if>
         <g:elseif test='${passwordReset}'>
             <a class="close" data-dismiss="alert" href="#">&times;</a>
+
             <div class="alert alert-block">
                 <h4><g:message code='resetPassword.success.message'/></h4>
             </div>
@@ -35,25 +36,28 @@
             </div>
 
             <div class="block-content">
-                <g:form action='resetPassword' name="resetPasswordForm" class="form-horizontal" autocomplete='off'>
+                <g:form action='resetPassword' name="resetPasswordForm" class="form-inline" autocomplete='off'>
                     <g:hiddenField name='t' value='${token}'/>
                     <fieldset>
                         <% boolean passwordHasError = hasErrors(bean: command, field: 'password', 'errors') %>
                         <div class="${passwordHasError ? 'control-group error' : 'control-group'}">
-                            <label class="control-label" for="password"><g:message code='resetPassword.label'/></label>
 
                             <div class="controls">
-                                <g:passwordField type="text"
-                                                 class="input-large"
-                                                 name='password' value="${command?.password}"/>
-                                <g:if test='${passwordHasError}'>
-                                    <g:eachError bean="${command}" field="password">
-                                        <label for='password' class="error"><g:message error="${it}"/></label>
-                                    </g:eachError>
-                                </g:if>
+                                <div class="input-prepend">
+                                    <span class="add-on"><i class="icon-lock"></i></span><g:passwordField type="text"
+                                                                                                          class="input-large"
+                                                                                                          placeholder="${g.message(code: 'new.label')} ${g.message(code: 'password.label')}"
+                                                                                                          name='password'
+                                                                                                          value="${command?.password}"/>
+                                    <g:if test='${passwordHasError}'>
+                                        <g:eachError bean="${command}" field="password">
+                                            <label for='password' class="error"><g:message error="${it}"/></label>
+                                        </g:eachError>
+                                    </g:if>
+                                </div>
                             </div>
                         </div>
-
+                        <br/>
                         <div class="control-group">
                             <div class="controls">
                                 <button type="submit" class="btn btn-info"><g:message

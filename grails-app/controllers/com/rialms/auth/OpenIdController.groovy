@@ -53,7 +53,7 @@ class OpenIdController {
      * existing local account.
      */
     def auth = {
-
+        def config = SpringSecurityUtils.securityConfig;
         if (springSecurityService.isLoggedIn()) {
             redirect uri: config.successHandler.defaultTargetUrl
             return

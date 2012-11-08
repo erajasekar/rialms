@@ -38,32 +38,45 @@
 
                 <div class="block-content">
                     <div id='openidLogin' ng-hide="isSignUp">
-                        <form class="form-horizontal" action='${daoPostUrl}' id='loginForm' method='POST'
-                              autocomplete='off'>
+                        <form class="form-inline" action='${daoPostUrl}' id='loginForm' method='POST'>
                             <fieldset>
-
                                 <div class="${flash.message ? 'control-group error' : 'control-group'}">
-                                    <label class="control-label" for="email"><g:message code='email.label'/></label>
-
+                                    <!--      <label class="control-label" for="email"><g:message
+                                            code='email.label'/></label> -->
                                     <div class="controls">
-                                        <input type="email"
-                                               placeholder="${g.message(code: 'your.label')} ${g.message(code: 'email.label')}"
-                                               class="input-large"
-                                               name='j_username' id='email'>
-                                        <g:if test='${flash.message}'>
-                                            <label for='email' class="error">${flash.message}</label>
-                                        </g:if>
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-envelope"></i></span><input type="email"
+                                                                                                            class="input-large"
+                                                                                                            placeholder="${g.message(code: 'your.label')} ${g.message(code: 'email.label')}"
+                                                                                                            name='j_username'
+                                                                                                            id='email'/>
+                                            <g:if test='${flash.message}'>
+                                                <label for='email' class="error">${flash.message}</label>
+                                            </g:if>
+                                        </div>
                                     </div>
 
                                 </div>
+                                <br/>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="login_password"><g:message
-                                            code='password.label'/></label>
+                                    <!--    <label class="control-label" for="login_password"><g:message
+                                            code='password.label'/></label>       -->
 
                                     <div class="controls">
-                                        <input type="password"
-                                               class="input-large" name='j_password' id='login_password'>
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-lock"></i></span><input type="password"
+                                                                                                        class="input-large"
+                                                                                                        placeholder="${g.message(code: 'your.label')} ${g.message(code: 'password.label')}"
+                                                                                                        name='j_password'
+                                                                                                        id='login_password'>
+                                        </div>
+                                    </div>
+
+                                    <div class="controls">
+                                        <g:link controller="openId" action="forgotPassword"><g:message
+                                                code="forgotPassword.message"/>
+                                        </g:link>
                                     </div>
                                 </div>
 
@@ -76,6 +89,7 @@
                                         </label>
                                     </div>
                                 </div>
+                                <hr/>
 
                                 <div class="control-group">
                                     <div class="controls">
@@ -90,59 +104,72 @@
                                                 code='button.loginWithGoogle.label'/></button>
                                     </div>
                                 </div>
-
                             </fieldset>
-                            <!-- TODO P1: do forgot password -->
                         </form>
                     </div>
 
                     <div ng-show="isSignUp">
-                        <g:form class="form-horizontal" action='signUpAccount' controller='OpenId' method='POST'
-                                autocomplete='off' name="signUpForm">
+                        <g:form class="form-inline" action='signUpAccount' controller='OpenId' method='POST' name="signUpForm">
                             <fieldset>
                                 <% boolean emailHasError = hasErrors(bean: command, field: 'email', 'errors') %>
                                 <div class="${emailHasError ? 'control-group error' : 'control-group'}">
-                                    <label class="control-label" for="email"><g:message code='email.label'/></label>
+                                    <!--     <label class="control-label" for="email"><g:message
+                                            code='email.label'/></label>  -->
 
                                     <div class="controls">
-                                        <g:textField type="text"
-                                                     placeholder="${g.message(code: 'your.label')}${g.message(code: 'email.label')}"
-                                                     class="input-large"
-                                                     name='email' value="${command.email}"/>
-                                        <g:if test='${emailHasError}'>
-                                            <g:eachError bean="${command}" field="email">
-                                                <label for='email' class="error"><g:message error="${it}"/></label>
-                                            </g:eachError>
-                                        </g:if>
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-envelope"></i></span><g:textField
+                                                type="text"
+                                                placeholder="${g.message(code: 'your.label')} ${g.message(code: 'email.label')}"
+                                                class="input-large"
+                                                name='email' value="${command.email}"/>
+                                            <g:if test='${emailHasError}'>
+                                                <g:eachError bean="${command}" field="email">
+                                                    <label for='email' class="error"><g:message error="${it}"/></label>
+                                                </g:eachError>
+                                            </g:if>
+                                        </div>
                                     </div>
                                 </div>
+                                <br/>
 
                                 <div class="control-group">
-                                    <label class="control-label" for="name"><g:message code='username.label'/></label>
+                                    <!--      <label class="control-label" for="name"><g:message
+                                            code='username.label'/></label>   -->
 
                                     <div class="controls">
-                                        <g:textField type="text"
-                                                     placeholder="${g.message(code: 'your.label')}${g.message(code: 'username.label')}"
-                                                     class="input-large"
-                                                     name='name' value="${command.name}"/>
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-user"></i></span><g:textField
+                                                type="text"
+                                                placeholder="${g.message(code: 'your.label')} ${g.message(code: 'username.label')}"
+                                                class="input-large"
+                                                name='name' value="${command.name}"/>
+                                        </div>
                                     </div>
                                 </div>
+                                <br/>
                                 <% boolean passwordHasError = hasErrors(bean: command, field: 'password', 'errors') %>
                                 <div class="${passwordHasError ? 'control-group error' : 'control-group'}">
-                                    <label class="control-label" for="password"><g:message
-                                            code='password.label'/></label>
+                                    <!--     <label class="control-label" for="password"><g:message
+                                            code='password.label'/></label>         -->
 
                                     <div class="controls">
-                                        <g:passwordField type="text"
-                                                         class="input-large"
-                                                         name='password' value="${command.password}"/>
-                                        <g:if test='${passwordHasError}'>
-                                            <g:eachError bean="${command}" field="password">
-                                                <label for='password' class="error"><g:message error="${it}"/></label>
-                                            </g:eachError>
-                                        </g:if>
+                                        <div class="input-prepend">
+                                            <span class="add-on"><i class="icon-lock"></i></span><g:passwordField
+                                                type="text"
+                                                class="input-large"
+                                                placeholder="${g.message(code: 'your.label')} ${g.message(code: 'password.label')}"
+                                                name='password' value="${command.password}"/>
+                                            <g:if test='${passwordHasError}'>
+                                                <g:eachError bean="${command}" field="password">
+                                                    <label for='password' class="error"><g:message
+                                                            error="${it}"/></label>
+                                                </g:eachError>
+                                            </g:if>
+                                        </div>
                                     </div>
                                 </div>
+                                <hr/>
 
                                 <div class="control-group">
                                     <div class="controls">
@@ -163,7 +190,7 @@
                 </div>
 
             </div>
-    </g:else>
+        </g:else>
     </div>
 </div>
 <jqvalui:renderValidationScript for="OpenIdRegisterCommand" form="signUpForm"/>
