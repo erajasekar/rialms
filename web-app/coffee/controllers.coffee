@@ -54,7 +54,7 @@ window.LoginController = ($scope)->
     if $scope.isSignUp
       'Have an account?'
     else
-      'Need an account?'
+      'New user?'
   $scope.getButtonLabel = ->
     if $scope.isSignUp
       'Log in'

@@ -30,7 +30,7 @@
                         <span class="pull-right">
                             {{getMessage()}}&nbsp;
                             <button ng-click='toggleForms()'
-                                    class="btn btn-danger btn-mini">{{getButtonLabel()}}</button>
+                                    class="btn btn-info btn-mini">{{getButtonLabel()}}</button>
                             &nbsp;&nbsp;
                         </span>
                     </h4>
@@ -72,12 +72,6 @@
                                                                                                         id='login_password'>
                                         </div>
                                     </div>
-
-                                    <div class="controls">
-                                        <g:link controller="openId" action="forgotPassword"><g:message
-                                                code="forgotPassword.message"/>
-                                        </g:link>
-                                    </div>
                                 </div>
 
                                 <div class="control-group">
@@ -93,7 +87,7 @@
 
                                 <div class="control-group">
                                     <div class="controls">
-                                        <button type="submit" class="btn btn-info"><g:message
+                                        <button type="submit" class="btn btn-success"><g:message
                                                 code='button.login.label'/></button>
                                         <span>&nbsp; or &nbsp;</span>
                                         <!-- TODO: P3: WILL WORK ONLY ON HTML5 -->
@@ -102,6 +96,11 @@
                                         <button type='submit' formaction="${openIdPostUrl}" class="zocial google"
                                                 onclick="disableValidationRules('#loginForm')"><g:message
                                                 code='button.loginWithGoogle.label'/></button>
+                                        <span class="pull-right">
+                                            <g:link controller="openId" action="forgotPassword"><g:message
+                                                code="forgotPassword.message"/>
+                                            </g:link>
+                                        </span>
                                     </div>
                                 </div>
                             </fieldset>
@@ -173,7 +172,7 @@
 
                                 <div class="control-group">
                                     <div class="controls">
-                                        <input type='submit' class="btn btn-info"
+                                        <input type='submit' class="btn btn-success"
                                                value="${g.message(code: 'button.signup.label')}"/>
                                         <span>&nbsp; <g:message code="or.label"/> &nbsp;</span>
                                         <input type="hidden" name="${openidIdentifier}"

@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<div class="documentation row-fluid">
+<div class="row-fluid">
 
     <div class="auth-box">
         <g:if test='${emailSent}'>
@@ -37,7 +37,7 @@
                                 <div class="input-prepend">
                                     <span class="add-on"><i class="icon-envelope"></i></span><g:textField name="email"
                                                                                                           size="25"
-                                                                                                          placeholder="${g.message(code: 'your.label')} ${g.message(code: 'email.label')}"/>
+                                                                                                          placeholder="${g.message(code: 'your.label')}${g.message(code: 'email.label')}"/>
                                     <g:if test='${hasError}'>
                                         <g:eachError bean="${command}" field="email">
                                             <label for='email' class="error"><g:message error="${it}"/></label>
@@ -46,12 +46,17 @@
                                 </div>
                             </div>
                         </div>
-                        <br/>
+                        <hr/>
 
                         <div class="control-group">
                             <div class="controls">
-                                <button type="submit" class="btn btn-info"><g:message
+                                <button type="submit" class="btn btn-success"><g:message
                                         code='button.forgotPassword.label'/></button>
+                                <span class="pull-right">
+                                    <a href="${createLink(controller: 'openId', action: 'auth')}"
+                                       class="btn btn-info"><g:message
+                                            code='button.cancel.label'/></a>
+                                </span>
                             </div>
                         </div>
                     </div>

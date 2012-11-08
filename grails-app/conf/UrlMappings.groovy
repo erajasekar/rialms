@@ -10,7 +10,7 @@ class UrlMappings {
         "/"(controller: "home")
         "500"(view: '/error')
 
-       "/login/auth" {
+        name auth: "/login/auth" {
             controller = 'openId'
             action = 'auth'
         }

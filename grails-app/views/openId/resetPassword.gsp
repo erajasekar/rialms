@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<div class="documentation row-fluid">
+<div class="row-fluid">
 
     <div class="auth-box">
 
@@ -57,11 +57,16 @@
                                 </div>
                             </div>
                         </div>
-                        <br/>
+                        <hr/>
                         <div class="control-group">
                             <div class="controls">
-                                <button type="submit" class="btn btn-info"><g:message
+                                <button type="submit" class="btn btn-success"><g:message
                                         code='button.resetPassword.label'/></button>
+                                <span class="pull-right">
+                                    <a href="${createLink(controller: 'openId', action: 'auth')}"
+                                       class="btn btn-info"><g:message
+                                            code='button.cancel.label'/></a>
+                                </span>
                             </div>
                         </div>
                     </fieldset>
