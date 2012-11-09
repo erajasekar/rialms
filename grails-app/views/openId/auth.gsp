@@ -86,6 +86,8 @@
                                 <hr/>
 
                                 <div class="control-group">
+                                    <g:hiddenField name="spring-security-redirect"
+                                                   value="/authSuccess"/>
                                     <div class="controls">
                                         <button type="submit" class="btn btn-success"><g:message
                                                 code='button.login.label'/></button>

@@ -12,6 +12,7 @@ class BootStrap {
     def featureService;
     def packageService;
     def grailsApplication;
+    def authService;
 
     def init = { servletContext ->
         initData();
@@ -33,8 +34,8 @@ class BootStrap {
         def roleAdmin = new Role(authority: 'ROLE_ADMIN').save()
         def roleUser = new Role(authority: 'ROLE_USER').save()
 
-        def user = new User(email: 'raja@rialms.com', displayName: 'Raja', password: password, enabled: true).save()
-        def admin = new User(email: 'admin@rialms.com', displayName: 'Admin', password: password, enabled: true).save()
+        def user = authService.createUser('raja@rialms.com',password, 'Raja');
+        def admin = authService.createUser('admin@rialms.com',password, 'Admin');
 
         UserRole.create user, roleUser
         UserRole.create admin, roleUser

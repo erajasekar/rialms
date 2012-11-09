@@ -41,10 +41,9 @@ class AuthService implements InitializingBean {
             def config = SpringSecurityUtils.securityConfig
             password = encodePassword(password)
 
-            def user = new User(email: email, password: password, displayName: name, enabled: true, accountLocked: accountLocked);
+            def user = createUser(email, password, name, accountLocked);
 
-            if (!user.save(flush: true)) {
-                user.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}
+            if (!user) {
                 return false
             }
             if (!accountLocked) {
@@ -55,8 +54,22 @@ class AuthService implements InitializingBean {
             return true
         }
 
-        log.info("DEBUG createdNewAccount for ${email} with result : ${created}");
+        log.info("createdNewAccount for ${email} with result : ${created}");
         return created;
+    }
+
+    public User createUser(String email, String password, String name, boolean accountLocked){
+
+        User user = new User(email: email, password: password, displayName: name, enabled: true, accountLocked: accountLocked);
+        if (!user.save(flush: true)) {
+            user.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}
+            return null;
+        }
+        return user;
+    }
+
+    public User createUser(String email, String password, String name){
+        return createUser(email, password, name, false);
     }
 
     public boolean createNewAccount(String email, String password, String name) {
@@ -83,8 +96,23 @@ class AuthService implements InitializingBean {
             def user = User.findByEmail(registrationCode.username)
             user.password = encodePassword(password);
             user.save()
-            registrationCode.delete()
+            registrationCode.delete();
+            log.info("Password reset for user ${user.displayName}");
         }
+
+    }
+
+    public User postLoginSuccess(){
+        User user = springSecurityService.currentUser;
+        user.lastLogggedIn = new Date();
+
+        user.loginCount++;
+        user.save();
+        if (user.hasErrors()){
+            log.error("Error in postLoginSuccess update");
+            user.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}
+        }
+        return user;
     }
 
     private String encodePassword(String password) {

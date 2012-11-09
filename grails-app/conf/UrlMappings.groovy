@@ -15,6 +15,11 @@ class UrlMappings {
             action = 'auth'
         }
 
+        name authSuccess: "/authSuccess" {
+            controller = 'openId'
+            action = 'authSuccess'
+        }
+
         "/login/authfail" {
             controller = 'openId'
             action = 'authfail'

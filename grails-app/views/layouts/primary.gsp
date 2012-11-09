@@ -40,23 +40,32 @@
                 <span class="icon-bar"></span>
             </a>
             <a class="brand logo" href="${request.contextPath}">
-                <%= g.message(code:'project.name').toUpperCase() %>
+                <%=g.message(code: 'project.name').toUpperCase()%>
                 <span class="tagline"><g:message code="tagline.message"/></span>
             </a>
-          <div class="btn-group pull-right">
-                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="icon-user"></i> <sec:loggedInUserInfo field="displayName"/>
-                    <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Profile</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">Sign Out</a></li>
-                </ul>
-            </div>
+            <sec:ifLoggedIn>
+                <div class="btn-group pull-right">
+                    <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="icon-user"></i> ${session.currentUser.displayName}
+                        <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><g:link controller="openId" action="editProfile"><g:message code="editprofile.label" /></g:link></li>
+                        <li class="divider"></li>
+                        <li><g:link controller="logout"><g:message code="button.logout.label" /></g:link></li>
+                    </ul>
+                </div>
+            </sec:ifLoggedIn>
+            <sec:ifNotLoggedIn>
+                <div class="pull-right">
+                    <a href="${createLink(controller: 'openId', action: 'auth')}"
+                       class="btn btn-success"><g:message
+                            code='button.login.label'/></a>
+                </div>
+            </sec:ifNotLoggedIn>
             <div class="nav-collapse">
                 <ul class="nav">
-                    <li <%='home' == params.controller ? ' class="active"' : ''%> >
+                    <li <%='home' == params.controller ? ' class="active"' : ''%>>
                         <g:link controller="home"><g:message
                                 code="home.label"/></g:link>
                     </li>
@@ -78,11 +87,11 @@
                             </li>
                         </ul>
                     </li>
-                    <li <%='about' == params.controller ? ' class="active"' : ''%> >
+                    <li <%='about' == params.controller ? ' class="active"' : ''%>>
                         <g:link controller="about"><g:message
                                 code="about.label"/></g:link>
                     </li>
-                    <li <%='contact' == params.controller ? ' class="active"' : ''%> >
+                    <li <%='contact' == params.controller ? ' class="active"' : ''%>>
                         <g:link controller="contact"><g:message
                                 code="contact.label"/></g:link>
                     </li>

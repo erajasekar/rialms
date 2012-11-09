@@ -50,6 +50,7 @@ class OpenIdController {
     def auth = {
         def config = SpringSecurityUtils.securityConfig;
         if (springSecurityService.isLoggedIn()) {
+
             redirect uri: config.successHandler.defaultTargetUrl
             return
         }
@@ -94,6 +95,7 @@ class OpenIdController {
 
         if (!user) {
             log.info("No existing account found for ${email}, creating new user");
+            flash.message = message(code: 'register.complete.message');
             if (!authService.createNewAccount(email, password, name)) {
                 log.error("Error in creating new account");
                 render(view: 'auth', model: [command: command, isSignUp: true]);
@@ -103,8 +105,6 @@ class OpenIdController {
             log.info("Existing user account found for ${email}, adding open Id to user");
             authService.addOpenIdToUser(user, openId);
         }
-
-        flash.message = message(code: 'register.complete.message');
         authenticateAndRedirect email
     }
 
@@ -199,8 +199,8 @@ class OpenIdController {
         springSecurityService.reauthenticate user.email
 
         flash.message = message(code: 'register.complete.message')
-        redirect uri: conf.ui.register.postRegisterUrl ?: defaultTargetUrl
-
+        params.targetUrl =  conf.ui.register.postRegisterUrl;
+        redirect (action: 'authSuccess');
     }
 
     /**
@@ -233,6 +233,18 @@ class OpenIdController {
         redirect action: 'auth', params: params
     }
 
+    def authSuccess = {
+        postLoginSuccess();
+        def conf = SpringSecurityUtils.securityConfig
+        String targetUrl = params.targetUrl ? params.targetUrl : conf.successHandler.defaultTargetUrl;
+        redirect(uri: targetUrl);
+    }
+
+    private void postLoginSuccess() {
+        User currentUser = authService.postLoginSuccess();
+        session.currentUser = currentUser;
+        log.info("${currentUser.displayName} successfully authenticated");
+    }
     /**
      * Authenticate the user for real now that the account exists/is linked and redirect
      * to the originally-requested uri if there's a SavedRequest.
@@ -244,6 +256,8 @@ class OpenIdController {
         session.removeAttribute OIAFH.LAST_OPENID_ATTRIBUTES
 
         springSecurityService.reauthenticate username
+
+        postLoginSuccess()
 
         def config = SpringSecurityUtils.securityConfig
 

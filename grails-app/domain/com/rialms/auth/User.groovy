@@ -11,12 +11,16 @@ class User {
 	boolean accountExpired
 	boolean accountLocked
 	boolean passwordExpired
+    Date dateCreated
+    Date lastLogggedIn
+    int loginCount;
 
     static hasMany = [openIds: OpenID]
 
 	static constraints = {
 		email blank: false, unique: true
 		password blank: false
+        lastLogggedIn (nullable:true);
 	}
 
 	static mapping = {
