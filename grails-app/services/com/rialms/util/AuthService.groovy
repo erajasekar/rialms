@@ -41,7 +41,7 @@ class AuthService implements InitializingBean {
             def config = SpringSecurityUtils.securityConfig
             password = encodePassword(password)
 
-            def user = new User(email: email, password: password, name: name, enabled: true, accountLocked: accountLocked);
+            def user = new User(email: email, password: password, displayName: name, enabled: true, accountLocked: accountLocked);
 
             if (!user.save(flush: true)) {
                 user.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}

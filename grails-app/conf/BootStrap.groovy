@@ -33,8 +33,8 @@ class BootStrap {
         def roleAdmin = new Role(authority: 'ROLE_ADMIN').save()
         def roleUser = new Role(authority: 'ROLE_USER').save()
 
-        def user = new User(email: 'raja@rialms.com', name: 'Raja', password: password, enabled: true).save()
-        def admin = new User(email: 'admin@rialms.com', name: 'Admin', password: password, enabled: true).save()
+        def user = new User(email: 'raja@rialms.com', displayName: 'Raja', password: password, enabled: true).save()
+        def admin = new User(email: 'admin@rialms.com', displayName: 'Admin', password: password, enabled: true).save()
 
         UserRole.create user, roleUser
         UserRole.create admin, roleUser

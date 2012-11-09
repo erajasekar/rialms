@@ -142,7 +142,7 @@
                                                 type="text"
                                                 placeholder="${g.message(code: 'your.label')} ${g.message(code: 'username.label')}"
                                                 class="input-large"
-                                                name='name' value="${command.name}"/>
+                                                name='displayName' value="${command.displayName}"/>
                                         </div>
                                     </div>
                                 </div>

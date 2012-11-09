@@ -1,24 +1,19 @@
 import org.codehaus.groovy.grails.plugins.springsecurity.SpringSecurityUtils
 import org.codehaus.groovy.grails.plugins.springsecurity.openid.OpenIdAuthenticationFailureHandler as OIAFH
 
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.AuthenticationException
 import org.springframework.security.web.savedrequest.DefaultSavedRequest
 
 import com.rialms.auth.User
-import com.rialms.auth.Role
-import com.rialms.auth.UserRole
+
 import groovy.transform.ToString
 import org.codehaus.groovy.grails.plugins.springsecurity.ui.RegistrationCode
-import groovy.text.SimpleTemplateEngine
-import org.codehaus.groovy.grails.plugins.springsecurity.NullSaltSource
+
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.security.web.WebAttributes
 import org.springframework.security.authentication.AccountExpiredException
 import org.springframework.security.authentication.CredentialsExpiredException
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.LockedException
-import grails.converters.JSON
 
 /**
  * Manages associating OpenIDs with application users, both by creating a new local user
@@ -118,18 +113,20 @@ class OpenIdController {
         String openIdPostUrl = "${request.contextPath}$openIDAuthenticationFilter.filterProcessesUrl";
         String daoPostUrl = "${request.contextPath}${config.apf.filterProcessesUrl}";
         Map model = getModel(command, true);
+        log.info("DEBUG COMMAND ${command}");
         if (command.hasErrors()) {
+            log.info("DEBUG COMMAND ${command.errors}");
             render(view: 'auth', model: model);
             return;
         }
-        if (!authService.createNewAccount(command.email, command.password, command.name, true)) {
+        if (!authService.createNewAccount(command.email, command.password, command.displayName, true)) {
             log.error("Error in creating new account");
             render(view: 'auth', model: model);
             return;
         }
         //Account creation success
         else {
-            emailService.sendVerifyRegistration(command.email, command.name);
+            emailService.sendVerifyRegistration(command.email, command.displayName);
             model.emailSent = true;
             render(view: 'auth', model: model);
         }
@@ -286,7 +283,7 @@ class OpenIdController {
 class OpenIdRegisterCommand {
 
     String email = ""
-    String name = ""
+    String displayName = ""
     String password = ""
 
     static constraints = {
@@ -299,7 +296,7 @@ class OpenIdRegisterCommand {
             }
         }
 
-        name blank: false
+        displayName blank: false
 
         password blank: false, minSize: 8, maxSize: 64, validator: OpenIdController.passwordValidator;
     }

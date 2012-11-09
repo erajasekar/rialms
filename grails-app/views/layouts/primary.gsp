@@ -43,7 +43,17 @@
                 <%= g.message(code:'project.name').toUpperCase() %>
                 <span class="tagline"><g:message code="tagline.message"/></span>
             </a>
-
+          <div class="btn-group pull-right">
+                <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
+                    <i class="icon-user"></i> <sec:loggedInUserInfo field="displayName"/>
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">Sign Out</a></li>
+                </ul>
+            </div>
             <div class="nav-collapse">
                 <ul class="nav">
                     <li <%='home' == params.controller ? ' class="active"' : ''%> >
@@ -76,13 +86,13 @@
                         <g:link controller="contact"><g:message
                                 code="contact.label"/></g:link>
                     </li>
-
                 </ul>
             </div>
         </div>
     </div>
 
 </nav>
+<rs:showFlash/>
 <div class="container-fluid">
     <g:layoutBody/>
 
