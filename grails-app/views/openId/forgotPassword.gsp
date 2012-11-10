@@ -37,7 +37,7 @@
                                 <div class="input-prepend">
                                     <span class="add-on"><i class="icon-envelope"></i></span><g:textField name="email"
                                                                                                           size="25"
-                                                                                                          placeholder="${g.message(code: 'your.label')}${g.message(code: 'email.label')}"/>
+                                                                                                          placeholder="${g.message(code: 'email.label')}"/>
                                     <g:if test='${hasError}'>
                                         <g:eachError bean="${command}" field="email">
                                             <label for='email' class="error"><g:message error="${it}"/></label>

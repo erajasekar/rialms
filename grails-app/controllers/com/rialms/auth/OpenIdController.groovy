@@ -14,6 +14,8 @@ import org.springframework.security.authentication.AccountExpiredException
 import org.springframework.security.authentication.CredentialsExpiredException
 import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.LockedException
+import sun.reflect.generics.scope.ConstructorScope
+import com.rialms.consts.Constants
 
 /**
  * Manages associating OpenIDs with application users, both by creating a new local user
@@ -113,9 +115,7 @@ class OpenIdController {
         String openIdPostUrl = "${request.contextPath}$openIDAuthenticationFilter.filterProcessesUrl";
         String daoPostUrl = "${request.contextPath}${config.apf.filterProcessesUrl}";
         Map model = getModel(command, true);
-        log.info("DEBUG COMMAND ${command}");
         if (command.hasErrors()) {
-            log.info("DEBUG COMMAND ${command.errors}");
             render(view: 'auth', model: model);
             return;
         }
@@ -199,7 +199,7 @@ class OpenIdController {
         springSecurityService.reauthenticate user.email
 
         flash.message = message(code: 'register.complete.message')
-        params.targetUrl =  conf.ui.register.postRegisterUrl;
+        params[Constants.targetUrl] =  conf.ui.register.postRegisterUrl;
         redirect (action: 'authSuccess');
     }
 
@@ -236,7 +236,7 @@ class OpenIdController {
     def authSuccess = {
         postLoginSuccess();
         def conf = SpringSecurityUtils.securityConfig
-        String targetUrl = params.targetUrl ? params.targetUrl : conf.successHandler.defaultTargetUrl;
+        String targetUrl = params[Constants.targetUrl] ? params[Constants.targetUrl] : conf.successHandler.defaultTargetUrl;
         redirect(uri: targetUrl);
     }
 

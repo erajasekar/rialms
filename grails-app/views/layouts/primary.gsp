@@ -46,20 +46,20 @@
             <sec:ifLoggedIn>
                 <div class="btn-group pull-right">
                     <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="icon-user"></i> ${session.currentUser.displayName}
+                        ${session.currentUser.displayName}&nbsp;
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><g:link controller="openId" action="editProfile"><g:message code="editprofile.label" /></g:link></li>
+                        <li> <g:link controller="openId" action="editProfile"><i class="icon-user">&nbsp;</i><g:message code="editprofile.label" /></g:link></li>
                         <li class="divider"></li>
-                        <li><g:link controller="logout"><g:message code="button.logout.label" /></g:link></li>
+                        <li> <g:link controller="logout"><i class="icon-signout">&nbsp;</i><g:message code="button.logout.label" /></g:link></li>
                     </ul>
                 </div>
             </sec:ifLoggedIn>
             <sec:ifNotLoggedIn>
                 <div class="pull-right">
                     <a href="${createLink(controller: 'openId', action: 'auth')}"
-                       class="btn btn-success"><g:message
+                       class="btn btn-success"><i class="icon-signin">&nbsp;</i><g:message
                             code='button.login.label'/></a>
                 </div>
             </sec:ifNotLoggedIn>

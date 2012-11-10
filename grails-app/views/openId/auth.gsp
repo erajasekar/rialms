@@ -47,7 +47,7 @@
                                         <div class="input-prepend">
                                             <span class="add-on"><i class="icon-envelope"></i></span><input type="email"
                                                                                                             class="input-large"
-                                                                                                            placeholder="${g.message(code: 'your.label')} ${g.message(code: 'email.label')}"
+                                                                                                            placeholder="${g.message(code: 'email.label')}"
                                                                                                             name='j_username'
                                                                                                             id='email'/>
                                             <g:if test='${flash.message}'>
@@ -67,7 +67,7 @@
                                         <div class="input-prepend">
                                             <span class="add-on"><i class="icon-lock"></i></span><input type="password"
                                                                                                         class="input-large"
-                                                                                                        placeholder="${g.message(code: 'your.label')} ${g.message(code: 'password.label')}"
+                                                                                                        placeholder="${g.message(code: 'password.label')}"
                                                                                                         name='j_password'
                                                                                                         id='login_password'>
                                         </div>
@@ -121,7 +121,7 @@
                                         <div class="input-prepend">
                                             <span class="add-on"><i class="icon-envelope"></i></span><g:textField
                                                 type="text"
-                                                placeholder="${g.message(code: 'your.label')} ${g.message(code: 'email.label')}"
+                                                placeholder="${g.message(code: 'email.label')}"
                                                 class="input-large"
                                                 name='email' value="${command.email}"/>
                                             <g:if test='${emailHasError}'>
@@ -142,7 +142,7 @@
                                         <div class="input-prepend">
                                             <span class="add-on"><i class="icon-user"></i></span><g:textField
                                                 type="text"
-                                                placeholder="${g.message(code: 'your.label')} ${g.message(code: 'username.label')}"
+                                                placeholder="${g.message(code: 'username.label')}"
                                                 class="input-large"
                                                 name='displayName' value="${command.displayName}"/>
                                         </div>
@@ -159,7 +159,7 @@
                                             <span class="add-on"><i class="icon-lock"></i></span><g:passwordField
                                                 type="text"
                                                 class="input-large"
-                                                placeholder="${g.message(code: 'your.label')} ${g.message(code: 'password.label')}"
+                                                placeholder="${g.message(code: 'password.label')}"
                                                 name='password' value="${command.password}"/>
                                             <g:if test='${passwordHasError}'>
                                                 <g:eachError bean="${command}" field="password">
