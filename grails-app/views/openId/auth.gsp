@@ -49,7 +49,7 @@
                                                                                                             class="input-large"
                                                                                                             placeholder="${g.message(code: 'email.label')}"
                                                                                                             name='j_username'
-                                                                                                            id='email'/>
+                                                                                                            id='email_login'/>
                                             <g:if test='${flash.message}'>
                                                 <label for='email' class="error">${flash.message}</label>
                                             </g:if>
@@ -123,7 +123,7 @@
                                                 type="text"
                                                 placeholder="${g.message(code: 'email.label')}"
                                                 class="input-large"
-                                                name='email' value="${command.email}"/>
+                                                name='email' id='email_signup' value="${command.email}"/>
                                             <g:if test='${emailHasError}'>
                                                 <g:eachError bean="${command}" field="email">
                                                     <label for='email' class="error"><g:message error="${it}"/></label>
@@ -200,7 +200,7 @@
 <g:javascript src='spring-security-ui.js' plugin='spring-security-ui'/>
 <script>
     $(document).ready(function () {
-        $('#email').focus();
+        $('#email_login').focus();
     });
 </script>
 </body>

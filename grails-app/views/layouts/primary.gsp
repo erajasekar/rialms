@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page import="com.rialms.util.Less2Css;grails.util.Environment" contentType="text/html;charset=UTF-8" %>
+<%@ page import="com.rialms.consts.Constants; com.rialms.util.Less2Css;grails.util.Environment" contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html xmlns:m="http://www.w3.org/1998/Math/MathML" lang="en" ng-app="RialmsAngularApp">
 <head>
@@ -46,7 +46,7 @@
             <sec:ifLoggedIn>
                 <div class="btn-group pull-right">
                     <a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="#">
-                        ${session.currentUser.displayName}&nbsp;
+                        ${session[Constants.currentUser].displayName}&nbsp;
                         <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">

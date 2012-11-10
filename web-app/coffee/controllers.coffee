@@ -43,7 +43,6 @@ window.ItemContentController = ($scope,$compile)->
 window.LoginController = ($scope)->
   $scope.toggleForms = ->
     $scope.isSignUp = !$scope.isSignUp
-    $('#email').focus()
 
   $scope.getTitle = ->
     if $scope.isSignUp

@@ -203,6 +203,23 @@ class OpenIdController {
         redirect (action: 'authSuccess');
     }
 
+    def editProfile = { EditProfileCommand command ->
+
+        User user = session[Constants.currentUser];
+
+        if (!request.post) {            // show the form
+
+            command = new EditProfileCommand(email: user.email, displayName: user.displayName);
+            log.info("DEBUG editProfileCommand ${command} ");
+            log.info("DEBUG editProfileCommand ${command.errors} ");
+            return [command: command]
+        }
+        command.validate()
+        if (command.hasErrors()) {
+            return [command: command]
+        }
+    }
+
     /**
      * Callback after a failed login. Redirects to the auth page with a warning message.
      */
@@ -242,7 +259,7 @@ class OpenIdController {
 
     private void postLoginSuccess() {
         User currentUser = authService.postLoginSuccess();
-        session.currentUser = currentUser;
+        session[Constants.currentUser] = currentUser;
         log.info("${currentUser.displayName} successfully authenticated");
     }
     /**
@@ -285,7 +302,7 @@ class OpenIdController {
     }
 
     static final passwordValidator = { String password, command ->
-        if (password && password.length() >= 8 && password.length() <= 64 &&
+        if (password &&
                 (!password.matches('^.*\\p{Alpha}.*$') ||
                         !password.matches('^.*\\p{Digit}.*$'))) {
             return 'command.password.error.strength'
@@ -368,6 +385,26 @@ class ResetPasswordCommand {
         password blank: false, minSize: 8, maxSize: 64, validator: OpenIdController.passwordValidator
     }
 
+    //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
+    public boolean isAttached() {
+        return false;
+    }
+}
+
+@ToString(includeFields = true)
+class EditProfileCommand {
+
+    String email = ""
+    String displayName = ""
+    String newPassword = ""
+    String currentPassword = ""
+
+    static constraints = {
+
+        displayName blank: false
+        newPassword blank: true, nullable: true, validator: OpenIdController.passwordValidator;
+        currentPassword blank: false
+    }
     //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
     public boolean isAttached() {
         return false;
