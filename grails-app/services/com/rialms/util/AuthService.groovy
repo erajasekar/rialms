@@ -93,13 +93,30 @@ class AuthService implements InitializingBean {
 
     public void resetPassword(RegistrationCode registrationCode, String password) {
         RegistrationCode.withTransaction { status ->
-            def user = User.findByEmail(registrationCode.username)
+            User user = User.findByEmail(registrationCode.username)
             user.password = encodePassword(password);
             user.save()
             registrationCode.delete();
             log.info("Password reset for user ${user.displayName}");
         }
 
+    }
+
+    public boolean updateUser(String email, String name, String password){
+        User.withTransaction {
+            User user = User.findByEmail(email);
+            user.displayName = name;
+            if (password){
+                user.password = encodePassword(password);
+            }
+            if (!user.save()) {
+                log.error("Error in updating user with email ${email}");
+                user.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}
+                return false;
+            }
+            log.info("Successfully updated user with email ${email}");
+        }
+        return true;
     }
 
     public User postLoginSuccess(){
@@ -115,7 +132,7 @@ class AuthService implements InitializingBean {
         return user;
     }
 
-    private String encodePassword(String password) {
+    public String encodePassword(String password) {
         def encode = securityConfig.openid.encodePassword
         if (!(encode instanceof Boolean) || (encode instanceof Boolean && encode)) {
             password = springSecurityService.encodePassword(password)

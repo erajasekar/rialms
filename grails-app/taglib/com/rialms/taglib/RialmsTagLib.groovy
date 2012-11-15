@@ -19,9 +19,10 @@ class RialmsTagLib {
         String message = flash.remove('message')
         String error = flash.remove('error')
         if (!message && !error) {
+            log.info("DEBUG no flash message or error.");
             return
         }
-
+        log.info("DEBUG flash message = ${flash.message} error = ${flash.error}");
         String type = message ? 'info' : 'error'
         String text = message ?: error
         out << """

@@ -4,7 +4,7 @@ email {
     body = '''\
 Dear $name,<br/>
 <br/>
-Welcome!. Thank you for signing up with Rialms.
+Welcome to Rialms!. Thank you for signing up.
 <br/>
 Please click <a href="$url">confirm</a> to activate your account.
 '''

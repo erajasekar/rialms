@@ -171,13 +171,13 @@ class OpenIdController {
         }
 
         authService.resetPassword(registrationCode, command.password);
-        springSecurityService.reauthenticate command.email
+        springSecurityService.reauthenticate command.email;
 
         flash.message = message(code: 'resetPassword.success.message')
 
         def conf = SpringSecurityUtils.securityConfig
-        String postResetUrl = conf.ui.register.postResetUrl ?: conf.successHandler.defaultTargetUrl
-        redirect uri: postResetUrl
+        params[Constants.targetUrl] =  conf.ui.register.postResetUrl;
+        redirect (action: 'authSuccess');
     }
 
     def verifyRegistration = {
@@ -218,6 +218,15 @@ class OpenIdController {
         if (command.hasErrors()) {
             return [command: command]
         }
+
+        if (authService.updateUser(command.email,command.displayName, command.newPassword)){
+            flash.message = message(code: 'editProfile.success.message')
+        } else{
+            flash.error = message(code: 'editProfile.error.message')
+        }
+
+        springSecurityService.reauthenticate user.email;
+        redirect (action: 'authSuccess');
     }
 
     /**
@@ -302,11 +311,54 @@ class OpenIdController {
     }
 
     static final passwordValidator = { String password, command ->
-        if (password &&
-                (!password.matches('^.*\\p{Alpha}.*$') ||
-                        !password.matches('^.*\\p{Digit}.*$'))) {
-            return 'command.password.error.strength'
+        if (password){
+            if (!checkPasswordMinLength(password)){
+                return 'command.password.error.minSize'
+            }
+            if (!checkPasswordMaxLength(password)){
+                return 'command.password.error.maxSize'
+            }
+            if (!checkPasswordRegex(password)){
+                return 'command.password.error.strength'
+            }
         }
+    }
+
+    static final currentPasswordValidator = { String password, command ->
+        log.info("DEBUG 1 command ${command}");
+        if (password && command.email){
+            log.info("DEBUG 2 command ${command}");
+            String currentPassword = User.findByEmail(command.email).password;
+            log.info("DEBUG CURRENT ${currentPassword} == ${command.authService.encodePassword(password)}");
+            if (!currentPassword.equals(command.authService.encodePassword(password))){
+               return 'editProfileCommand.currentPassword.error.invalid';
+            }
+        }
+    }
+
+    static boolean checkPasswordMinLength(String password) {
+        def conf = SpringSecurityUtils.securityConfig
+
+        int minLength = conf.ui.password.minLength instanceof Number ? conf.ui.password.minLength : 8
+
+        password && password.length() >= minLength
+    }
+
+    static boolean checkPasswordMaxLength(String password) {
+        def conf = SpringSecurityUtils.securityConfig
+
+        int maxLength = conf.ui.password.maxLength instanceof Number ? conf.ui.password.maxLength : 64
+
+        password && password.length() <= maxLength
+    }
+
+    static boolean checkPasswordRegex(String password) {
+        def conf = SpringSecurityUtils.securityConfig
+
+        String passValidationRegex = conf.ui.password.validationRegex ?:
+            '^.*(?=.*\\d)(?=.*[a-zA-Z]).*$'
+
+        password && password.matches(passValidationRegex)
     }
 }
 
@@ -329,7 +381,7 @@ class OpenIdRegisterCommand {
 
         displayName blank: false
 
-        password blank: false, minSize: 8, maxSize: 64, validator: OpenIdController.passwordValidator;
+        password blank: false, validator: OpenIdController.passwordValidator;
     }
     //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
     public boolean isAttached() {
@@ -382,7 +434,7 @@ class ResetPasswordCommand {
 
     static constraints = {
         email blank: false, email: true
-        password blank: false, minSize: 8, maxSize: 64, validator: OpenIdController.passwordValidator
+        password blank: false, validator: OpenIdController.passwordValidator
     }
 
     //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
@@ -394,6 +446,7 @@ class ResetPasswordCommand {
 @ToString(includeFields = true)
 class EditProfileCommand {
 
+    def authService;
     String email = ""
     String displayName = ""
     String newPassword = ""
@@ -403,7 +456,7 @@ class EditProfileCommand {
 
         displayName blank: false
         newPassword blank: true, nullable: true, validator: OpenIdController.passwordValidator;
-        currentPassword blank: false
+        currentPassword blank: false, validator: OpenIdController.currentPasswordValidator;
     }
     //TODO P3: Temporary hack to workaround bug in jquery-validation-ui plugin
     public boolean isAttached() {

@@ -97,7 +97,7 @@
                             <div class="input-prepend">
                                 <span class="add-on"><i class="icon-lock"></i></span><g:passwordField
                                     type="text"
-                                    placeholder="${g.message(code: 'current.label')} ${g.message(code: 'password.label')} ${g.message(code: 'toauthenticate.label')}"
+                                    placeholder="${g.message(code: 'current.label')} ${g.message(code: 'password.label')} ${g.message(code: 'toconfirm.label')}"
                                     class="input-large"
                                     name='currentPassword' value="${command.currentPassword}"/>
                                 <g:if test='${currentPasswordHasError}'>
@@ -111,6 +111,7 @@
                     </div>
 
                     <div class="form-actions">
+                        <g:hiddenField name="email" value="${command.email}" />
                         <button type="submit" class="btn btn-success"><g:message
                                 code='button.save.label'/></button>
                         <span>&nbsp;&nbsp;&nbsp;&nbsp;</span>
