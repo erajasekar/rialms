@@ -39,7 +39,6 @@ class AuthService implements InitializingBean {
 
         boolean created = User.withTransaction { status ->
             def config = SpringSecurityUtils.securityConfig
-            password = encodePassword(password)
 
             def user = createUser(email, password, name, accountLocked);
 
@@ -91,23 +90,24 @@ class AuthService implements InitializingBean {
         }
     }
 
-    public void resetPassword(RegistrationCode registrationCode, String password) {
+    public boolean resetPassword(RegistrationCode registrationCode, String password) {
+        boolean result;
         RegistrationCode.withTransaction { status ->
-            User user = User.findByEmail(registrationCode.username)
-            user.password = encodePassword(password);
-            user.save()
+            result = updateUser(registrationCode.username,null,password);
             registrationCode.delete();
-            log.info("Password reset for user ${user.displayName}");
+            log.info("Password reset for user ${registrationCode.username}");
         }
-
+        return result;
     }
 
     public boolean updateUser(String email, String name, String password){
         User.withTransaction {
             User user = User.findByEmail(email);
-            user.displayName = name;
+            if (name){
+                user.displayName = name;
+            }
             if (password){
-                user.password = encodePassword(password);
+                user.password = password;
             }
             if (!user.save()) {
                 log.error("Error in updating user with email ${email}");
@@ -133,11 +133,7 @@ class AuthService implements InitializingBean {
     }
 
     public String encodePassword(String password) {
-        def encode = securityConfig.openid.encodePassword
-        if (!(encode instanceof Boolean) || (encode instanceof Boolean && encode)) {
-            password = springSecurityService.encodePassword(password)
-        }
-        password
+        springSecurityService.encodePassword(password);
     }
 
 }

@@ -10,9 +10,13 @@ window.disableValidationRules = (formId) ->
     $(this).rules "remove"
 
 window.showFlash = (type, text, duration) ->
-  clazz = "icon "
+  console.log(type);
   if type is "error"
-    clazz += "icon_error"
-  else clazz += "icon_info"  if type is "info"
-  $.jGrowl "<span class=\"" + clazz + "\">" + text + "</span>",
+    iconClass = "icon-remove"
+    spanClass = "result-incorrect"
+  else
+    if type is "info"
+      iconClass = "icon-ok"
+      spanClass = "result-correct"
+  $.jGrowl "<span class=\"" + spanClass + "\"><i class=\"" + iconClass + "\">&nbsp;</i>" + text + "</span>",
     life: duration

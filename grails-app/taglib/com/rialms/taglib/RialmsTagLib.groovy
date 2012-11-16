@@ -19,16 +19,16 @@ class RialmsTagLib {
         String message = flash.remove('message')
         String error = flash.remove('error')
         if (!message && !error) {
-            log.info("DEBUG no flash message or error.");
+            log.debug("DEBUG no flash message or error.");
             return
         }
-        log.info("DEBUG flash message = ${flash.message} error = ${flash.error}");
+        log.debug("DEBUG flash message = ${message} error = ${error}");
         String type = message ? 'info' : 'error'
         String text = message ?: error
         out << """
 		<script>
 		\$(document).ready(function() {
-			showFlash('${type}', "${text.encodeAsHTML()}", 3000);
+			showFlash('${type}', "${text.encodeAsHTML()}", 10000);
 		});
 		</script>
 		"""

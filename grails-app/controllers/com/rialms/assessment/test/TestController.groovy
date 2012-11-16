@@ -105,8 +105,8 @@ class TestController {
         if (!params.id) {
             return redirect(action: 'list')
         }
-        if (!session[Consts.coordinator][params.id]) {
-            return redirect(action: 'play', params: params);
+        if (!session[Consts.coordinator]?.get(params.id)){
+            render sessionTimeout();
         }
         TestCoordinator coordinator = session[Consts.coordinator][params.id]
 
@@ -161,9 +161,10 @@ class TestController {
         if (!params.id) {
             return redirect(action: 'list')
         }
-        if (!session[Consts.coordinator][params.id]) {
-            return redirect(action: 'play', params: params);
+        if (!session[Consts.coordinator]?.get(params.id)){
+            render sessionTimeout();
         }
+
         TestCoordinator coordinator = session[Consts.coordinator][params.id]
         coordinator.setValidate(false);
         //submit should not be disabled automatically.
@@ -183,8 +184,8 @@ class TestController {
         if (!params.id) {
             return redirect(action: 'list')
         }
-        if (!session[Consts.coordinator][params.id]) {
-            return redirect(action: 'play', params: params);
+        if (!session[Consts.coordinator]?.get(params.id)){
+            render sessionTimeout();
         }
         TestCoordinator coordinator = session[Consts.coordinator][params.id]
         TestRenderInfo testRenderInfo = coordinator.getTestRenderInfo();
@@ -196,8 +197,8 @@ class TestController {
         if (!params.id) {
             return redirect(action: 'list')
         }
-        if (!session?.coordinator[params.id]) {
-            return redirect(action: 'play', params: params);
+        if (!session[Consts.coordinator]?.get(params.id)){
+            render sessionTimeout();
         }
         TestCoordinator coordinator = session[Consts.coordinator][params.id]
         boolean renderNextItem = coordinator.doSimultaneousSubmission();
@@ -209,6 +210,12 @@ class TestController {
     private JSON createRedirectLinkJSON(Map attributes) {
         Map<String, String> renderOutput = [(Consts.redirectUrl): createLink(attributes).toString()];
         render renderOutput as JSON;
+    }
+
+    private JSON sessionTimeout(){
+        log.info("Session timed out");
+        flash.message = g.message(code: 'session.timeout.error.message');
+        render createRedirectLinkJSON(action: 'play', params: [id: params.id]);
     }
 
     def viewTestXML() {

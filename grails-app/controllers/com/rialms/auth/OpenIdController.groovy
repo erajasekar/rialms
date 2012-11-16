@@ -16,6 +16,8 @@ import org.springframework.security.authentication.DisabledException
 import org.springframework.security.authentication.LockedException
 import sun.reflect.generics.scope.ConstructorScope
 import com.rialms.consts.Constants
+import com.rialms.util.AuthService
+import grails.plugins.springsecurity.Secured
 
 /**
  * Manages associating OpenIDs with application users, both by creating a new local user
@@ -170,14 +172,16 @@ class OpenIdController {
             return [token: token, command: command]
         }
 
-        authService.resetPassword(registrationCode, command.password);
-        springSecurityService.reauthenticate command.email;
-
-        flash.message = message(code: 'resetPassword.success.message')
-
-        def conf = SpringSecurityUtils.securityConfig
-        params[Constants.targetUrl] =  conf.ui.register.postResetUrl;
-        redirect (action: 'authSuccess');
+        if (authService.resetPassword(registrationCode, command.password)){
+            springSecurityService.reauthenticate command.email;
+            flash.message = message(code: 'resetPassword.success.message')
+            def conf = SpringSecurityUtils.securityConfig
+            params[Constants.targetUrl] =  conf.ui.register.postResetUrl;
+            redirect (action: 'authSuccess');
+        }else{
+            flash.error = message(code: 'resetPassword.error.message')
+            return [token: token, command: command]
+        }
     }
 
     def verifyRegistration = {
@@ -203,6 +207,7 @@ class OpenIdController {
         redirect (action: 'authSuccess');
     }
 
+    @Secured(['IS_AUTHENTICATED_REMEMBERED'])
     def editProfile = { EditProfileCommand command ->
 
         User user = session[Constants.currentUser];
@@ -210,8 +215,7 @@ class OpenIdController {
         if (!request.post) {            // show the form
 
             command = new EditProfileCommand(email: user.email, displayName: user.displayName);
-            log.info("DEBUG editProfileCommand ${command} ");
-            log.info("DEBUG editProfileCommand ${command.errors} ");
+            log.debug("DEBUG editProfileCommand errors ${command.errors} ");
             return [command: command]
         }
         command.validate()
@@ -220,13 +224,13 @@ class OpenIdController {
         }
 
         if (authService.updateUser(command.email,command.displayName, command.newPassword)){
+            springSecurityService.reauthenticate user.email;
             flash.message = message(code: 'editProfile.success.message')
+            redirect (action: 'authSuccess');
         } else{
             flash.error = message(code: 'editProfile.error.message')
+            return [command: command];
         }
-
-        springSecurityService.reauthenticate user.email;
-        redirect (action: 'authSuccess');
     }
 
     /**
@@ -261,6 +265,8 @@ class OpenIdController {
 
     def authSuccess = {
         postLoginSuccess();
+        flash.message = flash.message;
+        flash.error = flash.error;
         def conf = SpringSecurityUtils.securityConfig
         String targetUrl = params[Constants.targetUrl] ? params[Constants.targetUrl] : conf.successHandler.defaultTargetUrl;
         redirect(uri: targetUrl);
@@ -325,11 +331,8 @@ class OpenIdController {
     }
 
     static final currentPasswordValidator = { String password, command ->
-        log.info("DEBUG 1 command ${command}");
         if (password && command.email){
-            log.info("DEBUG 2 command ${command}");
             String currentPassword = User.findByEmail(command.email).password;
-            log.info("DEBUG CURRENT ${currentPassword} == ${command.authService.encodePassword(password)}");
             if (!currentPassword.equals(command.authService.encodePassword(password))){
                return 'editProfileCommand.currentPassword.error.invalid';
             }
@@ -446,7 +449,7 @@ class ResetPasswordCommand {
 @ToString(includeFields = true)
 class EditProfileCommand {
 
-    def authService;
+    AuthService authService;
     String email = ""
     String displayName = ""
     String newPassword = ""

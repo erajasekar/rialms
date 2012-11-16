@@ -36,7 +36,7 @@
                     <g:render template="/renderer/renderItemSubTree"
                               model="[node: assessmentItemInfo.xmlRoot, assessmentItemInfo: assessmentItemInfo]"/>
                     <hr/>
-
+                    <g:hiddenField name="id" value="${params.id}"/>
                     <qti:submit assessmentItemInfo="${assessmentItemInfo}"
                                 value='${g.message(code: "button.submit.label")}'
                                 name="${Consts.submit}"/>

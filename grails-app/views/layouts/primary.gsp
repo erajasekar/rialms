@@ -20,6 +20,7 @@
             type="text/javascript"></script>
     <r:require module="core"/>
     <r:layoutResources/>
+
 </head>
 
 <body>
