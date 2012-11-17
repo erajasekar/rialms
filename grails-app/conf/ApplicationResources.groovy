@@ -53,6 +53,12 @@ modules = {
         resource url: 'js/jquery/jquery.jgrowl.js'
     }
 
+    fileupload {
+        resource url: 'js/fileupload/jquery.fileupload.js'
+        resource url: 'js/fileupload/jquery.iframe-transport.js'
+        resource url: 'js/fileupload/vendor/jquery.ui.widget.js'
+    }
+
     prettify {
         resource url: 'js/prettify/prettify.js'
         resource url: 'css/prettify/prettify.css'

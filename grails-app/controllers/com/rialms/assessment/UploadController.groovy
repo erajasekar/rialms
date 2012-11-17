@@ -11,6 +11,6 @@ class UploadController {
 
     @Secured(['ROLE_USER'])
     def test(){
-        render 'Upload tests'
+       return;
     }
 }

@@ -1,5 +1,5 @@
 <html>
-
+<!-- TODO P2 : remove all these unnecessary files -->
 <head>
 <title><g:message code='spring.security.ui.forgotPassword.title'/></title>
 <meta name='layout' content='register'/>
