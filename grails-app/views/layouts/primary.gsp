@@ -88,6 +88,20 @@
                             </li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <g:message code="upload.label"/>
+                            <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <g:link controller="upload" action="item"><g:message code="item.label"/></g:link>
+                            </li>
+                            <li>
+                                <g:link controller="upload" action="test"><g:message code="test.label"/></g:link>
+                            </li>
+                        </ul>
+                    </li>
                     <li <%='about' == params.controller ? ' class="active"' : ''%>>
                         <g:link controller="about"><g:message
                                 code="about.label"/></g:link>

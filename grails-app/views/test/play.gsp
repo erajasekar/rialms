@@ -21,9 +21,6 @@
 
 <div class="row-fluid">
     <div class="span12">
-        <g:if test="${flash.message}">
-            <rs:alertMsg messageCode="${flash.message}"/>
-        </g:if>
         <g:if test="${!assessmentParams.validationResult.allItems.isEmpty()}">
             <g:render template="/renderer/renderValidationErrors"
                       model="[(Consts.validationResult): assessmentParams[Consts.validationResult]]"/>

@@ -87,7 +87,7 @@
 
                                 <div class="control-group">
                                     <g:hiddenField name="spring-security-redirect"
-                                                   value="/authSuccess"/>
+                                                   value="/authSuccess?targetUrl=${params.targetUrl}"/>
                                     <div class="controls">
                                         <button type="submit" class="btn btn-success"><g:message
                                                 code='button.login.label'/></button>
@@ -179,6 +179,7 @@
                                         <span>&nbsp; <g:message code="or.label"/> &nbsp;</span>
                                         <input type="hidden" name="${openidIdentifier}"
                                                value="${openIdIdentifierValue}">
+                                        <g:hiddenField name="targetUrl" value="${params.targetUrl}"/>
                                         <button type='submit' formaction="${openIdPostUrl}" class="zocial google"
                                                 onclick="disableValidationRules('#signUpForm')"><g:message
                                                 code='button.signupWithGoogle.label'/></button>

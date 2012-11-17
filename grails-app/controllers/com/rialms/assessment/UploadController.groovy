@@ -1,14 +1,16 @@
 package com.rialms.assessment
 import grails.plugins.springsecurity.Secured
 
-
+@Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class UploadController {
 
-    @Secured(['ROLE_ADMIN'])
-    def index() { render 'Logged in with ROLE_ADMIN' }
+    @Secured(['ROLE_USER'])
+    def item(){
+        render 'Upload items'
+    }
 
     @Secured(['ROLE_USER'])
-    def items(){
-        render 'Logged in with ROLE_USER'
+    def test(){
+        render 'Upload tests'
     }
 }

@@ -105,10 +105,11 @@ class TestController {
         if (!params.id) {
             return redirect(action: 'list')
         }
-        if (!session[Consts.coordinator]?.get(params.id)){
+
+        TestCoordinator coordinator = session[Consts.coordinator]?.get(params.id)
+        if (!coordinator){
             render sessionTimeout();
         }
-        TestCoordinator coordinator = session[Consts.coordinator][params.id]
 
         TestRenderInfo testRenderInfo;
 
@@ -161,11 +162,10 @@ class TestController {
         if (!params.id) {
             return redirect(action: 'list')
         }
-        if (!session[Consts.coordinator]?.get(params.id)){
+        TestCoordinator coordinator = session[Consts.coordinator]?.get(params.id)
+        if (!coordinator){
             render sessionTimeout();
         }
-
-        TestCoordinator coordinator = session[Consts.coordinator][params.id]
         coordinator.setValidate(false);
         //submit should not be disabled automatically.
         log.info("Submiting answser for question Id ${params[Consts.questionId]}");
@@ -184,10 +184,10 @@ class TestController {
         if (!params.id) {
             return redirect(action: 'list')
         }
-        if (!session[Consts.coordinator]?.get(params.id)){
+        TestCoordinator coordinator = session[Consts.coordinator]?.get(params.id)
+        if (!coordinator){
             render sessionTimeout();
         }
-        TestCoordinator coordinator = session[Consts.coordinator][params.id]
         TestRenderInfo testRenderInfo = coordinator.getTestRenderInfo();
         render(view: 'feedback', model: testRenderInfo.toPropertiesMap());
     }
@@ -197,10 +197,10 @@ class TestController {
         if (!params.id) {
             return redirect(action: 'list')
         }
-        if (!session[Consts.coordinator]?.get(params.id)){
+        TestCoordinator coordinator = session[Consts.coordinator]?.get(params.id)
+        if (!coordinator){
             render sessionTimeout();
         }
-        TestCoordinator coordinator = session[Consts.coordinator][params.id]
         boolean renderNextItem = coordinator.doSimultaneousSubmission();
         params[Consts.renderNextItem] = renderNextItem;
         log.info("submitTestPartContent ==> renderNextItem ==> ${renderNextItem}")
@@ -214,7 +214,7 @@ class TestController {
 
     private JSON sessionTimeout(){
         log.info("Session timed out");
-        flash.message = g.message(code: 'session.timeout.error.message');
+        flash.error = g.message(code: 'session.timeout.error.message');
         render createRedirectLinkJSON(action: 'play', params: [id: params.id]);
     }
 

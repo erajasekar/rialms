@@ -54,7 +54,7 @@ class ItemController {
         Map renderOutput = [:];
         if (!assessmentItemInfo) {
             log.info("Session timed out");
-            flash.message = g.message(code: 'session.timeout.error.message');
+            flash.error = g.message(code: 'session.timeout.error.message');
             renderOutput[Consts.redirectUrl] = g.createLink(action: 'play', params: [id: params.id]);
         } else {
             assessmentItemInfo.processResponses(params);

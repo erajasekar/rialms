@@ -18,6 +18,7 @@ import sun.reflect.generics.scope.ConstructorScope
 import com.rialms.consts.Constants
 import com.rialms.util.AuthService
 import grails.plugins.springsecurity.Secured
+import org.springframework.security.web.savedrequest.SavedRequest
 
 /**
  * Manages associating OpenIDs with application users, both by creating a new local user
@@ -55,11 +56,16 @@ class OpenIdController {
         def config = SpringSecurityUtils.securityConfig;
         if (springSecurityService.isLoggedIn()) {
 
-            redirect uri: config.successHandler.defaultTargetUrl
-            return
+            return redirectToTarget();
         }
         OpenIdRegisterCommand command = new OpenIdRegisterCommand();
         copyFromAttributeExchange(command);
+
+        //Redirect to previously accessed url, if user tries to access a page without logging in and user is redirected to login page.
+        SavedRequest savedRequest = (SavedRequest) session.getAttribute(WebAttributes.SAVED_REQUEST);
+        if (savedRequest != null) {
+            params.targetUrl = savedRequest.getRedirectUrl() - "$request.scheme://$request.serverName:$request.serverPort$request.contextPath";
+        }
         return getModel(command, false);
     }
 
@@ -172,13 +178,13 @@ class OpenIdController {
             return [token: token, command: command]
         }
 
-        if (authService.resetPassword(registrationCode, command.password)){
+        if (authService.resetPassword(registrationCode, command.password)) {
             springSecurityService.reauthenticate command.email;
             flash.message = message(code: 'resetPassword.success.message')
             def conf = SpringSecurityUtils.securityConfig
-            params[Constants.targetUrl] =  conf.ui.register.postResetUrl;
-            redirect (action: 'authSuccess');
-        }else{
+            params[Constants.targetUrl] = conf.ui.register.postResetUrl;
+            redirect(action: 'authSuccess');
+        } else {
             flash.error = message(code: 'resetPassword.error.message')
             return [token: token, command: command]
         }
@@ -203,8 +209,8 @@ class OpenIdController {
         springSecurityService.reauthenticate user.email
 
         flash.message = message(code: 'register.complete.message')
-        params[Constants.targetUrl] =  conf.ui.register.postRegisterUrl;
-        redirect (action: 'authSuccess');
+        params[Constants.targetUrl] = conf.ui.register.postRegisterUrl;
+        redirect(action: 'authSuccess');
     }
 
     @Secured(['IS_AUTHENTICATED_REMEMBERED'])
@@ -223,11 +229,11 @@ class OpenIdController {
             return [command: command]
         }
 
-        if (authService.updateUser(command.email,command.displayName, command.newPassword)){
+        if (authService.updateUser(command.email, command.displayName, command.newPassword)) {
             springSecurityService.reauthenticate user.email;
             flash.message = message(code: 'editProfile.success.message')
-            redirect (action: 'authSuccess');
-        } else{
+            redirect(action: 'authSuccess');
+        } else {
             flash.error = message(code: 'editProfile.error.message')
             return [command: command];
         }
@@ -267,8 +273,17 @@ class OpenIdController {
         postLoginSuccess();
         flash.message = flash.message;
         flash.error = flash.error;
+        redirectToTarget();
+    }
+
+    private void redirectToTarget() {
+        log.info("DEBUG redirectToTarget params ${params}");
         def conf = SpringSecurityUtils.securityConfig
-        String targetUrl = params[Constants.targetUrl] ? params[Constants.targetUrl] : conf.successHandler.defaultTargetUrl;
+        String targetUrl = params[Constants.targetUrl]
+        if (targetUrl == null || targetUrl.equals('null')) {
+            targetUrl = conf.successHandler.defaultTargetUrl;
+        }
+        log.debug("DEBUG redirecting to ${targetUrl}");
         redirect(uri: targetUrl);
     }
 
@@ -317,24 +332,24 @@ class OpenIdController {
     }
 
     static final passwordValidator = { String password, command ->
-        if (password){
-            if (!checkPasswordMinLength(password)){
+        if (password) {
+            if (!checkPasswordMinLength(password)) {
                 return 'command.password.error.minSize'
             }
-            if (!checkPasswordMaxLength(password)){
+            if (!checkPasswordMaxLength(password)) {
                 return 'command.password.error.maxSize'
             }
-            if (!checkPasswordRegex(password)){
+            if (!checkPasswordRegex(password)) {
                 return 'command.password.error.strength'
             }
         }
     }
 
     static final currentPasswordValidator = { String password, command ->
-        if (password && command.email){
+        if (password && command.email) {
             String currentPassword = User.findByEmail(command.email).password;
-            if (!currentPassword.equals(command.authService.encodePassword(password))){
-               return 'editProfileCommand.currentPassword.error.invalid';
+            if (!currentPassword.equals(command.authService.encodePassword(password))) {
+                return 'editProfileCommand.currentPassword.error.invalid';
             }
         }
     }
