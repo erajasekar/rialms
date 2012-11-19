@@ -10,48 +10,12 @@
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
-    <r:require module="fileupload"/>
+    <r:require modules="bootstrap-file-upload"/>
     <title><g:message code="upload.label"/>&nbsp;<g:message code="test.label"/></title>
-    <style type="text/css" media="screen">
 
-    .bar {
-        height: 18px;
-        background: green;
-    }
-    </style>
 </head>
 
 <body>
-<input id="fileupload" type="file" name="files[]" data-url="server/php/" multiple>
-
-
-<div class="row-fluid">
-    <div id="progress">
-        <div class="bar" style="width: 0%;"></div>
-    </div>
-</div>
-
-<script>
-    $(function () {
-        $('#fileupload').fileupload({
-            dataType: 'json',
-            done: function (e, data) {
-                $.each(data.result, function (index, file) {
-                    $('<p/>').text(file.name).appendTo(document.body);
-                });
-            }
-        });
-    });
-    $('#fileupload').fileupload({
-        progressall: function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('#progress .bar').css(
-                    'width',
-                    progress + '%'
-            );
-        }
-    });
-
-</script>
+<bsfu:fileUpload action="upload" controller="image"/>
 </body>
 </html>

@@ -57,6 +57,8 @@ grails.project.dependency.resolution = {
         compile ":jquery-validation-ui:1.3"
         compile ":mail:1.0"
         compile ":famfamfam:1.0.1" //TODO p2 remove this plugin later on
+        compile ":bootstrap-file-upload:2.1.1"
+
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
