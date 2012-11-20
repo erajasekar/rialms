@@ -10,12 +10,19 @@
 <html xmlns:m="http://www.w3.org/1998/Math/MathML">
 <head>
     <meta name="layout" content="primary"/>
-    <r:require modules="bootstrap-file-upload"/>
+
+    <r:require modules="uploadr"/>
+    <r:require modules="fileupload"/>
     <title><g:message code="upload.label"/>&nbsp;<g:message code="test.label"/></title>
 
 </head>
 
 <body>
-<bsfu:fileUpload action="upload" controller="image"/>
+<uploadr:add name="testUploader" path="c:/Raja/projects/rialms/dev/rialms"
+             viewable="false"
+             downloadable="false"
+             placeholder="Behold: the drop area!"
+             fileselect="Behold: the fileselect!"
+             maxVisible="1" />
 </body>
 </html>

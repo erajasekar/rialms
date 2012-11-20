@@ -53,11 +53,12 @@ modules = {
         resource url: 'js/jquery/jquery.jgrowl.js'
     }
 
-   /* fileupload {
-        resource url: 'js/fileupload/jquery.fileupload.js'
-        resource url: 'js/fileupload/jquery.iframe-transport.js'
-        resource url: 'js/fileupload/vendor/jquery.ui.widget.js'
-    }*/
+    fileupload {
+     //   resource url: 'js/fileupload/jquery.fileupload.js'
+    //    resource url: 'js/fileupload/jquery.iframe-transport.js'
+     //   resource url: 'js/fileupload/vendor/jquery.ui.widget.js'
+        resource url : 'js/fileupload/jquery.uploadr.js'
+    }/*TODO: P1 remove actual files */
 
     prettify {
         resource url: 'js/prettify/prettify.js'

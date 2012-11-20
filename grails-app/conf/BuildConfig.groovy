@@ -45,7 +45,7 @@ grails.project.dependency.resolution = {
 
     plugins {
         runtime ":hibernate:$grailsVersion"
-        runtime ":jquery:1.8.0"
+        runtime ":jquery:1.7.2"
         compile ":jquery-ui:1.8.15"
         runtime ":resources:1.1.6"
       //  compile ":coffeescript-resources:0.2"
@@ -57,8 +57,8 @@ grails.project.dependency.resolution = {
         compile ":jquery-validation-ui:1.3"
         compile ":mail:1.0"
         compile ":famfamfam:1.0.1" //TODO p2 remove this plugin later on
-        compile ":bootstrap-file-upload:2.1.1"
-
+        runtime ":modernizr:2.6.2"
+        compile ":uploadr:0.6.0.1"
 
         // Uncomment these (or add new ones) to enable additional resources capabilities
         //runtime ":zipped-resources:1.0"
