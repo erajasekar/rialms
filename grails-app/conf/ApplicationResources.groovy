@@ -54,10 +54,8 @@ modules = {
     }
 
     fileupload {
-     //   resource url: 'js/fileupload/jquery.fileupload.js'
-    //    resource url: 'js/fileupload/jquery.iframe-transport.js'
-     //   resource url: 'js/fileupload/vendor/jquery.ui.widget.js'
-        resource url : 'js/fileupload/jquery.uploadr.js'
+        dependsOn 'jquery, jquery-ui, modernizr, tipTip'
+        resource url : 'js/fileupload/jquery.uploadr.js' , disposition: 'defer'
         resource url : 'css/fileupload/fileupload.css'
     }/*TODO: P1 remove actual files */
 
@@ -81,4 +79,5 @@ modules = {
         //resource url: 'js/scrollbar/jquery.tinyscrollbar.min.js'
 
     }
+    //TODO:p3 CHANGE all js/css to minified for prod
 }

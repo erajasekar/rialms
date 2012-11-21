@@ -67,7 +67,7 @@
             // got a color?
             if (file.fileColor) {
                 // yes override default background color
-                $('.progress', fileDomObj).css('background-color', file.fileColor);
+                $('.bar', fileDomObj).css('background-color', file.fileColor);
             }
 
             // and set to complete
@@ -96,7 +96,10 @@
 
             // add a progress bar div
             var progressDiv = document.createElement('div');
-            progressDiv.setAttribute('class', 'progress');
+            progressDiv.setAttribute('class', 'progress progress-striped active');
+            var progressBarDiv = document.createElement('div');
+            progressBarDiv.setAttribute('class', 'bar bar-danger');
+            progressDiv.appendChild(progressBarDiv);
 
             // add fileinfo div
             // - info
@@ -160,7 +163,7 @@
             detailsDiv.appendChild(ratingDiv);
 
             // add divs to fileDiv
-            fileDiv.appendChild(backgroundDiv);
+            //fileDiv.appendChild(backgroundDiv);
             fileDiv.appendChild(progressDiv);
             fileDiv.appendChild(infoDiv);
 
@@ -386,7 +389,7 @@
             // initialze XML Http Request
             var xhr			= new XMLHttpRequest(),
                 upload		= xhr.upload,
-                progressBar	= $('.progress', domObj);
+                progressBar	= $('.bar', domObj);
 
             // check for file extension?
             if (options.allowedExtensions.length>0) {
@@ -583,7 +586,7 @@
 
         onProgressHandler: function(domObj, fileAttrs, percentage, text, tooltipText, options, failed) {
             var progressMaxWidth	= domObj.parent().width();
-            var progressBar			= $('.progress', domObj);
+            var progressBar			= $('.bar', domObj);
             var percentageDiv 		= $('.percentage', domObj);
             var speedDiv			= $('.speed', domObj);
 
@@ -705,7 +708,7 @@
             }
             if (options.colorPicker) {
                 var colorPicker = methods.addButton(domObj, 'color', options.colorPickerText, '', options, function() {
-                    var p = $('.progress', domObj);
+                    var p = $('.bar', domObj);
                     var c = p.css('background-color');
                     methods.launchColorPicker(domObj, c, options, function(color) {
                         // change background color
@@ -936,10 +939,10 @@
             // insert upload field
             var fileUploadElement = document.createElement('input');
             fileUploadElement.setAttribute('type', 'file');
-            //fileUploadElement.multiple = false;
-            var messageDiv = document.createElement('div');
-            messageDiv.setAttribute('class', 'message');
-            messageDiv.innerHTML = options.fileSelectText;
+            var messageDiv = document.createElement('button');
+            messageDiv.setAttribute('class', 'btn btn-success message');
+            messageDiv.innerHTML = "<i class='icon-upload'>&nbsp;</i>" + options.fileSelectText;
+
             var fileInputDiv = document.createElement('div');
             fileInputDiv.setAttribute('class','fileinput');
             fileInputDiv.appendChild(messageDiv);

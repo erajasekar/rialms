@@ -46,21 +46,21 @@
 
 .fileupload .fileinput {
 	display: block;
-	margin-bottom: -42px;
+	margin-bottom: -5px;
 	margin-left: 4px;
 	width: 200px;
-	height: 30px;
+	//height: 30px;
 	vertical-align: middle;
 	overflow: hidden;
 }
 
 .fileupload .fileinput .message {
 	font-weight: bold;
-	height: 20px;
-	line-height: 20px;
-	padding-left: 20px;
+	//height: 20px;
+	//line-height: 20px;
+	//padding-left: 20px;
 	padding-top: 3px;
-	background-image: url(../../images/fileupload/select.gif);
+	//background-image: url(../../images/fileupload/select.gif);
 	background-repeat: no-repeat;
 	background-position: left center;
 	cursor: pointer;
@@ -89,10 +89,10 @@
 .fileupload .file {
 	width: 100%;
 	height: 20px;
-	background-color: transparent;
+	//background-color: transparent;
 }
 
-.fileupload .file .progress {
+.fileupload .file .progress2 {
 	display: block;
 	width: 0%;
 	height: inherit;
@@ -110,7 +110,7 @@
 }
 
 .fileupload .file .complete {
-	background-color: #bce08a;
+	background-color: #000000;
 	border: 1px solid #545f1d;
 }
 
@@ -122,7 +122,7 @@
 .fileupload .file .info {
 	display: block;
 	height: inherit;
-	margin-top: -20px;
+	margin-top: -40px;
 	vertical-align: middle;
 	margin-left: 2px;
 	font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
@@ -135,11 +135,11 @@
 }
 
 .fileupload .file .info .details .name {
-	color: #FFFFFF;
+	//color: #FFFFFF;
 	font-weight: bold;
-	letter-spacing: -1px;
+	//letter-spacing: -1px;
 	font-size: 12px;
-	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.68);
+	//text-shadow: 0 1px 1px rgba(0, 0, 0, 0.68);
 	margin-left: 30px;
 	width: auto;
 }
@@ -148,7 +148,7 @@
 	display: block;
 	color: #243748;
 	width: 30px;
-	font-size: 8px;
+	//font-size: 8px;
 	line-height: 10px;
 	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.33);
 	margin-top: -15px;
