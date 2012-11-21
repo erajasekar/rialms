@@ -23,6 +23,7 @@
              downloadable="false"
              placeholder="Behold: the drop area!"
              fileselect="Behold: the fileselect!"
+             class="fileupload"
              maxVisible="1" />
 </body>
 </html>

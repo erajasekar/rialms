@@ -58,6 +58,7 @@ modules = {
     //    resource url: 'js/fileupload/jquery.iframe-transport.js'
      //   resource url: 'js/fileupload/vendor/jquery.ui.widget.js'
         resource url : 'js/fileupload/jquery.uploadr.js'
+        resource url : 'css/fileupload/fileupload.css'
     }/*TODO: P1 remove actual files */
 
     prettify {
