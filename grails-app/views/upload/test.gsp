@@ -16,12 +16,20 @@
 </head>
 
 <body>
-<uploadr:add name="testUploader" path="c:/Raja/projects/rialms/dev/rialms"
-             viewable="false"
-             downloadable="false"
-             placeholder="Or Drop it here"
-             fileselect="Browse to upload file"
-             class="fileupload"
-             maxVisible="1" />
+<div class="row-fluid">
+    <div class="span3">&nbsp;</div>
+
+    <div class="span6">
+        <uploadr:add name="testUploader" path="c:/Raja/projects/rialms/dev/rialms"
+                     viewable="false"
+                     downloadable="false"
+                     placeholder="Or Drop it here"
+                     fileselect="Browse to upload file"
+                     deletable="false"
+                     class="fileupload"
+            maxSize="10000000"
+                     maxVisible="1"/>
+    </div>
+</div>
 </body>
 </html>

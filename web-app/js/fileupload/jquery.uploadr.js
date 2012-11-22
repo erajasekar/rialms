@@ -96,9 +96,9 @@
 
             // add a progress bar div
             var progressDiv = document.createElement('div');
-            progressDiv.setAttribute('class', 'progress progress-striped active');
+            progressDiv.setAttribute('class', 'progress progress-striped progress-success');
             var progressBarDiv = document.createElement('div');
-            progressBarDiv.setAttribute('class', 'bar bar-danger');
+            progressBarDiv.setAttribute('class', 'bar');
             progressDiv.appendChild(progressBarDiv);
 
             // add fileinfo div
@@ -131,22 +131,23 @@
             var fileNameDiv = document.createElement('div');
             fileNameDiv.setAttribute('class', 'name');
             fileNameDiv.setAttribute('id', fileNameDivName);
+
             var fileNameSpan = document.createElement('span');
             fileNameSpan.setAttribute('class', 'fileName');
             fileNameSpan.innerHTML = methods.shortenFileName(options.maxFileNameLength, file.fileName);
 
-            var fileSizeDiv = document.createElement('div');
+            var fileSizeDiv = document.createElement('span');
             fileSizeDiv.setAttribute('class', 'size');
             fileSizeDiv.innerHTML = methods.bytesToSize(file.fileSize);
 
-            var filePercentageDiv = document.createElement('div');
+            var filePercentageDiv = document.createElement('span');
             filePercentageDiv.setAttribute('class', 'percentage');
             filePercentageDiv.innerHTML = ((showPercentage) ? '0%' : options.labelDone);
 
-            var ratingDiv = document.createElement('div');
+            var ratingDiv = document.createElement('span');
             ratingDiv.setAttribute('class', 'rating');
 
-            var fileSpeedDiv = document.createElement('div');
+            var fileSpeedDiv = document.createElement('span');
             fileSpeedDiv.setAttribute('class', 'speed');
 
             // append child divs to infoDiv
@@ -154,13 +155,17 @@
             infoDiv.appendChild(controlsDiv);
             infoDiv.appendChild(spinnerDiv);
 
+            fileNameDiv.appendChild(fileSizeDiv);
+            fileNameDiv.appendChild(filePercentageDiv);
+            fileNameDiv.appendChild(fileSpeedDiv);
+            fileNameDiv.appendChild(ratingDiv);
             fileNameDiv.appendChild(fileNameSpan);
 
             detailsDiv.appendChild(fileNameDiv);
-            detailsDiv.appendChild(fileSizeDiv);
-            detailsDiv.appendChild(filePercentageDiv);
-            detailsDiv.appendChild(fileSpeedDiv);
-            detailsDiv.appendChild(ratingDiv);
+           // detailsDiv.appendChild(fileSizeDiv);
+          //  detailsDiv.appendChild(filePercentageDiv);
+           // detailsDiv.appendChild(fileSpeedDiv);
+          //  detailsDiv.appendChild(ratingDiv);
 
             // add divs to fileDiv
             //fileDiv.appendChild(backgroundDiv);
@@ -306,7 +311,7 @@
                 pagesDiv = options.workvars.pagesDiv;
 
                 // show pagination div
-                if (paginationDiv.is(':hidden')) paginationDiv.show();
+               //P2 TODO remove all pagination code if (paginationDiv.is(':hidden')) paginationDiv.show();
 
                 // create the page list
                 for (v = 1; v <= pages ; v++) {
@@ -619,6 +624,10 @@
             speedDiv.html(speed);
 
             // handle progressbar width
+            if (failed){
+                $(progressBar).parent().addClass('progress-danger');
+                $(progressBar).parent().removeClass('progress-success');
+            }
             progressBar.width((progressMaxWidth / 100) * percentage);
             percentageDiv.html((text) ? text : percentage + '%');
 
@@ -1079,6 +1088,8 @@
         return this.each(function() {
             var obj	= $(this);
             var e	= obj.get(0);
+           // var fileInput = obj.find(">:first-child").get(0)
+           // console.log(obj);
 
             // add file upload field
             if (options.uploadField) methods.addFileUploadField(obj,e,options);
