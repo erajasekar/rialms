@@ -17,17 +17,16 @@
 
 <body>
 <div class="row-fluid">
-    <div class="span3">&nbsp;</div>
+  <!-- <div class="span6">&nbsp;</div> -->
 
-    <div class="span6">
-        <uploadr:add name="testUploader" path="c:/Raja/projects/rialms/dev/rialms"
+    <div class="span12">
+        <uploadr:add name="testUploader" path="${uploadDir}"
                      viewable="false"
                      downloadable="false"
-                     placeholder="Or Drop it here"
-                     fileselect="Browse to upload file"
+                     placeholder="${g.message(code:'upload.dropable.placeholder')}"
+                     fileselect="${g.message(code:'button.upload.fileselect.label')}"
                      deletable="false"
                      class="fileupload"
-            maxSize="10000000"
                      maxVisible="1"/>
     </div>
 </div>

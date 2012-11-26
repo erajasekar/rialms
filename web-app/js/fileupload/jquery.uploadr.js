@@ -949,7 +949,7 @@
             var fileUploadElement = document.createElement('input');
             fileUploadElement.setAttribute('type', 'file');
             var messageDiv = document.createElement('button');
-            messageDiv.setAttribute('class', 'btn btn-success message');
+            messageDiv.setAttribute('class', 'btn btn-large btn-info message');
             messageDiv.innerHTML = "<i class='icon-upload'>&nbsp;</i>" + options.fileSelectText;
 
             var fileInputDiv = document.createElement('div');
