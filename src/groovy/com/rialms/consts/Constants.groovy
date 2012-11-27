@@ -121,4 +121,5 @@ class Constants {
     public static final String closeButtonLabel = 'closeButtonLabel';
     public static final String currentUser = 'currentUser';
     public static final String targetUrl = 'targetUrl';
+    public static final String uploadedFile = 'uploadedFile';
 }

@@ -3,10 +3,15 @@ import grails.plugins.springsecurity.Secured
 import org.springframework.web.multipart.MultipartHttpServletRequest
 import org.springframework.web.multipart.MultipartFile
 import grails.converters.JSON
+import com.rialms.consts.Constants
+import org.qtitools.util.ContentPackage
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class UploadController {
 
+    def uploadService;
+    def packageService;
+    def testService;
 
     @Secured(['ROLE_USER'])
     def item(){
@@ -15,6 +20,16 @@ class UploadController {
 
     @Secured(['ROLE_USER'])
     def test(){
-       return [uploadDir:"c:/Raja/projects/rialms/dev/rialms"];
+       String uploadDir = uploadService.getUserContentDir();
+       return [uploadDir:uploadDir];
+    }
+
+    def saveUploadedTest(){
+        log.info("save uploaded test called with params ${params}")
+
+        File uploadedFile = new File(uploadService.getUserContentDir(),params[Constants.uploadedFile] );
+        ContentPackage cp = packageService.unpackContent(uploadedFile);
+        testService.createTest(cp);
+        render "success";
     }
 }

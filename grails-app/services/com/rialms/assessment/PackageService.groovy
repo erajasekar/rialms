@@ -11,8 +11,7 @@ class PackageService implements InitializingBean {
     def grailsApplication;
 
 
-    public ContentPackage unpackContent(String zipFile) {
-        File input = grailsApplication.parentContext.getResource(zipFile).getFile();
+    public ContentPackage unpackContent(File input) {
         File dest = new File(input.getParentFile(),FileUtils.getBaseName(input.name));
 
         ContentPackage contentPackage = new ContentPackage(input)
