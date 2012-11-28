@@ -12,6 +12,8 @@ import com.rialms.assessment.item.Item
 import com.rialms.consts.Constants
 import org.apache.commons.lang.StringEscapeUtils
 import org.qtitools.util.ContentPackage
+import org.qtitools.qti.validation.ValidationResult
+import org.qtitools.qti.node.test.AssessmentTest
 
 class TestService implements InitializingBean {
 
@@ -23,20 +25,19 @@ class TestService implements InitializingBean {
     def gspTagLibraryLookup;
     def g;
 
-    public void createTest(ContentPackage contentPackage){
-      println "RAJA ${contentPackage.getDestination().absolutePath -  grailsApplication.parentContext.getResource(contentPath).getFile().absolutePath}"
-      println "RAJA ${contentPackage.getTest().name}"
+    public Test createTest(ContentPackage contentPackage){
       String dataPath = contentPackage.getDestination().absolutePath -  grailsApplication.parentContext.getResource(contentPath).getFile().absolutePath;
       String dataFile = contentPackage.getTest().name;
-      createTest(dataPath,dataFile);
+      return createTest(dataPath,dataFile);
     }
 
-    public void createTest(String dataPath, String dataFile) {
+    public Test createTest(String dataPath, String dataFile) {
         File testXml = getTestDataFile(dataPath, dataFile);
         Test test = findOrCreateTest(dataPath, dataFile, testXml);
         if (dataPath.startsWith(demoTestsPath)) {
             addFeaturesToTest(test, QtiUtils.getFeaturesFromTestXml(testXml))
         }
+        return test;
     }
 
     private Test findOrCreateTest(String dataPath, String dataFile, File testXml) {
@@ -114,6 +115,14 @@ class TestService implements InitializingBean {
         coordinator.setValidate(true);
         coordinator.getNextQuestion(false);
         return coordinator;
+    }
+
+    public ValidationResult validateTest(Test test){
+        AssessmentTest assessmentTest = new AssessmentTest();
+        assessmentTest.load(getTestDataFile(test.dataPath, test.dataFile));
+        //TODO P0: handle exception
+        assessmentTest.initialize();
+        return assessmentTest.validate();
     }
 
     public TestRenderInfo processAssessmentTest(params, TestCoordinator coordinator) {

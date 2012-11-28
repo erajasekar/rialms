@@ -5,6 +5,8 @@ import org.springframework.web.multipart.MultipartFile
 import grails.converters.JSON
 import com.rialms.consts.Constants
 import org.qtitools.util.ContentPackage
+import com.rialms.assessment.test.Test
+import org.qtitools.qti.validation.ValidationResult
 
 @Secured(['IS_AUTHENTICATED_REMEMBERED'])
 class UploadController {
@@ -29,7 +31,10 @@ class UploadController {
 
         File uploadedFile = new File(uploadService.getUserContentDir(),params[Constants.uploadedFile] );
         ContentPackage cp = packageService.unpackContent(uploadedFile);
-        testService.createTest(cp);
-        render "success";
+        Test test = testService.createTest(cp);
+        ValidationResult validationResult = testService.validateTest(test);
+        Map uploadResult = ['validationResult': validationResult.allItems]
+        log.info("DEBUG validationResult => ${uploadResult}");
+        render uploadResult as JSON;
     }
 }

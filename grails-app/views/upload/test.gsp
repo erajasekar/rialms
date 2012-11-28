@@ -14,7 +14,11 @@
     <title><g:message code="upload.label"/>&nbsp;<g:message code="test.label"/></title>
 
 </head>
-
+<r:script>
+        window.updateUploadResult = function(data){
+            console.log(data);
+        }
+</r:script>
 <body>
 <div class="row-fluid">
     <!-- <div class="span6">&nbsp;</div> -->
@@ -29,7 +33,7 @@
                      class="fileupload"
                      maxVisible="1">
             <uploadr:onSuccess>
-                ${g.remoteFunction(controller:"upload", action:"saveUploadedTest", params:'\'uploadedFile=\' + file.fileName')}
+                ${g.remoteFunction(controller:"upload", action:"saveUploadedTest", params:'\'uploadedFile=\' + file.fileName', onSuccess:'window.updateUploadResult(data)')}
             </uploadr:onSuccess>
         </uploadr:add>
     </div>
