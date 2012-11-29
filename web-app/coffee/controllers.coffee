@@ -60,4 +60,5 @@ window.LoginController = ($scope)->
     else
       'Sign Up'
 
-
+window.UploadController = ($scope)->
+  return;

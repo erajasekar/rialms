@@ -11,3 +11,8 @@ window.initAngularScopeObjects = (data)->
         contentScope.$apply ->
           contentScope[key] = value
   return
+
+window.updateUploadResult = (data)->
+  scope = angular.element('#uploadDiv').scope();
+  scope.$apply ->
+    scope.uploadResult = data;

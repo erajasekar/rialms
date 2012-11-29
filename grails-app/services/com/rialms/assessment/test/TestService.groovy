@@ -12,7 +12,7 @@ import com.rialms.assessment.item.Item
 import com.rialms.consts.Constants
 import org.apache.commons.lang.StringEscapeUtils
 import org.qtitools.util.ContentPackage
-import org.qtitools.qti.validation.ValidationResult
+import com.rialms.assessment.ValidationResult
 import org.qtitools.qti.node.test.AssessmentTest
 
 class TestService implements InitializingBean {
@@ -122,7 +122,7 @@ class TestService implements InitializingBean {
         assessmentTest.load(getTestDataFile(test.dataPath, test.dataFile));
         //TODO P0: handle exception
         assessmentTest.initialize();
-        return assessmentTest.validate();
+        return new ValidationResult(assessmentTest.validate());
     }
 
     public TestRenderInfo processAssessmentTest(params, TestCoordinator coordinator) {

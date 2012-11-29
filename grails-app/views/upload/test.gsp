@@ -14,13 +14,8 @@
     <title><g:message code="upload.label"/>&nbsp;<g:message code="test.label"/></title>
 
 </head>
-<r:script>
-        window.updateUploadResult = function(data){
-            console.log(data);
-        }
-</r:script>
 <body>
-<div class="row-fluid">
+<div class="row-fluid" id="uploadDiv" ng-controller="UploadController">
     <!-- <div class="span6">&nbsp;</div> -->
 
     <div class="span12">
@@ -37,6 +32,8 @@
             </uploadr:onSuccess>
         </uploadr:add>
     </div>
+    <div>{{uploadResult}}</div>
+
 </div>
 </body>
 </html>
