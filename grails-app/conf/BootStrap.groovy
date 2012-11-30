@@ -13,6 +13,7 @@ class BootStrap {
     def packageService;
     def grailsApplication;
     def authService;
+    User demoUser, adminUser;
 
     def init = { servletContext ->
         initData();
@@ -35,11 +36,13 @@ class BootStrap {
         def roleUser = new Role(authority: 'ROLE_USER').save()
 
         def user = authService.createUser('raja@rialms.com',password, 'Raja');
-        def admin = authService.createUser('admin@rialms.com',password, 'Admin');
+        adminUser = authService.createUser('admin@rialms.com',password, 'Admin');
+        demoUser = authService.createUser('demo@rialms.com',password, 'Demo');
 
-        UserRole.create user, roleUser
-        UserRole.create admin, roleUser
-        UserRole.create admin, roleAdmin, true
+        UserRole.create (user, roleUser)
+        UserRole.create (demoUser, roleUser)
+        UserRole.create (adminUser, roleUser)
+        UserRole.create (adminUser, roleAdmin, true)
     }
 
     def createDemoItems() {
@@ -60,7 +63,7 @@ class BootStrap {
                 def xml = new XmlSlurper().parse(file);
                 if (xml.name() == 'assessmentTest') {
                     def relativePath = file.parent.substring(contentDir.absolutePath.length()).replace('\\', '/')
-                    testService.createTest(relativePath, file.name);
+                    testService.createTest(relativePath, file.name, demoUser);
                 }
             }
         }
@@ -89,23 +92,23 @@ class BootStrap {
         createDemoTests();
 
         //1-5
-        testService.createTest('tests/qti/NonLinearSimpleTest', 'assessment.xml');
-        testService.createTest('tests/exercise/adaptive', 'exercises.xml');
-        testService.createTest('tests/qti/ModulePretest', 'Test_Template-Individual-Submission.xml');
-        testService.createTest('tests/qti/ModulePretest', 'Test_Template-Simultaneous-Submission.xml');
-        testService.createTest('tests/navigation/individual', 'individual_navigation.xml');
+        testService.createTest('tests/qti/NonLinearSimpleTest', 'assessment.xml', adminUser);
+        testService.createTest('tests/exercise/adaptive', 'exercises.xml', adminUser);
+        testService.createTest('tests/qti/ModulePretest', 'Test_Template-Individual-Submission.xml', adminUser);
+        testService.createTest('tests/qti/ModulePretest', 'Test_Template-Simultaneous-Submission.xml', adminUser);
+        testService.createTest('tests/navigation/individual', 'individual_navigation.xml', adminUser);
 
         //6-10
-        testService.createTest('tests/navigation/simultaneous', 'simultaneous_navigation.xml');
-        testService.createTest('tests/qti/Interactions', 'interactions.xml');
-        testService.createTest("tests/qti/NavigationMixed", "test-ns-deep-nested-disabled-review.xml");
-        testService.createTest('tests/qti/NavigationMixed', 'test-ns-disabled_allowReview.xml');
-        testService.createTest("tests/qti/NavigationMixed", "test-nested-sections.xml");
+        testService.createTest('tests/navigation/simultaneous', 'simultaneous_navigation.xml', adminUser);
+        testService.createTest('tests/qti/Interactions', 'interactions.xml', adminUser);
+        testService.createTest("tests/qti/NavigationMixed", "test-ns-deep-nested-disabled-review.xml", adminUser);
+        testService.createTest('tests/qti/NavigationMixed', 'test-ns-disabled_allowReview.xml', adminUser);
+        testService.createTest("tests/qti/NavigationMixed", "test-nested-sections.xml", adminUser);
 
         //11-15
-        testService.createTest("tests/qti/IMSExamples", "rtest12.xml");
-        testService.createTest("tests/qti/IMSExamples", "rtest26.xml");
-        testService.createTest("tests/qti/IMSExamples", "rtest01.xml");
+        testService.createTest("tests/qti/IMSExamples", "rtest12.xml", adminUser);
+        testService.createTest("tests/qti/IMSExamples", "rtest26.xml", adminUser);
+        testService.createTest("tests/qti/IMSExamples", "rtest01.xml", adminUser);
 
     }
 }
