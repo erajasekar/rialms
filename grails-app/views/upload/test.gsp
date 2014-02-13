@@ -32,6 +32,7 @@
             </uploadr:onSuccess>
         </uploadr:add>
     </div>
+    <div>${testsByCurrentUser}</div>
     <div>{{uploadResult}}</div>
 
 </div>

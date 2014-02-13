@@ -14,6 +14,9 @@ import org.apache.commons.lang.StringEscapeUtils
 import org.qtitools.util.ContentPackage
 import com.rialms.assessment.ValidationResult
 import org.qtitools.qti.node.test.AssessmentTest
+import com.rialms.auth.User
+import grails.converters.JSON
+import groovy.json.JsonBuilder
 
 class TestService implements InitializingBean {
 
@@ -24,27 +27,28 @@ class TestService implements InitializingBean {
     int maxEntriesPerPage;
     def gspTagLibraryLookup;
     def g;
+    def springSecurityService;
 
     public Test createTest(ContentPackage contentPackage){
       String dataPath = contentPackage.getDestination().absolutePath -  grailsApplication.parentContext.getResource(contentPath).getFile().absolutePath;
       String dataFile = contentPackage.getTest().name;
-      return createTest(dataPath,dataFile);
+      return createTest(dataPath,dataFile,springSecurityService.currentUser);
     }
 
-    public Test createTest(String dataPath, String dataFile) {
+    public Test createTest(String dataPath, String dataFile, User author) {
         File testXml = getTestDataFile(dataPath, dataFile);
-        Test test = findOrCreateTest(dataPath, dataFile, testXml);
+        Test test = findOrCreateTest(dataPath, dataFile, testXml, author);
         if (dataPath.startsWith(demoTestsPath)) {
             addFeaturesToTest(test, QtiUtils.getFeaturesFromTestXml(testXml))
         }
         return test;
     }
 
-    private Test findOrCreateTest(String dataPath, String dataFile, File testXml) {
+    private Test findOrCreateTest(String dataPath, String dataFile, File testXml, User author) {
         Test test = Test.findByDataPathAndDataFile(dataPath, dataFile, [cache: true])
         if (!test) {
             String testTitle = QtiUtils.getTitleFromXml(testXml);
-            test = new Test(dataPath: dataPath, dataFile: dataFile, title: testTitle);
+            test = new Test(dataPath: dataPath, dataFile: dataFile, title: testTitle, author: author);
             test.save();
             if (test.hasErrors()) {
                 test.errors.allErrors.each {log.error(messageSource.getMessage(it, null))}
@@ -105,6 +109,26 @@ class TestService implements InitializingBean {
         PagedResultList testList = Test.createCriteria().list(params, filterCriteria);
 
         return testList;
+    }
+
+    public String findTestsByAuthor(){
+        User author = springSecurityService.currentUser;
+
+        def builder = new JsonBuilder()
+
+        def testsByAuthor = Test.findAllByAuthor(author);
+        log.info("DEBUG testsByCurrentUser ${testsByAuthor}");
+
+        def result = builder.testsByCurrentUser{
+            tests{
+                testsByAuthor.collect{
+                    Test test -> [id: test.id, title: test.title]
+                }
+            }
+        }
+
+        log.info("DEBUG testsByCurrentUser ${builder.toPrettyString()}");
+        return builder.toPrettyString();
     }
 
     public TestCoordinator createTestCoordinator(String testId) {

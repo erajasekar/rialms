@@ -23,7 +23,7 @@ class UploadController {
     @Secured(['ROLE_USER'])
     def test(){
        String uploadDir = uploadService.getUserContentDir();
-       return [uploadDir:uploadDir];
+       return [uploadDir:uploadDir,testsByCurrentUser:testService.findTestsByAuthor()];
     }
 
     def saveUploadedTest(){  //TODO P1 move it to service

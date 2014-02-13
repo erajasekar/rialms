@@ -1,5 +1,7 @@
 package com.rialms.auth
 
+import com.rialms.assessment.test.Test
+
 class User {
 
 	transient springSecurityService
@@ -15,7 +17,7 @@ class User {
     Date lastLogggedIn
     int loginCount;
 
-    static hasMany = [openIds: OpenID]
+    static hasMany = [openIds: OpenID, tests : Test]
 
 	static constraints = {
 		email blank: false, unique: true
