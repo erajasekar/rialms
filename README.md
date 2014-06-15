@@ -34,4 +34,4 @@ Getting Started
 
 * Download and install [Groovy 2.x](http://groovy.codehaus.org/Download)
 * Download and install [Grails 2.1.0](https://grails.org/downloads)
-* `cd ~/rialms` and run `grails run-app` to start application.
+* `cd /path/to/rialms` and run `grails run-app` to start application.
