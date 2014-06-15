@@ -161,35 +161,6 @@
     </div>
 </div>
 
-<div>
-    <h2>
-        Roadmap
-    </h2>
-
-    <p class="highlight">
-        <b><g:message code="project.name" /> 0.1</b>
-    </p>
-
-    <p>
-        Current version <g:message code="project.name" /> 0.1 is a alpha version that showcases demo questions and tests.
-    </p>
-
-    <p class="highlight">
-        <b><g:message code="project.name" /> 1.0</b>
-    </p>
-
-    <p>
-        Provide ability to upload QTI content and share it publicly with everyone.
-    </p>
-
-    <p class="highlight">
-        <b><g:message code="project.name" /> 1.1</b>
-    </p>
-
-    <p>
-        Provide ability share uploaded QTI content with specific list of people or with everyone.
-    </p>
-</div>
 </div>
 
 </body>

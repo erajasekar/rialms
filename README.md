@@ -15,3 +15,23 @@ Rialms is based on [Question and Test Interoperability specification (QTI)](http
 QTI specification is a widely used standard for marking up questions and other learning material. 
 Rialms is a delivery engine that can play QTI compatible content. All learning material in this site (Questions and Tests) are created as per QTI Spec.
 So Rialms can deliver more learning material by simply adding more content based on QTI Spec.
+
+Technology
+===========
+
+Riamls is build using these popular technologies and open source libraries.
+
+* [QTI Tools](http://qtitools.org/) library for processing QTI v2.1 questions and tests.
+* [Grails](http://grails.org/) web application framework.
+* [AngularJS](http://angularjs.org/) javascript framework.
+* [jQuery](http://jquery.com//) javascript library.
+* [Twitter Bootstrap](http://twitter.github.com/bootstrap/) front-end toolkit.
+* [CoffeeScript](http://coffeescript.org/) language that transcompiles to javascript.
+* [JsPlumb](http://jsplumb.org/) library to connect elements on webpage.
+
+Getting Started
+===============
+
+* Download and install [Groovy 2.x](http://groovy.codehaus.org/Download)
+* Download and install [Grails 2.1.0](https://grails.org/downloads)
+* `cd ~/rialms` and run `grails run-app` to start application.
