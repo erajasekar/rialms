@@ -28,7 +28,7 @@ grails.project.dependency.resolution = {
 
         // uncomment these to enable remote dependency resolution from public Maven repositories
         //mavenCentral()
-        //mavenLocal()
+       // mavenLocal()
         //mavenRepo "http://snapshots.repository.codehaus.org"
         //mavenRepo "http://repository.codehaus.org"
         //mavenRepo "http://download.java.net/maven/2/"
@@ -40,11 +40,13 @@ grails.project.dependency.resolution = {
 
         // runtime 'mysql:mysql-connector-java:5.1.16'
         compile "org.lesscss:lesscss:1.3.0"
+        runtime 'postgresql:postgresql:8.4-702.jdbc3'
     }
 
     plugins {
         runtime ":hibernate:$grailsVersion"
         runtime ":jquery:1.7.1"
+
         compile ":jquery-ui:1.8.15"
         runtime ":resources:1.1.6"
       //  compile ":coffeescript-resources:0.2"
@@ -58,6 +60,7 @@ grails.project.dependency.resolution = {
         //runtime ":yui-minify-resources:0.1.4"
 
         build ":tomcat:$grailsVersion"
+
     }
 
 }

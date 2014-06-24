@@ -32,6 +32,11 @@ environments {
     production {
         dataSource {
             dbCreate = "update"
+            driverClassName = "org.postgresql.Driver"
+            dialect = org.hibernate.dialect.PostgreSQLDialect
+            username = System.env.OPENSHIFT_POSTGRESQL_DB_USERNAME
+            password = System.env.OPENSHIFT_POSTGRESQL_DB_PASSWORD
+            uri = new URI(System.env.OPENSHIFT_POSTGRESQL_DB_URL)
             url = "jdbc:h2:prodDb;MVCC=TRUE"
             pooled = true
             properties {
@@ -46,4 +51,16 @@ environments {
             }
         }
     }
+
+    /*production {
+        dataSource {
+            dbCreate = "update"
+            driverClassName = "org.postgresql.Driver"
+            dialect = org.hibernate.dialect.PostgreSQLDialect
+            uri = new URI(System.env.OPENSHIFT_POSTGRESQL_DB_URL)
+            url = "jdbc:postgresql://"+uri.host+uri.path+"/"+System.env.OPENSHIFT_APP_NAME
+            username = System.env.OPENSHIFT_POSTGRESQL_DB_USERNAME
+            password = System.env.OPENSHIFT_POSTGRESQL_DB_PASSWORD
+        }
+    }*/
 }
