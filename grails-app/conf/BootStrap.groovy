@@ -1,6 +1,4 @@
 import groovy.io.FileType
-import org.codehaus.groovy.grails.commons.GrailsResourceUtils
-import java.util.regex.Pattern
 
 class BootStrap {
 

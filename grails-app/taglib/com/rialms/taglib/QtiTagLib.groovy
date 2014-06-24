@@ -1013,18 +1013,18 @@ class QtiTagLib {
         out << """  ${tagBody()} """;
     }
 
-    protected getAttribute(Map attrs, String name, String tagName, boolean isRequired = false) {
+    private getAttribute(Map attrs, String name, String tagName, boolean isRequired = false) {
         if (isRequired && !attrs.containsKey(name)) {
             throwTagError("Tag [$tagName] is missing required attribute [$name]")
         }
         attrs.remove name
     }
 
-    protected getRequiredAttribute(Map attrs, String name, String tagName) {
+    private getRequiredAttribute(Map attrs, String name, String tagName) {
         return getAttribute(attrs, name, tagName, true);
     }
 
-    protected getOptionalAttribute(Map attrs, String name) {
+    private getOptionalAttribute(Map attrs, String name) {
         return getAttribute(attrs, name, null, false);
     }
 
@@ -1033,7 +1033,7 @@ class QtiTagLib {
         return params;
     }
 
-    private EndAttemptButton getEndAttemptButton(String buttonIdentifier) {
+    protected EndAttemptButton getEndAttemptButton(String buttonIdentifier) {
         (buttonIdentifier == hintIdentifier) ? EndAttemptButton.hint : (buttonIdentifier == solutionIdentifier ? EndAttemptButton.solution : EndAttemptButton.other)
     }
 

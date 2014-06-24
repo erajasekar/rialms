@@ -496,7 +496,7 @@ public class AssessmentTestController implements Serializable {
       * (in reverse order, so that the top-most section is first)
       */
 
-    protected List<String> getParentTitles() {
+    private List<String> getParentTitles() {
         return getParentTitles(getCurrentItemRef().getParentSection());
     }
 
