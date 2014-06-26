@@ -1,3 +1,4 @@
+package data;
 /**
  * Created by IntelliJ IDEA.
  * User: relango

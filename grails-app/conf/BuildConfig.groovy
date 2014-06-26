@@ -49,7 +49,7 @@ grails.project.dependency.resolution = {
         runtime ":resources:1.1.6"
       //  compile ":coffeescript-resources:0.2"
         compile ":coffeescript-resources:0.3.2"
-        compile ":cloud-foundry:1.2.2"
+      //  compile ":cloud-foundry:1.2.2"
 
 
         // Uncomment these (or add new ones) to enable additional resources capabilities

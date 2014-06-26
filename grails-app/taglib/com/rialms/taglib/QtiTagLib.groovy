@@ -1033,7 +1033,7 @@ class QtiTagLib {
         return params;
     }
 
-    private EndAttemptButton getEndAttemptButton(String buttonIdentifier) {
+    protected EndAttemptButton getEndAttemptButton(String buttonIdentifier) {
         (buttonIdentifier == hintIdentifier) ? EndAttemptButton.hint : (buttonIdentifier == solutionIdentifier ? EndAttemptButton.solution : EndAttemptButton.other)
     }
 
