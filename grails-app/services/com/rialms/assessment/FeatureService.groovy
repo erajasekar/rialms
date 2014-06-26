@@ -14,7 +14,7 @@ class FeatureService {
     public void createFeatures(){
 
         GroovyClassLoader classLoader = new GroovyClassLoader(getClass().classLoader);
-        def conf = new ConfigSlurper().parse(classLoader.loadClass('FeaturesData'));
+        def conf = new ConfigSlurper().parse(classLoader.loadClass('data.FeaturesData'));
 
         conf.data.features.each{feature ->
            createFeature(feature.name,feature.description);
