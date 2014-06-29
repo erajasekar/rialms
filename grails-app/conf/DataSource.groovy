@@ -3,7 +3,8 @@ dataSource {
     driverClassName = "org.h2.Driver"
     username = "sa"
     password = ""
-    //loggingSql = true
+    //loggingSql =
+    dialect = com.rialms.h2.ImprovedH2Dialect
 }
 hibernate {
     cache.use_second_level_cache = true
