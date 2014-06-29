@@ -22,5 +22,5 @@ public class ImprovedH2Dialect extends H2Dialect {
         return false;
     }
 
-    
+
 }

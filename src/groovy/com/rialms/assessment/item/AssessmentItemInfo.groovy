@@ -1,24 +1,22 @@
 package com.rialms.assessment.item
 
-import com.rialms.consts.Constants as Consts
-
 import com.rialms.assessment.render.HiddenElement
 import com.rialms.consts.AssessmentItemStatus
+import com.rialms.consts.Constants as Consts
 import com.rialms.consts.Tag
 import com.rialms.util.QtiUtils
 import groovy.util.logging.Log4j
 import org.qtitools.qti.node.content.ItemBody
 import org.qtitools.qti.node.item.AssessmentItem
+import org.qtitools.qti.node.item.interaction.Interaction
 import org.qtitools.qti.node.item.template.declaration.TemplateDeclaration
 import org.qtitools.qti.node.outcome.declaration.OutcomeDeclaration
 import org.qtitools.qti.node.test.AssessmentItemRef
 import org.qtitools.qti.validation.ValidationResult
-import org.qtitools.qti.value.Value
-import static com.rialms.consts.AssessmentItemStatus.*
 import org.qtitools.qti.value.NullValue
-import org.qtitools.qti.node.item.Stylesheet
-import org.qtitools.qti.node.item.interaction.Interaction
-import org.apache.commons.collections.CollectionUtils
+import org.qtitools.qti.value.Value
+
+import static com.rialms.consts.AssessmentItemStatus.*
 
 /**
  * Created by IntelliJ IDEA.
