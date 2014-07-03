@@ -73,7 +73,7 @@ grails.exceptionresolver.params.exclude = ['password']
 grails.hibernate.cache.queries = true
 
 grails.plugin.cloudfoundry.username = "e.rajasekar@gmail.com"
-grails.plugin.cloudfoundry.password = "Raja1733"
+grails.plugin.cloudfoundry.password = "xxxxxxx"
 grails.plugin.cloudfoundry.appname = 'rialms'
 
 // set per-environment serverURL stem for creating absolute links
